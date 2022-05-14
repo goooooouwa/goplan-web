@@ -1,15 +1,47 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import { BrowserRouter } from 'react-router-dom';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import ProjectLayout from './project/ProjectLayout';
+import ProjectsList from './project/ProjectsList';
+import ProjectDetails from './project/ProjectDetails';
+import NewProject from './project/NewProject';
+import TodoLayout from './todo/TodoLayout';
+import TodosList from './todo/TodosList';
+import TodoDetails from './todo/TodoDetails';
+import NewTodo from './todo/NewTodo';
+import TimelineLayout from './timeline/TimelineLayout';
+import TimelineYearView from './timeline/TimelineYearView';
+import TimelineMonthView from './timeline/TimelineMonthView';
+import TimelineWeekView from './timeline/TimelineWeekView';
+import TimelineDayView from './timeline/TimelineDayView';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <BrowserRouter>
-      <App />
+      <Routes>
+        <Route path="/" element={<App />}>
+          <Route path="projects" element={<ProjectLayout />} >
+            <Route index element={<ProjectsList />} />
+            <Route path=":projectId" element={<ProjectDetails />} />
+            <Route path="new" element={<NewProject />} />
+          </Route>
+          <Route path="todos" element={<TodoLayout />} >
+            <Route index element={<TodosList />} />
+            <Route path=":todoId" element={<TodoDetails />} />
+            <Route path="new" element={<NewTodo />} />
+          </Route>
+          <Route path="timeline" element={<TimelineLayout />} >
+            <Route index element={<TimelineYearView />} />
+            <Route path="month" element={<TimelineMonthView />} />
+            <Route path="week" element={<TimelineWeekView />} />
+            <Route path="day" element={<TimelineDayView />} />
+          </Route>
+        </Route>
+      </Routes>
     </BrowserRouter>
   </React.StrictMode>
 );
