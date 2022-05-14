@@ -7,7 +7,7 @@ import reportWebVitals from './reportWebVitals';
 import ProjectLayout from './project/ProjectLayout';
 import ProjectsList from './project/ProjectsList';
 import ProjectDetails from './project/ProjectDetails';
-import NewProject from './project/NewProject';
+import NewProjectForm from './project/NewProjectForm';
 import TodoLayout from './todo/TodoLayout';
 import TodosList from './todo/TodosList';
 import TodoDetails from './todo/TodoDetails';
@@ -27,7 +27,7 @@ root.render(
           <Route path="projects" element={<ProjectLayout />} >
             <Route index element={<ProjectsList />} />
             <Route path=":projectId" element={<ProjectDetails />} />
-            <Route path="new" element={<NewProject />} />
+            <Route path="new" element={<NewProjectForm />} />
           </Route>
           <Route path="todos" element={<TodoLayout />} >
             <Route index element={<TodosList />} />
