@@ -7,7 +7,7 @@ export default class NewTodoForm extends React.Component {
 
     this.state = {
       name: "",
-      todoDescription: "",
+      description: "",
       allocatedTime: "",
       startDate: "",
       endDate: "",
@@ -30,7 +30,7 @@ export default class NewTodoForm extends React.Component {
   handleSubmit(event) {
     console.log('A todo was submitted:');
     console.log(this.state.name);
-    console.log(this.state.todoDescription);
+    console.log(this.state.description);
     console.log(this.state.allocatedTime);
     console.log(this.state.startDate);
     console.log(this.state.endDate);
@@ -57,8 +57,8 @@ export default class NewTodoForm extends React.Component {
         <label>Description:
           <input
             type="text"
-            name="todoDescription"
-            value={this.state.todoDescription || ""}
+            name="description"
+            value={this.state.description || ""}
             onChange={this.handleChange}
           />
         </label>
