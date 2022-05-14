@@ -5,11 +5,11 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import ProjectLayout from './project/ProjectLayout';
-import ProjectsList from './project/ProjectsList';
+import ProjectListPage from './project/ProjectListPage';
 import ProjectDetails from './project/ProjectDetails';
 import NewProjectForm from './project/NewProjectForm';
 import TodoLayout from './todo/TodoLayout';
-import TodosList from './todo/TodosList';
+import TodoListPage from './todo/TodoListPage';
 import TodoDetails from './todo/TodoDetails';
 import NewTodoForm from './todo/NewTodoForm';
 import TimelineLayout from './timeline/TimelineLayout';
@@ -25,12 +25,12 @@ root.render(
       <Routes>
         <Route path="/" element={<App />}>
           <Route path="projects" element={<ProjectLayout />} >
-            <Route index element={<ProjectsList />} />
+            <Route index element={<ProjectListPage />} />
             <Route path=":projectId" element={<ProjectDetails />} />
             <Route path="new" element={<NewProjectForm />} />
           </Route>
           <Route path="todos" element={<TodoLayout />} >
-            <Route index element={<TodosList />} />
+            <Route index element={<TodoListPage />} />
             <Route path=":todoId" element={<TodoDetails />} />
             <Route path="new" element={<NewTodoForm />} />
           </Route>
