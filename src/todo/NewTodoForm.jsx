@@ -8,13 +8,13 @@ export default class NewTodoForm extends React.Component {
     this.state = {
       name: "",
       description: "",
-      allocatedTime: "",
+      timeSpan: "",
       startDate: "",
       endDate: "",
       repeat: false,
-      repeatPeriodUnit: "week",
-      repeatCount: 0,
-      instanceDuration: "",
+      repeatPeriod: "week",
+      repeatTimes: 0,
+      instanceTimeSpan: "",
       dependencies: [],
       dependents: []
     };
@@ -31,13 +31,13 @@ export default class NewTodoForm extends React.Component {
     console.log('A todo was submitted:');
     console.log(this.state.name);
     console.log(this.state.description);
-    console.log(this.state.allocatedTime);
+    console.log(this.state.timeSpan);
     console.log(this.state.startDate);
     console.log(this.state.endDate);
     console.log(this.state.repeat);
-    console.log(this.state.repeatPeriodUnit);
-    console.log(this.state.repeatCount);
-    console.log(this.state.instanceDuration);
+    console.log(this.state.repeatPeriod);
+    console.log(this.state.repeatTimes);
+    console.log(this.state.instanceTimeSpan);
     console.log(this.state.dependencies);
     console.log(this.state.dependents);
     event.preventDefault();
@@ -65,8 +65,8 @@ export default class NewTodoForm extends React.Component {
         <label>Time Allocation:
           <input
             type="time"
-            name="allocatedTime"
-            value={this.state.allocatedTime || ""}
+            name="timeSpan"
+            value={this.state.timeSpan || ""}
             onChange={this.handleChange}
           />
         </label>
@@ -102,13 +102,13 @@ export default class NewTodoForm extends React.Component {
           Times
           <input
             type="number"
-            name="repeatCount"
-            value={this.state.repeatCount || ""}
+            name="repeatTimes"
+            value={this.state.repeatTimes || ""}
             onChange={this.handleChange}
           />
         </label>
         <label>Per
-          <select name="repeatPeriodUnit" value={this.state.repeatPeriodUnit} onChange={this.handleChange}>
+          <select name="repeatPeriod" value={this.state.repeatPeriod} onChange={this.handleChange}>
             <option value="day">Day</option>
             <option value="week">Week</option>
             <option value="month">Month</option>
@@ -118,8 +118,8 @@ export default class NewTodoForm extends React.Component {
         <label>Duration of each instance
           <input
             type="time"
-            name="instanceDuration"
-            value={this.state.instanceDuration || ""}
+            name="instanceTimeSpan"
+            value={this.state.instanceTimeSpan || ""}
             onChange={this.handleChange}
           />
         </label>
