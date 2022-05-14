@@ -4,7 +4,7 @@ import React from "react";
 export default function TodoList(props) {
   const todos = props.todos;
   const todoItems = todos.map((todo, index) =>
-    <TodoItem key={index} name={todo.name} />
+    <TodoItem key={index} todo={todo} />
   );
   return (
     <>
