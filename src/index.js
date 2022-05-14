@@ -11,7 +11,7 @@ import NewProjectForm from './project/NewProjectForm';
 import TodoLayout from './todo/TodoLayout';
 import TodosList from './todo/TodosList';
 import TodoDetails from './todo/TodoDetails';
-import NewTodo from './todo/NewTodo';
+import NewTodoForm from './todo/NewTodoForm';
 import TimelineLayout from './timeline/TimelineLayout';
 import TimelineYearView from './timeline/TimelineYearView';
 import TimelineMonthView from './timeline/TimelineMonthView';
@@ -32,7 +32,7 @@ root.render(
           <Route path="todos" element={<TodoLayout />} >
             <Route index element={<TodosList />} />
             <Route path=":todoId" element={<TodoDetails />} />
-            <Route path="new" element={<NewTodo />} />
+            <Route path="new" element={<NewTodoForm />} />
           </Route>
           <Route path="timeline" element={<TimelineLayout />} >
             <Route index element={<TimelineYearView />} />
