@@ -30,7 +30,7 @@ export default class NewProjectForm extends React.Component {
       target_date: this.state.targetDate
     };
 
-    httpService.post('/todos.json', projectData)
+    httpService.post('/projects.json', projectData)
       .then(this.handleSubmitSuccess)
       .catch(function (error) {
         console.log(error);
@@ -47,7 +47,7 @@ export default class NewProjectForm extends React.Component {
     return (
       <div>
         {this.state.id && (
-          <Navigate to={`/todos/${this.state.id}`} />
+          <Navigate to={`/projects/${this.state.id}`} />
         )}
         <form onSubmit={this.handleSubmit}>
           <label>
