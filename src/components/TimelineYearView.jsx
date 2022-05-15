@@ -1,7 +1,8 @@
 import React from "react";
 import interact from 'interactjs'
+import TaskSlider from "./TaskSlider";
 
-export default function TimelineYearView() {
+export default function TimelineYearView(props) {
   const slider = interact('.slider')    // target elements with the "slider" class
   slider
     // Step 2
@@ -28,14 +29,10 @@ export default function TimelineYearView() {
   return (
     <>
       <main>
-        <h2>Timeline (Year)</h2>
-        <p>
-          Timeline
-        </p>
         <div className="sliders">
-          <div className="slider"></div>
-          <div className="slider"></div>
-          <div className="slider"></div>
+          <TaskSlider />
+          <TaskSlider />
+          <TaskSlider />
         </div>
       </main>
     </>

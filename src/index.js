@@ -13,7 +13,7 @@ import TodoListPage from './todo/TodoListPage';
 import TodoDetailsPage from './todo/TodoDetailsPage';
 import NewTodoForm from './todo/NewTodoForm';
 import TimelineLayout from './timeline/TimelineLayout';
-import TimelineYearView from './timeline/TimelineYearView';
+import TimelineYearPage from './timeline/TimelineYearPage';
 import TimelineMonthView from './timeline/TimelineMonthView';
 import TimelineWeekView from './timeline/TimelineWeekView';
 import TimelineDayView from './timeline/TimelineDayView';
@@ -35,7 +35,7 @@ root.render(
             <Route path="new" element={<NewTodoForm />} />
           </Route>
           <Route path="timeline" element={<TimelineLayout />} >
-            <Route index element={<TimelineYearView />} />
+            <Route index element={<TimelineYearPage />} />
             <Route path="month" element={<TimelineMonthView />} />
             <Route path="week" element={<TimelineWeekView />} />
             <Route path="day" element={<TimelineDayView />} />
