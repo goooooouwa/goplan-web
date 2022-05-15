@@ -10,7 +10,7 @@ import ProjectDetails from './project/ProjectDetails';
 import NewProjectForm from './project/NewProjectForm';
 import TodoLayout from './todo/TodoLayout';
 import TodoListPage from './todo/TodoListPage';
-import TodoDetails from './todo/TodoDetails';
+import TodoDetailsPage from './todo/TodoDetailsPage';
 import NewTodoForm from './todo/NewTodoForm';
 import TimelineLayout from './timeline/TimelineLayout';
 import TimelineYearView from './timeline/TimelineYearView';
@@ -31,7 +31,7 @@ root.render(
           </Route>
           <Route path="todos" element={<TodoLayout />} >
             <Route index element={<TodoListPage />} />
-            <Route path=":todoId" element={<TodoDetails />} />
+            <Route path=":todoId" element={<TodoDetailsPage />} />
             <Route path="new" element={<NewTodoForm />} />
           </Route>
           <Route path="timeline" element={<TimelineLayout />} >
