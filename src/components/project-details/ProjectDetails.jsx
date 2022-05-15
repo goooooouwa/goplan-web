@@ -1,4 +1,5 @@
-import TodoList from "components/todo-list/TodoList";
+import { Typography } from "@mui/material";
+import TodoList from "components/TodoList";
 import httpService from "httpService";
 import React from "react";
 
@@ -37,11 +38,16 @@ export default class ProjectDetailsPage extends React.Component {
     return (
       <>
         <main>
-          <h2>Project: {this.state.goalName}</h2>
-          <p>
+          <Typography variant="h4" component="div" gutterBottom>
+            Goal: {this.state.goalName}
+          </Typography>
+          <Typography variant="body1" gutterBottom>
             {this.state.targetDate}
-          </p>
-        <TodoList todos={this.state.todos} />
+          </Typography>
+          <Typography variant="body1" component="div" gutterBottom>
+            Todos
+          </Typography>
+          <TodoList todos={this.state.todos} />
         </main>
       </>
     );

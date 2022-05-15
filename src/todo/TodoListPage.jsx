@@ -1,4 +1,5 @@
-import TodoList from "components/todo-list/TodoList";
+import { Typography } from "@mui/material";
+import TodoList from "components/TodoList";
 import httpService from "httpService";
 import React from "react";
 
@@ -35,7 +36,9 @@ export default class TodosListPage extends React.Component {
     return (
       <>
         <main>
-          <h2>Todos</h2>
+          <Typography variant="h3" component="div" gutterBottom>
+            Todos
+          </Typography>
           <TodoList todos={this.state.todos} />
         </main>
       </>

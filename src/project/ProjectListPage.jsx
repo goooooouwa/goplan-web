@@ -1,4 +1,5 @@
-import ProjectList from "components/project-list/ProjectList";
+import { Typography } from "@mui/material";
+import ProjectList from "components/ProjectList";
 import httpService from "httpService";
 import React from "react";
 
@@ -35,7 +36,9 @@ export default class ProjectsListPage extends React.Component {
     return (
       <>
         <main>
-          <h2>Projects</h2>
+          <Typography variant="h3" component="div" gutterBottom>
+            Projects
+          </Typography>
           <ProjectList projects={this.state.projects} />
         </main>
       </>
