@@ -1,0 +1,10 @@
+#grid-snap {
+    width: 40%;
+    border-radius: 4px;
+    padding: 2%;
+    margin: 1rem 0 0 1rem;
+    background-color: #29e;
+    color: #fff;
+    font-size: 1.2em;
+    touch-action: none;
+  }

@@ -4,6 +4,8 @@ import React from "react";
 import { Outlet, Link } from "react-router-dom";
 import './App.css';
 import './slider.css';
+import './draggable.css';
+import './grid-snap.css';
 
 function App() {
   return (
