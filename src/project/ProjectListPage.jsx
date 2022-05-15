@@ -28,14 +28,7 @@ export default class ProjectsListPage extends React.Component {
 
   handleRequestSuccess(response) {
     console.log(response);
-    this.setState({
-      projects: response.data.map((project) => {
-        return {
-          goalName: project.goal_name,
-          targetDate: project.target_date
-        }
-      })
-    });
+    this.setState({ projects: response.data });
   }
 
   render() {

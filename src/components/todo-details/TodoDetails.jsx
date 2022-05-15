@@ -38,21 +38,7 @@ export default class TodoDetailsPage extends React.Component {
 
   handleRequestSuccess(response) {
     console.log(response);
-    let todo = response.data;
-    this.setState({
-      projectId: todo.project_id,
-      name: todo.name,
-      description: todo.description,
-      timeSpan: todo.time_span,
-      startDate: todo.start_date,
-      endDate: todo.end_date,
-      repeat: todo.repeat,
-      repeatPeriod: todo.repeat_period,
-      repeatTimes: todo.repeat_times,
-      instanceTimeSpan: todo.instance_time_span,
-      dependencies: todo.dependencies,
-      dependents: todo.dependents,
-    });
+    this.setState(response.data);
   }
 
   render() {

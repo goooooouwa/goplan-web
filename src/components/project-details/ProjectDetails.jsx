@@ -1,3 +1,4 @@
+import TodoList from "components/todo-list/TodoList";
 import httpService from "httpService";
 import React from "react";
 
@@ -7,7 +8,8 @@ export default class ProjectDetailsPage extends React.Component {
 
     this.state = {
       goalName: "",
-      targetDate: ""
+      targetDate: "",
+      todos: []
     };
 
     this.handleRequestSuccess = this.handleRequestSuccess.bind(this);
@@ -28,11 +30,7 @@ export default class ProjectDetailsPage extends React.Component {
 
   handleRequestSuccess(response) {
     console.log(response);
-    let project = response.data;
-    this.setState({
-      goalName: project.goal_name,
-      targetDate: project.target_date
-    });
+    this.setState(response.data);
   }
 
   render() {
@@ -43,6 +41,7 @@ export default class ProjectDetailsPage extends React.Component {
           <p>
             {this.state.targetDate}
           </p>
+        <TodoList todos={this.state.todos} />
         </main>
       </>
     );
