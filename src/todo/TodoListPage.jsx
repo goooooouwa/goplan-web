@@ -14,6 +14,7 @@ export default class TodosListPage extends React.Component {
   }
 
   componentDidMount() {
+    console.log("componentDidMount");
     httpService.get('/todos.json')
       .then(this.handleRequestSuccess)
       .catch(function (error) {

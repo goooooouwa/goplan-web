@@ -17,8 +17,9 @@ axios.interceptors.request.use(
 
 const httpService = {
   get: axios.get,
-  post: axios.put,
+  post: axios.post,
   delete: axios.delete,
+  put: axios.put,
   patch: axios.patch
 };
 
