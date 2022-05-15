@@ -2,6 +2,7 @@ import React from "react";
 
 export default function TodoItem(props) {
     return <li>
+        {props.projectId} |{' '}
         {props.name} |{' '}
         {props.description} |{' '}
         {props.timeSpan} |{' '}

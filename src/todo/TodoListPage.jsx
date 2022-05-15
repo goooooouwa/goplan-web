@@ -31,6 +31,7 @@ export default class TodosListPage extends React.Component {
     this.setState({
       todos: response.data.map((todo) => {
         return {
+          projectId: todo.project_id,
           name: todo.name,
           description: todo.description,
           timeSpan: todo.time_span,

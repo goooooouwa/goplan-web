@@ -6,6 +6,7 @@ export default class TodoDetailsPage extends React.Component {
     super(props);
 
     this.state = {
+      projectId: "",
       name: "",
       description: "",
       timeSpan: "",
@@ -39,6 +40,7 @@ export default class TodoDetailsPage extends React.Component {
     console.log(response);
     let todo = response.data;
     this.setState({
+      projectId: todo.project_id,
       name: todo.name,
       description: todo.description,
       timeSpan: todo.time_span,
@@ -59,6 +61,7 @@ export default class TodoDetailsPage extends React.Component {
         <main>
           <h2>Todo: {this.state.name}</h2>
           <p>
+            {this.state.projectId} |{' '}
             {this.state.description} |{' '}
             {this.state.timeSpan} |{' '}
             {this.state.startDate} |{' '}

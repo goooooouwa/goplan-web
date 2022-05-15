@@ -8,6 +8,7 @@ export default class NewTodoForm extends React.Component {
     super(props);
 
     this.state = {
+      projectId: "",
       name: "",
       description: "",
       timeSpan: "",
@@ -36,6 +37,7 @@ export default class NewTodoForm extends React.Component {
     console.log(this.state);
 
     const todoData = {
+      project_id: this.state.projectId,
       name: this.state.name,
       description: this.state.description,
       time_span: this.state.timeSpan,
@@ -66,6 +68,14 @@ export default class NewTodoForm extends React.Component {
           <Navigate to={`/todos/${this.state.id}`} />
         )}
         <form onSubmit={this.handleSubmit}>
+          <label>Project ID:
+            <input
+              type="text"
+              name="projectId"
+              value={this.state.projectId || ""}
+              onChange={this.handleChange}
+            />
+          </label>
           <label>Todo:
             <input
               type="text"
