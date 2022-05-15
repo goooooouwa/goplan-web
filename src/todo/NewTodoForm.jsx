@@ -35,19 +35,19 @@ export default class NewTodoForm extends React.Component {
     console.log('A todo was submitted:');
     console.log(this.state);
 
-    const todo = {
+    const todoData = {
       name: this.state.name,
       description: this.state.description,
-      timeSpan: this.state.time_span,
-      startDate: this.state.start_date,
-      endDate: this.state.end_date,
+      time_span: this.state.timeSpan,
+      start_date: this.state.startDate,
+      end_date: this.state.endDate,
       repeat: this.state.repeat,
-      repeatPeriod: this.state.repeat_period,
-      repeatTimes: this.state.repeat_times,
-      instanceTimeSpan: this.state.instance_time_span
+      repeat_period: this.state.repeatPeriod,
+      repeat_times: this.state.repeatTimes,
+      instance_time_span: this.state.instanceTimeSpan
     };
 
-    httpService.post('/todos.json', todo)
+    httpService.post('/todos.json', todoData)
       .then(this.handleSubmitSuccess)
       .catch(function (error) {
         console.log(error);
