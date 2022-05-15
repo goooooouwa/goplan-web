@@ -4,7 +4,7 @@ import React from "react";
 export default function ProjectList(props) {
   const projects = props.projects;
   const projectItems = projects.map((project, index) =>
-    <ProjectItem key={index} goalName={project.goalName} />
+    <ProjectItem key={index} {...project} />
   );
   return (
     <>
