@@ -26,7 +26,11 @@ root.render(
         <Route path="/" element={<App />}>
           <Route path="projects" element={<ProjectLayout />} >
             <Route index element={<ProjectListContainer />} />
-            <Route path=":projectId" element={<ProjectDetailsContainer />} />
+            <Route path=":projectId" element={<ProjectDetailsContainer />} >
+              <Route path="todos" element={<TodoListContainer />} >
+                <Route path=":todoId" element={<TodoDetailsContainer />} />
+              </Route>
+            </Route>
             <Route path="new" element={<NewProjectForm />} />
           </Route>
           <Route path="todos" element={<TodoLayout />} >

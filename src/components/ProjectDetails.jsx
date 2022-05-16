@@ -1,6 +1,5 @@
 import React from "react";
 import { Typography } from "@mui/material";
-import TodoList from "components/TodoList";
 
 export default function ProjectDetails(props) {
   return (
@@ -15,7 +14,6 @@ export default function ProjectDetails(props) {
         <Typography variant="body1" component="div" gutterBottom>
           Todos
         </Typography>
-        <TodoList todos={props.project.todos} />
       </main>
     </>
   );

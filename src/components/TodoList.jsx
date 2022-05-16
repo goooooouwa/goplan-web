@@ -12,7 +12,7 @@ export default function TodosList(props) {
             <List>
               {props.todos.map((todo, index) => (
                 <ListItem key={index} disablePadding>
-                  <ListItemButton component={Link} to={`/todos/${todo.id}`} >
+                  <ListItemButton component={Link} to={`/projects/${todo.projectId}/todos/${todo.id}`} >
                     <ListItemIcon>
                       <InboxIcon />
                     </ListItemIcon>

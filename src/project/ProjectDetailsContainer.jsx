@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { Outlet, useParams } from "react-router-dom";
 import httpService from "httpService";
 import ProjectDetails from "components/ProjectDetails";
 
@@ -28,6 +28,7 @@ export default function ProjectDetailsContainer() {
   return (
     <>
       <ProjectDetails project={project} />
+      <Outlet />
     </>
   );
 }

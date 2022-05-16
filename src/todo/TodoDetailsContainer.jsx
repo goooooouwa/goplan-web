@@ -1,8 +1,6 @@
-import MasterDetailsLayout from "components/MasterDetailsLayout";
 import TodoDetails from "components/TodoDetails";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import TodoListContainer from "./TodoListContainer";
 import httpService from "httpService";
 
 export default function TodoDetailsContainer() {
@@ -38,13 +36,7 @@ export default function TodoDetailsContainer() {
 
   return (
     <>
-      <MasterDetailsLayout
-        master={
-          <TodoListContainer />
-        }
-        details={
-          <TodoDetails todo={todo} />
-        } />
+      <TodoDetails todo={todo} />
     </>
   );
 }
