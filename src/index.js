@@ -28,6 +28,7 @@ root.render(
             <Route index element={<ProjectListContainer />} />
             <Route path=":projectId" element={<ProjectDetailsContainer />} >
               <Route path="todos" element={<TodoListContainer />} >
+                <Route index element={<TimelineYearContainer />} />
                 <Route path=":todoId" element={<TodoDetailsContainer />} />
               </Route>
             </Route>

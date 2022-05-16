@@ -33,7 +33,6 @@ export default function TodosListContainer() {
         <Typography variant="h3" component="div" gutterBottom>
           Todos
         </Typography>
-        <TodoList todos={todos} />
         <Outlet />
       </main>
     </>

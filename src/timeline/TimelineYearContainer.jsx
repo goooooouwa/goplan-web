@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import httpService from "httpService";
-import TimelineYearWithTodoList from "components/TimelineYearWithTodoList";
+import TimelineYear from "components/TimelineYear";
 
 export default function TimelineYearPage() {
   const [todos, setTodos] = useState([]);
@@ -21,7 +21,7 @@ export default function TimelineYearPage() {
 
   return (
     <>
-      <TimelineYearWithTodoList todos={todos} />
+      <TimelineYear todos={todos} />
     </>
   );
 }

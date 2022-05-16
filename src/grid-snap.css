@@ -1,10 +1,15 @@
-#grid-snap {
-    width: 40%;
-    border-radius: 4px;
-    padding: 2%;
-    margin: 1rem 0 0 1rem;
-    background-color: #29e;
-    color: #fff;
-    font-size: 1.2em;
-    touch-action: none;
-  }
+#grid-snap1,#grid-snap2,#grid-snap3 {
+  width: 360px;
+  height: 48px;
+  border-radius: 4px;
+  background-color: #29e;
+  color: #fff;
+  font-size: 1.2em;
+  touch-action: none;
+}
+
+.grid-line {
+  width: 1440px;
+  height: 288px;
+  background-color: rgb(159, 167, 162);
+}

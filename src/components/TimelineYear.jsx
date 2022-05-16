@@ -1,7 +1,5 @@
 import React from "react";
 import interact from 'interactjs'
-import TaskSlider from "./TaskSlider";
-import Draggable from "./Draggable";
 import GridSnap from "./GridSnap";
 
 export default function TimelineYear(props) {
@@ -31,12 +29,8 @@ export default function TimelineYear(props) {
 
   return (
     <>
-      <GridSnap />
-      <Draggable />
-      <div className="sliders">
-        <TaskSlider />
-        <TaskSlider />
-        <TaskSlider />
+      <div className="grid-line">
+        <GridSnap />
       </div>
     </>
   );
