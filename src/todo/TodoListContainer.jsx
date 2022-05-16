@@ -1,15 +1,15 @@
-import { Typography } from "@mui/material";
-import ProjectList from "components/ProjectList";
 import httpService from "httpService";
 import React, { useEffect, useState } from "react";
+import TodoList from "components/TodoList";
+import { Typography } from "@mui/material";
 
-export default function ProjectsListContainer() {
-  const [projects, setProjects] = useState([]);
+export default function TodosListContainer() {
+  const [todos, setTodos] = useState([]);
 
   useEffect(() => {
-    httpService.get('/projects.json')
+    httpService.get('/todos.json')
       .then((response) => {
-        setProjects(response.data);
+        setTodos(response.data);
       })
       .catch(function (error) {
         // handle error
@@ -24,9 +24,9 @@ export default function ProjectsListContainer() {
     <>
       <main>
         <Typography variant="h3" component="div" gutterBottom>
-          Projects
+          Todos
         </Typography>
-        <ProjectList projects={projects} />
+        <TodoList todos={todos} />
       </main>
     </>
   );

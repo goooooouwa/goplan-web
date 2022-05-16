@@ -4,8 +4,9 @@ import TaskSlider from "./TaskSlider";
 import Draggable from "./Draggable";
 import GridSnap from "./GridSnap";
 
-export default function TimelineYearView(props) {
-  const slider = interact('.slider')    // target elements with the "slider" class
+export default function TimelineYear(props) {
+  const slider = interact('.slider');    // target elements with the "slider" class
+
   slider
     // Step 2
     .draggable({                        // make the element fire drag events
@@ -30,15 +31,13 @@ export default function TimelineYearView(props) {
 
   return (
     <>
-      <main>
-        <GridSnap />
-        <Draggable />
-        <div className="sliders">
-          <TaskSlider />
-          <TaskSlider />
-          <TaskSlider />
-        </div>
-      </main>
+      <GridSnap />
+      <Draggable />
+      <div className="sliders">
+        <TaskSlider />
+        <TaskSlider />
+        <TaskSlider />
+      </div>
     </>
   );
 }
