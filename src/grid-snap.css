@@ -7,9 +7,13 @@
   border-color: black;
   font-size: 1.2em;
   touch-action: none;
+  box-sizing: border-box;
 }
 
 .grid-line {
   width: 1200px;
   height: 50px;
+  border-style: solid;
+  border-color: gray;
+  box-sizing: content-box;
 }

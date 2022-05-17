@@ -17,7 +17,9 @@ export default function GridSnap(props) {
     const gridSnap = interact(gridElem);
     gridSnap
       .draggable({
+        origin: "parent",
         lockAxis: 'x',
+        autoScroll: true,
         modifiers: [
           interact.modifiers.snap({
             targets: [
@@ -32,10 +34,8 @@ export default function GridSnap(props) {
           interact.modifiers.restrict({
             elementRect: { top: 0, left: 0, bottom: 1, right: 1 },
             restriction: 'parent',
-            endOnly: true
           })
         ],
-        autoScroll: true,
         listeners: {
           move(event) {
             let target = event.target;
