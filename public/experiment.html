@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="../src/grid-snap.css">
+    <script src="https://unpkg.com/interactjs@1.10.11/dist/interact.min.js"></script>
+    <title>React App</title>
+</head>
+
+<body>
+    <noscript>You need to enable JavaScript to run this app.</noscript>
+    <div>
+        <div class="grid-line">
+            <div id="grid-1" class="grid-snap">
+                Drag
+            </div>
+        </div>
+        <div class="grid-line">
+            <div id="grid-2" class="grid-snap">
+                Drag
+            </div>
+        </div>
+        <div class="grid-line">
+            <div id="grid-3" class="grid-snap">
+                Drag
+            </div>
+        </div>
+        <script>
+            interact(".grid-snap")
+                .draggable({
+                    modifiers: [
+                        interact.modifiers.snap({
+                            targets: [
+                                interact.snappers.grid({
+                                    x: 100,
+                                    y: 50
+                                })
+                            ],
+                            range: Infinity,
+                            relativePoints: [{ x: 0, y: 0 }]
+                        }),
+                        interact.modifiers.restrict({
+                            elementRect: { top: 0, left: 0, bottom: 1, right: 1 },
+                            restriction: 'parent',
+                            endOnly: true
+                        })
+                    ],
+                    autoScroll: true,
+                    listeners: {
+                        // call this function on every dragmove event
+                        move (event) {
+                            let target = event.target
+                            // keep the dragged position in the data-x/data-y attributes
+                            let x = (parseFloat(target.getAttribute('data-x')) || 0) + event.dx
+
+                            // translate the element
+                            target.style.transform = 'translateX(' + x + 'px)'
+
+                            // update the posiion attributes
+                            target.setAttribute('data-x', x)
+                        }
+                    }
+                })
+                // .on('dragmove', function (event) {
+
+                //     console.log("event:");
+                //     console.log(event);
+                //     console.log("event.target:");
+                //     console.log(event.target);
+                //     console.log("x:" + x);
+                //     console.log("y:" + y);
+                //     console.log("event.dx:" + event.dx);
+                //     console.log("event.dy:" + event.dy);
+                //     console.log("===============================================");
+                //     x += event.dx
+                //     y += event.dy
+
+                //     event.target.style.transform = 'translate(' + x + 'px, ' + y + 'px)'
+                // });
+        </script>
+    </div>
+</body>
+
+</html>
