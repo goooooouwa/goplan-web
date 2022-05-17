@@ -8,7 +8,6 @@ export default function TodosListContainer() {
   const params = useParams();
   const [todos, setTodos] = useState([]);
 
-
   useEffect(() => {
     let url = '/todos.json';
     if (params.projectId != null) {
@@ -33,6 +32,7 @@ export default function TodosListContainer() {
         <Typography variant="h3" component="div" gutterBottom>
           Todos
         </Typography>
+        <TodoList todos={todos} />
         <Outlet />
       </main>
     </>

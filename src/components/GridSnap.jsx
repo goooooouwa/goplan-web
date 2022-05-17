@@ -1,14 +1,23 @@
 import interact from "interactjs";
 import React, { useEffect } from "react";
 
-export default function GridSnap() {
+export default function GridSnap(props) {
   const gridSnapRef = React.createRef();
 
   useEffect(() => {
-    const gridSnap = interact(gridSnapRef.current);
+    const gridElem = gridSnapRef.current;
+    const column = props.column;
+    const x = gridElem.offsetWidth * column;
+    gridElem.style.transform = 'translateX(' + x + 'px)';
+    gridElem.setAttribute('data-x', x);
+  }, []);
 
+  useEffect(() => {
+    const gridElem = gridSnapRef.current;
+    const gridSnap = interact(gridElem);
     gridSnap
       .draggable({
+        lockAxis: 'x',
         modifiers: [
           interact.modifiers.snap({
             targets: [
@@ -46,7 +55,7 @@ export default function GridSnap() {
     <>
       <div className="grid-line">
         <div ref={gridSnapRef} className="grid-snap">
-          Drag
+          {props.title}
         </div>
       </div>
     </>

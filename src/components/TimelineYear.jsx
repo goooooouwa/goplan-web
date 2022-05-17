@@ -1,15 +1,12 @@
 import React from "react";
-import GridSnap from "./GridSnap";
+import TodoGridSnap from "./TodoGridSnap";
 
 export default function TimelineYear(props) {
   return (
     <>
-      <GridSnap />
-      <GridSnap />
-      <GridSnap />
-      <GridSnap />
-      <GridSnap />
-      <GridSnap />
+      {props.todos.map((todo, index) => (
+        <TodoGridSnap key={index} todo={todo} />
+      ))}
     </>
   );
 }

@@ -1,4 +1,4 @@
-import { Box, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Typography } from "@mui/material";
+import { Box, List, ListItem, ListItemButton, ListItemIcon, ListItemText } from "@mui/material";
 import InboxIcon from '@mui/icons-material/Inbox';
 import React from "react";
 import { Link } from "react-router-dom";
