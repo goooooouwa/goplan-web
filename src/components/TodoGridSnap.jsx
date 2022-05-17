@@ -8,7 +8,7 @@ export default function TodoGridSnap(props) {
 
   return (
     <>
-      <GridSnap title={todo.createdAt} column={month} />
+      <GridSnap title={todo.name} column={month} />
     </>
   );
 }

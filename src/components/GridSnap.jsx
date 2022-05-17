@@ -10,7 +10,7 @@ export default function GridSnap(props) {
     const x = gridElem.offsetWidth * column;
     gridElem.style.transform = 'translateX(' + x + 'px)';
     gridElem.setAttribute('data-x', x);
-  }, []);
+  }, [gridSnapRef, props.column]);
 
   useEffect(() => {
     const gridElem = gridSnapRef.current;
@@ -49,7 +49,7 @@ export default function GridSnap(props) {
     return function cleanup() {
       gridSnap.unset();
     };
-  }, []);
+  }, [gridSnapRef]);
 
   return (
     <>

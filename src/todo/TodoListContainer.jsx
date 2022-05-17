@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import TodoList from "components/TodoList";
 import { Typography } from "@mui/material";
 import { useParams, Outlet } from "react-router-dom";
+import MasterDetailsLayout from "components/MasterDetailsLayout";
 
 export default function TodosListContainer() {
   const params = useParams();
@@ -24,7 +25,7 @@ export default function TodosListContainer() {
       .then(function () {
         // always executed
       });
-  }, []);
+  }, [params.projectId]);
 
   return (
     <>
@@ -32,8 +33,13 @@ export default function TodosListContainer() {
         <Typography variant="h3" component="div" gutterBottom>
           Todos
         </Typography>
-        <TodoList todos={todos} />
-        <Outlet />
+        <MasterDetailsLayout
+          master={
+            <TodoList todos={todos} />
+          }
+          details={
+            <Outlet />
+          } />
       </main>
     </>
   );
