@@ -6,11 +6,10 @@ export default function GridSnap(props) {
 
   useEffect(() => {
     const gridElem = gridSnapRef.current;
-    const column = props.column;
-    const x = gridElem.offsetWidth * column;
+    const x = gridElem.offsetWidth * props.initialColumn;
     gridElem.style.transform = 'translateX(' + x + 'px)';
     gridElem.setAttribute('data-x', x);
-  }, [gridSnapRef, props.column]);
+  }, [gridSnapRef, props.initialColumn]);
 
   useEffect(() => {
     const gridElem = gridSnapRef.current;
