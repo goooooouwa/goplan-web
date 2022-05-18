@@ -1,14 +1,15 @@
 import interact from "interactjs";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 
 export default function GridSnap(props) {
   const gridSnapRef = React.createRef();
+  const [elemX, setElemX] = useState("");
 
   useEffect(() => {
     const gridElem = gridSnapRef.current;
     const x = gridElem.offsetWidth * props.initialColumn;
     gridElem.style.transform = 'translateX(' + x + 'px)';
-    gridElem.setAttribute('data-x', x);
+    setElemX(x.toString());
   }, [gridSnapRef, props.initialColumn]);
 
   useEffect(() => {
@@ -36,16 +37,16 @@ export default function GridSnap(props) {
           })
         ],
         listeners: {
-          move(event) {
+          move: (event) => {
             let target = event.target;
-            let x = (parseFloat(target.getAttribute('data-x')) || 0) + event.dx;
+            let x = (parseFloat(elemX) || 0) + event.dx;
             target.style.transform = 'translateX(' + x + 'px)';
-            target.setAttribute('data-x', x);
+            setElemX(x.toString());
           }
         }
       });
 
-    return function cleanup() {
+    return () => {
       gridSnap.unset();
     };
   }, [gridSnapRef]);
