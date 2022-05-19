@@ -23,7 +23,7 @@ export default function ProjectDetailsContainer() {
       .then(function () {
         // always executed
       });
-  }, []);
+  }, [params.projectId]);
 
   return (
     <>

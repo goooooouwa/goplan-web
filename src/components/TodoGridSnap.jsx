@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import moment from 'moment'
 import GridSnap from "./GridSnap";
 import httpService from "httpService";
@@ -7,11 +7,13 @@ export default function TodoGridSnap(props) {
   const [todo, setTodo] = useState(props.todo);
   let month = moment(todo.startDate).isValid() ? moment(todo.startDate).month() : 0;
 
-  function handleColumnChange(month) {
-    setTodo((todo) => ({
-      ...todo,
-      startDate: moment(todo.startDate).add(month, "M").toString()
-    }));
+  function handleColumnChange(columnDelta) {
+    setTodo((todo) => {
+      return {
+        ...todo,
+        startDate: moment(todo.startDate).add(columnDelta, "months").toISOString()
+      }
+    });
   }
 
   useEffect(() => {
@@ -28,18 +30,18 @@ export default function TodoGridSnap(props) {
       instance_time_span: todo.instanceTimeSpan
     };
 
-    httpService.post('/todos.json', todoData)
+    httpService.put(`/todos/${todo.id}.json`, todoData)
       .then((response) => {
         console.log(response);
       })
       .catch(function (error) {
         console.log(error);
       });
-  },[todo]);
+  }, [todo]);
 
   return (
     <>
-      <GridSnap title={todo.name} initialColumn={month} handleColumnChange={handleColumnChange} />
+      <GridSnap title={todo.name} initColumn={month} handleColumnChange={handleColumnChange} />
     </>
   );
 }
