@@ -23,7 +23,7 @@ root.render(
   <React.StrictMode>
     <HashRouter>
       <Routes>
-        <Route path="/goplan-web" element={<App />}>
+        <Route path="/" element={<App />}>
           <Route path="projects" element={<ProjectLayout />} >
             <Route index element={<ProjectListContainer />} />
             <Route path=":projectId" element={<ProjectDetailsContainer />} >
