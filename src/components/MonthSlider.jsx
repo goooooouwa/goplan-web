@@ -104,7 +104,6 @@ export default function MonthSlider(props) {
         marks
         min={0}
         max={11}
-        disableSwap
       />
     </>
   );
