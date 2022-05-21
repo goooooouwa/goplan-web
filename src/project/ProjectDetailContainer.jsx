@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { Outlet, useParams } from "react-router-dom";
 import httpService from "httpService";
-import ProjectDetails from "components/ProjectDetails";
+import ProjectDetail from "components/ProjectDetail";
 
-export default function ProjectDetailsContainer() {
+export default function ProjectDetailContainer() {
   const params = useParams();
   const [project, setProject] = useState({
     goalName: "",
@@ -27,7 +27,7 @@ export default function ProjectDetailsContainer() {
 
   return (
     <>
-      <ProjectDetails project={project} />
+      <ProjectDetail project={project} />
       <Outlet />
     </>
   );

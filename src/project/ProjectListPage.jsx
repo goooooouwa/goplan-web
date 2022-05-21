@@ -3,7 +3,7 @@ import ProjectList from "components/ProjectList";
 import httpService from "httpService";
 import React, { useEffect, useState } from "react";
 
-export default function ProjectsListContainer() {
+export default function ProjectListContainer() {
   const [projects, setProjects] = useState([]);
 
   useEffect(() => {

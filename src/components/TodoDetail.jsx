@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function TodoDetails(props) {
+export default function TodoDetail(props) {
   return (
     <>
       <h2>Todo: {props.todo.name}</h2>

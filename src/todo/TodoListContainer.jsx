@@ -5,7 +5,7 @@ import { Typography } from "@mui/material";
 import { useParams, Outlet } from "react-router-dom";
 import MasterDetailsLayout from "components/MasterDetailsLayout";
 
-export default function TodosListContainer() {
+export default function TodoListContainer() {
   const params = useParams();
   const [todos, setTodos] = useState([]);
 

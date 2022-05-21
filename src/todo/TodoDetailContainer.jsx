@@ -1,9 +1,9 @@
-import TodoDetails from "components/TodoDetails";
+import TodoDetail from "components/TodoDetail";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import httpService from "httpService";
 
-export default function TodoDetailsContainer() {
+export default function TodoDetailContainer() {
   const params = useParams();
   const [todo, setTodo] = useState({
     projectId: "",
@@ -36,7 +36,7 @@ export default function TodoDetailsContainer() {
 
   return (
     <>
-      <TodoDetails todo={todo} />
+      <TodoDetail todo={todo} />
     </>
   );
 }
