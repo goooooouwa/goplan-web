@@ -6,11 +6,11 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import ProjectLayout from './project/ProjectLayout';
 import ProjectListContainer from './project/ProjectListPage';
-import ProjectDetailContainer from './project/ProjectDetailContainer';
+import ProjectDetailsContainer from './project/ProjectDetailContainer';
 import NewProjectForm from './project/NewProjectForm';
 import TodoLayout from './todo/TodoLayout';
 import TodoListContainer from './todo/TodoListContainer';
-import TodoDetailContainer from './todo/TodoDetailContainer';
+import TodoDetailsContainer from './todo/TodoDetailContainer';
 import NewTodoForm from './todo/NewTodoForm';
 import TimelineLayout from './timeline/TimelineLayout';
 import TimelineYearContainer from './timeline/TimelineYearContainer';
@@ -26,17 +26,17 @@ root.render(
         <Route path="/" element={<App />}>
           <Route path="projects" element={<ProjectLayout />} >
             <Route index element={<ProjectListContainer />} />
-            <Route path=":projectId" element={<ProjectDetailContainer />} >
+            <Route path=":projectId" element={<ProjectDetailsContainer />} >
+              <Route path="timeline" element={<TimelineYearContainer />} />
               <Route path="todos" element={<TodoListContainer />} >
-                <Route index element={<TimelineYearContainer />} />
-                <Route path=":todoId" element={<TodoDetailContainer />} />
+                <Route path=":todoId" element={<TodoDetailsContainer />} />
               </Route>
             </Route>
             <Route path="new" element={<NewProjectForm />} />
           </Route>
           <Route path="todos" element={<TodoLayout />} >
             <Route index element={<TodoListContainer />} />
-            <Route path=":todoId" element={<TodoDetailContainer />} />
+            <Route path=":todoId" element={<TodoDetailsContainer />} />
             <Route path="new" element={<NewTodoForm />} />
           </Route>
           <Route path="timeline" element={<TimelineLayout />} >

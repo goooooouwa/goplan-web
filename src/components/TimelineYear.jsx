@@ -1,56 +1,104 @@
-import styled from '@emotion/styled';
-import { Stack } from '@mui/material';
+import { Container, Grid, Stack, Typography } from '@mui/material';
 import React from 'react';
 import TodoMonthSlider from './TodoMonthSlider';
 
-const MonthColumn = styled.div`
-  width: "100px";
-  height: "50px";
-  font-size: "1.2em";
-`;
-
-const YearAxis = styled(Stack)`
-`;
-
-const TimelineBox = styled.div`
-  padding: 32px;
-`;
+const marks = [
+  {
+    value: 0,
+    label: 'Jan',
+  },
+  {
+    value: 1,
+    label: 'Feb',
+  },
+  {
+    value: 2,
+    label: 'Mar',
+  },
+  {
+    value: 3,
+    label: 'Apr',
+  },
+  {
+    value: 4,
+    label: 'May',
+  },
+  {
+    value: 5,
+    label: 'Jun',
+  },
+  {
+    value: 6,
+    label: 'Jul',
+  },
+  {
+    value: 7,
+    label: 'Aug',
+  },
+  {
+    value: 8,
+    label: 'Sep',
+  },
+  {
+    value: 9,
+    label: 'Oct',
+  },
+  {
+    value: 10,
+    label: 'Nov',
+  },
+  {
+    value: 11,
+    label: 'Dec',
+  },
+];
 
 export default function TimelineYear(props) {
 
-
   return (
     <>
-      <TimelineBox>
-        <YearAxis
-          direction="row"
-          justifyContent="space-between"
-          alignItems="stretch"
-        >
-          <MonthColumn>Jan</MonthColumn>
-          <MonthColumn>Feb</MonthColumn>
-          <MonthColumn>Mar</MonthColumn>
-          <MonthColumn>Apr</MonthColumn>
-          <MonthColumn>May</MonthColumn>
-          <MonthColumn>Jun</MonthColumn>
-          <MonthColumn>Jul</MonthColumn>
-          <MonthColumn>Aug</MonthColumn>
-          <MonthColumn>Sep</MonthColumn>
-          <MonthColumn>Oct</MonthColumn>
-          <MonthColumn>Nov</MonthColumn>
-          <MonthColumn>Dec</MonthColumn>
-        </YearAxis>
-        {props.todos.map((todo, index) => (
-          <Stack
-            key={index}
-            direction="row"
-            justifyContent="space-around"
-            alignItems="center"
-          >
-            <TodoMonthSlider todo={todo} />
-          </Stack>
-        ))}
-      </TimelineBox>
+      <Container>
+        <Grid container>
+          <Grid spacing={2} container item xs={12}>
+            <Grid item xs={2}>
+              <Typography
+                variant="body1"
+                gutterBottom
+                sx={{
+                  fontWeight: 'bold'
+                }}
+              >
+                Todo
+              </Typography>
+            </Grid>
+            <Grid item xs={10}>
+              <Stack
+                direction="row"
+                justifyContent="space-between"
+                alignItems="center"
+              >
+                {marks.map((mark, index) => (
+                  <Typography
+                    key={index}
+                    variant="body1"
+                    gutterBottom
+                    sx={{
+                      fontWeight: 'bold'
+                    }}
+                  >
+                    {mark.label}
+                  </Typography>
+                ))}
+              </Stack>
+            </Grid>
+          </Grid>
+          {props.todos.map((todo, index) => (
+            <Grid key={index} spacing={2} container item xs={12}>
+              <TodoMonthSlider todo={todo} />
+            </Grid>
+          ))}
+        </Grid>
+      </Container>
     </>
   );
 }

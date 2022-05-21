@@ -15,7 +15,7 @@ export default function ProjectList(props) {
         <List>
           {props.projects.map((project, index) => (
             <ListItem key={index} disablePadding>
-              <ListItemButton component={RouterLink} to={`/projects/${project.id}/todos`} >
+              <ListItemButton component={RouterLink} to={`/projects/${project.id}/timeline`} >
                 <ListItemIcon>
                   <InboxIcon />
                 </ListItemIcon>

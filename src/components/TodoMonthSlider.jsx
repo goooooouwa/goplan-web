@@ -1,7 +1,9 @@
+import { Grid } from '@mui/material';
 import httpService from 'httpService';
 import moment from 'moment';
 import React from 'react';
 import MonthSlider from './MonthSlider';
+import { Typography } from "@mui/material";
 
 export default function TodoMonthSlider(props) {
   const startMonth = (props.todo.startDate !== null) ? moment(props.todo.startDate).month() : null;
@@ -10,7 +12,7 @@ export default function TodoMonthSlider(props) {
   function handleMonthChange(months) {
     const [newStartMonth, newEndMonth] = months;
 
-    if (( newStartMonth !== null && newEndMonth !== null) && (newStartMonth !== moment(props.todo.startDate).month() || newEndMonth !== moment(props.todo.endDate).month())) {
+    if ((newStartMonth !== null && newEndMonth !== null) && (newStartMonth !== moment(props.todo.startDate).month() || newEndMonth !== moment(props.todo.endDate).month())) {
       const startDate = props.todo.startDate !== null ? moment(props.todo.startDate) : moment();
       const endDate = props.todo.endDate !== null ? moment(props.todo.endDate) : moment();
 
@@ -39,11 +41,18 @@ export default function TodoMonthSlider(props) {
 
   return (
     <>
-      <MonthSlider
-        startMonth={startMonth}
-        endMonth={endMonth}
-        handleMonthChange={handleMonthChange}
-      />
+      <Grid item xs={2}>
+        <Typography variant="body1" gutterBottom>
+          {props.todo.name}
+        </Typography>
+      </Grid>
+      <Grid item xs={10}>
+        <MonthSlider
+          startMonth={startMonth}
+          endMonth={endMonth}
+          handleMonthChange={handleMonthChange}
+        />
+      </Grid>
     </>
   );
 }
