@@ -1,8 +1,7 @@
 import styled from '@emotion/styled';
 import { Stack } from '@mui/material';
 import React from 'react';
-import MonthSlider from './MonthSlider';
-import TodoItem from './TodoItem';
+import TodoMonthSlider from './TodoMonthSlider';
 
 const MonthColumn = styled.div`
   width: "100px";
@@ -18,6 +17,8 @@ const TimelineBox = styled.div`
 `;
 
 export default function TimelineYear(props) {
+
+
   return (
     <>
       <TimelineBox>
@@ -41,16 +42,12 @@ export default function TimelineYear(props) {
         </YearAxis>
         {props.todos.map((todo, index) => (
           <Stack
-          key={index}
-          direction="row"
-          justifyContent="space-around"
-          alignItems="center"
+            key={index}
+            direction="row"
+            justifyContent="space-around"
+            alignItems="center"
           >
-            <TodoItem todo={todo} />
-            <MonthSlider
-              startMonth={5}
-              endMonth={8}
-            />
+            <TodoMonthSlider todo={todo} />
           </Stack>
         ))}
       </TimelineBox>
