@@ -1,4 +1,5 @@
 import { Container, Grid, Stack, Typography } from '@mui/material';
+import moment from 'moment';
 import React from 'react';
 import TodoMonthSlider from './TodoMonthSlider';
 
@@ -65,7 +66,8 @@ export default function TimelineYear(props) {
                 variant="body1"
                 gutterBottom
                 sx={{
-                  fontWeight: 'bold'
+                  fontWeight: 'bold',
+                  textAlign: 'left'
                 }}
               >
                 Todo
@@ -92,11 +94,13 @@ export default function TimelineYear(props) {
               </Stack>
             </Grid>
           </Grid>
-          {props.todos.map((todo, index) => (
-            <Grid key={index} spacing={2} container item xs={12}>
-              <TodoMonthSlider todo={todo} />
-            </Grid>
-          ))}
+          {props.todos
+            .sort((t1, t2) => moment(t1.createdAt).isBefore(t2.createdAt) ? -1 : 1)
+            .map((todo, index) => (
+              <Grid key={index} spacing={2} container item xs={12}>
+                <TodoMonthSlider todo={todo} />
+              </Grid>
+            ))}
         </Grid>
       </Container>
     </>

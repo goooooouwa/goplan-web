@@ -42,7 +42,11 @@ export default function TodoMonthSlider(props) {
   return (
     <>
       <Grid item xs={2}>
-        <Typography variant="body1" gutterBottom>
+        <Typography variant="body1" gutterBottom
+          sx={{
+            textAlign: 'left'
+          }}
+        >
           {props.todo.name}
         </Typography>
       </Grid>
