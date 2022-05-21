@@ -3,7 +3,7 @@ import httpService from 'httpService';
 import moment from 'moment';
 import React from 'react';
 import MonthSlider from './MonthSlider';
-import { Typography } from "@mui/material";
+import TodoItem from './TodoItem';
 
 export default function TodoMonthSlider(props) {
   const startDate = (props.todo.startDate !== null) ? moment(props.todo.startDate) : moment();
@@ -36,13 +36,7 @@ export default function TodoMonthSlider(props) {
   return (
     <>
       <Grid item xs={2}>
-        <Typography variant="body1" gutterBottom
-          sx={{
-            textAlign: 'left'
-          }}
-        >
-          {props.todo.name}
-        </Typography>
+        <TodoItem todo={props.todo} />
       </Grid>
       <Grid item xs={10}>
         <MonthSlider

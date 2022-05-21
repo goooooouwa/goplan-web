@@ -60,14 +60,15 @@ export default function TimelineYear(props) {
     <>
       <Container>
         <Grid container>
-          <Grid spacing={2} container item xs={12}>
+          <Grid spacing={2} container item>
             <Grid item xs={2}>
               <Typography
                 variant="body1"
                 gutterBottom
                 sx={{
                   fontWeight: 'bold',
-                  textAlign: 'left'
+                  textAlign: 'left',
+                  ml: 2
                 }}
               >
                 Todo
@@ -97,7 +98,7 @@ export default function TimelineYear(props) {
           {props.todos
             .sort((t1, t2) => moment(t1.createdAt).isBefore(t2.createdAt) ? -1 : 1)
             .map((todo, index) => (
-              <Grid key={index} spacing={2} container item xs={12}>
+              <Grid key={index} spacing={2} container item alignItems="center">
                 <TodoMonthSlider todo={todo} />
               </Grid>
             ))}

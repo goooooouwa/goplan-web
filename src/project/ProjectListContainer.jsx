@@ -1,21 +1,15 @@
-import React, { useEffect, useState } from "react";
-import httpService from "httpService";
-import TimelineYear from "components/TimelineYear";
-import { useParams } from "react-router-dom";
 import { Container, Grid, Typography } from "@mui/material";
+import ProjectList from "components/ProjectList";
+import httpService from "httpService";
+import React, { useEffect, useState } from "react";
 
-export default function TimelineYearPage() {
-  const params = useParams();
-  const [todos, setTodos] = useState([]);
+export default function ProjectListContainer() {
+  const [projects, setProjects] = useState([]);
 
   useEffect(() => {
-    let url = '/todos.json';
-    if (params.projectId != null) {
-      url += `?project_id=${params.projectId}`;
-    }
-    httpService.get(url)
+    httpService.get('/projects.json')
       .then((response) => {
-        setTodos(response.data);
+        setProjects(response.data);
       })
       .catch(function (error) {
         // handle error
@@ -24,7 +18,7 @@ export default function TimelineYearPage() {
       .then(function () {
         // always executed
       });
-  }, [params.projectId]);
+  }, []);
 
   return (
     <>
@@ -34,11 +28,10 @@ export default function TimelineYearPage() {
             container
             spacing={2}
             item
-            xs={12}
           >
             <Grid item xs={12}>
               <Typography variant="h3" component="div" gutterBottom>
-                Timeline (Year)
+                Projects
               </Typography>
             </Grid>
           </Grid>
@@ -46,10 +39,9 @@ export default function TimelineYearPage() {
             container
             spacing={2}
             item
-            xs={12}
           >
-            <Grid item xs={12}>
-              <TimelineYear todos={todos} />
+            <Grid item>
+              <ProjectList projects={projects} />
             </Grid>
           </Grid>
         </Grid>

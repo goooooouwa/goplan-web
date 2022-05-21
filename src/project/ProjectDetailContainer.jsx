@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Outlet, useParams } from "react-router-dom";
 import httpService from "httpService";
 import ProjectDetail from "components/ProjectDetail";
+import { Box } from "@mui/material";
 
 export default function ProjectDetailContainer() {
   const params = useParams();
@@ -27,7 +28,9 @@ export default function ProjectDetailContainer() {
 
   return (
     <>
-      <ProjectDetail project={project} />
+      <Box sx={{ mt: 2 }} >
+        <ProjectDetail project={project} />
+      </Box>
       <Outlet />
     </>
   );

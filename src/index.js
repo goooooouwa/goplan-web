@@ -5,7 +5,7 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import ProjectLayout from './project/ProjectLayout';
-import ProjectListContainer from './project/ProjectListPage';
+import ProjectListContainer from './project/ProjectListContainer';
 import ProjectDetailsContainer from './project/ProjectDetailContainer';
 import NewProjectForm from './project/NewProjectForm';
 import TodoLayout from './todo/TodoLayout';

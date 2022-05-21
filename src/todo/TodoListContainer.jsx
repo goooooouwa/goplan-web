@@ -1,13 +1,14 @@
 import httpService from "httpService";
 import React, { useEffect, useState } from "react";
 import TodoList from "components/TodoList";
-import { Typography } from "@mui/material";
-import { useParams, Outlet } from "react-router-dom";
+import { Button, Container, Grid, Typography } from "@mui/material";
+import { useParams, Outlet, Link } from "react-router-dom";
 import MasterDetailsLayout from "components/MasterDetailsLayout";
 
 export default function TodoListContainer() {
   const params = useParams();
   const [todos, setTodos] = useState([]);
+  const timelineUrl = params.projectId != null ? `/projects/${params.projectId}/timeline` : '/timeline';
 
   useEffect(() => {
     let url = '/todos.json';
@@ -29,18 +30,36 @@ export default function TodoListContainer() {
 
   return (
     <>
-      <main>
-        <Typography variant="h3" component="div" gutterBottom>
-          Todos
-        </Typography>
-        <MasterDetailsLayout
-          master={
-            <TodoList todos={todos} />
-          }
-          details={
-            <Outlet />
-          } />
-      </main>
+      <Container sx={{ mt: 2 }}>
+        <Grid container >
+          <Grid
+            container
+            spacing={2}
+            justifyContent="space-between"
+            item
+          >
+            <Grid item xs={1}>
+              <Typography variant="h4" component="div" gutterBottom>
+                Todos
+              </Typography>
+            </Grid>
+            <Grid item xs={2}>
+              <Button variant="contained" component={Link} to={timelineUrl}>
+                Show Timeline
+              </Button>
+            </Grid>
+          </Grid>
+          <Grid container item>
+            <MasterDetailsLayout
+              master={
+                <TodoList todos={todos} />
+              }
+              details={
+                <Outlet />
+              } />
+          </Grid>
+        </Grid>
+      </Container>
     </>
   );
 }
