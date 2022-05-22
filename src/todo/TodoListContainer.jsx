@@ -43,7 +43,7 @@ export default function TodoListContainer() {
                 Todos
               </Typography>
             </Grid>
-            <Grid item xs={2}>
+            <Grid item xs={5}>
               <Button variant="contained" component={Link} to={timelineUrl}>
                 Show Timeline
               </Button>
