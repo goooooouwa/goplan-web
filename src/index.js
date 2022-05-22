@@ -24,6 +24,7 @@ root.render(
     <HashRouter>
       <Routes>
         <Route path="/" element={<App />}>
+          <Route index element={<ProjectListContainer />} />
           <Route path="projects" element={<ProjectLayout />} >
             <Route index element={<ProjectListContainer />} />
             <Route path=":projectId" element={<ProjectDetailsContainer />} >

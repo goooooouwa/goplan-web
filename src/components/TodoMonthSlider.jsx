@@ -35,10 +35,10 @@ export default function TodoMonthSlider(props) {
 
   return (
     <>
-      <Grid item xs={2}>
+      <Grid item xs={12} md={2}>
         <TodoItem todo={props.todo} />
       </Grid>
-      <Grid item xs={10}>
+      <Grid item xs={12} md={10}>
         <MonthSlider
           startMonth={startDate.month()}
           endMonth={endDate.month()}

@@ -1,7 +1,7 @@
 import httpService from "httpService";
 import React, { useEffect, useState } from "react";
 import TodoList from "components/TodoList";
-import { Button, Container, Grid, Typography } from "@mui/material";
+import { Button, Container, Grid, Stack, Typography } from "@mui/material";
 import { useParams, Outlet, Link } from "react-router-dom";
 import MasterDetailsLayout from "components/MasterDetailsLayout";
 
@@ -35,18 +35,22 @@ export default function TodoListContainer() {
           <Grid
             container
             spacing={2}
-            justifyContent="space-between"
             item
           >
-            <Grid item xs={1}>
-              <Typography variant="h4" component="div" gutterBottom>
-                Todos
-              </Typography>
-            </Grid>
-            <Grid item xs={5}>
-              <Button variant="contained" component={Link} to={timelineUrl}>
-                Show Timeline
-              </Button>
+            <Grid item xs={12}>
+              <Stack
+                direction="row"
+                justifyContent="space-between"
+                alignItems="baseline"
+                spacing={2}
+              >
+                <Typography variant="h4" component="div" gutterBottom>
+                  Todos
+                </Typography>
+                <Button variant="contained" component={Link} to={timelineUrl} sx={{ maxWidth: 160 }}>
+                  Show Timeline
+                </Button>
+              </Stack>
             </Grid>
           </Grid>
           <Grid container item>

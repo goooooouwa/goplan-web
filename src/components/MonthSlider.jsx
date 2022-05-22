@@ -1,5 +1,14 @@
 import { Slider } from '@mui/material';
 import React, { useState } from 'react';
+import styled from '@emotion/styled'
+
+const CustomSlider = styled(Slider)`
+  @media only screen and (min-width: 600px) {
+    & .MuiSlider-markLabel { 
+      display: none;
+    } 
+  }
+`;
 
 const marks = [
   {
@@ -92,7 +101,7 @@ export default function MonthSlider(props) {
 
   return (
     <>
-      <Slider
+      <CustomSlider
         getAriaLabel={() => 'Month range slider'}
         valueLabelFormat={valueLabelFormat}
         value={value}
@@ -101,7 +110,7 @@ export default function MonthSlider(props) {
         getAriaValueText={valuetext}
         valueLabelDisplay="auto"
         step={1}
-        marks
+        marks={marks}
         min={0}
         max={11}
       />

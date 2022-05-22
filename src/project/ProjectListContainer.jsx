@@ -23,26 +23,14 @@ export default function ProjectListContainer() {
   return (
     <>
       <Container sx={{ mt: 2 }}>
-        <Grid container>
-          <Grid
-            container
-            spacing={2}
-            item
-          >
-            <Grid item xs={12}>
-              <Typography variant="h3" component="div" gutterBottom>
-                Projects
-              </Typography>
-            </Grid>
+        <Grid container spacing={2}>
+          <Grid item xs={12}>
+            <Typography variant="h3" component="div" gutterBottom>
+              Projects
+            </Typography>
           </Grid>
-          <Grid
-            container
-            spacing={2}
-            item
-          >
-            <Grid item>
-              <ProjectList projects={projects} />
-            </Grid>
+          <Grid item xs={12}>
+            <ProjectList projects={projects} />
           </Grid>
         </Grid>
       </Container>
