@@ -1,3 +1,4 @@
+import { PropaneSharp } from "@mui/icons-material";
 import { FormControl, FormLabel, RadioGroup, FormControlLabel, Radio, TextField, Checkbox, FormGroup, MenuItem, Select, Switch, Box, Chip, InputLabel, OutlinedInput, Button, Grid, Typography, Container } from "@mui/material";
 import TodoAutoComplete from "components/TodoAutoComplete";
 import httpService from "httpService";
@@ -31,6 +32,20 @@ export default function NewTodoForm() {
     dependencies: [],
     dependents: []
   });
+
+  function handleDependencyChange(newValue) {
+    setTodo((todo) => ({
+      ...todo,
+      dependencies: newValue
+    }));
+  }
+
+  function handleDependentChange(newValue) {
+    setTodo((todo) => ({
+      ...todo,
+      dependents: newValue
+    }));
+  }
 
   function handleChange(event) {
     setTodo((todo) => ({
@@ -186,48 +201,8 @@ export default function NewTodoForm() {
             </Grid>
             <Grid item>
               <FormControl fullWidth margin="normal">
-                <TodoAutoComplete />
-                <label>Dependencies
-                  <select multiple name="dependencies" value={todo.dependencies} onChange={handleChange}>
-                    <option value="1">Todo #1</option>
-                    <option value="2">Todo #2</option>
-                    <option value="3">Todo #3</option>
-                  </select>
-                </label>
-              </FormControl>
-            </Grid>
-            <Grid item>
-              <FormControl fullWidth margin="normal">
-                <label>Dependents
-                  <select multiple name="dependents" value={todo.dependents} onChange={handleChange}>
-                    <option value="1">Todo #1</option>
-                    <option value="2">Todo #2</option>
-                    <option value="3">Todo #3</option>
-                  </select>
-                </label>
-              </FormControl>
-            </Grid>
-            <Grid item>
-              <FormControl fullWidth margin="normal">
-                <InputLabel>Chip</InputLabel>
-                <Select
-                  multiple
-                  value={todo.dependencies}
-                  onChange={handleChange}
-                  input={<OutlinedInput id="select-multiple-chip" label="Chip" />}
-                  renderValue={(selected) => (
-                    <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
-                      {selected.map((value) => (
-                        <Chip key={value} label={value} />
-                      ))}
-                    </Box>
-                  )}
-                  MenuProps={MenuProps}
-                >
-                  <MenuItem value={1}>
-                    Todo #1
-                  </MenuItem>
-                </Select>
+                <TodoAutoComplete value={todo.dependencies} label="Depends on" onChange={handleDependencyChange} />
+                <TodoAutoComplete value={todo.dependents} label="Dependent of" onChange={handleDependentChange} />
               </FormControl>
             </Grid>
             <Grid item>

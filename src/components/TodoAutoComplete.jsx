@@ -10,8 +10,7 @@ import throttle from 'lodash/throttle';
 import httpService from 'httpService';
 import { Chip } from '@mui/material';
 
-export default function TodoAutoComplete() {
-  const [selectedValue, setSelectedValue] = React.useState([]);
+export default function TodoAutoComplete(props) {
   const [inputValue, setInputValue] = React.useState('');
   const [options, setOptions] = React.useState([]);
 
@@ -30,7 +29,7 @@ export default function TodoAutoComplete() {
     let active = true;
 
     if (inputValue === '') {
-      setOptions(selectedValue.length > 0 ? selectedValue : []);
+      setOptions(props.value.length > 0 ? props.value : []);
       return undefined;
     }
 
@@ -38,8 +37,8 @@ export default function TodoAutoComplete() {
       if (active) {
         let newOptions = [];
 
-        if (selectedValue.length > 0) {
-          newOptions = selectedValue;
+        if (props.value.length > 0) {
+          newOptions = props.value;
         }
 
         if (results) {
@@ -53,7 +52,7 @@ export default function TodoAutoComplete() {
     return () => {
       active = false;
     };
-  }, [selectedValue, inputValue, fetch]);
+  }, [props.value, inputValue, fetch]);
 
   return (
     <Autocomplete
@@ -65,16 +64,16 @@ export default function TodoAutoComplete() {
       includeInputInList
       filterSelectedOptions
       isOptionEqualToValue={(option, value) => option.id === value.id}
-      value={selectedValue}
+      value={props.value}
       onChange={(event, newValue) => {
         setOptions(newValue.length > 0 ? [newValue, ...options] : options);
-        setSelectedValue(newValue);
+        props.onChange(newValue);
       }}
       onInputChange={(event, newInputValue) => {
         setInputValue(newInputValue);
       }}
-      renderTags={(selectedValue, getTagProps) =>
-        selectedValue.map((option, index) => (
+      renderTags={(value, getTagProps) =>
+        value.map((option, index) => (
           <Chip
             variant="outlined"
             label={option.name}
@@ -83,7 +82,7 @@ export default function TodoAutoComplete() {
         ))
       }
       renderInput={(params) => (
-        <TextField {...params} label="Add a todo" fullWidth />
+        <TextField {...params} label={props.label} fullWidth />
       )}
       renderOption={(props, option) => {
         return (
