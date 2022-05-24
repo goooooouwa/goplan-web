@@ -1,4 +1,4 @@
-import { Box, TextField } from "@mui/material";
+import { Box, Button, Container, FormControl, Grid, TextField, Typography } from "@mui/material";
 import httpService from "httpService";
 import React, { useState } from "react";
 import { Navigate } from "react-router-dom";
@@ -43,24 +43,45 @@ export default function NewProjectForm() {
       {project.id && (
         <Navigate to={`/projects/${project.id}`} />
       )}
-      <form onSubmit={handleSubmit}>
-          <TextField
-            required
-            label="What's your goal?"
-            name="goalName"
-            value={project.goalName}
-            onChange={handleChange}
-          />
-        <label>Target Date:
-          <input
-            type="date"
-            name="targetDate"
-            value={project.targetDate}
-            onChange={handleChange}
-          />
-        </label>
-        <input type="submit" value="Submit" />
-      </form>
+      <Container
+        sx={{
+          maxWidth: { xs: 600 }
+        }}
+      >
+        <Typography variant="h3" component="div" gutterBottom>
+          New Goal
+        </Typography>
+        <form onSubmit={handleSubmit}>
+          <Grid container alignItems="stretch" justifyContent="center" direction="column">
+            <Grid item>
+              <TextField
+                required
+                label="What's your goal?"
+                name="goalName"
+                margin="normal"
+                fullWidth
+                value={project.goalName}
+                onChange={handleChange}
+              />
+            </Grid>
+            <Grid item>
+              <label>Target Date:
+                <input
+                  type="date"
+                  name="targetDate"
+                  value={project.targetDate}
+                  onChange={handleChange}
+                />
+              </label>
+            </Grid>
+            <Grid item>
+              <FormControl margin="normal">
+                <Button variant="contained" type="submit">Submit</Button>
+              </FormControl>
+            </Grid>
+          </Grid>
+        </form>
+      </Container>
     </div>
   );
 }

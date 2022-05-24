@@ -1,7 +1,18 @@
-import { FormControl, FormLabel, RadioGroup, FormControlLabel, Radio } from "@mui/material";
+import { FormControl, FormLabel, RadioGroup, FormControlLabel, Radio, TextField, Checkbox, FormGroup, MenuItem, Select, Switch, Box, Chip, InputLabel, OutlinedInput, Button, Grid, Typography, Container } from "@mui/material";
 import httpService from "httpService";
 import React, { useState } from "react";
 import { Navigate } from "react-router-dom";
+
+const ITEM_HEIGHT = 48;
+const ITEM_PADDING_TOP = 8;
+const MenuProps = {
+  PaperProps: {
+    style: {
+      maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
+      width: 250,
+    },
+  },
+};
 
 export default function NewTodoForm() {
   const [todo, setTodo] = useState({
@@ -61,108 +72,170 @@ export default function NewTodoForm() {
       {todo.id && (
         <Navigate to={`/todos/${todo.id}`} />
       )}
-      <form onSubmit={handleSubmit}>
-        <label>Project ID:
-          <input
-            type="text"
-            name="projectId"
-            value={todo.projectId}
-            onChange={handleChange}
-          />
-        </label>
-        <label>Todo:
-          <input
-            type="text"
-            name="name"
-            value={todo.name}
-            onChange={handleChange}
-          />
-        </label>
-        <label>Description:
-          <input
-            type="text"
-            name="description"
-            value={todo.description}
-            onChange={handleChange}
-          />
-        </label>
-        <label>Time Span:
-          <input
-            type="number"
-            name="timeSpan"
-            value={todo.timeSpan}
-            onChange={handleChange}
-          />
-        </label>
-        <label>Start Date
-          <input
-            type="date"
-            name="startDate"
-            value={todo.startDate}
-            onChange={handleChange}
-          />
-        </label>
-        <label>End Date
-          <input
-            type="date"
-            name="endDate"
-            value={todo.endDate}
-            onChange={handleChange}
-          />
-        </label>
-        <FormControl>
-          <FormLabel>Repeat?</FormLabel>
-          <RadioGroup
-            aria-labelledby="demo-radio-buttons-group-label"
-            defaultValue="false"
-            name="radio-buttons-group"
-            onChange={handleChange}
-          >
-            <FormControlLabel name="repeat" value="true" control={<Radio />} label="Yes" />
-            <FormControlLabel name="repeat" value="false" control={<Radio />} label="No" />
-          </RadioGroup>
-        </FormControl>
-        <label>
-          Times
-          <input
-            type="number"
-            name="repeatTimes"
-            value={todo.repeatTimes}
-            onChange={handleChange}
-          />
-        </label>
-        <label>Per
-          <select name="repeatPeriod" value={todo.repeatPeriod} onChange={handleChange}>
-            <option value="day">Day</option>
-            <option value="week">Week</option>
-            <option value="month">Month</option>
-            <option value="quarter">Quarter</option>
-          </select>
-        </label>
-        <label>Instance time span
-          <input
-            type="number"
-            name="instanceTimeSpan"
-            value={todo.instanceTimeSpan}
-            onChange={handleChange}
-          />
-        </label>
-        <label>Dependencies
-          <select multiple name="dependencies" value={todo.dependencies} onChange={handleChange}>
-            <option value="1">Todo #1</option>
-            <option value="2">Todo #2</option>
-            <option value="3">Todo #3</option>
-          </select>
-        </label>
-        <label>Dependents
-          <select multiple name="dependents" value={todo.dependents} onChange={handleChange}>
-            <option value="1">Todo #1</option>
-            <option value="2">Todo #2</option>
-            <option value="3">Todo #3</option>
-          </select>
-        </label>
-        <input type="submit" value="Submit" />
-      </form>
-    </div>
+      <Container
+        sx={{
+          maxWidth: { xs: 600 }
+        }}
+      >
+        <Typography variant="h3" component="div" gutterBottom>
+          New Todo
+        </Typography>
+        <form onSubmit={handleSubmit}>
+          <Grid container alignItems="stretch" justifyContent="center" direction="column">
+            <Grid item>
+              <TextField
+                label="Project ID"
+                name="projectId"
+                margin="normal"
+                fullWidth
+                value={todo.projectId}
+                onChange={handleChange}
+              />
+            </Grid>
+            <Grid item>
+              <TextField
+                label="Todo"
+                name="name"
+                margin="normal"
+                fullWidth
+                value={todo.name}
+                onChange={handleChange}
+              />
+            </Grid>
+            <Grid item>
+              <TextField
+                label="Description"
+                name="description"
+                margin="normal"
+                fullWidth
+                value={todo.description}
+                onChange={handleChange}
+              />
+            </Grid>
+            <Grid item>
+              <TextField
+                label="Time Span"
+                name="timeSpan"
+                margin="normal"
+                fullWidth
+                value={todo.timeSpan}
+                onChange={handleChange}
+              />
+            </Grid>
+            <Grid item>
+              <label>Start Date
+                <input
+                  type="date"
+                  name="startDate"
+                  value={todo.startDate}
+                  onChange={handleChange}
+                />
+              </label>
+            </Grid>
+            <Grid item>
+              <label>End Date
+                <input
+                  type="date"
+                  name="endDate"
+                  value={todo.endDate}
+                  onChange={handleChange}
+                />
+              </label>
+            </Grid>
+            <Grid item>
+              <FormControl margin="normal" fullWidth>
+                <FormControlLabel control={<Switch name="repeat" onChange={handleChange} defaultChecked={false} />} label="Repeat?" />
+              </FormControl>
+            </Grid>
+            <Grid item>
+              <TextField
+                label="Times"
+                name="repeatTimes"
+                margin="normal"
+                fullWidth
+                value={todo.repeatTimes}
+                onChange={handleChange}
+              />
+            </Grid>
+            <Grid item>
+              <FormControl fullWidth margin="normal">
+                <InputLabel>Per</InputLabel>
+                <Select
+                  name="repeatPeriod"
+                  label="Per"
+                  value={todo.repeatPeriod}
+                  onChange={handleChange}
+                >
+                  <MenuItem value="day">Day</MenuItem>
+                  <MenuItem value="week">Week</MenuItem>
+                  <MenuItem value="month">Month</MenuItem>
+                  <MenuItem value="quarter">Quarter</MenuItem>
+                </Select>
+              </FormControl>
+            </Grid>
+            <Grid item>
+              <TextField
+                label="Instance time span"
+                name="instanceTimeSpan"
+                margin="normal"
+                fullWidth
+                value={todo.instanceTimeSpan}
+                onChange={handleChange}
+              />
+            </Grid>
+            <Grid item>
+              <FormControl fullWidth margin="normal">
+                <label>Dependencies
+                  <select multiple name="dependencies" value={todo.dependencies} onChange={handleChange}>
+                    <option value="1">Todo #1</option>
+                    <option value="2">Todo #2</option>
+                    <option value="3">Todo #3</option>
+                  </select>
+                </label>
+              </FormControl>
+            </Grid>
+            <Grid item>
+              <FormControl fullWidth margin="normal">
+                <label>Dependents
+                  <select multiple name="dependents" value={todo.dependents} onChange={handleChange}>
+                    <option value="1">Todo #1</option>
+                    <option value="2">Todo #2</option>
+                    <option value="3">Todo #3</option>
+                  </select>
+                </label>
+              </FormControl>
+            </Grid>
+            <Grid item>
+              <FormControl fullWidth margin="normal">
+                <InputLabel>Chip</InputLabel>
+                <Select
+                  multiple
+                  value={todo.dependencies}
+                  onChange={handleChange}
+                  input={<OutlinedInput id="select-multiple-chip" label="Chip" />}
+                  renderValue={(selected) => (
+                    <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
+                      {selected.map((value) => (
+                        <Chip key={value} label={value} />
+                      ))}
+                    </Box>
+                  )}
+                  MenuProps={MenuProps}
+                >
+                  <MenuItem value={1}>
+                    Todo #1
+                  </MenuItem>
+                </Select>
+              </FormControl>
+            </Grid>
+            <Grid item>
+              <FormControl margin="normal">
+                <Button variant="contained" type="submit">Submit</Button>
+              </FormControl>
+            </Grid>
+          </Grid>
+        </form>
+      </Container>
+    </div >
   );
 }
