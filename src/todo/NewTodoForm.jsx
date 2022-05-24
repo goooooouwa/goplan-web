@@ -204,6 +204,10 @@ export default function NewTodoForm() {
             <Grid item>
               <FormControl fullWidth margin="normal">
                 <TodoAutoComplete value={todo.dependencies} label="Depends on" onChange={handleDependencyChange} />
+              </FormControl>
+            </Grid>
+            <Grid item>
+              <FormControl fullWidth margin="normal">
                 <TodoAutoComplete value={todo.dependents} label="Dependent of" onChange={handleDependentChange} />
               </FormControl>
             </Grid>
