@@ -69,8 +69,8 @@ export default function NewTodoForm() {
       repeat_period: todo.repeatPeriod,
       repeat_times: todo.repeatTimes,
       instance_time_span: todo.instanceTimeSpan,
-      dependencies: todo.dependencies,
-      dependents: todo.dependents,
+      dependencies: todo.dependencies.map((todo) => todo.id),
+      dependents: todo.dependents.map((todo) => todo.id),
     };
 
     httpService.post('/todos.json', todoData)
