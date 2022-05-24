@@ -17,7 +17,7 @@ import { AccountCircle } from '@mui/icons-material';
 
 const pages = [
     {
-        title: 'Projects',
+        title: 'Goals',
         url: '/projects'
     },
     {

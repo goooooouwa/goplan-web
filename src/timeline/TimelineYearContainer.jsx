@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import httpService from "httpService";
 import TimelineYear from "components/TimelineYear";
-import { useParams } from "react-router-dom";
-import { Container, Grid, Typography } from "@mui/material";
+import { useParams, Link as RouterLink } from "react-router-dom";
+import { Button, Container, Grid, Stack, Typography } from "@mui/material";
 
 export default function TimelineYearPage() {
   const params = useParams();
@@ -30,27 +30,13 @@ export default function TimelineYearPage() {
     <>
       <Container sx={{ mt: 2 }}>
         <Grid container>
-          <Grid
-            container
-            spacing={2}
-            item
-            xs={12}
-          >
-            <Grid item xs={12}>
-              <Typography variant="h3" component="div" gutterBottom>
-                Timeline (Year)
-              </Typography>
-            </Grid>
+          <Grid item xs={12}>
+            <Typography variant="h3" component="div" gutterBottom>
+              Timeline (Year)
+            </Typography>
           </Grid>
-          <Grid
-            container
-            spacing={2}
-            item
-            xs={12}
-          >
-            <Grid item xs={12}>
-              <TimelineYear todos={todos} />
-            </Grid>
+          <Grid item xs={12}>
+            <TimelineYear todos={todos} />
           </Grid>
         </Grid>
       </Container>

@@ -67,6 +67,7 @@ export default function TimelineYear(props) {
               sx={{
                 fontWeight: 'bold',
                 textAlign: 'left',
+                mt: 1,
                 ml: 2
               }}
             >

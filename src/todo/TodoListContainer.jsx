@@ -2,7 +2,7 @@ import httpService from "httpService";
 import React, { useEffect, useState } from "react";
 import TodoList from "components/TodoList";
 import { Button, Container, Grid, Stack, Typography } from "@mui/material";
-import { useParams, Outlet, Link } from "react-router-dom";
+import { useParams, Outlet, Link as RouterLink } from "react-router-dom";
 import MasterDetailsLayout from "components/MasterDetailsLayout";
 
 export default function TodoListContainer() {
@@ -32,36 +32,38 @@ export default function TodoListContainer() {
     <>
       <Container sx={{ mt: 2 }}>
         <Grid container >
-          <Grid
-            container
-            spacing={2}
-            item
-          >
-            <Grid item xs={12}>
+          <Grid item xs={12}>
+            <Stack
+              direction="row"
+              justifyContent="space-between"
+              alignItems="baseline"
+              spacing={2}
+            >
+              <Typography variant="h3" component="div" gutterBottom>
+                Todos
+              </Typography>
               <Stack
-                direction="row"
+                direction={{ xs: 'column', sm: 'row' }}
+                alignItems={{ xs: 'stretch', sm: 'baseline' }}
                 justifyContent="space-between"
-                alignItems="baseline"
                 spacing={2}
               >
-                <Typography variant="h4" component="div" gutterBottom>
-                  Todos
-                </Typography>
-                <Button variant="contained" component={Link} to={timelineUrl} sx={{ maxWidth: 160 }}>
+                <Button variant="contained" component={RouterLink} to={'/todos/new'} sx={{ maxWidth: 160 }}>
+                  New Todo
+                </Button>
+                <Button variant="outlined" component={RouterLink} to={timelineUrl} sx={{ maxWidth: 160 }}>
                   Show Timeline
                 </Button>
               </Stack>
-            </Grid>
+            </Stack>
           </Grid>
-          <Grid container item>
-            <MasterDetailsLayout
-              master={
-                <TodoList todos={todos} />
-              }
-              details={
-                <Outlet />
-              } />
-          </Grid>
+          <MasterDetailsLayout
+            master={
+              <TodoList todos={todos} />
+            }
+            details={
+              <Outlet />
+            } />
         </Grid>
       </Container>
     </>

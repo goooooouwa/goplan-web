@@ -6,6 +6,7 @@ import ListItemText from '@mui/material/ListItemText';
 import InboxIcon from '@mui/icons-material/Inbox';
 import { Link as RouterLink } from "react-router-dom";
 import React from 'react';
+import moment from 'moment';
 
 export default function ProjectList(props) {
   return (
@@ -16,7 +17,7 @@ export default function ProjectList(props) {
             <ListItemIcon>
               <InboxIcon />
             </ListItemIcon>
-            <ListItemText primary={project.goalName} />
+            <ListItemText primary={project.goalName} secondary={moment(project.targetDate).fromNow()} />
           </ListItemButton>
         </ListItem>
       ))}

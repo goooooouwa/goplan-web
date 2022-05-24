@@ -1,4 +1,5 @@
-import { Container, Grid, Typography } from "@mui/material";
+import { Button, Container, Grid, Stack, Typography } from "@mui/material";
+import { Link as RouterLink } from "react-router-dom";
 import ProjectList from "components/ProjectList";
 import httpService from "httpService";
 import React, { useEffect, useState } from "react";
@@ -25,9 +26,19 @@ export default function ProjectListContainer() {
       <Container sx={{ mt: 2 }}>
         <Grid container spacing={2}>
           <Grid item xs={12}>
-            <Typography variant="h3" component="div" gutterBottom>
-              Projects
-            </Typography>
+            <Stack
+              direction="row"
+              justifyContent="space-between"
+              alignItems="baseline"
+              spacing={2}
+            >
+              <Typography variant="h3" component="div" gutterBottom>
+                Goals
+              </Typography>
+              <Button variant="contained" component={RouterLink} to={'/projects/new'} sx={{ maxWidth: 160 }}>
+                New Goal
+              </Button>
+            </Stack>
           </Grid>
           <Grid item xs={12}>
             <ProjectList projects={projects} />
