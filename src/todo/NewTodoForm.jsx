@@ -1,4 +1,5 @@
 import { FormControl, FormLabel, RadioGroup, FormControlLabel, Radio, TextField, Checkbox, FormGroup, MenuItem, Select, Switch, Box, Chip, InputLabel, OutlinedInput, Button, Grid, Typography, Container } from "@mui/material";
+import TodoAutoComplete from "components/TodoAutoComplete";
 import httpService from "httpService";
 import React, { useState } from "react";
 import { Navigate } from "react-router-dom";
@@ -185,6 +186,7 @@ export default function NewTodoForm() {
             </Grid>
             <Grid item>
               <FormControl fullWidth margin="normal">
+                <TodoAutoComplete />
                 <label>Dependencies
                   <select multiple name="dependencies" value={todo.dependencies} onChange={handleChange}>
                     <option value="1">Todo #1</option>
