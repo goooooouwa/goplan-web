@@ -8,19 +8,20 @@ import Typography from '@mui/material/Typography';
 import parse from 'autosuggest-highlight/parse';
 import throttle from 'lodash/throttle';
 import httpService from 'httpService';
+import { Chip } from '@mui/material';
 
 export default function TodoAutoComplete() {
-  const [value, setValue] = React.useState(null);
+  const [selectedValue, setSelectedValue] = React.useState([]);
   const [inputValue, setInputValue] = React.useState('');
   const [options, setOptions] = React.useState([]);
 
   const fetch = React.useMemo(
     () =>
-      throttle((request) => {
+      throttle((request, callback) => {
         httpService.get(`/todos.json`)
-        .then((res) => {
-          setOptions(res.data);
-        });
+          .then((res) => {
+            callback(res.data);
+          });
       }, 200),
     [],
   );
@@ -29,7 +30,7 @@ export default function TodoAutoComplete() {
     let active = true;
 
     if (inputValue === '') {
-      setOptions(value ? [value] : []);
+      setOptions(selectedValue.length > 0 ? selectedValue : []);
       return undefined;
     }
 
@@ -37,8 +38,8 @@ export default function TodoAutoComplete() {
       if (active) {
         let newOptions = [];
 
-        if (value) {
-          newOptions = [value];
+        if (selectedValue.length > 0) {
+          newOptions = selectedValue;
         }
 
         if (results) {
@@ -52,27 +53,35 @@ export default function TodoAutoComplete() {
     return () => {
       active = false;
     };
-  }, [value, inputValue, fetch]);
+  }, [selectedValue, inputValue, fetch]);
 
   return (
     <Autocomplete
-      getOptionLabel={(option) =>
-        typeof option === 'string' ? option : option.name
-      }
+      multiple
+      getOptionLabel={(option) => option.name }
       filterOptions={(x) => x}
       options={options}
       autoComplete
       includeInputInList
       filterSelectedOptions
       isOptionEqualToValue={(option, value) => option.id === value.id}
-      value={value}
+      value={selectedValue}
       onChange={(event, newValue) => {
-        setOptions(newValue ? [newValue, ...options] : options);
-        setValue(newValue);
+        setOptions(newValue.length > 0 ? [newValue, ...options] : options);
+        setSelectedValue(newValue);
       }}
       onInputChange={(event, newInputValue) => {
         setInputValue(newInputValue);
       }}
+      renderTags={(selectedValue, getTagProps) =>
+        selectedValue.map((option, index) => (
+          <Chip
+            variant="outlined"
+            label={option.name}
+            {...getTagProps({ index })}
+          />
+        ))
+      }
       renderInput={(params) => (
         <TextField {...params} label="Add a todo" fullWidth />
       )}
