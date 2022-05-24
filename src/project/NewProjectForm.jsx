@@ -1,3 +1,4 @@
+import { Box, TextField } from "@mui/material";
 import httpService from "httpService";
 import React, { useState } from "react";
 import { Navigate } from "react-router-dom";
@@ -43,15 +44,13 @@ export default function NewProjectForm() {
         <Navigate to={`/projects/${project.id}`} />
       )}
       <form onSubmit={handleSubmit}>
-        <label>
-          What's your goal?
-          <input
-            type="text"
+          <TextField
+            required
+            label="What's your goal?"
             name="goalName"
             value={project.goalName}
             onChange={handleChange}
           />
-        </label>
         <label>Target Date:
           <input
             type="date"
