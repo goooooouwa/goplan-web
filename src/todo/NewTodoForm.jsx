@@ -1,20 +1,8 @@
-import { PropaneSharp } from "@mui/icons-material";
-import { FormControl, FormLabel, RadioGroup, FormControlLabel, Radio, TextField, Checkbox, FormGroup, MenuItem, Select, Switch, Box, Chip, InputLabel, OutlinedInput, Button, Grid, Typography, Container } from "@mui/material";
+import { FormControl, FormControlLabel, TextField, MenuItem, Select, Switch, InputLabel, Button, Grid, Typography, Container } from "@mui/material";
 import TodoAutoComplete from "components/TodoAutoComplete";
 import httpService from "httpService";
 import React, { useState } from "react";
 import { Navigate } from "react-router-dom";
-
-const ITEM_HEIGHT = 48;
-const ITEM_PADDING_TOP = 8;
-const MenuProps = {
-  PaperProps: {
-    style: {
-      maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
-      width: 250,
-    },
-  },
-};
 
 export default function NewTodoForm() {
   const [todo, setTodo] = useState({
