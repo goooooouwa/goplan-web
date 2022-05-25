@@ -19,7 +19,6 @@ export default function NewProjectForm() {
 
   function handleSubmit(event) {
     event.preventDefault();
-    console.log('A project was submitted:' + project);
 
     const projectData = {
       goal_name: project.goalName,

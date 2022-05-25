@@ -45,7 +45,6 @@ export default function NewTodoForm() {
 
   function handleSubmit(event) {
     event.preventDefault();
-    console.log('A todo was submitted:' + todo);
 
     const todoData = {
       project_id: todo.projectId,

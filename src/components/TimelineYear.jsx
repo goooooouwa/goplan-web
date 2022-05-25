@@ -58,9 +58,9 @@ export default function TimelineYear(props) {
 
   return (
     <>
-      <Container>
-        <Grid container spacing={2}>
-          <Grid item xs={12} md={2}>
+    <Box sx={{ flexGrow: 1 }}>
+      <Grid container spacing={2}>
+        <Grid item xs={12} md={4}>
             <Typography
               variant="body1"
               gutterBottom
@@ -74,7 +74,7 @@ export default function TimelineYear(props) {
               Todos
             </Typography>
           </Grid>
-          <Grid item xs={12} md={10}>
+          <Grid item xs={12} md={8}>
             <Box display={{ xs: 'none', md: 'block' }} m={1}>
               <Stack
                 direction="row"
@@ -102,7 +102,7 @@ export default function TimelineYear(props) {
               <TodoMonthSlider key={index} todo={todo} />
             ))}
         </Grid>
-      </Container>
+      </Box>
     </>
   );
 }
