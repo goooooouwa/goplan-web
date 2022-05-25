@@ -1,4 +1,4 @@
-import { Box, Container, Grid, Stack, Typography } from '@mui/material';
+import { Box, Grid, Stack, Typography } from '@mui/material';
 import moment from 'moment';
 import React from 'react';
 import TodoMonthSlider from './TodoMonthSlider';
@@ -87,7 +87,8 @@ export default function TimelineYear(props) {
                     variant="body1"
                     gutterBottom
                     sx={{
-                      fontWeight: 'bold'
+                      fontWeight: 'bold',
+                      color: (index === moment().month()) ? 'error.main' : 'text.primary'
                     }}
                   >
                     {mark.label}
