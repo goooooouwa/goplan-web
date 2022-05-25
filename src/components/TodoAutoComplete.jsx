@@ -56,6 +56,7 @@ export default function TodoAutoComplete(props) {
       getOptionLabel={(option) => option.name }
       filterOptions={(x) => x}
       options={options}
+      noOptionsText="Type to search"
       autoComplete
       includeInputInList
       filterSelectedOptions

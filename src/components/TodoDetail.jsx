@@ -31,11 +31,11 @@ export default function TodoDetail(props) {
               <Typography variant="body1" gutterBottom>
                 Time span: {props.todo.timeSpan}
               </Typography>
-              <Typography variant="h5" gutterBottom>
-                Repeatininterval
-              </Typography>
               {props.todo.repeat && (
                 <>
+                  <Typography variant="h5" gutterBottom>
+                    Repeating interval
+                  </Typography>
                   <Typography variant="body1" gutterBottom>
                     Interval: {props.todo.repeatTimes} times per {props.todo.repeatPeriod}
                   </Typography>

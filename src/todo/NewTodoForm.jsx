@@ -16,10 +16,14 @@ export default function NewTodoForm() {
     endDate: "",
     repeat: false,
     repeatPeriod: "week",
-    repeatTimes: 0,
+    repeatTimes: "0",
     instanceTimeSpan: "",
     dependencies: [],
-    dependents: []
+    dependents: [],
+    timeSpanCount: "0",
+    timeSpanInterval: "86400000",
+    instanceTimeSpanCount: "0",
+    instanceTimeSpanInterval: "3600000",
   });
 
   function handleDependencyChange(newValue) {
@@ -33,6 +37,13 @@ export default function NewTodoForm() {
     setTodo((todo) => ({
       ...todo,
       dependents: newValue
+    }));
+  }
+
+  function handleCheck(event) {
+    setTodo((todo) => ({
+      ...todo,
+      [event.target.name]: event.target.checked
     }));
   }
 
@@ -50,13 +61,13 @@ export default function NewTodoForm() {
       project_id: todo.projectId,
       name: todo.name,
       description: todo.description,
-      time_span: todo.timeSpan,
       start_date: todo.startDate,
       end_date: todo.endDate,
       repeat: todo.repeat,
       repeat_period: todo.repeatPeriod,
-      repeat_times: todo.repeatTimes,
-      instance_time_span: todo.instanceTimeSpan,
+      repeat_times: Math.round(Number(todo.repeatTimes)),
+      time_span: Math.round(Number(todo.timeSpanCount) * Number(todo.timeSpanInterval)),
+      instance_time_span: Math.round(Number(todo.instanceTimeSpanCount) * Number(todo.instanceTimeSpanInterval)),
       todo_dependencies_attributes: todo.dependencies.map((todo) => ({ todo_id: todo.id })),
       todo_dependents_attributes: todo.dependents.map((todo) => ({ child_id: todo.id })),
     };
@@ -123,75 +134,104 @@ export default function NewTodoForm() {
               />
             </Grid>
             <Grid item>
-              <TextField
-                label="Time Span"
-                name="timeSpan"
-                margin="normal"
-                fullWidth
-                value={todo.timeSpan}
-                onChange={handleChange}
-              />
+              <Typography variant="body1" gutterBottom textAlign="left">
+                How much time do you need to finish this?
+              </Typography>
             </Grid>
-            <Grid item>
-              <label>Start Date
-                <input
-                  type="date"
-                  name="startDate"
-                  value={todo.startDate}
+            <Grid item container xs={12} spacing={2}>
+              <Grid item xs={6}>
+                <TextField
+                  name="timeSpanCount"
+                  margin="normal"
+                  fullWidth
+                  value={todo.timeSpanCount}
                   onChange={handleChange}
                 />
-              </label>
-            </Grid>
-            <Grid item>
-              <label>End Date
-                <input
-                  type="date"
-                  name="endDate"
-                  value={todo.endDate}
-                  onChange={handleChange}
-                />
-              </label>
+              </Grid>
+              <Grid item xs={6}>
+                <FormControl margin="normal" fullWidth>
+                  <Select
+                    name="timeSpanInterval"
+                    value={todo.timeSpanInterval}
+                    onChange={handleChange}
+                  >
+                    <MenuItem value="86400000">Day</MenuItem>
+                    <MenuItem value="604800000">Week</MenuItem>
+                    <MenuItem value="2629800000">Month</MenuItem>
+                  </Select>
+                </FormControl>
+              </Grid>
             </Grid>
             <Grid item>
               <FormControl margin="normal" fullWidth>
-                <FormControlLabel control={<Switch name="repeat" onChange={handleChange} defaultChecked={false} />} label="Repeat?" />
+                <FormControlLabel control={<Switch name="repeat" onChange={handleCheck} checked={todo.repeat} />} label="Is it recurring?" />
               </FormControl>
             </Grid>
+            {todo.repeat && (
+              <>
+                <Grid item container xs={12} spacing={2}>
+                  <Grid item xs={6}>
+                    <TextField
+                      label="Times"
+                      name="repeatTimes"
+                      margin="normal"
+                      fullWidth
+                      value={todo.repeatTimes}
+                      onChange={handleChange}
+                    />
+                  </Grid>
+                  <Grid item xs={6}>
+                    <FormControl margin="normal" fullWidth>
+                      <InputLabel>Per</InputLabel>
+                      <Select
+                        name="repeatPeriod"
+                        label="Per"
+                        value={todo.repeatPeriod}
+                        onChange={handleChange}
+                      >
+                        <MenuItem value="day">Day</MenuItem>
+                        <MenuItem value="week">Week</MenuItem>
+                        <MenuItem value="month">Month</MenuItem>
+                      </Select>
+                    </FormControl>
+                  </Grid>
+                </Grid>
+                <Grid item>
+                  <Typography variant="body1" gutterBottom textAlign="left">
+                    How long would each time take?
+                  </Typography>
+                </Grid>
+                <Grid item container xs={12} spacing={2}>
+                  <Grid item xs={6}>
+                    <TextField
+                      name="instanceTimeSpanCount"
+                      margin="normal"
+                      fullWidth
+                      value={todo.instanceTimeSpanCount}
+                      onChange={handleChange}
+                    />
+                  </Grid>
+                  <Grid item xs={6}>
+                    <FormControl margin="normal" fullWidth>
+                      <Select
+                        name="instanceTimeSpanInterval"
+                        value={todo.instanceTimeSpanInterval}
+                        onChange={handleChange}
+                      >
+                        <MenuItem value="3600000">Hour</MenuItem>
+                        <MenuItem value="86400000">Day</MenuItem>
+                        <MenuItem value="604800000">Week</MenuItem>
+                        <MenuItem value="2629800000">Month</MenuItem>
+                      </Select>
+                    </FormControl>
+                  </Grid>
+                </Grid>
+              </>
+            )}
             <Grid item>
-              <TextField
-                label="Times"
-                name="repeatTimes"
-                margin="normal"
-                fullWidth
-                value={todo.repeatTimes}
-                onChange={handleChange}
-              />
-            </Grid>
-            <Grid item>
-              <FormControl fullWidth margin="normal">
-                <InputLabel>Per</InputLabel>
-                <Select
-                  name="repeatPeriod"
-                  label="Per"
-                  value={todo.repeatPeriod}
-                  onChange={handleChange}
-                >
-                  <MenuItem value="day">Day</MenuItem>
-                  <MenuItem value="week">Week</MenuItem>
-                  <MenuItem value="month">Month</MenuItem>
-                  <MenuItem value="quarter">Quarter</MenuItem>
-                </Select>
-              </FormControl>
-            </Grid>
-            <Grid item>
-              <TextField
-                label="Instance time span"
-                name="instanceTimeSpan"
-                margin="normal"
-                fullWidth
-                value={todo.instanceTimeSpan}
-                onChange={handleChange}
-              />
+              <Typography variant="h5" gutterBottom textAlign="left">
+                Related Todos
+              </Typography>
             </Grid>
             <Grid item>
               <FormControl fullWidth margin="normal">
