@@ -17,7 +17,7 @@ export default function ProjectList(props) {
             <ListItemIcon>
               <InboxIcon />
             </ListItemIcon>
-            <ListItemText primary={project.goalName} secondary={moment(project.targetDate).fromNow()} />
+            <ListItemText primary={project.goalName} secondary={(project.targetDate !== null) ? moment(project.targetDate).fromNow() : "Indefinitely"} />
           </ListItemButton>
         </ListItem>
       ))}

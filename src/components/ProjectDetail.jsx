@@ -13,7 +13,7 @@ export default function ProjectDetail(props) {
           Goal: {props.project.goalName}
         </Typography>
         <Typography variant="body1" gutterBottom>
-          {moment(props.project.targetDate).fromNow()}
+          {(props.project.targetDate !== null) ? moment(props.project.targetDate).fromNow() : "Indefinitely"}
         </Typography>
       </Stack>
     </>

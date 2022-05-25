@@ -14,10 +14,10 @@ export default function TodoDetail(props) {
         Time span: {props.todo.timeSpan}
       </Typography>
       <Typography variant="body1" gutterBottom>
-        Start date: {moment(props.todo.startDate).format("MMMM Do, YYYY")}
+        Start date: {(props.todo.startDate !== null) ? moment(props.todo.startDate).format("MMMM Do, YYYY") : "Pending"}
       </Typography>
       <Typography variant="body1" gutterBottom>
-        End date: {moment(props.todo.endDate).format("MMMM Do, YYYY")}
+        End date: {(props.todo.startDate !== null) ? moment(props.todo.endDate).format("MMMM Do, YYYY") : "Pending"}
       </Typography>
       {props.todo.repeat && (
         <>
