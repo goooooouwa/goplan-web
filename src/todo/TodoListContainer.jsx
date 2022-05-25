@@ -8,13 +8,11 @@ import MasterDetailsLayout from "components/MasterDetailsLayout";
 export default function TodoListContainer() {
   const params = useParams();
   const [todos, setTodos] = useState([]);
-  const timelineUrl = params.projectId != null ? `/projects/${params.projectId}/timeline` : '/timeline';
+  const timelineUrl = params.projectId !== undefined ? `/projects/${params.projectId}/timeline` : '/timeline';
+  const newTodoUrl = params.projectId !== undefined ? `/projects/${params.projectId}/todos/new` : '/todos/new';
 
   useEffect(() => {
-    let url = '/todos.json';
-    if (params.projectId != null) {
-      url += `?project_id=${params.projectId}`;
-    }
+    const url = params.projectId !== undefined ? `/todos.json/?project_id=${params.projectId}` : '/todos.json';
     httpService.get(url)
       .then((response) => {
         setTodos(response.data);
@@ -48,7 +46,7 @@ export default function TodoListContainer() {
                 justifyContent="space-between"
                 spacing={2}
               >
-                <Button variant="contained" component={RouterLink} to={'/todos/new'} sx={{ maxWidth: 160 }}>
+                <Button variant="contained" component={RouterLink} to={newTodoUrl} sx={{ maxWidth: 160 }}>
                   New Todo
                 </Button>
                 <Button variant="outlined" component={RouterLink} to={timelineUrl} sx={{ maxWidth: 160 }}>

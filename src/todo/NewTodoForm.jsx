@@ -2,12 +2,13 @@ import { FormControl, FormControlLabel, TextField, MenuItem, Select, Switch, Inp
 import TodoAutoComplete from "components/TodoAutoComplete";
 import httpService from "httpService";
 import React, { useState } from "react";
-import { Navigate } from "react-router-dom";
+import { Navigate, useParams } from "react-router-dom";
 
 export default function NewTodoForm() {
+  const params = useParams();
   const [todo, setTodo] = useState({
     id: null,
-    projectId: "",
+    projectId: (params.projectId !== undefined) ? params.projectId : "",
     name: "",
     description: "",
     timeSpan: "",
@@ -57,8 +58,8 @@ export default function NewTodoForm() {
       repeat_period: todo.repeatPeriod,
       repeat_times: todo.repeatTimes,
       instance_time_span: todo.instanceTimeSpan,
-      todo_dependencies_attributes: todo.dependencies.map((todo) => ({todo_id: todo.id})),
-      todo_dependents_attributes: todo.dependents.map((todo) => ({child_id: todo.id})),
+      todo_dependencies_attributes: todo.dependencies.map((todo) => ({ todo_id: todo.id })),
+      todo_dependents_attributes: todo.dependents.map((todo) => ({ child_id: todo.id })),
     };
 
     httpService.post('/todos.json', todoData)
@@ -76,7 +77,7 @@ export default function NewTodoForm() {
   return (
     <div>
       {todo.id && (
-        <Navigate to={`/todos/${todo.id}`} />
+        <Navigate to={`/projects/${todo.projectId}/todos/${todo.id}`} />
       )}
       <Container
         sx={{
@@ -88,16 +89,18 @@ export default function NewTodoForm() {
         </Typography>
         <form onSubmit={handleSubmit}>
           <Grid container alignItems="stretch" justifyContent="center" direction="column">
-            <Grid item>
-              <TextField
-                label="Project ID"
-                name="projectId"
-                margin="normal"
-                fullWidth
-                value={todo.projectId}
-                onChange={handleChange}
-              />
-            </Grid>
+            {(params.projectId === undefined) && (
+              <Grid item>
+                <TextField
+                  label="Project ID"
+                  name="projectId"
+                  margin="normal"
+                  fullWidth
+                  value={todo.projectId}
+                  onChange={handleChange}
+                />
+              </Grid>
+            )}
             <Grid item>
               <TextField
                 label="Todo"
@@ -114,6 +117,8 @@ export default function NewTodoForm() {
                 name="description"
                 margin="normal"
                 fullWidth
+                multiline
+                rows={4}
                 value={todo.description}
                 onChange={handleChange}
               />

@@ -31,6 +31,7 @@ root.render(
               <Route path="timeline" element={<TimelineYearContainer />} />
               <Route path="todos" element={<TodoListContainer />} >
                 <Route path=":todoId" element={<TodoDetailsContainer />} />
+                <Route path="new" element={<NewTodoForm />} />
               </Route>
             </Route>
             <Route path="new" element={<NewProjectForm />} />

@@ -7,13 +7,11 @@ import { Button, Container, Grid, Stack, Typography } from "@mui/material";
 export default function TimelineYearPage() {
   const params = useParams();
   const [todos, setTodos] = useState([]);
-  const todoListUrl = params.projectId != null ? `/projects/${params.projectId}/todos` : '/todos';
+  const todoListUrl = params.projectId !== undefined ? `/projects/${params.projectId}/todos` : '/todos';
+  const newTodoUrl = params.projectId !== undefined ? `/projects/${params.projectId}/todos/new` : '/todos/new';
 
   useEffect(() => {
-    let url = '/todos.json';
-    if (params.projectId != null) {
-      url += `?project_id=${params.projectId}`;
-    }
+    const url = params.projectId !== undefined ? `/todos.json/?project_id=${params.projectId}` : '/todos.json';
     httpService.get(url)
       .then((response) => {
         setTodos(response.data);
@@ -47,7 +45,7 @@ export default function TimelineYearPage() {
                 justifyContent="space-between"
                 spacing={2}
               >
-                <Button variant="contained" component={RouterLink} to={'/todos/new'} sx={{ maxWidth: 160 }}>
+                <Button variant="contained" component={RouterLink} to={newTodoUrl} sx={{ maxWidth: 160 }}>
                   New Todo
                 </Button>
                 <Button variant="outlined" component={RouterLink} to={todoListUrl} sx={{ maxWidth: 160 }}>
