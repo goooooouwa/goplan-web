@@ -1,9 +1,13 @@
 import { Chip, Box, Paper, Stack, Typography, Container } from "@mui/material";
+import displayElapsedTime from "lib/timeLeft";
 import moment from "moment";
 import React from "react";
 import { Link as RouterLink } from "react-router-dom";
 
 export default function TodoDetail(props) {
+  const timeSpan = displayElapsedTime(props.todo.timeSpan, props.todo.startDate, props.todo.endDate);
+  const instanceTimeSpan = displayElapsedTime(props.todo.instanceTimeSpan);
+
   return (
     <>
       <Box sx={{ m: 2 }}>
@@ -29,7 +33,7 @@ export default function TodoDetail(props) {
                 End date: {(props.todo.startDate !== null) ? moment(props.todo.endDate).format("MMMM Do, YYYY") : ""}
               </Typography>
               <Typography variant="body1" gutterBottom>
-                Time span: {props.todo.timeSpan}
+                Time span: {`${timeSpan.value} ${timeSpan.label}`}
               </Typography>
               {props.todo.repeat && (
                 <>
@@ -37,10 +41,10 @@ export default function TodoDetail(props) {
                     Repeating interval
                   </Typography>
                   <Typography variant="body1" gutterBottom>
-                    Interval: {props.todo.repeatTimes} times per {props.todo.repeatPeriod}
+                    Interval: {props.todo.repeatTimes} times per {displayElapsedTime(props.todo.repeatPeriod).key}
                   </Typography>
                   <Typography variant="body1" gutterBottom>
-                    Instance time span: {props.todo.instanceTimeSpan}
+                    Each time: {`${instanceTimeSpan.value} ${instanceTimeSpan.label}`}
                   </Typography>
                 </>
               )}

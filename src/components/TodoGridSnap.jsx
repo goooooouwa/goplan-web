@@ -5,7 +5,7 @@ import httpService from "httpService";
 
 export default function TodoGridSnap(props) {
   const [todo, setTodo] = useState(props.todo);
-  let month = moment(todo.startDate).isValid() ? moment(todo.startDate).month() : 0;
+  let month = moment(todo.startDate || null).isValid() ? moment(todo.startDate).month() : 0;
 
   function handleColumnChange(columnDelta) {
     setTodo((todo) => {

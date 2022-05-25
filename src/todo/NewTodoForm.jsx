@@ -15,15 +15,15 @@ export default function NewTodoForm() {
     startDate: "",
     endDate: "",
     repeat: false,
-    repeatPeriod: "week",
+    repeatPeriod: "604800",
     repeatTimes: "0",
     instanceTimeSpan: "",
     dependencies: [],
     dependents: [],
     timeSpanCount: "0",
-    timeSpanInterval: "86400000",
+    timeSpanInterval: "2629800",
     instanceTimeSpanCount: "0",
-    instanceTimeSpanInterval: "3600000",
+    instanceTimeSpanInterval: "3600",
   });
 
   function handleDependencyChange(newValue) {
@@ -155,9 +155,9 @@ export default function NewTodoForm() {
                     value={todo.timeSpanInterval}
                     onChange={handleChange}
                   >
-                    <MenuItem value="86400000">Day</MenuItem>
-                    <MenuItem value="604800000">Week</MenuItem>
-                    <MenuItem value="2629800000">Month</MenuItem>
+                    <MenuItem value="86400">Day</MenuItem>
+                    <MenuItem value="604800">Week</MenuItem>
+                    <MenuItem value="2629800">Month</MenuItem>
                   </Select>
                 </FormControl>
               </Grid>
@@ -189,9 +189,9 @@ export default function NewTodoForm() {
                         value={todo.repeatPeriod}
                         onChange={handleChange}
                       >
-                        <MenuItem value="day">Day</MenuItem>
-                        <MenuItem value="week">Week</MenuItem>
-                        <MenuItem value="month">Month</MenuItem>
+                        <MenuItem value="86400">Day</MenuItem>
+                        <MenuItem value="604800">Week</MenuItem>
+                        <MenuItem value="2629800">Month</MenuItem>
                       </Select>
                     </FormControl>
                   </Grid>
@@ -218,10 +218,10 @@ export default function NewTodoForm() {
                         value={todo.instanceTimeSpanInterval}
                         onChange={handleChange}
                       >
-                        <MenuItem value="3600000">Hour</MenuItem>
-                        <MenuItem value="86400000">Day</MenuItem>
-                        <MenuItem value="604800000">Week</MenuItem>
-                        <MenuItem value="2629800000">Month</MenuItem>
+                        <MenuItem value="3600">Hour</MenuItem>
+                        <MenuItem value="86400">Day</MenuItem>
+                        <MenuItem value="604800">Week</MenuItem>
+                        <MenuItem value="2629800">Month</MenuItem>
                       </Select>
                     </FormControl>
                   </Grid>

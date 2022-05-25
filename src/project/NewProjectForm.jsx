@@ -40,7 +40,7 @@ export default function NewProjectForm() {
   return (
     <div>
       {project.id && (
-        <Navigate to={`/projects/${project.id}`} />
+        <Navigate to={`/projects/${project.id}/todos`} />
       )}
       <Container
         sx={{
