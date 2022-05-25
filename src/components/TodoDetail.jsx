@@ -7,6 +7,7 @@ import { Link as RouterLink } from "react-router-dom";
 export default function TodoDetail(props) {
   const timeSpan = displayElapsedTime(props.todo.timeSpan, props.todo.startDate, props.todo.endDate);
   const instanceTimeSpan = displayElapsedTime(props.todo.instanceTimeSpan);
+  const interval = displayElapsedTime(props.todo.repeatTimes * props.todo.repeatPeriod);
 
   return (
     <>
@@ -27,13 +28,13 @@ export default function TodoDetail(props) {
                 Time schedule
               </Typography>
               <Typography variant="body1" gutterBottom>
-                Start date: {(props.todo.startDate !== null) ? moment(props.todo.startDate).format("MMMM Do, YYYY") : ""}
+                Start date: {(props.todo.startDate !== null) ? moment(props.todo.startDate).format("YYYY-MM-DD") : ""}
               </Typography>
               <Typography variant="body1" gutterBottom>
-                End date: {(props.todo.startDate !== null) ? moment(props.todo.endDate).format("MMMM Do, YYYY") : ""}
+                End date: {(props.todo.startDate !== null) ? moment(props.todo.endDate).format("YYYY-MM-DD") : ""}
               </Typography>
               <Typography variant="body1" gutterBottom>
-                Time span: {`${timeSpan.value} ${timeSpan.label}`}
+                Time span: {(timeSpan !== null) ? `${timeSpan.value} ${timeSpan.label}`: ''}
               </Typography>
               {props.todo.repeat && (
                 <>
@@ -41,10 +42,10 @@ export default function TodoDetail(props) {
                     Repeating interval
                   </Typography>
                   <Typography variant="body1" gutterBottom>
-                    Interval: {props.todo.repeatTimes} times per {displayElapsedTime(props.todo.repeatPeriod).key}
+                    Interval: {props.todo.repeatTimes} times per {(interval !== null) ? interval.key : ''}
                   </Typography>
                   <Typography variant="body1" gutterBottom>
-                    Each time: {`${instanceTimeSpan.value} ${instanceTimeSpan.label}`}
+                    Each time: {(instanceTimeSpan !== null) ? `${instanceTimeSpan.value} ${instanceTimeSpan.label}`: ''}
                   </Typography>
                 </>
               )}

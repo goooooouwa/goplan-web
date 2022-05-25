@@ -13,7 +13,7 @@ export default function TodoDetailContainer() {
     startDate: "",
     endDate: "",
     repeat: false,
-    repeatPeriod: "week",
+    repeatPeriod: 0,
     repeatTimes: 0,
     instanceTimeSpan: "",
     dependencies: [],

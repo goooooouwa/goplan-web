@@ -5,7 +5,7 @@ axios.interceptors.request.use(
   function (config) {
     // Do something before request is sent
     // config.headers.Authorization = `Bearer ${your_token}`;
-    // config.baseURL = 'https://goplan-api.herokuapp.com/';
+    config.baseURL = 'https://goplan-api.herokuapp.com/';
 
     return config;
   },

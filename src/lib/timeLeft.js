@@ -6,7 +6,7 @@ export function elapsedTimeComponents(elapsedTimeInSeconds, startDate, endDate) 
     if (typeof elapsedTimeInSeconds === 'number') {
         milliseconds = Math.round(elapsedTimeInSeconds * 1000);
     } else if (moment(startDate || null).isValid() && moment(endDate || null).isValid()) {
-        milliseconds = Math.abs(endDate - startDate);
+        milliseconds = Math.abs(moment(endDate) - moment(startDate));
     }
 
     // get total seconds between the times
@@ -15,6 +15,10 @@ export function elapsedTimeComponents(elapsedTimeInSeconds, startDate, endDate) 
     // calculate (and subtract) whole months
     const months = Math.floor(delta / 2629800);
     delta -= months * 2629800;
+
+    // calculate (and subtract) whole weeks
+    const weeks = Math.floor(delta / 604800);
+    delta -= weeks * 604800;
 
     // calculate (and subtract) whole days
     const days = Math.floor(delta / 86400);
@@ -35,6 +39,11 @@ export function elapsedTimeComponents(elapsedTimeInSeconds, startDate, endDate) 
         key: 'month',
         label: 'months',
         value: months
+    },
+    {
+        key: 'week',
+        label: 'weeks',
+        value: weeks
     },
     {
         key: 'day',
@@ -61,6 +70,9 @@ export function elapsedTimeComponents(elapsedTimeInSeconds, startDate, endDate) 
 export default function displayElapsedTime(startDate, endDate, elapsedTimeInSeconds) {
     const components = elapsedTimeComponents(startDate, endDate, elapsedTimeInSeconds);
     const index = components.findIndex((component) => (component.value > 0));
+    if (index === -1) {
+        return null;
+    }
     const initialValue = components[index];
     return { ...initialValue };
 }
