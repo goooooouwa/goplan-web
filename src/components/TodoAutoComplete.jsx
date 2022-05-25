@@ -82,7 +82,7 @@ export default function TodoAutoComplete(props) {
       )}
       renderOption={(props, option) => {
         return (
-          <li {...props}>
+          <li {...props} key={option.id}>
             <Grid container alignItems="center">
               <Grid item xs>
                 {option.name}
