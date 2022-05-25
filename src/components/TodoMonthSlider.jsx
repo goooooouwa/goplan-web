@@ -9,7 +9,7 @@ import TodoItem from './TodoItem';
 export default function TodoMonthSlider(props) {
   const startDate = (props.todo.startDate !== null) ? moment(props.todo.startDate) : moment();
   const timeSpan = displayElapsedTime(props.todo.timeSpan, props.todo.startDate, props.todo.endDate);
-  const endDate = (props.todo.endDate !== null) ? moment(props.todo.endDate) : moment().add(timeSpan.value, timeSpan.label);
+  const endDate = (props.todo.endDate === null && timeSpan !== null) ? moment().add(timeSpan.value, timeSpan.label) : moment(props.todo.endDate || '') ;
 
   function handleMonthChange(months) {
     const [newStartMonth, newEndMonth] = months;
