@@ -1,14 +1,51 @@
 import { Slider } from '@mui/material';
 import React, { useState } from 'react';
-import styled from '@emotion/styled'
+import { styled } from '@mui/system';
+import moment from 'moment';
 
-const CustomSlider = styled(Slider)`
-  @media only screen and (min-width: 600px) {
-    & .MuiSlider-markLabel { 
-      display: none;
+const CustomSlider = styled(Slider)({
+  '@media only screen and (min-width: 600px)': {
+    '& .MuiSlider-markLabel': { 
+      display: 'none'
     } 
-  }
-`;
+  },
+  '& .MuiSlider-markLabel[data-index="0"]': {
+    color: (moment().month() === 0) ? 'red': 'black'
+  },
+  '& .MuiSlider-markLabel[data-index="1"]': {
+    color: (moment().month() === 1) ? 'red': 'black'
+  },
+  '& .MuiSlider-markLabel[data-index="2"]': {
+    color: (moment().month() === 2) ? 'red': 'black'
+  },
+  '& .MuiSlider-markLabel[data-index="3"]': {
+    color: (moment().month() === 3) ? 'red': 'black'
+  },
+  '& .MuiSlider-markLabel[data-index="4"]': {
+    color: (moment().month() === 4) ? 'red': 'black'
+  },
+  '& .MuiSlider-markLabel[data-index="5"]': {
+    color: (moment().month() === 5) ? 'red': 'black'
+  },
+  '& .MuiSlider-markLabel[data-index="6"]': {
+    color: (moment().month() === 6) ? 'red': 'black'
+  },
+  '& .MuiSlider-markLabel[data-index="7"]': {
+    color: (moment().month() === 7) ? 'red': 'black'
+  },
+  '& .MuiSlider-markLabel[data-index="8"]': {
+    color: (moment().month() === 8) ? 'red': 'black'
+  },
+  '& .MuiSlider-markLabel[data-index="9"]': {
+    color: (moment().month() === 9) ? 'red': 'black'
+  },
+  '& .MuiSlider-markLabel[data-index="10"]': {
+    color: (moment().month() === 10) ? 'red': 'black'
+  },
+  '& .MuiSlider-markLabel[data-index="11"]': {
+    color: (moment().month() === 11) ? 'red': 'black'
+  },
+});
 
 const marks = [
   {
