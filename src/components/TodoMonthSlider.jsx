@@ -1,5 +1,6 @@
 import { Grid } from '@mui/material';
 import httpService from 'httpService';
+import displayElapsedTime from 'lib/timeLeft';
 import moment from 'moment';
 import React from 'react';
 import MonthSlider from './MonthSlider';
@@ -7,7 +8,8 @@ import TodoItem from './TodoItem';
 
 export default function TodoMonthSlider(props) {
   const startDate = (props.todo.startDate !== null) ? moment(props.todo.startDate) : moment();
-  const endDate = (props.todo.endDate !== null) ? moment(props.todo.endDate) : moment();
+  const timeSpan = displayElapsedTime(props.todo.timeSpan, props.todo.startDate, props.todo.endDate);
+  const endDate = (props.todo.endDate !== null) ? moment(props.todo.endDate) : moment().add(timeSpan.value, timeSpan.label);
 
   function handleMonthChange(months) {
     const [newStartMonth, newEndMonth] = months;
