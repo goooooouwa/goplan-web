@@ -3,22 +3,16 @@ import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
 import Grid from '@mui/material/Grid';
 import throttle from 'lodash/throttle';
-import httpService from 'httpService';
 import { Chip } from '@mui/material';
 
-export default function TodoAutoComplete(props) {
+export default function AutoCompleteContainer(props) {
   const [inputValue, setInputValue] = React.useState('');
   const [options, setOptions] = React.useState([]);
 
   const fetch = React.useMemo(
     () =>
-      throttle((request, callback) => {
-        httpService.get(`/todos.json`)
-          .then((res) => {
-            callback(res.data);
-          });
-      }, 200),
-    [],
+      throttle(props.onSearch, 200),
+    [props.onSearch],
   );
 
   React.useEffect(() => {
@@ -29,7 +23,7 @@ export default function TodoAutoComplete(props) {
       return undefined;
     }
 
-    fetch({ input: inputValue }, (results) => {
+    fetch(inputValue, (results) => {
       if (active) {
         let newOptions = [];
 

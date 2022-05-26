@@ -1,5 +1,5 @@
 import { FormControl, FormControlLabel, TextField, MenuItem, Select, Switch, InputLabel, Button, Grid, Typography, Container } from "@mui/material";
-import TodoAutoComplete from "components/TodoAutoComplete";
+import AutoCompleteContainer from "components/AutoCompleteContainer";
 import httpService from "httpService";
 import React, { useState } from "react";
 import { Navigate, useParams } from "react-router-dom";
@@ -25,18 +25,19 @@ export default function NewTodoForm() {
     instanceTimeSpanCount: "0",
     instanceTimeSpanInterval: "3600",
   });
+  const searchUrlPrefix = params.projectId !== undefined ? `/todos.json?project_id=${params.projectId}&name=` : '/todos.json?name=';
+
+  function search(name, callback) {
+    httpService.get(`${searchUrlPrefix}${name}`)
+      .then((response) => {
+        callback(response.data);
+      });
+  }
 
   function handleDependencyChange(newValue) {
     setTodo((todo) => ({
       ...todo,
       dependencies: newValue
-    }));
-  }
-
-  function handleDependentChange(newValue) {
-    setTodo((todo) => ({
-      ...todo,
-      dependents: newValue
     }));
   }
 
@@ -235,7 +236,7 @@ export default function NewTodoForm() {
             </Grid>
             <Grid item>
               <FormControl fullWidth margin="normal">
-                <TodoAutoComplete value={todo.dependencies} label="Depends on" onChange={handleDependencyChange} />
+                <AutoCompleteContainer value={todo.dependencies} label="Depends on" onChange={handleDependencyChange} onSearch={search} />
               </FormControl>
             </Grid>
             <Grid item>
