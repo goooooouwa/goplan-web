@@ -11,7 +11,7 @@ export default function TodoDetail(props) {
 
   return (
     <>
-      <Box sx={{ m: 2 }}>
+      <Box sx={{ my: 2 }}>
         <Paper variant="outlined">
           <Container maxWidth="sm">
             <Stack spacing={2} alignItems="flex-start" sx={{ m: 2 }}>

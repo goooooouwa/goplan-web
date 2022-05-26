@@ -58,7 +58,6 @@ export default function TimelineYear(props) {
 
   return (
     <>
-    <Box sx={{ flexGrow: 1 }}>
       <Grid container spacing={2}>
         <Grid item xs={12} md={4}>
             <Typography
@@ -103,7 +102,6 @@ export default function TimelineYear(props) {
               <TodoMonthSlider key={index} todo={todo} />
             ))}
         </Grid>
-      </Box>
     </>
   );
 }

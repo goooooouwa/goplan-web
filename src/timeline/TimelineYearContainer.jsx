@@ -36,9 +36,19 @@ export default function TimelineYearPage() {
               alignItems="baseline"
               spacing={2}
             >
-            <Typography variant="h3" component="div" gutterBottom>
-              Timeline (Year)
-            </Typography>
+              <Stack
+                direction={{ xs: 'column', sm: 'row' }}
+                alignItems={{ xs: 'flex-start', sm: 'baseline' }}
+                spacing={{ xs: 0, sm: 1 }}
+                justifyContent="space-between"
+              >
+                <Typography variant="h3" component="div" gutterBottom>
+                  Timeline
+                </Typography>
+                <Typography variant="h4" component="div" gutterBottom>
+                  (Year)
+                </Typography>
+              </Stack>
               <Stack
                 direction={{ xs: 'column', sm: 'row' }}
                 alignItems={{ xs: 'stretch', sm: 'baseline' }}

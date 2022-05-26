@@ -4,7 +4,7 @@ import { styled } from '@mui/system';
 import moment from 'moment';
 
 const CustomSlider = styled(Slider)({
-  '@media only screen and (min-width: 600px)': {
+  '@media only screen and (min-width: 900px)': {
     '& .MuiSlider-markLabel': { 
       display: 'none'
     } 
