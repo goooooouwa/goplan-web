@@ -239,11 +239,6 @@ export default function NewTodoForm() {
               </FormControl>
             </Grid>
             <Grid item>
-              <FormControl fullWidth margin="normal">
-                <TodoAutoComplete value={todo.dependents} label="Dependent of" onChange={handleDependentChange} />
-              </FormControl>
-            </Grid>
-            <Grid item>
               <FormControl margin="normal">
                 <Button variant="contained" type="submit">Submit</Button>
               </FormControl>
