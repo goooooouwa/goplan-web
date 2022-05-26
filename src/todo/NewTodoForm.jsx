@@ -1,5 +1,6 @@
 import { FormControl, FormControlLabel, TextField, MenuItem, Select, Switch, InputLabel, Button, Grid, Typography, Container } from "@mui/material";
 import AutoCompleteContainer from "components/AutoCompleteContainer";
+import AutoCompleteMultipleContainer from "components/AutoCompleteMultipleContainer";
 import httpService from "httpService";
 import React, { useState } from "react";
 import { Navigate, useParams } from "react-router-dom";
@@ -8,6 +9,7 @@ export default function NewTodoForm() {
   const params = useParams();
   const [todo, setTodo] = useState({
     id: null,
+    project: null,
     projectId: (params.projectId !== undefined) ? params.projectId : "",
     name: "",
     description: "",
@@ -19,19 +21,33 @@ export default function NewTodoForm() {
     repeatTimes: "0",
     instanceTimeSpan: "",
     dependencies: [],
-    dependents: [],
     timeSpanCount: "0",
     timeSpanInterval: "2629800",
     instanceTimeSpanCount: "0",
     instanceTimeSpanInterval: "3600",
   });
-  const searchUrlPrefix = params.projectId !== undefined ? `/todos.json?project_id=${params.projectId}&name=` : '/todos.json?name=';
+  const queryByProjectId = params.projectId !== undefined ? `&project_id=${params.projectId}` : '';
 
-  function search(name, callback) {
-    httpService.get(`${searchUrlPrefix}${name}`)
+  function todoSearch(name, callback) {
+    httpService.get(`/todos.json?name=${name}${queryByProjectId}`)
       .then((response) => {
         callback(response.data);
       });
+  }
+
+  function projectSearch(name, callback) {
+    httpService.get(`/projects.json`)
+      .then((response) => {
+        callback(response.data);
+      });
+  }
+
+  function handleProjectIdChange(newValue) {
+    setTodo((todo) => ({
+      ...todo,
+      project: newValue,
+      projectId: newValue.id
+    }));
   }
 
   function handleDependencyChange(newValue) {
@@ -70,7 +86,6 @@ export default function NewTodoForm() {
       time_span: Math.round(Number(todo.timeSpanCount) * Number(todo.timeSpanInterval)),
       instance_time_span: Math.round(Number(todo.instanceTimeSpanCount) * Number(todo.instanceTimeSpanInterval)),
       todo_dependencies_attributes: todo.dependencies.map((todo) => ({ todo_id: todo.id })),
-      todo_dependents_attributes: todo.dependents.map((todo) => ({ child_id: todo.id })),
     };
 
     httpService.post('/todos.json', todoData)
@@ -102,14 +117,9 @@ export default function NewTodoForm() {
           <Grid container alignItems="stretch" justifyContent="center" direction="column">
             {(params.projectId === undefined) && (
               <Grid item>
-                <TextField
-                  label="Project ID"
-                  name="projectId"
-                  margin="normal"
-                  fullWidth
-                  value={todo.projectId}
-                  onChange={handleChange}
-                />
+                <FormControl fullWidth margin="normal">
+                  <AutoCompleteContainer value={todo.project} label="Project" onChange={handleProjectIdChange} onSearch={projectSearch} />
+                </FormControl>
               </Grid>
             )}
             <Grid item>
@@ -236,7 +246,7 @@ export default function NewTodoForm() {
             </Grid>
             <Grid item>
               <FormControl fullWidth margin="normal">
-                <AutoCompleteContainer value={todo.dependencies} label="Depends on" onChange={handleDependencyChange} onSearch={search} />
+                <AutoCompleteMultipleContainer value={todo.dependencies} label="Depends on" onChange={handleDependencyChange} onSearch={todoSearch} />
               </FormControl>
             </Grid>
             <Grid item>
