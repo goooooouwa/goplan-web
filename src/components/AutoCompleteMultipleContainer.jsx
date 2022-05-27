@@ -35,7 +35,7 @@ export default function AutoCompleteMultipleContainer(props) {
           newOptions = [...newOptions, ...results];
         }
 
-        setOptions(newOptions);
+        setOptions([...new Map(newOptions.map((option) => [option.id, option])).values()]);
       }
     });
 

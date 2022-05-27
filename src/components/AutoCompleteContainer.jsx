@@ -34,7 +34,7 @@ export default function AutoCompleteContainer(props) {
           newOptions = [...newOptions, ...results];
         }
 
-        setOptions(newOptions);
+        setOptions([...new Map(newOptions.map((option) => [option.id, option])).values()]);
       }
     });
 
@@ -45,7 +45,7 @@ export default function AutoCompleteContainer(props) {
 
   return (
     <Autocomplete
-      getOptionLabel={(option) => option.name }
+      getOptionLabel={(option) => option.name}
       filterOptions={(x) => x}
       options={options}
       noOptionsText="Type to search"
@@ -55,7 +55,7 @@ export default function AutoCompleteContainer(props) {
       isOptionEqualToValue={(option, value) => option.id === value.id}
       value={props.value}
       onChange={(event, newValue) => {
-        setOptions(newValue? [newValue, ...options] : options);
+        setOptions(newValue ? [newValue, ...options] : options);
         props.onChange(newValue);
       }}
       onInputChange={(event, newInputValue) => {
