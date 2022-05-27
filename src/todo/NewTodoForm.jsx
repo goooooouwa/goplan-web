@@ -167,6 +167,7 @@ export default function NewTodoForm() {
                     value={todo.timeSpanInterval}
                     onChange={handleChange}
                   >
+                    <MenuItem value="3600">Hour</MenuItem>
                     <MenuItem value="86400">Day</MenuItem>
                     <MenuItem value="604800">Week</MenuItem>
                     <MenuItem value="2629800">Month</MenuItem>
@@ -176,7 +177,7 @@ export default function NewTodoForm() {
             </Grid>
             <Grid item>
               <FormControl margin="normal" fullWidth>
-                <FormControlLabel control={<Switch name="repeat" onChange={handleCheck} checked={todo.repeat} />} label="Is it recurring?" />
+                <FormControlLabel control={<Switch name="repeat" onChange={handleCheck} checked={todo.repeat} />} label="Recurring?" />
               </FormControl>
             </Grid>
             {todo.repeat && (
