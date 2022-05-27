@@ -167,13 +167,34 @@ export default function NewTodoForm() {
                     value={todo.timeSpanInterval}
                     onChange={handleChange}
                   >
-                    <MenuItem value="3600">Hour</MenuItem>
-                    <MenuItem value="86400">Day</MenuItem>
-                    <MenuItem value="604800">Week</MenuItem>
-                    <MenuItem value="2629800">Month</MenuItem>
+                    <MenuItem value="3600">Hours</MenuItem>
+                    <MenuItem value="86400">Days</MenuItem>
+                    <MenuItem value="604800">Weeks</MenuItem>
+                    <MenuItem value="2629800">Months</MenuItem>
+                    <MenuItem value="31557600">Years</MenuItem>
                   </Select>
                 </FormControl>
               </Grid>
+            </Grid>
+            <Grid item>
+              <label>Start Date
+                <input
+                  type="date"
+                  name="startDate"
+                  value={todo.startDate}
+                  onChange={handleChange}
+                />
+              </label>
+            </Grid>
+            <Grid item>
+              <label>End Date
+                <input
+                  type="date"
+                  name="endDate"
+                  value={todo.endDate}
+                  onChange={handleChange}
+                />
+              </label>
             </Grid>
             <Grid item>
               <FormControl margin="normal" fullWidth>
@@ -205,6 +226,8 @@ export default function NewTodoForm() {
                         <MenuItem value="86400">Day</MenuItem>
                         <MenuItem value="604800">Week</MenuItem>
                         <MenuItem value="2629800">Month</MenuItem>
+                        <MenuItem value="10519200">Quarter</MenuItem>
+                        <MenuItem value="31557600">Year</MenuItem>
                       </Select>
                     </FormControl>
                   </Grid>
@@ -231,10 +254,7 @@ export default function NewTodoForm() {
                         value={todo.instanceTimeSpanInterval}
                         onChange={handleChange}
                       >
-                        <MenuItem value="3600">Hour</MenuItem>
-                        <MenuItem value="86400">Day</MenuItem>
-                        <MenuItem value="604800">Week</MenuItem>
-                        <MenuItem value="2629800">Month</MenuItem>
+                        <MenuItem value="3600">Hours</MenuItem>
                       </Select>
                     </FormControl>
                   </Grid>

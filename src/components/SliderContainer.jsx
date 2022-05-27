@@ -6,7 +6,7 @@ function valuetext(value) {
 }
 
 export default function SliderContainer(props) {
-  const [value, setValue] = useState([props.start, props.end]);
+  const [value, setValue] = useState([props.rangeStart, props.rangeEnd]);
 
   const valueLabelFormat = (value) => {
     const index = props.marks.findIndex((mark) => mark.value === value);
@@ -38,8 +38,8 @@ export default function SliderContainer(props) {
         valueLabelDisplay="auto"
         step={1}
         marks
-        min={0}
-        max={props.max}
+        min={props.rangeMin}
+        max={props.rangeMax}
       />
     </>
   );

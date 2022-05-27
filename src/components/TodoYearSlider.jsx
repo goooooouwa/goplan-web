@@ -6,6 +6,25 @@ import React from 'react';
 import SliderContainer from './SliderContainer';
 import TodoItem from './TodoItem';
 
+const rangeMin = 0;
+const rangeMax = 11;
+
+function rangeMark(date){
+  if (date.isValid()) {
+    let rangeMark;
+    if (date.isBefore(moment().startOf("year"))) {
+      rangeMark = rangeMin;
+    } else if (date.isAfter(moment().endOf("year"))) {
+      rangeMark = rangeMax;
+    } else {
+      rangeMark = date.month();
+    }
+    return rangeMark;
+  } else {
+    return -1;
+  }
+}
+
 export default function TodoYearSlider(props) {
   const startDate = (props.todo.startDate !== null) ? moment(props.todo.startDate) : moment();
   const timeSpan = displayElapsedTime(props.todo.timeSpan, props.todo.startDate, props.todo.endDate);
@@ -17,7 +36,6 @@ export default function TodoYearSlider(props) {
   } else {
     endDate = moment();
   }
-
 
   function handleMonthChange(months) {
     const [newStartMonth, newEndMonth] = months;
@@ -51,9 +69,10 @@ export default function TodoYearSlider(props) {
       <Grid item xs={12} md={8} sx={{ px: 3 }}>
         <SliderContainer
           marks={props.marks}
-          max={11}
-          start={startDate.month()}
-          end={endDate.month()}
+          rangeMin={rangeMin}
+          rangeMax={rangeMax}
+          rangeStart={rangeMark(startDate)}
+          rangeEnd={rangeMark(endDate)}
           handleChange={handleMonthChange}
         />
       </Grid>

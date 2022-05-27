@@ -6,6 +6,25 @@ import React from 'react';
 import SliderContainer from './SliderContainer';
 import TodoItem from './TodoItem';
 
+const rangeMin = 0;
+const rangeMax = 6;
+
+function rangeMark(date){
+  if (date.isValid()) {
+    let rangeMark;
+    if (date.isBefore(moment().startOf("week"))) {
+      rangeMark = rangeMin;
+    } else if (date.isAfter(moment().endOf("week"))) {
+      rangeMark = rangeMax;
+    } else {
+      rangeMark = date.day();
+    }
+    return rangeMark;
+  } else {
+    return -1;
+  }
+}
+
 export default function TodoWeekSlider(props) {
   const startDate = (props.todo.startDate !== null) ? moment(props.todo.startDate) : moment();
   const timeSpan = displayElapsedTime(props.todo.timeSpan, props.todo.startDate, props.todo.endDate);
@@ -50,9 +69,10 @@ export default function TodoWeekSlider(props) {
       <Grid item xs={12} md={8} sx={{ px: 3}}>
         <SliderContainer
           marks={props.marks}
-          max={6}
-          start={startDate.day()}
-          end={endDate.day()}
+          rangeMin={rangeMin}
+          rangeMax={rangeMax}
+          rangeStart={rangeMark(startDate)}
+          rangeEnd={rangeMark(endDate)}
           handleChange={handleDayChange}
         />
       </Grid>
