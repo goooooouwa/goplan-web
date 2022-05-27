@@ -11,7 +11,7 @@ export default function AutoCompleteContainer(props) {
   const fetch = React.useMemo(
     () =>
       throttle(props.onSearch, 200),
-    [],
+    [props.onSearch],
   );
 
   React.useEffect(() => {

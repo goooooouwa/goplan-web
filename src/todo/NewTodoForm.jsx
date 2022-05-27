@@ -2,7 +2,7 @@ import { FormControl, FormControlLabel, TextField, MenuItem, Select, Switch, Inp
 import AutoCompleteContainer from "components/AutoCompleteContainer";
 import AutoCompleteMultipleContainer from "components/AutoCompleteMultipleContainer";
 import httpService from "httpService";
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
 import { Navigate, useParams } from "react-router-dom";
 
 export default function NewTodoForm() {
@@ -28,19 +28,19 @@ export default function NewTodoForm() {
   });
   const queryByProjectId = params.projectId !== undefined ? `project_id=${params.projectId}&` : '';
 
-  function todoSearch(name, callback) {
+  const todoSearch = useCallback((name, callback) => {
     httpService.get(`/todos.json?${queryByProjectId}name=${name}`)
       .then((response) => {
         callback(response.data);
       });
-  }
+  },[queryByProjectId]);
 
-  function projectSearch(name, callback) {
+  const projectSearch = useCallback((name, callback) => {
     httpService.get(`/projects.json?name=${name}`)
       .then((response) => {
         callback(response.data);
       });
-  }
+  },[]);
 
   function handleProjectIdChange(newValue) {
     setTodo((todo) => ({
