@@ -58,7 +58,7 @@ export default function TimelineYear(props) {
 
   return (
     <>
-      <Grid container spacing={2}>
+      <Grid container rowSpacing={1} >
         <Grid item xs={12} md={4}>
             <Typography
               variant="body1"
@@ -74,7 +74,7 @@ export default function TimelineYear(props) {
             </Typography>
           </Grid>
           <Grid item xs={12} md={8}>
-            <Box display={{ xs: 'none', md: 'block' }} m={1}>
+            <Box display={{ xs: 'block', md: 'block' }} m={1}>
               <Stack
                 direction="row"
                 justifyContent="space-between"

@@ -147,7 +147,7 @@ export default function MonthSlider(props) {
         getAriaValueText={valuetext}
         valueLabelDisplay="auto"
         step={1}
-        marks={marks}
+        marks
         min={0}
         max={11}
       />
