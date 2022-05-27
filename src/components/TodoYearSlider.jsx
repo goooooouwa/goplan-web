@@ -2,44 +2,46 @@ import { Grid } from '@mui/material';
 import httpService from 'httpService';
 import displayElapsedTime from 'lib/timeLeft';
 import moment from 'moment';
-import React from 'react';
+import React, { useState } from 'react';
 import SliderContainer from './SliderContainer';
 import TodoItem from './TodoItem';
 
 const rangeMin = 0;
 const rangeMax = 11;
 
-function isInRange(date){
-  return date.isValid() && (date.isAfter(moment().startOf("year")) && date.isBefore(moment().endOf("year")));
-}
-
-function rangeMark(date){
-  if (date.isValid()) {
-    let rangeMark;
-    if (date.isBefore(moment().startOf("year"))) {
-      rangeMark = rangeMin;
-    } else if (date.isAfter(moment().endOf("year"))) {
-      rangeMark = rangeMax;
-    } else {
-      rangeMark = date.month();
-    }
-    return rangeMark;
+function calculatedEndDate(startDate, timeSpanInMilliseconds) {
+  if (moment(startDate).isValid() && timeSpanInMilliseconds !== null) {
+    const timeSpan = displayElapsedTime(timeSpanInMilliseconds);
+    return moment(startDate).add(timeSpan.value, timeSpan.label);
   } else {
-    return -1;
+    return moment();
   }
 }
 
 export default function TodoYearSlider(props) {
-  const startDate = (props.todo.startDate !== null) ? moment(props.todo.startDate) : moment();
-  const timeSpan = displayElapsedTime(props.todo.timeSpan, props.todo.startDate, props.todo.endDate);
-  let endDate;
-  if (props.todo.endDate !== null) {
-    endDate = moment(props.todo.endDate);
-  } else if (props.todo.endDate === null && timeSpan !== null) {
-    endDate = moment().add(timeSpan.value, timeSpan.label);
-  } else {
-    endDate = moment();
-  }
+  const [startDate, setStartDate] = useState((props.todo.startDate !== null) ? moment(props.todo.startDate) : moment());
+  const [endDate, setEndDate] = useState((props.todo.endDate !== null) ? moment(props.todo.endDate) : calculatedEndDate(props.todo.startDate, props.todo.timeSpan));
+  const selectedYear = moment(props.selectedYear);
+
+  const isInRange = (date) => {
+    return date.isValid() && (date.isAfter(selectedYear.startOf("year")) && date.isBefore(selectedYear.endOf("year")));
+  };
+
+  const rangeMark = (date) => {
+    if (date.isValid()) {
+      let rangeMark;
+      if (date.isBefore(selectedYear.startOf("year"))) {
+        rangeMark = rangeMin;
+      } else if (date.isAfter(selectedYear.endOf("year"))) {
+        rangeMark = rangeMax;
+      } else {
+        rangeMark = date.month();
+      }
+      return rangeMark;
+    } else {
+      return -1;
+    }
+  };
 
   function handleMonthChange(months) {
     const [newStartMonth, newEndMonth] = months;
@@ -58,7 +60,8 @@ export default function TodoYearSlider(props) {
 
     httpService.put(`/todos/${props.todo.id}.json`, todoData)
       .then((response) => {
-        console.log(response);
+        setStartDate((response.data.startDate !== null) ? moment(response.data.startDate) : moment());
+        setEndDate((response.data.endDate !== null) ? moment(response.data.endDate) : calculatedEndDate(response.data.startDate, response.data.timeSpan));
       })
       .catch(function (error) {
         console.log(error);

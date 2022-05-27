@@ -1,5 +1,5 @@
 import { Slider } from '@mui/material';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 function valuetext(value) {
   return value;
@@ -36,11 +36,16 @@ export default function SliderContainer(props) {
     }
   };
 
+  useEffect(()=>{
+    setValue([props.rangeStart, props.rangeEnd]);
+  },[props.rangeStart, props.rangeEnd]);
+
   return (
     <>
       <Slider
         valueLabelFormat={valueLabelFormat}
         value={value}
+        disabled={props.disableRangeStart && props.disableRangeEnd}
         onChange={handleChange}
         onChangeCommitted={handleChangeCommitted}
         getAriaValueText={valuetext}
