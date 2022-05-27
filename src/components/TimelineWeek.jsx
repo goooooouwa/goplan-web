@@ -41,29 +41,37 @@ export default function TimelineWeek(props) {
     <>
       <Grid container rowSpacing={1} >
         <Grid item xs={12} md={4}>
-            <Typography
-              variant="body1"
-              gutterBottom
-              sx={{
-                fontWeight: 'bold',
-                textAlign: 'left',
-                mt: 1,
-                ml: 2
-              }}
+          <Typography
+            variant="body1"
+            gutterBottom
+            sx={{
+              fontWeight: 'bold',
+              textAlign: 'left',
+              mt: 1,
+              ml: 2
+            }}
+          >
+            Todos
+          </Typography>
+        </Grid>
+        <Grid item xs={12} md={8}>
+          <Box m={1}>
+            <Stack
+              direction="row"
+              justifyContent="space-between"
+              alignItems="center"
             >
-              Todos
-            </Typography>
-          </Grid>
-          <Grid item xs={12} md={8}>
-            <Box display={{ xs: 'block', md: 'block' }} m={1}>
-              <Stack
-                direction="row"
-                justifyContent="space-between"
-                alignItems="center"
-              >
-                {marks.map((mark, index) => (
+              {marks.map((mark, index) => (
+                <Stack key={index}>
                   <Typography
-                    key={index}
+                    variant="body2"
+                    sx={{
+                      color: (isInWeekRange(moment(), props.selectedWeek) && moment().day() === index) ? 'error.main' : 'text.primary'
+                    }}
+                  >
+                    {mark.label}
+                  </Typography>
+                  <Typography
                     variant="body1"
                     gutterBottom
                     sx={{
@@ -71,18 +79,19 @@ export default function TimelineWeek(props) {
                       color: (isInWeekRange(moment(), props.selectedWeek) && moment().day() === index) ? 'error.main' : 'text.primary'
                     }}
                   >
-                    {mark.label}
+                    {props.selectedWeek.startOf("week").add(mark.value, "days").format("D")}
                   </Typography>
-                ))}
-              </Stack>
-            </Box>
-          </Grid>
-          {props.todos
-            .sort((t1, t2) => moment(t1.createdAt).isBefore(t2.createdAt) ? -1 : 1)
-            .map((todo, index) => (
-              <TodoWeekSlider key={index} todo={todo} marks={marks} selectedWeek={props.selectedWeek}/>
-            ))}
+                </Stack>
+              ))}
+            </Stack>
+          </Box>
         </Grid>
+        {props.todos
+          .sort((t1, t2) => moment(t1.createdAt).isBefore(t2.createdAt) ? -1 : 1)
+          .map((todo, index) => (
+            <TodoWeekSlider key={index} todo={todo} marks={marks} selectedWeek={props.selectedWeek} />
+          ))}
+      </Grid>
     </>
   );
 }

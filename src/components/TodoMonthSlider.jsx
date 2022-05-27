@@ -17,9 +17,9 @@ export default function TodoMonthSlider(props) {
   const rangeMark = (date) => {
     if (date.isValid()) {
       let rangeMark;
-      if (date.isBefore(props.selectedMonth.startOf("month"))) {
+      if (date.isBefore(props.selectedMonth.clone().startOf("month"))) {
         rangeMark = rangeMin;
-      } else if (date.isAfter(props.selectedMonth.endOf("month"))) {
+      } else if (date.isAfter(props.selectedMonth.clone().endOf("month"))) {
         rangeMark = rangeMax;
       } else {
         rangeMark = Math.ceil(date.date() / 7) - 1;

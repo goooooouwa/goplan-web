@@ -17,9 +17,9 @@ export default function TodoWeekSlider(props) {
   function rangeMark(date) {
     if (date.isValid()) {
       let rangeMark;
-      if (date.isBefore(props.selectedWeek.startOf("week"))) {
+      if (date.isBefore(props.selectedWeek.clone().startOf("week"))) {
         rangeMark = rangeMin;
-      } else if (date.isAfter(props.selectedWeek.endOf("week"))) {
+      } else if (date.isAfter(props.selectedWeek.clone().endOf("week"))) {
         rangeMark = rangeMax;
       } else {
         rangeMark = date.day();

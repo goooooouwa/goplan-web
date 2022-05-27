@@ -18,11 +18,11 @@ export default function TimelineYearContainer() {
   }
 
   const handlePreviousYearClick = (event) => {
-    setSearchParams({year: selectedYear.subtract(1, "years").format("YYYY")});
+    setSearchParams({year: selectedYear.clone().subtract(1, "years").format("YYYY")});
   }
 
   const handleNextYearClick = (event) => {
-    setSearchParams({year: selectedYear.add(1, "years").format("YYYY")});
+    setSearchParams({year: selectedYear.clone().add(1, "years").format("YYYY")});
   }
 
   useEffect(() => {

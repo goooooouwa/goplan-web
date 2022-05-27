@@ -18,11 +18,11 @@ export default function TimelineMonthContainer() {
   }
 
   const handlePreviousMonthClick = (event) => {
-    setSearchParams({month: selectedMonth.subtract(1, "months").format("YYYYMM")});
+    setSearchParams({month: selectedMonth.clone().subtract(1, "months").format("YYYYMM")});
   }
 
   const handleNextMonthClick = (event) => {
-    setSearchParams({month: selectedMonth.add(1, "months").format("YYYYMM")});
+    setSearchParams({month: selectedMonth.clone().add(1, "months").format("YYYYMM")});
   }
 
   useEffect(() => {

@@ -17,9 +17,9 @@ export default function TodoYearSlider(props) {
   const rangeMark = (date) => {
     if (date.isValid()) {
       let rangeMark;
-      if (date.isBefore(props.selectedYear.startOf("year"))) {
+      if (date.isBefore(props.selectedYear.clone().startOf("year"))) {
         rangeMark = rangeMin;
-      } else if (date.isAfter(props.selectedYear.endOf("year"))) {
+      } else if (date.isAfter(props.selectedYear.clone().endOf("year"))) {
         rangeMark = rangeMax;
       } else {
         rangeMark = date.month();

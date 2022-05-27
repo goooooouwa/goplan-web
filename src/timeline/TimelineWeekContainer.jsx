@@ -18,11 +18,11 @@ export default function TimelineWeekContainer() {
   }
 
   const handlePreviousWeekClick = (event) => {
-    setSearchParams({week: selectedWeek.subtract(1, "weeks").format("YYYY[W]WW")});
+    setSearchParams({week: selectedWeek.clone().subtract(1, "weeks").format("YYYY[W]WW")});
   }
 
   const handleNextWeekClick = (event) => {
-    setSearchParams({week: selectedWeek.add(1, "weeks").format("YYYY[W]WW")});
+    setSearchParams({week: selectedWeek.clone().add(1, "weeks").format("YYYY[W]WW")});
   }
 
   useEffect(() => {
@@ -51,7 +51,7 @@ export default function TimelineWeekContainer() {
               alignItems="center"
             >
               <Typography variant="h3" component="div">
-                {`Week ${Math.ceil(selectedWeek.date() / 7)}, ${selectedWeek.format("MMMM YYYY")}`}
+                {selectedWeek.format("MMMM, YYYY")}
               </Typography>
               <Stack
                 direction={{ xs: 'column', sm: 'row' }}

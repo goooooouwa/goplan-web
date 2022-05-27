@@ -47,15 +47,23 @@ export default function TimelineMonth(props) {
             </Typography>
           </Grid>
           <Grid item xs={12} md={8}>
-            <Box display={{ xs: 'block', md: 'block' }} m={1}>
-              <Stack
-                direction="row"
-                justifyContent="space-between"
-                alignItems="center"
-              >
-                {marks.map((mark, index) => (
+            <Box m={1}>
+            <Stack
+              direction="row"
+              justifyContent="space-between"
+              alignItems="center"
+            >
+              {marks.map((mark, index) => (
+                <Stack key={index}>
                   <Typography
-                    key={index}
+                    variant="body2"
+                    sx={{
+                      color: (isInMonthRange(moment(), props.selectedMonth) && (Math.ceil(moment().date() / 7) - 1 === index)) ? 'error.main' : 'text.primary'
+                    }}
+                  >
+                    {mark.label}
+                  </Typography>
+                  <Typography
                     variant="body1"
                     gutterBottom
                     sx={{
@@ -63,11 +71,12 @@ export default function TimelineMonth(props) {
                       color: (isInMonthRange(moment(), props.selectedMonth) && (Math.ceil(moment().date() / 7) - 1 === index)) ? 'error.main' : 'text.primary'
                     }}
                   >
-                    {mark.label}
+                    {`${props.selectedMonth.clone().startOf("month").add(mark.value, "weeks").format("D")} - ${moment.min(props.selectedMonth.clone().startOf("month").add(mark.value, "weeks").add(6, "days"), props.selectedMonth.clone().endOf("month")).format("D")}`}
                   </Typography>
-                ))}
-              </Stack>
-            </Box>
+                </Stack>
+              ))}
+            </Stack>
+          </Box>
           </Grid>
           {props.todos
             .sort((t1, t2) => moment(t1.createdAt).isBefore(t2.createdAt) ? -1 : 1)
