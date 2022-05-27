@@ -15,8 +15,8 @@ import NewTodoForm from './todo/NewTodoForm';
 import TimelineLayout from './timeline/TimelineLayout';
 import TimelineYearContainer from './timeline/TimelineYearContainer';
 import TimelineMonthView from './timeline/TimelineMonthView';
-import TimelineWeekView from './timeline/TimelineWeekView';
 import TimelineDayView from './timeline/TimelineDayView';
+import TimelineWeekContainer from 'timeline/TimelineWeekContainer';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -44,7 +44,7 @@ root.render(
           <Route path="timeline" element={<TimelineLayout />} >
             <Route index element={<TimelineYearContainer />} />
             <Route path="month" element={<TimelineMonthView />} />
-            <Route path="week" element={<TimelineWeekView />} />
+            <Route path="week" element={<TimelineWeekContainer />} />
             <Route path="day" element={<TimelineDayView />} />
           </Route>
         </Route>
