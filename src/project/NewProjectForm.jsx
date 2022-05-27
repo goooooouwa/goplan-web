@@ -44,7 +44,8 @@ export default function NewProjectForm() {
       )}
       <Container
         sx={{
-          maxWidth: { xs: 600 }
+          maxWidth: { xs: 600 },
+          mt: 2
         }}
       >
         <Typography variant="h3" component="div" gutterBottom>

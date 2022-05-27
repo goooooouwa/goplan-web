@@ -42,11 +42,11 @@ export default function NewTodoForm() {
       });
   },[]);
 
-  function handleProjectIdChange(newValue) {
+  function handleProjectChange(newValue) {
     setTodo((todo) => ({
       ...todo,
       project: newValue,
-      projectId: newValue.id
+      projectId: (newValue === null) ? "" : newValue.id
     }));
   }
 
@@ -107,7 +107,8 @@ export default function NewTodoForm() {
       )}
       <Container
         sx={{
-          maxWidth: { xs: 600 }
+          maxWidth: { xs: 600 },
+          mt: 2
         }}
       >
         <Typography variant="h3" component="div" gutterBottom>
@@ -118,7 +119,7 @@ export default function NewTodoForm() {
             {(params.projectId === undefined) && (
               <Grid item>
                 <FormControl fullWidth margin="normal">
-                  <AutoCompleteContainer value={todo.project} label="Project" onChange={handleProjectIdChange} onSearch={projectSearch} />
+                  <AutoCompleteContainer value={todo.project} label="Project" onChange={handleProjectChange} onSearch={projectSearch} />
                 </FormControl>
               </Grid>
             )}
