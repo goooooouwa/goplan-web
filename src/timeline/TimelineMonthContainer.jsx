@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import httpService from "httpService";
-import TimelineYear from "components/TimelineYear";
 import { useParams, Link as RouterLink } from "react-router-dom";
 import { Button, Container, Grid, Stack, Typography } from "@mui/material";
 import moment from "moment";
+import TimelineMonth from "components/TimelineMonth";
 
-export default function TimelineYearContainer() {
+export default function TimelineMonthContainer() {
   const params = useParams();
   const [todos, setTodos] = useState([]);
   const todoListUrl = params.projectId !== undefined ? `/projects/${params.projectId}/todos` : '/todos';
@@ -37,7 +37,7 @@ export default function TimelineYearContainer() {
               alignItems="center"
             >
                 <Typography variant="h3" component="div">
-                  {moment().format("YYYY")}
+                  {moment().format("MMMM, YYYY")}
                 </Typography>
               <Stack
                 direction={{ xs: 'column', sm: 'row' }}
@@ -55,7 +55,7 @@ export default function TimelineYearContainer() {
             </Stack>
           </Grid>
           <Grid item xs={12}>
-            <TimelineYear todos={todos} />
+            <TimelineMonth todos={todos} />
           </Grid>
         </Grid>
       </Container>

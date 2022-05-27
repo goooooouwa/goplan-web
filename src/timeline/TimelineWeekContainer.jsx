@@ -5,7 +5,7 @@ import { Button, Container, Grid, Stack, Typography } from "@mui/material";
 import moment from "moment";
 import TimelineWeek from "components/TimelineWeek";
 
-export default function TimelineYearPage() {
+export default function TimelineWeekContainer() {
   const params = useParams();
   const [todos, setTodos] = useState([]);
   const todoListUrl = params.projectId !== undefined ? `/projects/${params.projectId}/todos` : '/todos';
@@ -37,7 +37,7 @@ export default function TimelineYearPage() {
               alignItems="center"
             >
                 <Typography variant="h3" component="div">
-                  {moment().format("MMMM, YYYY")}
+                  {`Week ${Math.ceil(moment().date() / 7)}, ${moment().format("MMMM YYYY")}`}
                 </Typography>
               <Stack
                 direction={{ xs: 'column', sm: 'row' }}

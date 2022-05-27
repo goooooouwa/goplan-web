@@ -7,7 +7,6 @@ function valuetext(value) {
 
 export default function SliderContainer(props) {
   const [value, setValue] = useState([props.start, props.end]);
-  const minDistance = props.end - props.start;
 
   const valueLabelFormat = (value) => {
     const index = props.marks.findIndex((mark) => mark.value === value);
@@ -25,18 +24,7 @@ export default function SliderContainer(props) {
     if (!Array.isArray(newValue)) {
       return;
     }
-
-    if (newValue[1] - newValue[0] < minDistance) {
-      if (activeThumb === 0) {
-        const clamped = Math.min(newValue[0], 100 - minDistance);
-        setValue([clamped, clamped + minDistance]);
-      } else {
-        const clamped = Math.max(newValue[1], minDistance);
-        setValue([clamped - minDistance, clamped]);
-      }
-    } else {
-      setValue(newValue);
-    }
+    setValue(newValue);
   };
 
   return (
