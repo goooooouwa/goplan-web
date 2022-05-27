@@ -29,24 +29,16 @@ export default function TimelineYearPage() {
   return (
     <>
       <Container sx={{ mt: 2 }}>
-        <Grid container>
+        <Grid container spacing={2}>
           <Grid item xs={12}>
             <Stack
               direction="row"
               justifyContent="space-between"
-              alignItems="baseline"
-              spacing={2}
+              alignItems="center"
             >
-              <Stack
-                direction={{ xs: 'column', sm: 'row' }}
-                alignItems={{ xs: 'flex-start', sm: 'baseline' }}
-                spacing={{ xs: 0, sm: 1 }}
-                justifyContent="space-between"
-              >
-                <Typography variant="h3" component="div" gutterBottom>
+                <Typography variant="h3" component="div">
                   {moment().format("YYYY")}
                 </Typography>
-              </Stack>
               <Stack
                 direction={{ xs: 'column', sm: 'row' }}
                 alignItems={{ xs: 'stretch', sm: 'baseline' }}

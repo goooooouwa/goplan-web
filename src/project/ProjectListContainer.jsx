@@ -29,10 +29,10 @@ export default function ProjectListContainer() {
             <Stack
               direction="row"
               justifyContent="space-between"
-              alignItems="baseline"
+              alignItems="center"
               spacing={2}
             >
-              <Typography variant="h3" component="div" gutterBottom>
+              <Typography variant="h3" component="div">
                 Goals
               </Typography>
               <Button variant="contained" component={RouterLink} to={'/projects/new'} sx={{ maxWidth: 160 }}>

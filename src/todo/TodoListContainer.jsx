@@ -29,15 +29,14 @@ export default function TodoListContainer() {
   return (
     <>
       <Container sx={{ mt: 2 }}>
-        <Grid container >
+        <Grid container spacing={2}>
           <Grid item xs={12}>
             <Stack
               direction="row"
               justifyContent="space-between"
-              alignItems="baseline"
-              spacing={2}
+              alignItems="center"
             >
-              <Typography variant="h3" component="div" gutterBottom>
+              <Typography variant="h3" component="div">
                 Todos
               </Typography>
               <Stack
