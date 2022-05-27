@@ -1,6 +1,6 @@
 import { Grid } from '@mui/material';
 import httpService from 'httpService';
-import displayElapsedTime from 'lib/timeLeft';
+import { calculatedEndDate } from 'lib/timeLeft';
 import moment from 'moment';
 import React, { useState } from 'react';
 import SliderContainer from './SliderContainer';
@@ -8,15 +8,6 @@ import TodoItem from './TodoItem';
 
 const rangeMin = 0;
 const rangeMax = 11;
-
-function calculatedEndDate(startDate, timeSpanInMilliseconds) {
-  if (moment(startDate).isValid() && timeSpanInMilliseconds !== null) {
-    const timeSpan = displayElapsedTime(timeSpanInMilliseconds);
-    return moment(startDate).add(timeSpan.value, timeSpan.label);
-  } else {
-    return moment();
-  }
-}
 
 export default function TodoYearSlider(props) {
   const [startDate, setStartDate] = useState((props.todo.startDate !== null) ? moment(props.todo.startDate) : moment());

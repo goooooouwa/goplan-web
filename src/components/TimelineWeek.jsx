@@ -79,7 +79,7 @@ export default function TimelineWeek(props) {
           {props.todos
             .sort((t1, t2) => moment(t1.createdAt).isBefore(t2.createdAt) ? -1 : 1)
             .map((todo, index) => (
-              <TodoWeekSlider key={index} todo={todo} marks={marks} />
+              <TodoWeekSlider key={index} todo={todo} marks={marks} selectedWeek={props.selectedWeek}/>
             ))}
         </Grid>
     </>

@@ -28,7 +28,9 @@ root.render(
           <Route path="projects" element={<ProjectLayout />} >
             <Route index element={<ProjectListContainer />} />
             <Route path=":projectId" element={<ProjectDetailsContainer />} >
-              <Route path="timeline" element={<TimelineYearContainer />} />
+              <Route path="year" element={<TimelineYearContainer />} />
+              <Route path="month" element={<TimelineMonthContainer />} />
+              <Route path="week" element={<TimelineWeekContainer />} />
               <Route path="todos" element={<TodoListContainer />} >
                 <Route path=":todoId" element={<TodoDetailsContainer />} />
                 <Route path="new" element={<NewTodoForm />} />

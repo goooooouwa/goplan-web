@@ -76,3 +76,12 @@ export default function displayElapsedTime(startDate, endDate, elapsedTimeInSeco
     const initialValue = components[index];
     return { ...initialValue };
 }
+
+export function calculatedEndDate(startDate, timeSpanInMilliseconds) {
+    if (moment(startDate).isValid() && timeSpanInMilliseconds !== null) {
+        const timeSpan = displayElapsedTime(timeSpanInMilliseconds);
+        return moment(startDate).add(timeSpan.value, timeSpan.label);
+    } else {
+        return moment();
+    }
+}

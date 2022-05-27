@@ -8,7 +8,9 @@ import MasterDetailsLayout from "components/MasterDetailsLayout";
 export default function TodoListContainer() {
   const params = useParams();
   const [todos, setTodos] = useState([]);
-  const timelineUrl = params.projectId !== undefined ? `/projects/${params.projectId}/timeline` : '/timeline';
+  const timelineYearUrl = params.projectId !== undefined ? `/projects/${params.projectId}/year` : '/timeline';
+  const timelineMonthUrl = params.projectId !== undefined ? `/projects/${params.projectId}/month` : '/timeline/month';
+  const timelineWeekUrl = params.projectId !== undefined ? `/projects/${params.projectId}/week` : '/timeline/week';
   const newTodoUrl = params.projectId !== undefined ? `/projects/${params.projectId}/todos/new` : '/todos/new';
 
   useEffect(() => {
@@ -48,8 +50,14 @@ export default function TodoListContainer() {
                 <Button variant="contained" component={RouterLink} to={newTodoUrl} sx={{ maxWidth: 160 }}>
                   New Todo
                 </Button>
-                <Button variant="outlined" component={RouterLink} to={timelineUrl} sx={{ maxWidth: 160 }}>
-                  Show Timeline
+                <Button variant="outlined" component={RouterLink} to={timelineYearUrl} sx={{ maxWidth: 160 }}>
+                  Show Year
+                </Button>
+                <Button variant="outlined" component={RouterLink} to={timelineMonthUrl} sx={{ maxWidth: 160 }}>
+                  Show Month
+                </Button>
+                <Button variant="outlined" component={RouterLink} to={timelineWeekUrl} sx={{ maxWidth: 160 }}>
+                  Show Week
                 </Button>
               </Stack>
             </Stack>

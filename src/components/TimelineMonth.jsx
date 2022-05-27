@@ -71,7 +71,7 @@ export default function TimelineMonth(props) {
           {props.todos
             .sort((t1, t2) => moment(t1.createdAt).isBefore(t2.createdAt) ? -1 : 1)
             .map((todo, index) => (
-              <TodoMonthSlider key={index} todo={todo} marks={marks} />
+              <TodoMonthSlider key={index} todo={todo} marks={marks} selectedMonth={props.selectedMonth}/>
             ))}
         </Grid>
     </>
