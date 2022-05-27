@@ -1,5 +1,6 @@
 import { Grid } from '@mui/material';
 import httpService from 'httpService';
+import isInYearRange from 'lib/rangeCheck';
 import { calculatedEndDate } from 'lib/timeLeft';
 import moment from 'moment';
 import React, { useState } from 'react';
@@ -12,18 +13,13 @@ const rangeMax = 11;
 export default function TodoYearSlider(props) {
   const [startDate, setStartDate] = useState((props.todo.startDate !== null) ? moment(props.todo.startDate) : moment());
   const [endDate, setEndDate] = useState((props.todo.endDate !== null) ? moment(props.todo.endDate) : calculatedEndDate(props.todo.startDate, props.todo.timeSpan));
-  const selectedYear = moment(props.selectedYear);
-
-  const isInRange = (date) => {
-    return date.isValid() && (date.isAfter(selectedYear.startOf("year")) && date.isBefore(selectedYear.endOf("year")));
-  };
 
   const rangeMark = (date) => {
     if (date.isValid()) {
       let rangeMark;
-      if (date.isBefore(selectedYear.startOf("year"))) {
+      if (date.isBefore(props.selectedYear.startOf("year"))) {
         rangeMark = rangeMin;
-      } else if (date.isAfter(selectedYear.endOf("year"))) {
+      } else if (date.isAfter(props.selectedYear.endOf("year"))) {
         rangeMark = rangeMax;
       } else {
         rangeMark = date.month();
@@ -71,8 +67,8 @@ export default function TodoYearSlider(props) {
           rangeMax={rangeMax}
           rangeStart={rangeMark(startDate)}
           rangeEnd={rangeMark(endDate)}
-          disableRangeStart={!isInRange(startDate)}
-          disableRangeEnd={!isInRange(endDate)}
+          disableRangeStart={!isInYearRange(startDate, props.selectedYear)}
+          disableRangeEnd={!isInYearRange(endDate, props.selectedYear)}
           handleChange={handleMonthChange}
         />
       </Grid>

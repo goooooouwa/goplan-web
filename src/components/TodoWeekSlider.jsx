@@ -1,5 +1,6 @@
 import { Grid } from '@mui/material';
 import httpService from 'httpService';
+import { isInWeekRange } from 'lib/rangeCheck';
 import { calculatedEndDate } from 'lib/timeLeft';
 import moment from 'moment';
 import React, { useState } from 'react';
@@ -12,18 +13,13 @@ const rangeMax = 6;
 export default function TodoWeekSlider(props) {
   const [startDate, setStartDate] = useState((props.todo.startDate !== null) ? moment(props.todo.startDate) : moment());
   const [endDate, setEndDate] = useState((props.todo.endDate !== null) ? moment(props.todo.endDate) : calculatedEndDate(props.todo.startDate, props.todo.timeSpan));
-  const selectedWeek = moment(props.selectedWeek);
-
-  const isInRange = (date) => {
-    return date.isValid() && (date.isAfter(selectedWeek.startOf("week")) && date.isBefore(selectedWeek.endOf("week")));
-  };
 
   function rangeMark(date) {
     if (date.isValid()) {
       let rangeMark;
-      if (date.isBefore(selectedWeek.startOf("week"))) {
+      if (date.isBefore(props.selectedWeek.startOf("week"))) {
         rangeMark = rangeMin;
-      } else if (date.isAfter(selectedWeek.endOf("week"))) {
+      } else if (date.isAfter(props.selectedWeek.endOf("week"))) {
         rangeMark = rangeMax;
       } else {
         rangeMark = date.day();
@@ -71,8 +67,8 @@ export default function TodoWeekSlider(props) {
           rangeMax={rangeMax}
           rangeStart={rangeMark(startDate)}
           rangeEnd={rangeMark(endDate)}
-          disableRangeStart={!isInRange(startDate)}
-          disableRangeEnd={!isInRange(endDate)}
+          disableRangeStart={!isInWeekRange(moment(), props.selectedWeek)}
+          disableRangeEnd={!isInWeekRange(moment(), props.selectedWeek)}
           handleChange={handleDayChange}
         />
       </Grid>

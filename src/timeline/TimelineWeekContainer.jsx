@@ -72,7 +72,7 @@ export default function TimelineWeekContainer() {
                   New Todo
                 </Button>
                 <Button variant="outlined" component={RouterLink} to={todoListUrl} sx={{ maxWidth: 160 }}>
-                  Show Todos
+                  Todos
                 </Button>
               </Stack>
             </Stack>

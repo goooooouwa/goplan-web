@@ -1,4 +1,5 @@
 import { Box, Grid, Stack, Typography } from '@mui/material';
+import { isInMonthRange } from 'lib/rangeCheck';
 import moment from 'moment';
 import React from 'react';
 import TodoMonthSlider from './TodoMonthSlider';
@@ -59,7 +60,7 @@ export default function TimelineMonth(props) {
                     gutterBottom
                     sx={{
                       fontWeight: 'bold',
-                      color: (index === Math.ceil(moment().date() / 7) - 1) ? 'error.main' : 'text.primary'
+                      color: (isInMonthRange(moment(), props.selectedMonth) && (Math.ceil(moment().date() / 7) - 1 === index)) ? 'error.main' : 'text.primary'
                     }}
                   >
                     {mark.label}

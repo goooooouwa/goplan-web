@@ -51,13 +51,13 @@ export default function TodoListContainer() {
                   New Todo
                 </Button>
                 <Button variant="outlined" component={RouterLink} to={timelineYearUrl} sx={{ maxWidth: 160 }}>
-                  Show Year
+                  Year
                 </Button>
                 <Button variant="outlined" component={RouterLink} to={timelineMonthUrl} sx={{ maxWidth: 160 }}>
-                  Show Month
+                  Month
                 </Button>
                 <Button variant="outlined" component={RouterLink} to={timelineWeekUrl} sx={{ maxWidth: 160 }}>
-                  Show Week
+                  Week
                 </Button>
               </Stack>
             </Stack>

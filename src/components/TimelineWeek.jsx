@@ -1,4 +1,5 @@
 import { Box, Grid, Stack, Typography } from '@mui/material';
+import { isInWeekRange } from 'lib/rangeCheck';
 import moment from 'moment';
 import React from 'react';
 import TodoWeekSlider from './TodoWeekSlider';
@@ -67,7 +68,7 @@ export default function TimelineWeek(props) {
                     gutterBottom
                     sx={{
                       fontWeight: 'bold',
-                      color: (index === moment().day()) ? 'error.main' : 'text.primary'
+                      color: (isInWeekRange(moment(), props.selectedWeek) && moment().day() === index) ? 'error.main' : 'text.primary'
                     }}
                   >
                     {mark.label}
