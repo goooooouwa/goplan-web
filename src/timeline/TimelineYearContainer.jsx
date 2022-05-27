@@ -3,6 +3,7 @@ import httpService from "httpService";
 import TimelineYear from "components/TimelineYear";
 import { useParams, Link as RouterLink } from "react-router-dom";
 import { Button, Container, Grid, Stack, Typography } from "@mui/material";
+import moment from "moment";
 
 export default function TimelineYearPage() {
   const params = useParams();
@@ -43,10 +44,7 @@ export default function TimelineYearPage() {
                 justifyContent="space-between"
               >
                 <Typography variant="h3" component="div" gutterBottom>
-                  Timeline
-                </Typography>
-                <Typography variant="h4" component="div" gutterBottom>
-                  (Year)
+                  {moment().format("YYYY")}
                 </Typography>
               </Stack>
               <Stack
