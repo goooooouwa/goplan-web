@@ -45,7 +45,7 @@ export default function AutoCompleteContainer(props) {
 
   return (
     <Autocomplete
-      getOptionLabel={(option) => option.goalName }
+      getOptionLabel={(option) => option.name }
       filterOptions={(x) => x}
       options={options}
       noOptionsText="Type to search"
@@ -69,7 +69,7 @@ export default function AutoCompleteContainer(props) {
           <li {...props} key={option.id}>
             <Grid container alignItems="center">
               <Grid item xs>
-                {option.goalName}
+                {option.name}
               </Grid>
             </Grid>
           </li>

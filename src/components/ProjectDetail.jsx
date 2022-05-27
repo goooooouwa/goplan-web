@@ -10,7 +10,7 @@ export default function ProjectDetail(props) {
         spacing={2}
       >
         <Typography variant="h2" component="div" gutterBottom >
-          Goal: {props.project.goalName}
+          Goal: {props.project.name}
         </Typography>
         <Typography variant="body1" gutterBottom>
           {(props.project.targetDate !== null) ? moment(props.project.targetDate).fromNow() : "Indefinitely"}

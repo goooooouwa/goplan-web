@@ -7,7 +7,7 @@ import { Box } from "@mui/material";
 export default function ProjectDetailContainer() {
   const params = useParams();
   const [project, setProject] = useState({
-    goalName: "",
+    name: "",
     targetDate: "",
     todos: []
   });

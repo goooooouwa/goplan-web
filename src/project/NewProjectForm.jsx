@@ -6,7 +6,7 @@ import { Navigate } from "react-router-dom";
 export default function NewProjectForm() {
   const [project, setProject] = useState({
     id: null,
-    goalName: "",
+    name: "",
     targetDate: ""
   });
 
@@ -21,7 +21,7 @@ export default function NewProjectForm() {
     event.preventDefault();
 
     const projectData = {
-      goal_name: project.goalName,
+      name: project.name,
       target_date: project.targetDate
     };
 
@@ -56,10 +56,10 @@ export default function NewProjectForm() {
               <TextField
                 required
                 label="What's your goal?"
-                name="goalName"
+                name="name"
                 margin="normal"
                 fullWidth
-                value={project.goalName}
+                value={project.name}
                 onChange={handleChange}
               />
             </Grid>
