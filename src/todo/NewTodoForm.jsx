@@ -26,17 +26,17 @@ export default function NewTodoForm() {
     instanceTimeSpanCount: "0",
     instanceTimeSpanInterval: "3600",
   });
-  const queryByProjectId = params.projectId !== undefined ? `&project_id=${params.projectId}` : '';
+  const queryByProjectId = params.projectId !== undefined ? `project_id=${params.projectId}&` : '';
 
   function todoSearch(name, callback) {
-    httpService.get(`/todos.json?name=${name}${queryByProjectId}`)
+    httpService.get(`/todos.json?${queryByProjectId}name=${name}`)
       .then((response) => {
         callback(response.data);
       });
   }
 
   function projectSearch(name, callback) {
-    httpService.get(`/projects.json`)
+    httpService.get(`/projects.json?name=${name}`)
       .then((response) => {
         callback(response.data);
       });
