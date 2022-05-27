@@ -50,7 +50,7 @@ export default function TodoDetail(props) {
                 </>
               )}
               <Typography variant="h5" gutterBottom>
-                Is blocked by:
+                Dependencies:
               </Typography>
               <Stack justifyContent="center" spacing={1}>
                 {props.todo.dependencies.map((dependency, index) => (
@@ -58,7 +58,7 @@ export default function TodoDetail(props) {
                 ))}
               </Stack>
               <Typography variant="h5" gutterBottom>
-                Is a blocker of:
+                Dependents:
               </Typography>
               <Stack justifyContent="center" spacing={1}>
                 {props.todo.dependents.map((dependent, index) => (
