@@ -9,6 +9,10 @@ import TodoItem from './TodoItem';
 const rangeMin = 0;
 const rangeMax = 4;
 
+function isInRange(date){
+  return date.isValid() && (date.isAfter(moment().startOf("month")) && date.isBefore(moment().endOf("month")));
+}
+
 function rangeMark(date){
   if (date.isValid()) {
     let rangeMark;
@@ -73,6 +77,8 @@ export default function TodoMonthSlider(props) {
           rangeMax={rangeMax}
           rangeStart={rangeMark(startDate)}
           rangeEnd={rangeMark(endDate)}
+          disableRangeStart={!isInRange(startDate)}
+          disableRangeEnd={!isInRange(endDate)}
           handleChange={handleWeekChange}
         />
       </Grid>

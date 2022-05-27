@@ -24,7 +24,16 @@ export default function SliderContainer(props) {
     if (!Array.isArray(newValue)) {
       return;
     }
-    setValue(newValue);
+
+    if (activeThumb === 0) {
+      if (!props.disableRangeStart) {
+        setValue(newValue);
+      }
+    } else {
+      if (!props.disableRangeEnd) {
+        setValue(newValue);
+      }
+    }
   };
 
   return (
