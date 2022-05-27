@@ -3,10 +3,10 @@ import httpService from 'httpService';
 import displayElapsedTime from 'lib/timeLeft';
 import moment from 'moment';
 import React from 'react';
-import MonthSlider from './MonthSlider';
+import SliderContainer from './SliderContainer';
 import TodoItem from './TodoItem';
 
-export default function TodoMonthSlider(props) {
+export default function TodoYearSlider(props) {
   const startDate = (props.todo.startDate !== null) ? moment(props.todo.startDate) : moment();
   const timeSpan = displayElapsedTime(props.todo.timeSpan, props.todo.startDate, props.todo.endDate);
   let endDate;
@@ -48,11 +48,13 @@ export default function TodoMonthSlider(props) {
       <Grid item xs={12} md={4}>
         <TodoItem todo={props.todo} />
       </Grid>
-      <Grid item xs={12} md={8} sx={{ px: 3}}>
-        <MonthSlider
-          startMonth={startDate.month()}
-          endMonth={endDate.month()}
-          handleMonthChange={handleMonthChange}
+      <Grid item xs={12} md={8} sx={{ px: 3 }}>
+        <SliderContainer
+          marks={props.marks}
+          max={11}
+          start={startDate.month()}
+          end={endDate.month()}
+          handleChange={handleMonthChange}
         />
       </Grid>
     </>

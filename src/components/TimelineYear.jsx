@@ -1,7 +1,7 @@
 import { Box, Grid, Stack, Typography } from '@mui/material';
 import moment from 'moment';
 import React from 'react';
-import TodoMonthSlider from './TodoMonthSlider';
+import TodoYearSlider from './TodoYearSlider';
 
 const marks = [
   {
@@ -99,7 +99,7 @@ export default function TimelineYear(props) {
           {props.todos
             .sort((t1, t2) => moment(t1.createdAt).isBefore(t2.createdAt) ? -1 : 1)
             .map((todo, index) => (
-              <TodoMonthSlider key={index} todo={todo} />
+              <TodoYearSlider key={index} todo={todo} marks={marks} />
             ))}
         </Grid>
     </>
