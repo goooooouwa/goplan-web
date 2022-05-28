@@ -1,28 +1,27 @@
 import React, { useEffect, useState } from "react";
 import httpService from "httpService";
-import { useParams, Link as RouterLink, useSearchParams } from "react-router-dom";
+import { useParams, useSearchParams } from "react-router-dom";
 import { Button, Container, Grid, Stack, Typography } from "@mui/material";
 import moment from "moment";
 import TimelineMonth from "components/TimelineMonth";
+import TodoActionGroup from "components/TodoActionGroup";
 
 export default function TimelineMonthContainer() {
   const params = useParams();
   const [searchParams, setSearchParams] = useSearchParams();
   const [todos, setTodos] = useState([]);
   const selectedMonth = searchParams.get("month") !== null ? moment(searchParams.get("month")) : moment();
-  const todoListUrl = params.projectId !== undefined ? `/projects/${params.projectId}/todos` : '/todos';
-  const newTodoUrl = params.projectId !== undefined ? `/projects/${params.projectId}/todos/new` : '/todos/new';
 
   const handleTodayClick = (event) => {
-    setSearchParams({month: moment().format("YYYYMM")});
+    setSearchParams({ month: moment().format("YYYYMM") });
   }
 
   const handlePreviousMonthClick = (event) => {
-    setSearchParams({month: selectedMonth.clone().subtract(1, "months").format("YYYYMM")});
+    setSearchParams({ month: selectedMonth.clone().subtract(1, "months").format("YYYYMM") });
   }
 
   const handleNextMonthClick = (event) => {
-    setSearchParams({month: selectedMonth.clone().add(1, "months").format("YYYYMM")});
+    setSearchParams({ month: selectedMonth.clone().add(1, "months").format("YYYYMM") });
   }
 
   useEffect(() => {
@@ -50,9 +49,9 @@ export default function TimelineMonthContainer() {
               justifyContent="space-between"
               alignItems="center"
             >
-                <Typography variant="h3" component="div">
-                  {selectedMonth.format("MMMM, YYYY")}
-                </Typography>
+              <Typography variant="h3" component="div">
+                {selectedMonth.format("MMMM, YYYY")}
+              </Typography>
               <Stack
                 direction={{ xs: 'column', sm: 'row' }}
                 alignItems={{ xs: 'stretch', sm: 'baseline' }}
@@ -68,17 +67,12 @@ export default function TimelineMonthContainer() {
                 <Button variant="outlined" onClick={handleNextMonthClick} sx={{ maxWidth: 160 }}>
                   {">"}
                 </Button>
-                <Button variant="contained" component={RouterLink} to={newTodoUrl} sx={{ maxWidth: 160 }}>
-                  New Todo
-                </Button>
-                <Button variant="outlined" component={RouterLink} to={todoListUrl} sx={{ maxWidth: 160 }}>
-                  Todos
-                </Button>
+                <TodoActionGroup activeViewTitle="Month" />
               </Stack>
             </Stack>
           </Grid>
           <Grid item xs={12}>
-            <TimelineMonth todos={todos} selectedMonth={selectedMonth}/>
+            <TimelineMonth todos={todos} selectedMonth={selectedMonth} />
           </Grid>
         </Grid>
       </Container>

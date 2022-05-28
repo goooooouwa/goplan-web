@@ -1,28 +1,27 @@
 import React, { useEffect, useState } from "react";
 import httpService from "httpService";
 import TimelineYear from "components/TimelineYear";
-import { useParams, Link as RouterLink, useSearchParams } from "react-router-dom";
+import { useParams, useSearchParams } from "react-router-dom";
 import { Button, Container, Grid, Stack, Typography } from "@mui/material";
 import moment from "moment";
+import TodoActionGroup from "components/TodoActionGroup";
 
 export default function TimelineYearContainer() {
   const params = useParams();
   const [searchParams, setSearchParams] = useSearchParams();
   const [todos, setTodos] = useState([]);
   const selectedYear = searchParams.get("year") !== null ? moment(searchParams.get("year")) : moment();
-  const todoListUrl = params.projectId !== undefined ? `/projects/${params.projectId}/todos` : '/todos';
-  const newTodoUrl = params.projectId !== undefined ? `/projects/${params.projectId}/todos/new` : '/todos/new';
 
   const handleTodayClick = (event) => {
-    setSearchParams({year: moment().format("YYYY")});
+    setSearchParams({ year: moment().format("YYYY") });
   }
 
   const handlePreviousYearClick = (event) => {
-    setSearchParams({year: selectedYear.clone().subtract(1, "years").format("YYYY")});
+    setSearchParams({ year: selectedYear.clone().subtract(1, "years").format("YYYY") });
   }
 
   const handleNextYearClick = (event) => {
-    setSearchParams({year: selectedYear.clone().add(1, "years").format("YYYY")});
+    setSearchParams({ year: selectedYear.clone().add(1, "years").format("YYYY") });
   }
 
   useEffect(() => {
@@ -50,9 +49,9 @@ export default function TimelineYearContainer() {
               justifyContent="space-between"
               alignItems="center"
             >
-                <Typography variant="h3" component="div">
-                  {selectedYear.format("YYYY")}
-                </Typography>
+              <Typography variant="h3" component="div">
+                {selectedYear.format("YYYY")}
+              </Typography>
               <Stack
                 direction={{ xs: 'column', sm: 'row' }}
                 alignItems={{ xs: 'stretch', sm: 'baseline' }}
@@ -68,12 +67,7 @@ export default function TimelineYearContainer() {
                 <Button variant="outlined" onClick={handleNextYearClick} sx={{ maxWidth: 160 }}>
                   {">"}
                 </Button>
-                <Button variant="contained" component={RouterLink} to={newTodoUrl} sx={{ maxWidth: 160 }}>
-                  New Todo
-                </Button>
-                <Button variant="outlined" component={RouterLink} to={todoListUrl} sx={{ maxWidth: 160 }}>
-                  Todos
-                </Button>
+                <TodoActionGroup activeViewTitle="Year" />
               </Stack>
             </Stack>
           </Grid>

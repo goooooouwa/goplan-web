@@ -1,17 +1,16 @@
 import React, { useEffect, useState } from "react";
 import httpService from "httpService";
-import { useParams, Link as RouterLink, useSearchParams } from "react-router-dom";
+import { useParams, useSearchParams } from "react-router-dom";
 import { Button, Container, Grid, Stack, Typography } from "@mui/material";
 import moment from "moment";
 import TimelineWeek from "components/TimelineWeek";
+import TodoActionGroup from "components/TodoActionGroup";
 
 export default function TimelineWeekContainer() {
   const params = useParams();
   const [searchParams, setSearchParams] = useSearchParams();
   const [todos, setTodos] = useState([]);
   const selectedWeek = searchParams.get("week") !== null ? moment(searchParams.get("week")) : moment();
-  const todoListUrl = params.projectId !== undefined ? `/projects/${params.projectId}/todos` : '/todos';
-  const newTodoUrl = params.projectId !== undefined ? `/projects/${params.projectId}/todos/new` : '/todos/new';
 
   const handleTodayClick = (event) => {
     setSearchParams({week: moment().format("YYYY[W]WW")});
@@ -68,12 +67,7 @@ export default function TimelineWeekContainer() {
                 <Button variant="outlined" onClick={handleNextWeekClick} sx={{ maxWidth: 160 }}>
                   {">"}
                 </Button>
-                <Button variant="contained" component={RouterLink} to={newTodoUrl} sx={{ maxWidth: 160 }}>
-                  New Todo
-                </Button>
-                <Button variant="outlined" component={RouterLink} to={todoListUrl} sx={{ maxWidth: 160 }}>
-                  Todos
-                </Button>
+                <TodoActionGroup activeViewTitle="Week" />
               </Stack>
             </Stack>
           </Grid>
