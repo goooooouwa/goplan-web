@@ -39,6 +39,7 @@ export default function TodoActionGroup(props) {
         aria-expanded={open ? 'true' : undefined}
         onClick={handleClick}
         endIcon={<ArrowDropDownIcon />}
+        sx={{ maxWidth: 160 }}
       >
         {props.activeViewTitle}
       </Button>
