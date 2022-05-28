@@ -33,14 +33,14 @@ export default function NewTodoForm() {
       .then((response) => {
         callback(response.data);
       });
-  },[queryByProjectId]);
+  }, [queryByProjectId]);
 
   const projectSearch = useCallback((name, callback) => {
     httpService.get(`/projects.json?name=${name}`)
       .then((response) => {
         callback(response.data);
       });
-  },[]);
+  }, []);
 
   function handleProjectChange(newValue) {
     setTodo((todo) => ({
@@ -145,7 +145,7 @@ export default function NewTodoForm() {
                 onChange={handleChange}
               />
             </Grid>
-            <Grid item>
+            {/* <Grid item>
               <Typography variant="body1" gutterBottom textAlign="left">
                 How much time do you need to finish this?
               </Typography>
@@ -175,6 +175,33 @@ export default function NewTodoForm() {
                   </Select>
                 </FormControl>
               </Grid>
+            </Grid> */}
+            <Grid item>
+              <Typography variant="body1" gutterBottom textAlign="left">
+                How long would it take?
+              </Typography>
+            </Grid>
+            <Grid item container xs={12} spacing={2}>
+              <Grid item xs={6}>
+                <TextField
+                  name="instanceTimeSpanCount"
+                  margin="normal"
+                  fullWidth
+                  value={todo.instanceTimeSpanCount}
+                  onChange={handleChange}
+                />
+              </Grid>
+              <Grid item xs={6}>
+                <FormControl margin="normal" fullWidth>
+                  <Select
+                    name="instanceTimeSpanInterval"
+                    value={todo.instanceTimeSpanInterval}
+                    onChange={handleChange}
+                  >
+                    <MenuItem value="3600">Hours</MenuItem>
+                  </Select>
+                </FormControl>
+              </Grid>
             </Grid>
             <Grid item>
               <label>Start Date
@@ -182,16 +209,6 @@ export default function NewTodoForm() {
                   type="date"
                   name="startDate"
                   value={todo.startDate}
-                  onChange={handleChange}
-                />
-              </label>
-            </Grid>
-            <Grid item>
-              <label>End Date
-                <input
-                  type="date"
-                  name="endDate"
-                  value={todo.endDate}
                   onChange={handleChange}
                 />
               </label>
@@ -233,31 +250,14 @@ export default function NewTodoForm() {
                   </Grid>
                 </Grid>
                 <Grid item>
-                  <Typography variant="body1" gutterBottom textAlign="left">
-                    How long would each time take?
-                  </Typography>
-                </Grid>
-                <Grid item container xs={12} spacing={2}>
-                  <Grid item xs={6}>
-                    <TextField
-                      name="instanceTimeSpanCount"
-                      margin="normal"
-                      fullWidth
-                      value={todo.instanceTimeSpanCount}
+                  <label>End Date
+                    <input
+                      type="date"
+                      name="endDate"
+                      value={todo.endDate}
                       onChange={handleChange}
                     />
-                  </Grid>
-                  <Grid item xs={6}>
-                    <FormControl margin="normal" fullWidth>
-                      <Select
-                        name="instanceTimeSpanInterval"
-                        value={todo.instanceTimeSpanInterval}
-                        onChange={handleChange}
-                      >
-                        <MenuItem value="3600">Hours</MenuItem>
-                      </Select>
-                    </FormControl>
-                  </Grid>
+                  </label>
                 </Grid>
               </>
             )}
