@@ -22,44 +22,40 @@ export default function TodoActionGroup(props) {
   };
 
   return (
-    <>
-      <Stack
-        direction={{ xs: 'column', sm: 'row' }}
-        alignItems={{ xs: 'stretch', sm: 'baseline' }}
-        justifyContent="space-between"
-        spacing={2}
+    <Stack
+      direction={{ xs: 'column', sm: 'row' }}
+      alignItems={{ xs: 'stretch', sm: 'baseline' }}
+      justifyContent="space-between"
+      spacing={2}
+    >
+      <Button variant="contained" component={RouterLink} to={newTodoUrl} sx={{ maxWidth: 160 }}>
+        New Todo
+      </Button>
+      <Button
+        variant="outlined"
+        id="basic-button"
+        aria-controls={open ? 'basic-menu' : undefined}
+        aria-haspopup="true"
+        aria-expanded={open ? 'true' : undefined}
+        onClick={handleClick}
+        endIcon={<ArrowDropDownIcon />}
       >
-        <Button variant="contained" component={RouterLink} to={newTodoUrl} sx={{ maxWidth: 160 }}>
-          New Todo
-        </Button>
-        <div>
-          <Button
-            variant="outlined"
-            id="basic-button"
-            aria-controls={open ? 'basic-menu' : undefined}
-            aria-haspopup="true"
-            aria-expanded={open ? 'true' : undefined}
-            onClick={handleClick}
-            endIcon={<ArrowDropDownIcon />}
-          >
-            {props.activeViewTitle}
-          </Button>
-          <Menu
-            id="basic-menu"
-            anchorEl={anchorEl}
-            open={open}
-            onClose={handleClose}
-            MenuListProps={{
-              'aria-labelledby': 'basic-button',
-            }}
-          >
-            <MenuItem component={RouterLink} to={timelineYearUrl} sx={{ minWidth: 130 }}>Year</MenuItem>
-            <MenuItem component={RouterLink} to={timelineMonthUrl}>Month</MenuItem>
-            <MenuItem component={RouterLink} to={timelineWeekUrl}>Week</MenuItem>
-            <MenuItem component={RouterLink} to={todoListUrl}>Todos</MenuItem>
-          </Menu>
-        </div>
-      </Stack>
-    </>
+        {props.activeViewTitle}
+      </Button>
+      <Menu
+        id="basic-menu"
+        anchorEl={anchorEl}
+        open={open}
+        onClose={handleClose}
+        MenuListProps={{
+          'aria-labelledby': 'basic-button',
+        }}
+      >
+        <MenuItem component={RouterLink} to={timelineYearUrl} sx={{ minWidth: 130 }}>Year</MenuItem>
+        <MenuItem component={RouterLink} to={timelineMonthUrl}>Month</MenuItem>
+        <MenuItem component={RouterLink} to={timelineWeekUrl}>Week</MenuItem>
+        <MenuItem component={RouterLink} to={todoListUrl}>Todos</MenuItem>
+      </Menu>
+    </Stack>
   );
 }
