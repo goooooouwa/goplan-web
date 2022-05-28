@@ -12,7 +12,7 @@ function App() {
     <>
       <CssBaseline />
       <div className="App">
-        <nav>
+        {/* <nav>
           <Link to="/">Home</Link> |{' '}
           <Link to="/projects">projects</Link> |{' '}
           <Link to="/projects/new">new project</Link> |{' '}
@@ -24,7 +24,7 @@ function App() {
           <Link to="/timeline/month">timeline Month</Link> |{' '}
           <Link to="/timeline/week">timeline Week</Link> |{' '}
           <Link to="/timeline/day">timeline Day</Link> |{' '}
-        </nav>
+        </nav> */}
         <ResponsiveAppBar />
         <Outlet />
       </div>
