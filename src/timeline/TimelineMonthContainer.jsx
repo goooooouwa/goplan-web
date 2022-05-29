@@ -10,7 +10,7 @@ export default function TimelineMonthContainer() {
   const params = useParams();
   const [searchParams, setSearchParams] = useSearchParams();
   const [todos, setTodos] = useState([]);
-  const selectedMonth = searchParams.get("month") !== null ? moment(searchParams.get("month")) : moment();
+  const selectedMonth = searchParams.get("month") !== null ? moment(searchParams.get("month")) : moment().startOf("month");
 
   const handleTodayClick = (event) => {
     setSearchParams({ month: moment().format("YYYYMM") });

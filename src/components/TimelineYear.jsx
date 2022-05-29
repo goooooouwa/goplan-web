@@ -1,7 +1,8 @@
-import { Box, Grid, Stack, Typography } from '@mui/material';
+import { Box, Grid, Link, IconButton, Button, Stack, Typography } from '@mui/material';
 import isInYearRange from 'lib/rangeCheck';
 import moment from 'moment';
 import React from 'react';
+import { Link as RouterLink, useParams } from 'react-router-dom';
 import TodoYearSlider from './TodoYearSlider';
 
 const marks = [
@@ -56,6 +57,9 @@ const marks = [
 ];
 
 export default function TimelineYear(props) {
+  const params = useParams();
+  const monthUrlPrefix = params.projectId !== undefined ? `/projects/${params.projectId}/timeline/month?month=` : '/timeline/month?month=';
+
   return (
     <>
       <Grid container rowSpacing={1} >
@@ -81,17 +85,18 @@ export default function TimelineYear(props) {
                 alignItems="center"
               >
                 {marks.map((mark, index) => (
-                  <Typography
+                  <IconButton
                     key={index}
-                    variant="body1"
-                    gutterBottom
+                    component={ RouterLink }
+                    size="small"
+                    to={`${monthUrlPrefix}${props.selectedYear.clone().add(mark.value, "months").format("YYYYMM")}`}
                     sx={{
                       fontWeight: 'bold',
                       color: (isInYearRange(moment(), props.selectedYear) && moment().month() === index) ? 'error.main' : 'text.primary'
                     }}
                   >
                     {mark.label}
-                  </Typography>
+                  </IconButton>
                 ))}
               </Stack>
             </Box>

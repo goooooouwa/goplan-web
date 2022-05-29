@@ -11,7 +11,6 @@ import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import TaskAlt from '@mui/icons-material/TaskAlt';
-import Link from '@mui/material/Link';
 import { Link as RouterLink } from "react-router-dom";
 import { AccountCircle } from '@mui/icons-material';
 
@@ -103,8 +102,8 @@ const ResponsiveAppBar = () => {
                             }}
                         >
                             {pages.map((page) => (
-                                <MenuItem key={page.title} onClick={handleCloseNavMenu}>
-                                    <Link component={RouterLink} to={page.url} textAlign="center">{page.title}</Link>
+                                <MenuItem key={page.title} component={RouterLink} to={page.url} onClick={handleCloseNavMenu}>
+                                    <Typography textAlign="center">{page.title}</Typography>
                                 </MenuItem>
                             ))}
                         </Menu>

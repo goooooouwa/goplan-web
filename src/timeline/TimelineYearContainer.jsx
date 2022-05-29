@@ -10,7 +10,7 @@ export default function TimelineYearContainer() {
   const params = useParams();
   const [searchParams, setSearchParams] = useSearchParams();
   const [todos, setTodos] = useState([]);
-  const selectedYear = searchParams.get("year") !== null ? moment(searchParams.get("year")) : moment();
+  const selectedYear = searchParams.get("year") !== null ? moment(searchParams.get("year")) : moment().startOf("year");
 
   const handleTodayClick = (event) => {
     setSearchParams({ year: moment().format("YYYY") });

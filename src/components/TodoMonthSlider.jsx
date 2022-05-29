@@ -22,7 +22,7 @@ export default function TodoMonthSlider(props) {
       } else if (date.isAfter(props.selectedMonth.clone().endOf("month"))) {
         rangeMark = rangeMax;
       } else {
-        rangeMark = Math.ceil(date.date() / 7) - 1;
+        rangeMark = Math.ceil(date.date() / 7);
       }
       return rangeMark;
     } else {

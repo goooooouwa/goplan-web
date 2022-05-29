@@ -10,7 +10,7 @@ export default function TimelineWeekContainer() {
   const params = useParams();
   const [searchParams, setSearchParams] = useSearchParams();
   const [todos, setTodos] = useState([]);
-  const selectedWeek = searchParams.get("week") !== null ? moment(searchParams.get("week")) : moment();
+  const selectedWeek = searchParams.get("week") !== null ? moment(searchParams.get("week")) : moment().startOf("week");
 
   const handleTodayClick = (event) => {
     setSearchParams({week: moment().format("YYYY[W]WW")});
