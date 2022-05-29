@@ -61,7 +61,7 @@ export default function NewTodoForm() {
   useEffect(()=>{
     setTodo((todo) => ({
       ...todo,
-      endDate: (todo.repeat && moment(todo.startDate).isValid()) ? moment.max(moment(todo.endDate), moment(todo.startDate).add(1, `days`)).format("YYYY-MM-DD") : todo.endDate
+      endDate: (todo.repeat && moment(todo.startDate).isValid()) ? moment.max(moment(todo.endDate), moment(todo.startDate).add(1, `${todo.repeatPeriod}s`)).format("YYYY-MM-DD") : todo.endDate
     }));
   }, [todo.startDate, todo.repeat, todo.repeatTimes, todo.repeatPeriod]);
 
