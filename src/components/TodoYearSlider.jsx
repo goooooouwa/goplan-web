@@ -3,7 +3,7 @@ import httpService from 'httpService';
 import isInYearRange from 'lib/rangeCheck';
 import { calculatedEndDate } from 'lib/timeLeft';
 import moment from 'moment';
-import React, { useState } from 'react';
+import React from 'react';
 import SliderContainer from './SliderContainer';
 import TodoItem from './TodoItem';
 
@@ -11,8 +11,8 @@ const rangeMin = 0;
 const rangeMax = 11;
 
 export default function TodoYearSlider(props) {
-  const [startDate, setStartDate] = useState((props.todo.startDate !== null) ? moment(props.todo.startDate) : moment());
-  const [endDate, setEndDate] = useState((props.todo.endDate !== null) ? moment(props.todo.endDate) : calculatedEndDate(props.todo.startDate, props.todo.timeSpan));
+  const startDate = (props.todo.startDate !== null) ? moment(props.todo.startDate) : moment();
+  const endDate = (props.todo.endDate !== null) ? moment(props.todo.endDate) : calculatedEndDate(props.todo.startDate, props.todo.timeSpan);
 
   const rangeMark = (date) => {
     if (date.isValid()) {
@@ -34,7 +34,7 @@ export default function TodoYearSlider(props) {
     const [newStartMonth, newEndMonth] = months;
     const todoData = {
       project_id: props.todo.projectId,
-      name: props.todo.name,
+      tarame: props.todo.name,
       description: props.todo.description,
       time_span: props.todo.timeSpan,
       start_date: startDate.month(newStartMonth).toISOString(),
@@ -47,8 +47,7 @@ export default function TodoYearSlider(props) {
 
     httpService.put(`/todos/${props.todo.id}.json`, todoData)
       .then((response) => {
-        setStartDate((response.data.startDate !== null) ? moment(response.data.startDate) : moment());
-        setEndDate((response.data.endDate !== null) ? moment(response.data.endDate) : calculatedEndDate(response.data.startDate, response.data.timeSpan));
+        console.log(response);
       })
       .catch(function (error) {
         console.log(error);
