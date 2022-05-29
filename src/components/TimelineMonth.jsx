@@ -30,7 +30,7 @@ const marks = [
 
 export default function TimelineMonth(props) {
   const params = useParams();
-  const weekUrlPrefix = params.projectId !== undefined ? `/projects/${params.projectId}/timeline/week?week=` : '/timeline/week?week=';
+  const weekUrlPrefix = params.projectId !== undefined ? `/projects/${params.projectId}/week?week=` : '/timeline/week?week=';
 
   return (
     <>

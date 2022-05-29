@@ -15,17 +15,17 @@ export default function NewTodoForm() {
     name: "",
     description: "",
     timeSpan: "",
+    timeSpanCount: "0",
+    timeSpanInterval: "2629800",
     startDate: moment().format("YYYY-MM-DD"),
     endDate: moment().format("YYYY-MM-DD"),
     repeat: false,
     repeatPeriod: "86400",
     repeatTimes: "1",
     instanceTimeSpan: "",
-    dependencies: [],
-    timeSpanCount: "0",
-    timeSpanInterval: "2629800",
     instanceTimeSpanCount: "1",
     instanceTimeSpanInterval: "3600",
+    dependencies: [],
   });
   const queryByProjectId = params.projectId !== undefined ? `project_id=${params.projectId}&` : '';
 
@@ -98,7 +98,7 @@ export default function NewTodoForm() {
       repeat: todo.repeat,
       repeat_period: todo.repeatPeriod,
       repeat_times: Math.round(Number(todo.repeatTimes)),
-      time_span: Math.round(Number(todo.timeSpanCount) * Number(todo.timeSpanInterval)),
+      time_span: (moment(todo.startDate).isValid() && moment(todo.endDate).isValid()) ? moment.duration(moment(todo.startDate).diff(moment(todo.endDate))) : 0,
       instance_time_span: Math.round(Number(todo.instanceTimeSpanCount) * Number(todo.instanceTimeSpanInterval)),
       todo_dependencies_attributes: todo.dependencies.map((todo) => ({ todo_id: todo.id })),
     };
