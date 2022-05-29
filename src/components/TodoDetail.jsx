@@ -7,7 +7,6 @@ import { Link as RouterLink } from "react-router-dom";
 export default function TodoDetail(props) {
   const timeSpan = displayElapsedTime(props.todo.timeSpan, props.todo.startDate, props.todo.endDate);
   const instanceTimeSpan = displayElapsedTime(props.todo.instanceTimeSpan);
-  const interval = displayElapsedTime(props.todo.repeatTimes * props.todo.repeatPeriod);
 
   return (
     <>
@@ -42,7 +41,7 @@ export default function TodoDetail(props) {
                     Repeating interval
                   </Typography>
                   <Typography variant="body1" gutterBottom>
-                    Interval: {props.todo.repeatTimes} times per {(interval !== null) ? interval.key : ''}
+                    Interval: {props.todo.repeatTimes} times per {props.todo.repeatPeriod}
                   </Typography>
                   <Typography variant="body1" gutterBottom>
                     Each time: {(instanceTimeSpan !== null) ? `${instanceTimeSpan.value} ${instanceTimeSpan.label}`: ''}

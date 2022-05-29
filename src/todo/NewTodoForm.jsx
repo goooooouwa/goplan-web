@@ -20,7 +20,7 @@ export default function NewTodoForm() {
     startDate: moment().format("YYYY-MM-DD"),
     endDate: moment().format("YYYY-MM-DD"),
     repeat: false,
-    repeatPeriod: "86400",
+    repeatPeriod: "day",
     repeatTimes: "1",
     instanceTimeSpan: "",
     instanceTimeSpanCount: "1",
@@ -255,11 +255,11 @@ export default function NewTodoForm() {
                         value={todo.repeatPeriod}
                         onChange={handleChange}
                       >
-                        <MenuItem value="86400">Day</MenuItem>
-                        <MenuItem value="604800">Week</MenuItem>
-                        <MenuItem value="2629800">Month</MenuItem>
-                        <MenuItem value="10519200">Quarter</MenuItem>
-                        <MenuItem value="31557600">Year</MenuItem>
+                        <MenuItem value="day">Day</MenuItem>
+                        <MenuItem value="week">Week</MenuItem>
+                        <MenuItem value="month">Month</MenuItem>
+                        <MenuItem value="quarter">Quarter</MenuItem>
+                        <MenuItem value="year">Year</MenuItem>
                       </Select>
                     </FormControl>
                   </Grid>
