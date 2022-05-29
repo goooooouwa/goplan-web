@@ -1,7 +1,7 @@
 import { CssBaseline } from "@mui/material";
 import ResponsiveAppBar from "components/ResponsiveAppBar";
 import React from "react";
-import { Outlet, Link } from "react-router-dom";
+import { Outlet } from "react-router-dom";
 import './App.css';
 import './slider.css';
 import './draggable.css';

@@ -67,11 +67,15 @@ export function elapsedTimeComponents(elapsedTimeInSeconds, startDate, endDate) 
     }];
 }
 
-export default function displayElapsedTime(startDate, endDate, elapsedTimeInSeconds) {
-    const components = elapsedTimeComponents(startDate, endDate, elapsedTimeInSeconds);
+export default function displayElapsedTime(elapsedTimeInSeconds, startDate, endDate) {
+    const components = elapsedTimeComponents(elapsedTimeInSeconds, startDate, endDate);
     const index = components.findIndex((component) => (component.value > 0));
     if (index === -1) {
-        return null;
+        return {
+            key: 'milliseconds',
+            label: 'milliseconds',
+            value: 1
+        };
     }
     const initialValue = components[index];
     return { ...initialValue };

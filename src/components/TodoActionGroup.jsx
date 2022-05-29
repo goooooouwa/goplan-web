@@ -52,10 +52,10 @@ export default function TodoActionGroup(props) {
           'aria-labelledby': 'basic-button',
         }}
       >
+        <MenuItem component={RouterLink} to={todoListUrl}>Todos</MenuItem>
         <MenuItem component={RouterLink} to={timelineYearUrl} sx={{ minWidth: 130 }}>Year</MenuItem>
         <MenuItem component={RouterLink} to={timelineMonthUrl}>Month</MenuItem>
         <MenuItem component={RouterLink} to={timelineWeekUrl}>Week</MenuItem>
-        <MenuItem component={RouterLink} to={todoListUrl}>Todos</MenuItem>
       </Menu>
     </Stack>
   );
