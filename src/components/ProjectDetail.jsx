@@ -9,7 +9,7 @@ export default function ProjectDetail(props) {
         direction="column"
         spacing={2}
       >
-        <Typography variant="h2" component="div" gutterBottom >
+        <Typography variant="h3" component="div" gutterBottom >
           Goal: {props.project.name}
         </Typography>
         <Typography variant="body1" gutterBottom>

@@ -35,7 +35,7 @@ export default function TodoListContainer() {
               justifyContent="space-between"
               alignItems="center"
             >
-              <Typography variant="h3" component="div">
+              <Typography variant="h4" component="div">
                 Todos
               </Typography>
               <TodoActionGroup activeViewTitle="Todos" />

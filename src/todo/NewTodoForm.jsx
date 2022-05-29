@@ -2,6 +2,7 @@ import { FormControl, FormControlLabel, TextField, MenuItem, Select, Switch, Inp
 import AutoCompleteContainer from "components/AutoCompleteContainer";
 import AutoCompleteMultipleContainer from "components/AutoCompleteMultipleContainer";
 import httpService from "httpService";
+import moment from "moment";
 import React, { useCallback, useState } from "react";
 import { Navigate, useParams } from "react-router-dom";
 
@@ -14,16 +15,16 @@ export default function NewTodoForm() {
     name: "",
     description: "",
     timeSpan: "",
-    startDate: "",
-    endDate: "",
+    startDate: moment().format("YYYY-MM-DD"),
+    endDate: moment().format("YYYY-MM-DD"),
     repeat: false,
-    repeatPeriod: "604800",
-    repeatTimes: "0",
+    repeatPeriod: "86400",
+    repeatTimes: "1",
     instanceTimeSpan: "",
     dependencies: [],
     timeSpanCount: "0",
     timeSpanInterval: "2629800",
-    instanceTimeSpanCount: "0",
+    instanceTimeSpanCount: "1",
     instanceTimeSpanInterval: "3600",
   });
   const queryByProjectId = params.projectId !== undefined ? `project_id=${params.projectId}&` : '';
@@ -53,7 +54,9 @@ export default function NewTodoForm() {
   function handleDependencyChange(newValue) {
     setTodo((todo) => ({
       ...todo,
-      dependencies: newValue
+      dependencies: newValue,
+      startDate: moment.max([moment(todo.startDate), ...newValue.map((todo) => (moment(todo.endDate).add(1, "days")))].filter((date)=>(date.isValid()))).format("YYYY-MM-DD"),
+      endDate: (todo.repeat && moment(todo.startDate).isValid()) ? moment.max(moment(todo.endDate), moment(todo.startDate).add(1, `days`)).format("YYYY-MM-DD") : todo.endDate,
     }));
   }
 
@@ -65,9 +68,11 @@ export default function NewTodoForm() {
   }
 
   function handleChange(event) {
+    if (event.target.name === "endDate")
     setTodo((todo) => ({
       ...todo,
-      [event.target.name]: event.target.value
+      [event.target.name]: event.target.value,
+      endDate: (todo.repeat && moment(todo.startDate).isValid()) ? moment.max(moment(todo.endDate), moment(todo.startDate).add(1, `days`)).format("YYYY-MM-DD") : todo.endDate,
     }));
   }
 
@@ -178,7 +183,7 @@ export default function NewTodoForm() {
             </Grid> */}
             <Grid item>
               <Typography variant="body1" gutterBottom textAlign="left">
-                How long would it take?
+                How long would it take per day?
               </Typography>
             </Grid>
             <Grid item container xs={12} spacing={2}>
@@ -263,12 +268,12 @@ export default function NewTodoForm() {
             )}
             <Grid item>
               <Typography variant="h5" gutterBottom textAlign="left">
-                Related Todos
+                Dependencies
               </Typography>
             </Grid>
             <Grid item>
               <FormControl fullWidth margin="normal">
-                <AutoCompleteMultipleContainer value={todo.dependencies} label="Depends on" onChange={handleDependencyChange} onSearch={todoSearch} />
+                <AutoCompleteMultipleContainer value={todo.dependencies} label="Depended todos" onChange={handleDependencyChange} onSearch={todoSearch} />
               </FormControl>
             </Grid>
             <Grid item>
