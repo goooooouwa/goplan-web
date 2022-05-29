@@ -3,7 +3,7 @@ import AutoCompleteContainer from "components/AutoCompleteContainer";
 import AutoCompleteMultipleContainer from "components/AutoCompleteMultipleContainer";
 import httpService from "httpService";
 import moment from "moment";
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { Navigate, useParams } from "react-router-dom";
 
 export default function NewTodoForm() {
@@ -51,12 +51,24 @@ export default function NewTodoForm() {
     }));
   }
 
+  useEffect(()=>{
+    setTodo((todo) => ({
+      ...todo,
+      startDate: moment.max([moment(todo.startDate), ...todo.dependencies.map((todo) => (moment(todo.endDate).add(1, "days")))].filter((date)=>(date.isValid()))).format("YYYY-MM-DD")
+    }));
+  }, [todo.startDate, JSON.stringify(todo.dependencies)]);
+
+  useEffect(()=>{
+    setTodo((todo) => ({
+      ...todo,
+      endDate: (todo.repeat && moment(todo.startDate).isValid()) ? moment.max(moment(todo.endDate), moment(todo.startDate).add(1, `days`)).format("YYYY-MM-DD") : todo.endDate
+    }));
+  }, [todo.startDate, todo.repeat, todo.repeatTimes, todo.repeatPeriod]);
+
   function handleDependencyChange(newValue) {
     setTodo((todo) => ({
       ...todo,
-      dependencies: newValue,
-      startDate: moment.max([moment(todo.startDate), ...newValue.map((todo) => (moment(todo.endDate).add(1, "days")))].filter((date)=>(date.isValid()))).format("YYYY-MM-DD"),
-      endDate: (todo.repeat && moment(todo.startDate).isValid()) ? moment.max(moment(todo.endDate), moment(todo.startDate).add(1, `days`)).format("YYYY-MM-DD") : todo.endDate,
+      dependencies: newValue
     }));
   }
 
@@ -68,11 +80,9 @@ export default function NewTodoForm() {
   }
 
   function handleChange(event) {
-    if (event.target.name === "endDate")
     setTodo((todo) => ({
       ...todo,
-      [event.target.name]: event.target.value,
-      endDate: (todo.repeat && moment(todo.startDate).isValid()) ? moment.max(moment(todo.endDate), moment(todo.startDate).add(1, `days`)).format("YYYY-MM-DD") : todo.endDate,
+      [event.target.name]: event.target.value
     }));
   }
 
