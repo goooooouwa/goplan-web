@@ -11,16 +11,7 @@ const rangeMax = 6;
 
 export default function TodoWeekSlider(props) {
   const startDate = (props.todo.startDate !== null) ? moment(props.todo.startDate) : moment();
-  let endDate;
-  if (props.todo.endDate !== null) {
-    endDate = moment(props.todo.endDate);
-  } else {
-    if (moment(props.todo.startDate).isValid() && typeof props.todo.timeSpan === 'number') {
-      endDate = moment(props.todo.startDate).add(props.todo.timeSpan * 1000, "milliseconds");
-    } else {
-      endDate = moment();
-    }
-  }
+  const endDate = (props.todo.endDate !== null) ? moment(props.todo.endDate) : moment();
 
   function rangeMark(date) {
     if (date.isValid()) {
@@ -43,7 +34,6 @@ export default function TodoWeekSlider(props) {
       project_id: props.todo.projectId,
       name: props.todo.name,
       description: props.todo.description,
-      time_span: props.todo.timeSpan,
       repeat: props.todo.repeat,
       repeat_period: props.todo.repeatPeriod,
       repeat_times: props.todo.repeatTimes,

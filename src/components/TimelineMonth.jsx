@@ -61,7 +61,7 @@ export default function TimelineMonth(props) {
                   <Typography
                     variant="body2"
                     sx={{
-                      color: (isInMonthRange(moment(), props.selectedMonth) && (Math.ceil(moment().date() / 7) === index)) ? 'error.main' : 'text.primary'
+                      color: (isInMonthRange(moment(), props.selectedMonth) && (Math.ceil(moment().date() / 7) === index + 1)) ? 'error.main' : 'text.primary'
                     }}
                   >
                     {mark.label}
@@ -74,7 +74,7 @@ export default function TimelineMonth(props) {
                     sx={{
                       fontWeight: 'bold',
                       fontSize: 16,
-                      color: (isInMonthRange(moment(), props.selectedMonth) && (Math.ceil(moment().date() / 7) === index)) ? 'error.main' : 'text.primary'
+                      color: (isInMonthRange(moment(), props.selectedMonth) && (Math.ceil(moment().date() / 7) === index + 1)) ? 'error.main' : 'text.primary'
                     }}
                   >
                     {`${props.selectedMonth.clone().add(mark.value - 1, "weeks").startOf("week").format("D")} - ${props.selectedMonth.clone().add(mark.value - 1, "weeks").startOf("week").add(6, "days").format("D")}`}

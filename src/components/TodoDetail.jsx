@@ -37,9 +37,12 @@ export default function TodoDetail(props) {
               <Typography variant="body1" gutterBottom>
                 Start date: {(props.todo.startDate !== null) ? moment(props.todo.startDate).format("YYYY-MM-DD") : ""}
               </Typography>
-                  <Typography variant="body1" gutterBottom>
-                    Each time: {moment.duration(props.todo.instanceTimeSpan * 3600000).humanize()}
-                  </Typography>
+              <Typography variant="body1" gutterBottom>
+                End date: {(props.todo.startDate !== null) ? moment(props.todo.endDate).format("YYYY-MM-DD") : ""}
+              </Typography>
+              <Typography variant="body1" gutterBottom>
+                Time span: {moment(props.todo.startDate).isValid() && moment(props.todo.endDate).isValid() ? moment.duration(moment(props.todo.startDate).diff(moment(props.todo.endDate))).humanize() : 0}
+              </Typography>
               {props.todo.repeat && (
                 <>
                   <Typography variant="h5" gutterBottom>
@@ -48,14 +51,11 @@ export default function TodoDetail(props) {
                   <Typography variant="body1" gutterBottom>
                     Interval: {props.todo.repeatTimes} times per {props.todo.repeatPeriod}
                   </Typography>
-              <Typography variant="body1" gutterBottom>
-                End date: {(props.todo.startDate !== null) ? moment(props.todo.endDate).format("YYYY-MM-DD") : ""}
-              </Typography>
-              <Typography variant="body1" gutterBottom>
-                Time span: {moment.duration(props.todo.timeSpan * 1000).humanize()}
-              </Typography>
                 </>
               )}
+              <Typography variant="body1" gutterBottom>
+                Each time: {moment.duration(props.todo.instanceTimeSpan * 3600000).humanize()}
+              </Typography>
               <Typography variant="h5" gutterBottom>
                 Dependencies:
               </Typography>

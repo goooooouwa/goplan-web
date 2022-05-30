@@ -14,9 +14,6 @@ export default function NewTodoForm() {
     projectId: (params.projectId !== undefined) ? params.projectId : "",
     name: "",
     description: "",
-    timeSpan: "",
-    timeSpanCount: "0",
-    timeSpanInterval: "2629800",
     startDate: moment().format("YYYY-MM-DD"),
     endDate: moment().format("YYYY-MM-DD"),
     repeat: false,
@@ -97,7 +94,6 @@ export default function NewTodoForm() {
       repeat: todo.repeat,
       repeat_period: todo.repeatPeriod,
       repeat_times: Math.round(Number(todo.repeatTimes)),
-      time_span: (moment(todo.startDate).isValid() && moment(todo.endDate).isValid()) ? moment.duration(moment(todo.startDate).diff(moment(todo.endDate))).asSeconds() : 0,
       instance_time_span: Number(todo.instanceTimeSpan),
       todo_dependencies_attributes: todo.dependencies.map((todo) => ({ todo_id: todo.id })),
     };
@@ -146,6 +142,7 @@ export default function NewTodoForm() {
                 fullWidth
                 value={todo.name}
                 onChange={handleChange}
+                required
               />
             </Grid>
             <Grid item>
@@ -160,37 +157,6 @@ export default function NewTodoForm() {
                 onChange={handleChange}
               />
             </Grid>
-            {/* <Grid item>
-              <Typography variant="body1" gutterBottom textAlign="left">
-                How much time do you need to finish this?
-              </Typography>
-            </Grid>
-            <Grid item container xs={12} spacing={2}>
-              <Grid item xs={6}>
-                <TextField
-                  name="timeSpanCount"
-                  margin="normal"
-                  fullWidth
-                  value={todo.timeSpanCount}
-                  onChange={handleChange}
-                />
-              </Grid>
-              <Grid item xs={6}>
-                <FormControl margin="normal" fullWidth>
-                  <Select
-                    name="timeSpanInterval"
-                    value={todo.timeSpanInterval}
-                    onChange={handleChange}
-                  >
-                    <MenuItem value="3600">Hours</MenuItem>
-                    <MenuItem value="86400">Days</MenuItem>
-                    <MenuItem value="604800">Weeks</MenuItem>
-                    <MenuItem value="2629800">Months</MenuItem>
-                    <MenuItem value="31557600">Years</MenuItem>
-                  </Select>
-                </FormControl>
-              </Grid>
-            </Grid> */}
             <Grid item>
               <Typography variant="body1" gutterBottom textAlign="left">
                 How long would it take per day?
@@ -217,12 +183,13 @@ export default function NewTodoForm() {
                   name="startDate"
                   value={todo.startDate}
                   onChange={handleChange}
+                  required
                 />
               </label>
             </Grid>
             <Grid item>
               <FormControl margin="normal" fullWidth>
-                <FormControlLabel control={<Switch name="repeat" onChange={handleCheck} checked={todo.repeat} />} label="Recurring?" />
+                <FormControlLabel control={<Switch name="repeat" onChange={handleCheck} checked={todo.repeat} />} label="Take more than 1 day?" />
               </FormControl>
             </Grid>
             {todo.repeat && (
@@ -263,6 +230,7 @@ export default function NewTodoForm() {
                       name="endDate"
                       value={todo.endDate}
                       onChange={handleChange}
+                      required
                     />
                   </label>
                 </Grid>

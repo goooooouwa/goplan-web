@@ -9,7 +9,6 @@ export default function TodoDetailContainer() {
     projectId: "",
     name: "",
     description: "",
-    timeSpan: "",
     startDate: "",
     endDate: "",
     repeat: false,
