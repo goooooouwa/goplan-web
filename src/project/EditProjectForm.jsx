@@ -2,6 +2,7 @@ import { Button, Container, FormControl, Grid, TextField, Typography } from "@mu
 import httpService from "httpService";
 import React, { useEffect, useState } from "react";
 import { Navigate, useParams } from "react-router-dom";
+import moment from "moment";
 
 export default function EditProjectForm() {
   const params = useParams();
@@ -16,12 +17,15 @@ export default function EditProjectForm() {
   useEffect(()=>{
     httpService.get(`/projects/${params.projectId}.json`)
       .then((response) => {
-        setProject(response.data);
+        setProject({
+          ...response.data,
+          targetDate: moment(response.data.targetDate).isValid() ? moment(response.data.targetDate).format("YYYY-MM-DD") : "",
+        });
       })
       .catch(function (error) {
         console.log(error);
       });
-  },[]);
+  },[params.projectId]);
 
   function handleChange(event) {
     setProject((project) => ({
@@ -38,9 +42,12 @@ export default function EditProjectForm() {
       target_date: project.targetDate
     };
 
-    httpService.post('/projects.json', projectData)
+    httpService.put(`/projects/${project.id}.json`, projectData)
       .then((response) => {
-        setProject(response.data);
+        setProject({
+          ...response.data,
+          targetDate: moment(response.data.targetDate).isValid() ? moment(response.data.targetDate).format("YYYY-MM-DD") : "",
+        });
       })
       .catch(function (error) {
         setError(error)
@@ -63,7 +70,7 @@ export default function EditProjectForm() {
         }}
       >
         <Typography variant="h3" component="div" gutterBottom>
-          New Goal
+          Edit Goal
         </Typography>
         <form onSubmit={handleSubmit}>
           <Grid container alignItems="stretch" justifyContent="center" direction="column">

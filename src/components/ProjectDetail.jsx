@@ -1,6 +1,7 @@
 import React from "react";
-import { Grid, Button, Stack, Typography } from "@mui/material";
+import { IconButton, Stack, Typography } from "@mui/material";
 import { Link as RouterLink, useParams } from "react-router-dom";
+import EditIcon from '@mui/icons-material/Edit';
 import moment from "moment";
 
 export default function ProjectDetail(props) {
@@ -10,18 +11,18 @@ export default function ProjectDetail(props) {
       <Stack
         spacing={2}
       >
-        <Grid container>
-          <Grid item xs={8}>
-            <Typography variant="h3" component="div" gutterBottom >
-              Goal: {props.project.name}
-            </Typography>
-          </Grid>
-          <Grid item xs={4}>
-            <Button variant="contained" component={RouterLink} to={`/projects/${params.projectId}/edit`} sx={{ maxWidth: 160 }}>
-              Edit
-            </Button>
-          </Grid>
-        </Grid>
+        <Stack
+          direction="row"
+          justifyContent="center"
+          alignItems="center"
+        >
+          <Typography variant="h3" component="div">
+            Goal: {props.project.name}
+          </Typography>
+          <IconButton component={RouterLink} to={`/projects/${params.projectId}/edit`} sx={{ maxWidth: 160 }}>
+            <EditIcon />
+          </IconButton>
+        </Stack>
         <Typography variant="body1" gutterBottom>
           {(props.project.targetDate !== null) ? moment(props.project.targetDate).fromNow() : "Indefinitely"}
         </Typography>

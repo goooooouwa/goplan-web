@@ -6,7 +6,7 @@ import moment from "moment";
 import React, { useCallback, useEffect, useState } from "react";
 import { Navigate, useParams } from "react-router-dom";
 
-export default function NewTodoForm() {
+export default function EditTodoForm() {
   const params = useParams();
   const [todo, setTodo] = useState({
     id: null,
@@ -26,6 +26,22 @@ export default function NewTodoForm() {
     dependencies: [],
   });
   const queryByProjectId = params.projectId !== undefined ? `project_id=${params.projectId}&` : '';
+  const [submitted, setSubmitted] = useState(false);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    httpService.get(`/todos/${params.todoId}.json`)
+      .then((response) => {
+        setTodo({
+          ...response.data,
+          startDate: moment(response.data.startDate).format("YYYY-MM-DD"),
+          endDate: moment(response.data.endDate).format("YYYY-MM-DD"),
+        });
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  }, [params.todoId]);
 
   const todoSearch = useCallback((name, callback) => {
     httpService.get(`/todos.json?${queryByProjectId}name=${name}`)
@@ -101,7 +117,7 @@ export default function NewTodoForm() {
       todo_dependencies_attributes: todo.dependencies.map((todo) => ({ todo_id: todo.id })),
     };
 
-    httpService.post('/todos.json', todoData)
+    httpService.put(`/todos/${todo.id}.json`, todoData)
       .then((response) => {
         setTodo({
           ...response.data,
@@ -110,13 +126,17 @@ export default function NewTodoForm() {
         });
       })
       .catch(function (error) {
+        setError(error)
         console.log(error);
+      })
+      .then(() => {
+        setSubmitted(true);
       });
   }
 
   return (
     <div>
-      {todo.id && (
+      {(submitted && error === null) && (
         <Navigate to={`/projects/${todo.projectId}/todos/${todo.id}`} />
       )}
       <Container
@@ -126,7 +146,7 @@ export default function NewTodoForm() {
         }}
       >
         <Typography variant="h3" component="div" gutterBottom>
-          New Todo
+          Edit Todo
         </Typography>
         <form onSubmit={handleSubmit}>
           <Grid container alignItems="stretch" justifyContent="center" direction="column">
