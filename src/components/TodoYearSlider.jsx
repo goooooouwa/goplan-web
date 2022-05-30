@@ -39,19 +39,24 @@ export default function TodoYearSlider(props) {
   };
 
   function handleMonthChange(months) {
-    const [newStartMonth, newEndMonth] = months;
     const todoData = {
       project_id: props.todo.projectId,
       tarame: props.todo.name,
       description: props.todo.description,
       time_span: props.todo.timeSpan,
-      start_date: startDate.month(newStartMonth).toISOString(),
-      end_date: endDate.month(newEndMonth).toISOString(),
       repeat: props.todo.repeat,
       repeat_period: props.todo.repeatPeriod,
       repeat_times: props.todo.repeatTimes,
       instance_time_span: props.todo.instanceTimeSpan
     };
+
+    if (isInYearRange(startDate, props.selectedYear)) {
+      todoData.start_date = startDate.month(months[0]).toISOString();
+    }
+
+    if (isInYearRange(endDate, props.selectedYear)) {
+      todoData.end_date = endDate.month(months[1]).toISOString();
+    }
 
     httpService.put(`/todos/${props.todo.id}.json`, todoData)
       .then((response) => {

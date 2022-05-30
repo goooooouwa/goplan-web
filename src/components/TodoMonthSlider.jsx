@@ -39,19 +39,24 @@ export default function TodoMonthSlider(props) {
   };
 
   function handleWeekChange(weeks) {
-    const [newStartWeek, newEndWeek] = weeks;
-    const todoData = {
+    let todoData = {
       project_id: props.todo.projectId,
       name: props.todo.name,
       description: props.todo.description,
       time_span: props.todo.timeSpan,
-      start_date: startDate.week(startDate.date(1).week() + newStartWeek).toISOString(),
-      end_date: endDate.week(endDate.date(1).week() + newEndWeek).toISOString(),
       repeat: props.todo.repeat,
       repeat_period: props.todo.repeatPeriod,
       repeat_times: props.todo.repeatTimes,
       instance_time_span: props.todo.instanceTimeSpan
     };
+
+    if (isInMonthRange(startDate, props.selectedMonth)) {
+      todoData.start_date = startDate.week(startDate.date(1).week() + weeks[0] - 1).toISOString();
+    }
+
+    if (isInMonthRange(endDate, props.selectedMonth)) {
+      todoData.end_date = endDate.week(endDate.date(1).week() + weeks[1] - 1).toISOString();
+    }
 
     httpService.put(`/todos/${props.todo.id}.json`, todoData)
       .then((response) => {

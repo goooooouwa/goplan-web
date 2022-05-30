@@ -39,19 +39,24 @@ export default function TodoWeekSlider(props) {
   }
 
   function handleDayChange(days) {
-    const [newStartDay, newEndDay] = days;
     const todoData = {
       project_id: props.todo.projectId,
       name: props.todo.name,
       description: props.todo.description,
       time_span: props.todo.timeSpan,
-      start_date: startDate.day(newStartDay).toISOString(),
-      end_date: endDate.day(newEndDay).toISOString(),
       repeat: props.todo.repeat,
       repeat_period: props.todo.repeatPeriod,
       repeat_times: props.todo.repeatTimes,
       instance_time_span: props.todo.instanceTimeSpan
     };
+
+    if (isInWeekRange(startDate, props.selectedWeek)) {
+      todoData.start_date = startDate.day(days[0]).toISOString();
+    }
+
+    if (isInWeekRange(endDate, props.selectedWeek)) {
+      todoData.end_date = endDate.day(days[1]).toISOString();
+    }
 
     httpService.put(`/todos/${props.todo.id}.json`, todoData)
       .then((response) => {

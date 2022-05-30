@@ -70,14 +70,14 @@ export default function TimelineMonth(props) {
                     key={index}
                     component={RouterLink}
                     size="small"
-                    to={`${weekUrlPrefix}${props.selectedMonth.clone().add(mark.value, "weeks").format("YYYY[W]WW")}`}
+                    to={`${weekUrlPrefix}${props.selectedMonth.clone().add(mark.value - 1, "weeks").add(1, "days").format("YYYY[W]WW")}`}
                     sx={{
                       fontWeight: 'bold',
                       fontSize: 16,
                       color: (isInMonthRange(moment(), props.selectedMonth) && (Math.ceil(moment().date() / 7) === index)) ? 'error.main' : 'text.primary'
                     }}
                   >
-                    {`${props.selectedMonth.clone().startOf("month").add(mark.value - 1, "weeks").format("D")} - ${moment.min(props.selectedMonth.clone().startOf("month").add(mark.value - 1, "weeks").add(6, "days"), props.selectedMonth.clone().endOf("month")).format("D")}`}
+                    {`${props.selectedMonth.clone().add(mark.value - 1, "weeks").startOf("week").format("D")} - ${props.selectedMonth.clone().add(mark.value - 1, "weeks").startOf("week").add(6, "days").format("D")}`}
                   </IconButton>
                 </Stack>
               ))}
