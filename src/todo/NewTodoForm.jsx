@@ -26,6 +26,7 @@ export default function NewTodoForm() {
     dependencies: [],
   });
   const queryByProjectId = params.projectId !== undefined ? `project_id=${params.projectId}&` : '';
+  const dependenciesInJSON = JSON.stringify(todo.dependencies);
 
   const todoSearch = useCallback((name, callback) => {
     httpService.get(`/todos.json?${queryByProjectId}name=${name}`)
@@ -54,7 +55,7 @@ export default function NewTodoForm() {
       ...todo,
       startDate: moment.max([moment(todo.startDate), ...todo.dependencies.map((todo) => (moment(todo.endDate).add(1, "days")))].filter((date) => (date.isValid()))).format("YYYY-MM-DD")
     }));
-  }, [todo.startDate, JSON.stringify(todo.dependencies)]);
+  }, [todo.startDate, dependenciesInJSON]);
 
   useEffect(() => {
     setTodo((todo) => ({

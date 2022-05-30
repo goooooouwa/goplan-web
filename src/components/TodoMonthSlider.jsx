@@ -6,8 +6,8 @@ import React from 'react';
 import SliderContainer from './SliderContainer';
 import TodoItem from './TodoItem';
 
-const rangeMin = 0;
-const rangeMax = 4;
+const rangeMin = 1;
+const rangeMax = 5;
 
 export default function TodoMonthSlider(props) {
   const startDate = (props.todo.startDate !== null) ? moment(props.todo.startDate) : moment();

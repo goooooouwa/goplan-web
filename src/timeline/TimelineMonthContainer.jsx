@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from "react";
 import httpService from "httpService";
 import { useParams, useSearchParams } from "react-router-dom";
-import { Button, Container, Grid, Stack, Typography } from "@mui/material";
+import { Button, Container, Grid, IconButton, Stack, Typography } from "@mui/material";
 import moment from "moment";
 import TimelineMonth from "components/TimelineMonth";
 import TodoActionGroup from "components/TodoActionGroup";
+import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
+import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
 
 export default function TimelineMonthContainer() {
   const params = useParams();
@@ -54,19 +56,25 @@ export default function TimelineMonthContainer() {
               </Typography>
               <Stack
                 direction={{ xs: 'column', sm: 'row' }}
-                alignItems={{ xs: 'stretch', sm: 'baseline' }}
+                alignItems={{ xs: 'stretch', sm: 'center' }}
                 justifyContent="space-between"
                 spacing={2}
               >
                 <Button variant="outlined" onClick={handleTodayClick} sx={{ maxWidth: 160 }}>
                   Today
                 </Button>
-                <Button variant="outlined" onClick={handlePreviousMonthClick} sx={{ maxWidth: 160 }}>
-                  {"<"}
-                </Button>
-                <Button variant="outlined" onClick={handleNextMonthClick} sx={{ maxWidth: 160 }}>
-                  {">"}
-                </Button>
+                <Stack
+                  direction="row"
+                  spacing={1}
+                  justifyContent="space-between"
+                >
+                  <IconButton onClick={handlePreviousMonthClick} sx={{ maxWidth: 160 }}>
+                    <KeyboardArrowLeftIcon />
+                  </IconButton>
+                  <IconButton onClick={handleNextMonthClick} sx={{ maxWidth: 160 }}>
+                    <KeyboardArrowRightIcon />
+                  </IconButton>
+                </Stack>
                 <TodoActionGroup activeViewTitle="Month" />
               </Stack>
             </Stack>

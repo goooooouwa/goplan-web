@@ -73,6 +73,7 @@ export default function TimelineMonth(props) {
                     to={`${weekUrlPrefix}${props.selectedMonth.clone().add(mark.value, "weeks").format("YYYY[W]WW")}`}
                     sx={{
                       fontWeight: 'bold',
+                      fontSize: 16,
                       color: (isInMonthRange(moment(), props.selectedMonth) && (Math.ceil(moment().date() / 7) === index)) ? 'error.main' : 'text.primary'
                     }}
                   >

@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from "react";
 import httpService from "httpService";
 import { useParams, useSearchParams } from "react-router-dom";
-import { Button, Container, Grid, Stack, Typography } from "@mui/material";
+import { Button, Container, Grid, IconButton, Stack, Typography } from "@mui/material";
 import moment from "moment";
 import TimelineWeek from "components/TimelineWeek";
 import TodoActionGroup from "components/TodoActionGroup";
+import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
+import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
 
 export default function TimelineWeekContainer() {
   const params = useParams();
@@ -13,15 +15,15 @@ export default function TimelineWeekContainer() {
   const selectedWeek = searchParams.get("week") !== null ? moment(searchParams.get("week")) : moment().startOf("week");
 
   const handleTodayClick = (event) => {
-    setSearchParams({week: moment().format("YYYY[W]WW")});
+    setSearchParams({ week: moment().format("YYYY[W]WW") });
   }
 
   const handlePreviousWeekClick = (event) => {
-    setSearchParams({week: selectedWeek.clone().subtract(1, "weeks").format("YYYY[W]WW")});
+    setSearchParams({ week: selectedWeek.clone().subtract(1, "weeks").format("YYYY[W]WW") });
   }
 
   const handleNextWeekClick = (event) => {
-    setSearchParams({week: selectedWeek.clone().add(1, "weeks").format("YYYY[W]WW")});
+    setSearchParams({ week: selectedWeek.clone().add(1, "weeks").format("YYYY[W]WW") });
   }
 
   useEffect(() => {
@@ -54,19 +56,25 @@ export default function TimelineWeekContainer() {
               </Typography>
               <Stack
                 direction={{ xs: 'column', sm: 'row' }}
-                alignItems={{ xs: 'stretch', sm: 'baseline' }}
+                alignItems={{ xs: 'stretch', sm: 'center' }}
                 justifyContent="space-between"
                 spacing={2}
               >
                 <Button variant="outlined" onClick={handleTodayClick} sx={{ maxWidth: 160 }}>
                   Today
                 </Button>
-                <Button variant="outlined" onClick={handlePreviousWeekClick} sx={{ maxWidth: 160 }}>
-                  {"<"}
-                </Button>
-                <Button variant="outlined" onClick={handleNextWeekClick} sx={{ maxWidth: 160 }}>
-                  {">"}
-                </Button>
+                <Stack
+                  direction="row"
+                  spacing={1}
+                  justifyContent="space-between"
+                >
+                  <IconButton onClick={handlePreviousWeekClick} sx={{ maxWidth: 160 }}>
+                    <KeyboardArrowLeftIcon />
+                  </IconButton>
+                  <IconButton onClick={handleNextWeekClick} sx={{ maxWidth: 160 }}>
+                    <KeyboardArrowRightIcon />
+                  </IconButton>
+                </Stack>
                 <TodoActionGroup activeViewTitle="Week" />
               </Stack>
             </Stack>

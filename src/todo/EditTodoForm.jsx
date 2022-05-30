@@ -28,6 +28,7 @@ export default function EditTodoForm() {
   const queryByProjectId = params.projectId !== undefined ? `project_id=${params.projectId}&` : '';
   const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState(null);
+  const dependenciesInJSON = JSON.stringify(todo.dependencies);
 
   useEffect(() => {
     httpService.get(`/todos/${params.todoId}.json`)
@@ -70,7 +71,7 @@ export default function EditTodoForm() {
       ...todo,
       startDate: moment.max([moment(todo.startDate), ...todo.dependencies.map((todo) => (moment(todo.endDate).add(1, "days")))].filter((date) => (date.isValid()))).format("YYYY-MM-DD")
     }));
-  }, [todo.startDate, JSON.stringify(todo.dependencies)]);
+  }, [todo.startDate, dependenciesInJSON]);
 
   useEffect(() => {
     setTodo((todo) => ({

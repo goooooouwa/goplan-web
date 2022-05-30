@@ -78,7 +78,7 @@ export default function TimelineYear(props) {
             </Typography>
           </Grid>
           <Grid item xs={12} md={8}>
-            <Box display={{ xs: 'block', md: 'block' }} m={1}>
+            <Box display='block' m={1}>
               <Stack
                 direction="row"
                 justifyContent="space-between"
@@ -92,6 +92,7 @@ export default function TimelineYear(props) {
                     to={`${monthUrlPrefix}${props.selectedYear.clone().add(mark.value, "months").format("YYYYMM")}`}
                     sx={{
                       fontWeight: 'bold',
+                      fontSize: { xs: 10, sm: 16},
                       color: (isInYearRange(moment(), props.selectedYear) && moment().month() === index) ? 'error.main' : 'text.primary'
                     }}
                   >
