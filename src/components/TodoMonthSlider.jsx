@@ -1,7 +1,6 @@
 import { Grid } from '@mui/material';
 import httpService from 'httpService';
 import { isInMonthRange } from 'lib/rangeCheck';
-import { calculatedEndDate } from 'lib/timeLeft';
 import moment from 'moment';
 import React from 'react';
 import SliderContainer from './SliderContainer';
@@ -12,7 +11,16 @@ const rangeMax = 4;
 
 export default function TodoMonthSlider(props) {
   const startDate = (props.todo.startDate !== null) ? moment(props.todo.startDate) : moment();
-  const endDate = (props.todo.endDate !== null) ? moment(props.todo.endDate) : calculatedEndDate(props.todo.startDate, props.todo.timeSpan);
+  let endDate;
+  if (props.todo.endDate !== null) {
+    endDate = moment(props.todo.endDate);
+  } else {
+    if (moment(props.todo.startDate).isValid() && typeof props.todo.timeSpan === 'number') {
+      endDate = moment(props.todo.startDate).add(props.todo.timeSpan * 1000, "milliseconds");
+    } else {
+      endDate = moment();
+    }
+  }
 
   const rangeMark = (date) => {
     if (date.isValid()) {

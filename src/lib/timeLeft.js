@@ -1,6 +1,6 @@
 import moment from "moment";
 
-export function elapsedTimeComponents(elapsedTimeInSeconds, startDate, endDate) {
+export default function elapsedTimeComponents(elapsedTimeInSeconds, startDate, endDate) {
     let milliseconds = 0;
 
     if (typeof elapsedTimeInSeconds === 'number') {
@@ -65,26 +65,4 @@ export function elapsedTimeComponents(elapsedTimeInSeconds, startDate, endDate) 
         label: 'seconds',
         value: seconds
     }];
-}
-
-export default function displayElapsedTime(elapsedTimeInSeconds, startDate, endDate) {
-    const components = elapsedTimeComponents(elapsedTimeInSeconds, startDate, endDate);
-    const index = components.findIndex((component) => (component.value > 0));
-    if (index === -1) {
-        return {
-            key: 'milliseconds',
-            label: 'milliseconds',
-            value: 1
-        };
-    }
-    const initialValue = components[index];
-    return { ...initialValue };
-}
-
-export function calculatedEndDate(startDate, timeSpanInMilliseconds) {
-    if (moment(startDate).isValid() && timeSpanInMilliseconds !== null) {
-        return moment(startDate).add(timeSpanInMilliseconds, "milliseconds");
-    } else {
-        return moment();
-    }
 }
