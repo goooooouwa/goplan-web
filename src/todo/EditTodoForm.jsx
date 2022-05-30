@@ -112,7 +112,7 @@ export default function EditTodoForm() {
       repeat: todo.repeat,
       repeat_period: todo.repeatPeriod,
       repeat_times: Math.round(Number(todo.repeatTimes)),
-      time_span: (moment(todo.startDate).isValid() && moment(todo.endDate).isValid()) ? moment.duration(moment(todo.startDate).diff(moment(todo.endDate))) : 0,
+      time_span: (moment(todo.startDate).isValid() && moment(todo.endDate).isValid()) ? moment.duration(moment(todo.startDate).diff(moment(todo.endDate))).asSeconds() : 0,
       instance_time_span: Number(todo.instanceTimeSpan),
       todo_dependencies_attributes: todo.dependencies.map((todo) => ({ todo_id: todo.id })),
     };
