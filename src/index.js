@@ -17,6 +17,7 @@ import TimelineYearContainer from './timeline/TimelineYearContainer';
 import TimelineDayView from './timeline/TimelineDayView';
 import TimelineWeekContainer from 'timeline/TimelineWeekContainer';
 import TimelineMonthContainer from 'timeline/TimelineMonthContainer';
+import EditProjectForm from 'project/EditProjectForm';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -28,6 +29,7 @@ root.render(
           <Route path="projects" element={<ProjectLayout />} >
             <Route index element={<ProjectListContainer />} />
             <Route path=":projectId" element={<ProjectDetailsContainer />} >
+              <Route path="edit" element={<EditProjectForm />} />
               <Route path="year" element={<TimelineYearContainer />} />
               <Route path="month" element={<TimelineMonthContainer />} />
               <Route path="week" element={<TimelineWeekContainer />} />

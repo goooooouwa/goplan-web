@@ -105,10 +105,7 @@ export default function NewTodoForm() {
 
     httpService.post('/todos.json', todoData)
       .then((response) => {
-        setTodo((todo) => ({
-          ...todo,
-          id: response.data.id
-        }));
+        setTodo(response.data);
       })
       .catch(function (error) {
         console.log(error);

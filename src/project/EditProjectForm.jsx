@@ -1,14 +1,27 @@
 import { Button, Container, FormControl, Grid, TextField, Typography } from "@mui/material";
 import httpService from "httpService";
-import React, { useState } from "react";
-import { Navigate } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Navigate, useParams } from "react-router-dom";
 
-export default function NewProjectForm() {
+export default function EditProjectForm() {
+  const params = useParams();
   const [project, setProject] = useState({
     id: null,
     name: "",
     targetDate: ""
   });
+  const [submitted, setSubmitted] = useState(false);
+  const [error, setError] = useState(null);
+
+  useEffect(()=>{
+    httpService.get(`/projects/${params.projectId}.json`)
+      .then((response) => {
+        setProject(response.data);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  },[]);
 
   function handleChange(event) {
     setProject((project) => ({
@@ -30,13 +43,17 @@ export default function NewProjectForm() {
         setProject(response.data);
       })
       .catch(function (error) {
+        setError(error)
         console.log(error);
+      })
+      .then(() => {
+        setSubmitted(true);
       });
   }
 
   return (
     <div>
-      {project.id && (
+      {(submitted && error === null) && (
         <Navigate to={`/projects/${project.id}/todos`} />
       )}
       <Container
