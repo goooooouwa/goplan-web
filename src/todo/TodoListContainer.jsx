@@ -9,6 +9,7 @@ import TodoActionGroup from "components/TodoActionGroup";
 export default function TodoListContainer() {
   const params = useParams();
   const [todos, setTodos] = useState([]);
+  const todosInJSON = JSON.stringify(todos);
 
   useEffect(() => {
     const url = params.projectId !== undefined ? `/todos.json/?project_id=${params.projectId}` : '/todos.json';
@@ -23,9 +24,9 @@ export default function TodoListContainer() {
       .then(function () {
         // always executed
       });
-  }, [params.projectId]);
+  }, [params.projectId, todosInJSON]);
 
-  const handleChange = (event) => {
+  const handleChange = (event, todo) => {
     const todoData = {
       status: event.target.checked,
       project_id: todo.projectId,
@@ -41,7 +42,17 @@ export default function TodoListContainer() {
 
     httpService.put(`/todos/${todo.id}.json`, todoData)
       .then((response) => {
-        setTodo(response.data);
+        const updatedTodo = response.data;
+        setTodos((todos) => {
+          return todos.map((todo) => {
+            if (todo.id === updatedTodo.id) {
+              return updatedTodo;
+            }
+            else {
+              return todo;
+            }
+          });
+        });
       })
       .catch(function (error) {
         console.log(error);
@@ -66,7 +77,7 @@ export default function TodoListContainer() {
           </Grid>
           <MasterDetailsLayout
             master={
-              <TodoList todos={todos} handleChange={props.handleChange} />
+              <TodoList todos={todos} handleChange={handleChange} />
             }
             details={
               <Outlet />

@@ -12,7 +12,7 @@ export default function TodoItem(props) {
       <ListItem disablePadding>
         <Checkbox
           checked={props.todo.status}
-          onChange={props.handleChange}
+          onChange={(event)=>{props.handleChange(event, props.todo)}}
           inputProps={{ 'aria-label': 'controlled' }}
         />
         <ListItemButton component={Link} to={`/projects/${props.todo.projectId}/todos/${props.todo.id}`} >
