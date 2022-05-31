@@ -29,34 +29,6 @@ export default function TodoYearSlider(props) {
     }
   };
 
-  function handleMonthChange(months) {
-    const todoData = {
-      project_id: props.todo.projectId,
-      tarame: props.todo.name,
-      description: props.todo.description,
-      repeat: props.todo.repeat,
-      repeat_period: props.todo.repeatPeriod,
-      repeat_times: props.todo.repeatTimes,
-      instance_time_span: props.todo.instanceTimeSpan
-    };
-
-    if (isInYearRange(startDate, props.selectedYear)) {
-      todoData.start_date = startDate.month(months[0]).toISOString();
-    }
-
-    if (isInYearRange(endDate, props.selectedYear)) {
-      todoData.end_date = endDate.month(months[1]).toISOString();
-    }
-
-    httpService.put(`/todos/${props.todo.id}.json`, todoData)
-      .then((response) => {
-        console.log(response);
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
-  }
-
   return (
     <>
       <Grid item xs={12} md={4}>
@@ -71,7 +43,7 @@ export default function TodoYearSlider(props) {
           rangeEnd={rangeMark(endDate)}
           disableRangeStart={!isInYearRange(startDate, props.selectedYear)}
           disableRangeEnd={!isInYearRange(endDate, props.selectedYear)}
-          handleChange={handleMonthChange}
+          handleChangeCommited={(newValue)=>{props.handleMonthChange(props.todo, newValue)}}
         />
       </Grid>
     </>

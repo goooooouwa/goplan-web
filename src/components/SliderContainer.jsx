@@ -17,7 +17,7 @@ export default function SliderContainer(props) {
   };
 
   const handleChangeCommitted = (event, newValue) => {
-    props.handleChange(value);
+    props.handleChangeCommited(value);
   };
 
   const handleChange = (event, newValue, activeThumb) => {

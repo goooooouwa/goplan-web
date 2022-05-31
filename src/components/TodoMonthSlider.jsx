@@ -29,34 +29,6 @@ export default function TodoMonthSlider(props) {
     }
   };
 
-  function handleWeekChange(weeks) {
-    let todoData = {
-      project_id: props.todo.projectId,
-      name: props.todo.name,
-      description: props.todo.description,
-      repeat: props.todo.repeat,
-      repeat_period: props.todo.repeatPeriod,
-      repeat_times: props.todo.repeatTimes,
-      instance_time_span: props.todo.instanceTimeSpan
-    };
-
-    if (isInMonthRange(startDate, props.selectedMonth)) {
-      todoData.start_date = startDate.week(startDate.date(1).week() + weeks[0] - 1).toISOString();
-    }
-
-    if (isInMonthRange(endDate, props.selectedMonth)) {
-      todoData.end_date = endDate.week(endDate.date(1).week() + weeks[1] - 1).toISOString();
-    }
-
-    httpService.put(`/todos/${props.todo.id}.json`, todoData)
-      .then((response) => {
-        console.log(response);
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
-  }
-
   return (
     <>
       <Grid item xs={12} md={4}>
@@ -71,7 +43,7 @@ export default function TodoMonthSlider(props) {
           rangeEnd={rangeMark(endDate)}
           disableRangeStart={!isInMonthRange(startDate, props.selectedMonth)}
           disableRangeEnd={!isInMonthRange(endDate, props.selectedMonth)}
-          handleChange={handleWeekChange}
+          handleChangeCommited={(newValue)=>{props.handleWeekChange(props.todo, newValue)}}
         />
       </Grid>
     </>

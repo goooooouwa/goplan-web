@@ -7,12 +7,15 @@ import TimelineWeek from "components/TimelineWeek";
 import TodoActionGroup from "components/TodoActionGroup";
 import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
+import { isInWeekRange } from "lib/rangeCheck";
 
 export default function TimelineWeekContainer() {
   const params = useParams();
+  const todosUrl = params.projectId !== undefined ? `/todos.json/?project_id=${params.projectId}` : '/todos.json';
   const [searchParams, setSearchParams] = useSearchParams();
-  const [todos, setTodos] = useState([]);
   const selectedWeek = searchParams.get("week") !== null ? moment(searchParams.get("week")) : moment().startOf("week");
+  const [todos, setTodos] = useState([]);
+  const todosInJSON = JSON.stringify(todos);
 
   const handleTodayClick = (event) => {
     setSearchParams({ week: moment().format("YYYY[W]WW") });
@@ -24,6 +27,34 @@ export default function TimelineWeekContainer() {
 
   const handleNextWeekClick = (event) => {
     setSearchParams({ week: selectedWeek.clone().add(1, "weeks").format("YYYY[W]WW") });
+  }
+
+  const handleDayChange = (todo, days) => {
+    const todoData = {
+      project_id: todo.projectId,
+      name: todo.name,
+      description: todo.description,
+      repeat: todo.repeat,
+      repeat_period: todo.repeatPeriod,
+      repeat_times: todo.repeatTimes,
+      instance_time_span: todo.instanceTimeSpan
+    };
+
+    if (isInWeekRange(todo.startDate, selectedWeek)) {
+      todoData.start_date = todo.startDate.day(days[0]).toISOString();
+    }
+
+    if (isInWeekRange(todo.endDate, selectedWeek)) {
+      todoData.end_date = todo.endDate.day(days[1]).toISOString();
+    }
+
+    httpService.put(`/todos/${todo.id}.json`, todoData)
+      .then((response) => {
+        console.log(response);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
   }
 
   const handleTodoChange = (event, todo) => {
@@ -51,8 +82,7 @@ export default function TimelineWeekContainer() {
   };
 
   useEffect(() => {
-    const url = params.projectId !== undefined ? `/todos.json/?project_id=${params.projectId}` : '/todos.json';
-    httpService.get(url)
+    httpService.get(todosUrl)
       .then((response) => {
         setTodos(response.data);
       })
@@ -63,7 +93,7 @@ export default function TimelineWeekContainer() {
       .then(function () {
         // always executed
       });
-  }, [params.projectId]);
+  }, [todosUrl, todosInJSON]);
 
   return (
     <>
@@ -104,7 +134,7 @@ export default function TimelineWeekContainer() {
             </Stack>
           </Grid>
           <Grid item xs={12}>
-            <TimelineWeek todos={todos} selectedWeek={selectedWeek} handleTodoChange={handleTodoChange}/>
+            <TimelineWeek todos={todos} selectedWeek={selectedWeek} handleTodoChange={handleTodoChange} handleDayChange={handleDayChange}/>
           </Grid>
         </Grid>
       </Container>

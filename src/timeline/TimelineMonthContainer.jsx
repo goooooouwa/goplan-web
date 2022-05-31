@@ -7,12 +7,15 @@ import TimelineMonth from "components/TimelineMonth";
 import TodoActionGroup from "components/TodoActionGroup";
 import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
+import { isInMonthRange } from "lib/rangeCheck";
 
 export default function TimelineMonthContainer() {
   const params = useParams();
+  const todosUrl = params.projectId !== undefined ? `/todos.json/?project_id=${params.projectId}` : '/todos.json';
   const [searchParams, setSearchParams] = useSearchParams();
-  const [todos, setTodos] = useState([]);
   const selectedMonth = searchParams.get("month") !== null ? moment(searchParams.get("month")) : moment().startOf("month");
+  const [todos, setTodos] = useState([]);
+  const todosInJSON = JSON.stringify(todos);
 
   const handleTodayClick = (event) => {
     setSearchParams({ month: moment().format("YYYYMM") });
@@ -24,6 +27,44 @@ export default function TimelineMonthContainer() {
 
   const handleNextMonthClick = (event) => {
     setSearchParams({ month: selectedMonth.clone().add(1, "months").format("YYYYMM") });
+  }
+
+  const handleWeekChange = (todo, weeks) => {
+    let todoData = {
+      project_id: todo.projectId,
+      name: todo.name,
+      description: todo.description,
+      repeat: todo.repeat,
+      repeat_period: todo.repeatPeriod,
+      repeat_times: todo.repeatTimes,
+      instance_time_span: todo.instanceTimeSpan
+    };
+
+    if (isInMonthRange(todo.startDate, selectedMonth)) {
+      todoData.start_date = todo.startDate.week(todo.startDate.date(1).week() + weeks[0] - 1).toISOString();
+    }
+
+    if (isInMonthRange(todo.endDate, selectedMonth)) {
+      todoData.end_date = todo.endDate.week(todo.endDate.date(1).week() + weeks[1] - 1).toISOString();
+    }
+
+    httpService.put(`/todos/${todo.id}.json`, todoData)
+      .then((response) => {
+        const updatedTodo = response.data;
+        setTodos((todos) => {
+          return todos.map((todo) => {
+            if (todo.id === updatedTodo.id) {
+              return updatedTodo;
+            }
+            else {
+              return todo;
+            }
+          });
+        });
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
   }
 
   const handleTodoChange = (event, todo) => {
@@ -51,8 +92,7 @@ export default function TimelineMonthContainer() {
   };
 
   useEffect(() => {
-    const url = params.projectId !== undefined ? `/todos.json/?project_id=${params.projectId}` : '/todos.json';
-    httpService.get(url)
+    httpService.get(todosUrl)
       .then((response) => {
         setTodos(response.data);
       })
@@ -63,7 +103,7 @@ export default function TimelineMonthContainer() {
       .then(function () {
         // always executed
       });
-  }, [params.projectId]);
+  }, [todosUrl, todosInJSON]);
 
   return (
     <>
@@ -104,7 +144,7 @@ export default function TimelineMonthContainer() {
             </Stack>
           </Grid>
           <Grid item xs={12}>
-            <TimelineMonth todos={todos} selectedMonth={selectedMonth} handleTodoChange={handleTodoChange}/>
+            <TimelineMonth todos={todos} selectedMonth={selectedMonth} handleTodoChange={handleTodoChange} handleWeekChange={handleWeekChange}/>
           </Grid>
         </Grid>
       </Container>

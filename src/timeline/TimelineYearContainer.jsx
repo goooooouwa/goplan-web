@@ -7,12 +7,15 @@ import moment from "moment";
 import TodoActionGroup from "components/TodoActionGroup";
 import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
+import isInYearRange from 'lib/rangeCheck';
 
 export default function TimelineYearContainer() {
   const params = useParams();
+  const todosUrl = params.projectId !== undefined ? `/todos.json/?project_id=${params.projectId}` : '/todos.json';
   const [searchParams, setSearchParams] = useSearchParams();
-  const [todos, setTodos] = useState([]);
   const selectedYear = searchParams.get("year") !== null ? moment(searchParams.get("year")) : moment().startOf("year");
+  const [todos, setTodos] = useState([]);
+  const todosInJSON = JSON.stringify(todos);
 
   const handleTodayClick = (event) => {
     setSearchParams({ year: moment().format("YYYY") });
@@ -24,6 +27,44 @@ export default function TimelineYearContainer() {
 
   const handleNextYearClick = (event) => {
     setSearchParams({ year: selectedYear.clone().add(1, "years").format("YYYY") });
+  }
+
+  const handleMonthChange = (todo, months) => {
+    const todoData = {
+      project_id: todo.projectId,
+      tarame: todo.name,
+      description: todo.description,
+      repeat: todo.repeat,
+      repeat_period: todo.repeatPeriod,
+      repeat_times: todo.repeatTimes,
+      instance_time_span: todo.instanceTimeSpan
+    };
+
+    if (isInYearRange(todo.startDate, selectedYear)) {
+      todoData.start_date = todo.startDate.month(months[0]).toISOString();
+    }
+
+    if (isInYearRange(todo.endDate, selectedYear)) {
+      todoData.end_date = todo.endDate.month(months[1]).toISOString();
+    }
+
+    httpService.put(`/todos/${todo.id}.json`, todoData)
+      .then((response) => {
+        const updatedTodo = response.data;
+        setTodos((todos) => {
+          return todos.map((todo) => {
+            if (todo.id === updatedTodo.id) {
+              return updatedTodo;
+            }
+            else {
+              return todo;
+            }
+          });
+        });
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
   }
 
   const handleTodoChange = (event, todo) => {
@@ -51,8 +92,7 @@ export default function TimelineYearContainer() {
   };
 
   useEffect(() => {
-    const url = params.projectId !== undefined ? `/todos.json/?project_id=${params.projectId}` : '/todos.json';
-    httpService.get(url)
+    httpService.get(todosUrl)
       .then((response) => {
         setTodos(response.data);
       })
@@ -63,7 +103,7 @@ export default function TimelineYearContainer() {
       .then(function () {
         // always executed
       });
-  }, [params.projectId]);
+  }, [todosUrl, todosInJSON]);
 
   return (
     <>
@@ -104,7 +144,7 @@ export default function TimelineYearContainer() {
             </Stack>
           </Grid>
           <Grid item xs={12}>
-            <TimelineYear todos={todos} selectedYear={selectedYear} handleTodoChange={handleTodoChange} />
+            <TimelineYear todos={todos} selectedYear={selectedYear} handleTodoChange={handleTodoChange} handleMonthChange={handleMonthChange} />
           </Grid>
         </Grid>
       </Container>

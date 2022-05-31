@@ -105,7 +105,7 @@ export default function TimelineYear(props) {
           {props.todos
             .sort((t1, t2) => moment(t1.createdAt).isBefore(t2.createdAt) ? -1 : 1)
             .map((todo, index) => (
-              <TodoYearSlider key={index} todo={todo} marks={marks} selectedYear={props.selectedYear} handleTodoChange={props.handleTodoChange}/>
+              <TodoYearSlider key={index} todo={todo} marks={marks} selectedYear={props.selectedYear} handleTodoChange={props.handleTodoChange} handleMonthChange={props.handleMonthChange} />
             ))}
         </Grid>
     </>
