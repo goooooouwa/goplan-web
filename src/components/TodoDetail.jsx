@@ -40,11 +40,11 @@ export default function TodoDetail(props) {
               <Typography variant="body1" gutterBottom>
                 End date: {(props.todo.startDate !== null) ? moment(props.todo.endDate).format("YYYY-MM-DD") : ""}
               </Typography>
-              <Typography variant="body1" gutterBottom>
-                Time span: {moment(props.todo.startDate).isValid() && moment(props.todo.endDate).isValid() ? moment.duration(moment(props.todo.startDate).diff(moment(props.todo.endDate))).humanize() : 0}
-              </Typography>
               {props.todo.repeat && (
                 <>
+                  <Typography variant="body1" gutterBottom>
+                    Time span: {moment(props.todo.startDate).isValid() && moment(props.todo.endDate).isValid() ? moment.duration(moment(props.todo.startDate).diff(moment(props.todo.endDate))).humanize() : 0}
+                  </Typography>
                   <Typography variant="h5" gutterBottom>
                     Repeating interval
                   </Typography>

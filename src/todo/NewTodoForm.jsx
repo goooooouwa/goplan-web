@@ -55,10 +55,12 @@ export default function NewTodoForm() {
   }, [todo.startDate, dependenciesInJSON]);
 
   useEffect(() => {
-    setTodo((todo) => ({
-      ...todo,
-      endDate: (todo.repeat && moment(todo.startDate).isValid()) ? moment.max(moment(todo.endDate), moment(todo.startDate).add(1, `${todo.repeatPeriod}s`)).format("YYYY-MM-DD") : todo.endDate
-    }));
+    if(moment(todo.startDate).isValid()){
+      setTodo((todo) => ({
+        ...todo,
+        endDate: todo.repeat ? moment.max(moment(todo.endDate), moment(todo.startDate).add(1, `${todo.repeatPeriod}s`)).format("YYYY-MM-DD") : todo.startDate
+      }));
+    }
   }, [todo.startDate, todo.repeat, todo.repeatTimes, todo.repeatPeriod]);
 
   function handleDependencyChange(newValue) {
