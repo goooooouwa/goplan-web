@@ -1,11 +1,15 @@
-import axios from 'axios';    
+import axios from 'axios';
 
 // Add a request interceptor
 axios.interceptors.request.use(
   function (config) {
     // Do something before request is sent
     // config.headers.Authorization = `Bearer ${your_token}`;
-    config.baseURL = 'https://goplan-api.herokuapp.com/';
+    if (!process.env.NODE_ENV || process.env.NODE_ENV === 'development') {
+      config.baseURL = 'http://localhost:8000/';
+    } else {
+      config.baseURL = 'https://goplan-api.herokuapp.com/';
+    }
 
     return config;
   },
