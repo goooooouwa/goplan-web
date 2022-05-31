@@ -46,7 +46,6 @@ export default function SliderContainer(props) {
         valueLabelFormat={valueLabelFormat}
         value={value}
         disabled={props.disableRangeStart && props.disableRangeEnd}
-        disableSwap
         onChange={handleChange}
         onChangeCommitted={handleChangeCommitted}
         getAriaValueText={valuetext}
