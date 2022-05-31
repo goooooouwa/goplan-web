@@ -26,6 +26,30 @@ export default function TimelineWeekContainer() {
     setSearchParams({ week: selectedWeek.clone().add(1, "weeks").format("YYYY[W]WW") });
   }
 
+  const handleTodoChange = (event, todo) => {
+    const todoData = {
+      status: event.target.checked,
+    };
+
+    httpService.put(`/todos/${todo.id}.json`, todoData)
+      .then((response) => {
+        const updatedTodo = response.data;
+        setTodos((todos) => {
+          return todos.map((todo) => {
+            if (todo.id === updatedTodo.id) {
+              return updatedTodo;
+            }
+            else {
+              return todo;
+            }
+          });
+        });
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  };
+
   useEffect(() => {
     const url = params.projectId !== undefined ? `/todos.json/?project_id=${params.projectId}` : '/todos.json';
     httpService.get(url)
@@ -80,7 +104,7 @@ export default function TimelineWeekContainer() {
             </Stack>
           </Grid>
           <Grid item xs={12}>
-            <TimelineWeek todos={todos} selectedWeek={selectedWeek} />
+            <TimelineWeek todos={todos} selectedWeek={selectedWeek} handleTodoChange={handleTodoChange}/>
           </Grid>
         </Grid>
       </Container>

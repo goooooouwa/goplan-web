@@ -26,18 +26,9 @@ export default function TodoListContainer() {
       });
   }, [params.projectId, todosInJSON]);
 
-  const handleChange = (event, todo) => {
+  const handleTodoChange = (event, todo) => {
     const todoData = {
       status: event.target.checked,
-      project_id: todo.projectId,
-      name: todo.name,
-      description: todo.description,
-      start_date: todo.startDate,
-      end_date: todo.endDate,
-      repeat: todo.repeat,
-      repeat_period: todo.repeatPeriod,
-      repeat_times: Math.round(Number(todo.repeatTimes)),
-      instance_time_span: Number(todo.instanceTimeSpan),
     };
 
     httpService.put(`/todos/${todo.id}.json`, todoData)
@@ -77,7 +68,7 @@ export default function TodoListContainer() {
           </Grid>
           <MasterDetailsLayout
             master={
-              <TodoList todos={todos} handleChange={handleChange} />
+              <TodoList todos={todos} handleTodoChange={handleTodoChange} />
             }
             details={
               <Outlet />

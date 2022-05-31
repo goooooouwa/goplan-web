@@ -26,6 +26,30 @@ export default function TimelineMonthContainer() {
     setSearchParams({ month: selectedMonth.clone().add(1, "months").format("YYYYMM") });
   }
 
+  const handleTodoChange = (event, todo) => {
+    const todoData = {
+      status: event.target.checked,
+    };
+
+    httpService.put(`/todos/${todo.id}.json`, todoData)
+      .then((response) => {
+        const updatedTodo = response.data;
+        setTodos((todos) => {
+          return todos.map((todo) => {
+            if (todo.id === updatedTodo.id) {
+              return updatedTodo;
+            }
+            else {
+              return todo;
+            }
+          });
+        });
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  };
+
   useEffect(() => {
     const url = params.projectId !== undefined ? `/todos.json/?project_id=${params.projectId}` : '/todos.json';
     httpService.get(url)
@@ -80,7 +104,7 @@ export default function TimelineMonthContainer() {
             </Stack>
           </Grid>
           <Grid item xs={12}>
-            <TimelineMonth todos={todos} selectedMonth={selectedMonth} />
+            <TimelineMonth todos={todos} selectedMonth={selectedMonth} handleTodoChange={handleTodoChange}/>
           </Grid>
         </Grid>
       </Container>

@@ -10,7 +10,7 @@ export default function TodoList(props) {
         {props.todos
           .sort((t1, t2) => moment(t1.createdAt).isBefore(t2.createdAt) ? -1 : 1)
           .map((todo, index) => (
-            <TodoItem key={index} todo={todo} handleChange={props.handleChange}/>
+            <TodoItem key={index} todo={todo} handleTodoChange={props.handleTodoChange}/>
           ))}
       </List>
     </>
