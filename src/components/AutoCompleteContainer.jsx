@@ -62,7 +62,7 @@ export default function AutoCompleteContainer(props) {
         setInputValue(newInputValue);
       }}
       renderInput={(params) => (
-        <TextField {...params} label={props.label} fullWidth />
+        <TextField {...params} label={props.label} required fullWidth />
       )}
       renderOption={(props, option) => {
         return (
