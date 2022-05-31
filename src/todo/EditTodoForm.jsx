@@ -20,6 +20,7 @@ export default function EditTodoForm() {
     repeatPeriod: "week",
     repeatTimes: "1",
     instanceTimeSpan: "1",
+    todo_dependencies: [],
     dependencies: [],
   });
   const queryByProjectId = params.projectId !== undefined ? `project_id=${params.projectId}&` : '';
@@ -75,7 +76,23 @@ export default function EditTodoForm() {
       ...todo,
       endDate: (todo.repeat && moment(todo.startDate).isValid()) ? moment.max(moment(todo.endDate), moment(todo.startDate).add(1, `${todo.repeatPeriod}s`)).format("YYYY-MM-DD") : todo.startDate
     }));
-  }, [todo.startDate, todo.repeat, todo.repeatTimes, todo.repeatPeriod]);
+  }, [todo.startDate, todo.repeat, todo.repeatPeriod]);
+
+  useEffect(() => {
+    if (todo.id !== null) {
+      const dependenciesData = {
+        dependencies_attributes: todo.dependencies.map((todo) => (todo.id)),
+      };
+
+      httpService.put(`/todos/${todo.id}/dependencies.json`, dependenciesData)
+        .then((response) => {
+        })
+        .catch(function (error) {
+          setError(error)
+          console.log(error);
+        });
+    }
+  }, [todo.id, todo.dependencies, dependenciesInJSON]);
 
   function handleDependencyChange(newValue) {
     setTodo((todo) => ({
@@ -111,7 +128,6 @@ export default function EditTodoForm() {
       repeat_period: todo.repeatPeriod,
       repeat_times: Math.round(Number(todo.repeatTimes)),
       instance_time_span: Number(todo.instanceTimeSpan),
-      todo_dependencies_attributes: todo.dependencies.map((todo) => ({ todo_id: todo.id })),
     };
 
     httpService.put(`/todos/${todo.id}.json`, todoData)
