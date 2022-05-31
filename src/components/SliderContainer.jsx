@@ -17,7 +17,7 @@ export default function SliderContainer(props) {
   };
 
   const handleChangeCommitted = (event, newValue) => {
-    props.handleChange(newValue);
+    props.handleChange(value);
   };
 
   const handleChange = (event, newValue, activeThumb) => {
@@ -46,6 +46,7 @@ export default function SliderContainer(props) {
         valueLabelFormat={valueLabelFormat}
         value={value}
         disabled={props.disableRangeStart && props.disableRangeEnd}
+        disableSwap
         onChange={handleChange}
         onChangeCommitted={handleChangeCommitted}
         getAriaValueText={valuetext}
