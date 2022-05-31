@@ -30,6 +30,9 @@ export default function TimelineWeekContainer() {
   }
 
   const handleDayChange = (todo, days) => {
+    const startDate = (todo.startDate !== null) ? moment(todo.startDate) : moment();
+    const endDate = (todo.endDate !== null) ? moment(todo.endDate) : moment();
+
     const todoData = {
       project_id: todo.projectId,
       name: todo.name,
@@ -40,17 +43,27 @@ export default function TimelineWeekContainer() {
       instance_time_span: todo.instanceTimeSpan
     };
 
-    if (isInWeekRange(todo.startDate, selectedWeek)) {
-      todoData.start_date = todo.startDate.day(days[0]).toISOString();
+    if (isInWeekRange(startDate, selectedWeek)) {
+      todoData.start_date = startDate.day(days[0]).toISOString();
     }
 
-    if (isInWeekRange(todo.endDate, selectedWeek)) {
-      todoData.end_date = todo.endDate.day(days[1]).toISOString();
+    if (isInWeekRange(endDate, selectedWeek)) {
+      todoData.end_date = endDate.day(days[1]).toISOString();
     }
 
     httpService.put(`/todos/${todo.id}.json`, todoData)
       .then((response) => {
-        console.log(response);
+        const updatedTodo = response.data;
+        setTodos((todos) => {
+          return todos.map((todo) => {
+            if (todo.id === updatedTodo.id) {
+              return updatedTodo;
+            }
+            else {
+              return todo;
+            }
+          });
+        });
       })
       .catch(function (error) {
         console.log(error);

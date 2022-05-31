@@ -30,6 +30,9 @@ export default function TimelineYearContainer() {
   }
 
   const handleMonthChange = (todo, months) => {
+    const startDate = (todo.startDate !== null) ? moment(todo.startDate) : moment();
+    const endDate = (todo.endDate !== null) ? moment(todo.endDate) : moment();
+
     const todoData = {
       project_id: todo.projectId,
       tarame: todo.name,
@@ -40,12 +43,12 @@ export default function TimelineYearContainer() {
       instance_time_span: todo.instanceTimeSpan
     };
 
-    if (isInYearRange(todo.startDate, selectedYear)) {
-      todoData.start_date = todo.startDate.month(months[0]).toISOString();
+    if (isInYearRange(startDate, selectedYear)) {
+      todoData.start_date = startDate.month(months[0]).toISOString();
     }
 
-    if (isInYearRange(todo.endDate, selectedYear)) {
-      todoData.end_date = todo.endDate.month(months[1]).toISOString();
+    if (isInYearRange(endDate, selectedYear)) {
+      todoData.end_date = endDate.month(months[1]).toISOString();
     }
 
     httpService.put(`/todos/${todo.id}.json`, todoData)

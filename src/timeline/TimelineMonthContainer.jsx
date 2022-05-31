@@ -30,6 +30,9 @@ export default function TimelineMonthContainer() {
   }
 
   const handleWeekChange = (todo, weeks) => {
+    const startDate = (todo.startDate !== null) ? moment(todo.startDate) : moment();
+    const endDate = (todo.endDate !== null) ? moment(todo.endDate) : moment();
+
     let todoData = {
       project_id: todo.projectId,
       name: todo.name,
@@ -40,12 +43,12 @@ export default function TimelineMonthContainer() {
       instance_time_span: todo.instanceTimeSpan
     };
 
-    if (isInMonthRange(todo.startDate, selectedMonth)) {
-      todoData.start_date = todo.startDate.week(todo.startDate.date(1).week() + weeks[0] - 1).toISOString();
+    if (isInMonthRange(startDate, selectedMonth)) {
+      todoData.start_date = startDate.week(startDate.date(1).week() + weeks[0] - 1).toISOString();
     }
 
-    if (isInMonthRange(todo.endDate, selectedMonth)) {
-      todoData.end_date = todo.endDate.week(todo.endDate.date(1).week() + weeks[1] - 1).toISOString();
+    if (isInMonthRange(endDate, selectedMonth)) {
+      todoData.end_date = endDate.week(endDate.date(1).week() + weeks[1] - 1).toISOString();
     }
 
     httpService.put(`/todos/${todo.id}.json`, todoData)
