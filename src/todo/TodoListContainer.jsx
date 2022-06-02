@@ -2,8 +2,7 @@ import httpService from "httpService";
 import React, { useEffect, useState } from "react";
 import TodoList from "components/TodoList";
 import { Container, Grid, Stack, Typography } from "@mui/material";
-import { useParams, Outlet } from "react-router-dom";
-import MasterDetailLayout from "components/MasterDetailLayout";
+import { useParams } from "react-router-dom";
 import TodoActionGroup from "components/TodoActionGroup";
 
 export default function TodoListContainer() {
@@ -66,13 +65,9 @@ export default function TodoListContainer() {
               <TodoActionGroup activeViewTitle="Todos" />
             </Stack>
           </Grid>
-          <MasterDetailLayout
-            master={
-              <TodoList todos={todos} handleTodoChange={handleTodoChange} />
-            }
-            detail={
-              <Outlet />
-            } />
+          <Grid item xs={12}>
+            <TodoList todos={todos} handleTodoChange={handleTodoChange} />
+          </Grid>
         </Grid>
       </Container>
     </>

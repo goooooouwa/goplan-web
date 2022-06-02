@@ -34,7 +34,8 @@ root.render(
               <Route path="year" element={<TimelineYearContainer />} />
               <Route path="month" element={<TimelineMonthContainer />} />
               <Route path="week" element={<TimelineWeekContainer />} />
-              <Route path="todos" element={<TodoListContainer />} >
+              <Route path="todos" element={<TodoLayout />} >
+                <Route index element={<TodoListContainer />} />
                 <Route path=":todoId" element={<TodoDetailContainer />} />
                 <Route path="new" element={<NewTodoForm />} />
                 <Route path=":todoId/edit" element={<EditTodoForm />} />
