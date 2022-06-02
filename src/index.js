@@ -6,11 +6,11 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import ProjectLayout from './project/ProjectLayout';
 import ProjectListContainer from './project/ProjectListContainer';
-import ProjectDetailsContainer from './project/ProjectDetailContainer';
+import ProjectDetailContainer from './project/ProjectDetailContainer';
 import NewProjectForm from './project/NewProjectForm';
 import TodoLayout from './todo/TodoLayout';
 import TodoListContainer from './todo/TodoListContainer';
-import TodoDetailsContainer from './todo/TodoDetailContainer';
+import TodoDetailContainer from './todo/TodoDetailContainer';
 import NewTodoForm from './todo/NewTodoForm';
 import TimelineLayout from './timeline/TimelineLayout';
 import TimelineYearContainer from './timeline/TimelineYearContainer';
@@ -30,12 +30,12 @@ root.render(
           <Route path="projects" element={<ProjectLayout />} >
             <Route index element={<ProjectListContainer />} />
             <Route path=":projectId/edit" element={<EditProjectForm />} />
-            <Route path=":projectId" element={<ProjectDetailsContainer />} >
+            <Route path=":projectId" element={<ProjectDetailContainer />} >
               <Route path="year" element={<TimelineYearContainer />} />
               <Route path="month" element={<TimelineMonthContainer />} />
               <Route path="week" element={<TimelineWeekContainer />} />
               <Route path="todos" element={<TodoListContainer />} >
-                <Route path=":todoId" element={<TodoDetailsContainer />} />
+                <Route path=":todoId" element={<TodoDetailContainer />} />
                 <Route path="new" element={<NewTodoForm />} />
                 <Route path=":todoId/edit" element={<EditTodoForm />} />
               </Route>
@@ -44,7 +44,7 @@ root.render(
           </Route>
           <Route path="todos" element={<TodoLayout />} >
             <Route index element={<TodoListContainer />} />
-            <Route path=":todoId" element={<TodoDetailsContainer />} />
+            <Route path=":todoId" element={<TodoDetailContainer />} />
             <Route path="new" element={<NewTodoForm />} />
             <Route path=":todoId/edit" element={<EditTodoForm />} />
           </Route>

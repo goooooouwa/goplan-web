@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import TodoList from "components/TodoList";
 import { Container, Grid, Stack, Typography } from "@mui/material";
 import { useParams, Outlet } from "react-router-dom";
-import MasterDetailsLayout from "components/MasterDetailsLayout";
+import MasterDetailLayout from "components/MasterDetailLayout";
 import TodoActionGroup from "components/TodoActionGroup";
 
 export default function TodoListContainer() {
@@ -66,11 +66,11 @@ export default function TodoListContainer() {
               <TodoActionGroup activeViewTitle="Todos" />
             </Stack>
           </Grid>
-          <MasterDetailsLayout
+          <MasterDetailLayout
             master={
               <TodoList todos={todos} handleTodoChange={handleTodoChange} />
             }
-            details={
+            detail={
               <Outlet />
             } />
         </Grid>
