@@ -2,6 +2,9 @@ import TodoDetail from "components/TodoDetail";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import httpService from "httpService";
+import { Button, Checkbox, Container, Grid, Stack, Typography, IconButton } from "@mui/material";
+import { Link as RouterLink } from "react-router-dom";
+import EditIcon from '@mui/icons-material/Edit';
 
 export default function TodoDetailContainer() {
   const params = useParams();
@@ -15,9 +18,12 @@ export default function TodoDetailContainer() {
     repeatPeriod: "",
     repeatTimes: 0,
     instanceTimeSpan: "",
+    status: false,
     dependencies: [],
     dependents: []
   });
+  const todoListUrl = params.projectId !== undefined ? `/projects/${params.projectId}/todos` : '/todos';
+  const todoEditUrl = params.projectId !== undefined ? `/projects/${params.projectId}/todos/${todo.id}/edit` : `/todos/${todo.id}/edit`;
 
   useEffect(() => {
     httpService.get(`/todos/${params.todoId}.json`)
@@ -33,9 +39,57 @@ export default function TodoDetailContainer() {
       });
   }, [params.todoId]);
 
+  const handleTodoChange = (event, todo) => {
+    const todoData = {
+      status: event.target.checked,
+    };
+
+    httpService.put(`/todos/${todo.id}.json`, todoData)
+      .then((response) => {
+        setTodo(response.data);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  };
+
   return (
     <>
-      <TodoDetail todo={todo} />
+      <Container sx={{ mt: 2 }}>
+        <Grid container spacing={2}>
+          <Grid item xs={12}>
+            <Stack
+              direction="row"
+              justifyContent="space-between"
+              alignItems="center"
+            >
+              <Stack
+                direction="row"
+                justifyContent="space-between"
+                alignItems="center"
+              >
+                <Checkbox
+                  checked={todo.status}
+                  onChange={(event) => { handleTodoChange(event, todo) }}
+                  inputProps={{ 'aria-label': 'controlled' }}
+                />
+                <Typography variant="h4" component="div">
+                  {todo.name}
+                </Typography>
+                <IconButton component={RouterLink} to={todoEditUrl} sx={{ maxWidth: 160 }}>
+                  <EditIcon />
+                </IconButton>
+              </Stack>
+              <Button variant="contained" component={RouterLink} to={todoListUrl} sx={{ maxWidth: 160 }}>
+                Todos
+              </Button>
+            </Stack>
+          </Grid>
+          <Grid item xs={12}>
+            <TodoDetail todo={todo} />
+          </Grid>
+        </Grid>
+      </Container>
     </>
   );
 }
