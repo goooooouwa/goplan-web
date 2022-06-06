@@ -8,20 +8,21 @@ export default function OAuthCallbackContainer(props) {
 
   useEffect(() => {
     if (searchParams.get("code") !== undefined) {
-      httpService.post('/oauth/authorize', {
+      httpService.post('/oauth/token', {
         grant_type: 'authorization_code',
-        client_id: '2fmUcuDYPwSA7EsCorNB1hpVMmvoLXr5jasJwX3WVfs',
+        client_id: 'B3xQUcXbzlcHEMWKp4tQo2QmquudSgKUvz1tyvTvbxw',
+        redirect_uri: 'http://localhost:3000/callback',
         code: searchParams.get("code"),
       })
       .then((response) => {
-        localStorage.setItem("access_token", response.data);
+        localStorage.setItem("access_token", response.data.access_token);
         navigate("/");
       })
       .catch(function (error) {
         console.log(error);
       });
     }
-  });
+  },[]);
 
   return (
     <>

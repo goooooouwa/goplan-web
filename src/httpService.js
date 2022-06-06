@@ -39,29 +39,27 @@ axios.interceptors.response.use(
   }, function (error) {
     const originalRequest = error.config;
 
-    if (error.response.status === 401 && originalRequest.url === `${baseURL}/auth/token`) {
-      const navigate = useNavigate();
-      navigate("/oauth/authorize");
-      window.location.href = "https://google.com/contact";
+    if (error.response.status === 401) {
+      window.location.href = "http://localhost:8000/oauth/authorize?client_id=B3xQUcXbzlcHEMWKp4tQo2QmquudSgKUvz1tyvTvbxw&redirect_uri=http%3A%2F%2Flocalhost%3A3000%2Fcallback&response_type=code&scope=";
       return Promise.reject(error);
     }
 
-    if (error.response.status === 401 && !originalRequest._retry) {
+    // if (error.response.status === 401 && !originalRequest._retry) {
 
-      originalRequest._retry = true;
-      const refreshToken = localStorageService.getRefreshToken();
-      return axios.post('/oauth/token',
-        {
-          "refresh_token": refreshToken
-        })
-        .then(res => {
-          if (res.status === 201) {
-            localStorageService.setToken(res.data);
-            axios.defaults.headers.common['Authorization'] = 'Bearer ' + localStorageService.getAccessToken();
-            return axios(originalRequest);
-          }
-        })
-    }
+    //   originalRequest._retry = true;
+    //   const refreshToken = localStorageService.getRefreshToken();
+    //   return axios.post('/oauth/token',
+    //     {
+    //       "refresh_token": refreshToken
+    //     })
+    //     .then(res => {
+    //       if (res.status === 201) {
+    //         localStorageService.setToken(res.data);
+    //         axios.defaults.headers.common['Authorization'] = 'Bearer ' + localStorageService.getAccessToken();
+    //         return axios(originalRequest);
+    //       }
+    //     })
+    // }
     return Promise.reject(error);
   });
 
