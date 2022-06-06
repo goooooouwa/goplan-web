@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import { HashRouter, Route, Routes } from 'react-router-dom';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
@@ -19,12 +19,14 @@ import TimelineWeekContainer from 'timeline/TimelineWeekContainer';
 import TimelineMonthContainer from 'timeline/TimelineMonthContainer';
 import EditProjectForm from 'project/EditProjectForm';
 import EditTodoForm from 'todo/EditTodoForm';
+import OAuthCallbackContainer from 'components/OAuthCallbackContainer';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <HashRouter>
+    <BrowserRouter>
       <Routes>
+        <Route path="/callback" element={<OAuthCallbackContainer />} />
         <Route path="/" element={<App />}>
           <Route index element={<ProjectListContainer />} />
           <Route path="projects" element={<ProjectLayout />} >
@@ -57,7 +59,7 @@ root.render(
           </Route>
         </Route>
       </Routes>
-    </HashRouter>
+    </BrowserRouter>
   </React.StrictMode>
 );
 

@@ -42,6 +42,7 @@ axios.interceptors.response.use(
     if (error.response.status === 401 && originalRequest.url === `${baseURL}/auth/token`) {
       const navigate = useNavigate();
       navigate("/oauth/authorize");
+      window.location.href = "https://google.com/contact";
       return Promise.reject(error);
     }
 
