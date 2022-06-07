@@ -8,14 +8,10 @@ export default function OAuthCallbackContainer(props) {
 
   useEffect(() => {
     if (searchParams.get("code") !== undefined) {
-      httpService.post('/oauth/token', {
-        grant_type: 'authorization_code',
-        client_id: 'B3xQUcXbzlcHEMWKp4tQo2QmquudSgKUvz1tyvTvbxw',
-        redirect_uri: 'http://localhost:3000/callback',
-        code: searchParams.get("code"),
-      })
+      httpService.requestAccessTokenWithAuthorizationCode(searchParams.get("code"))
       .then((response) => {
         localStorage.setItem("access_token", response.data.access_token);
+        localStorage.setItem("refresh_token", response.data.refresh_token);
         navigate("/");
       })
       .catch(function (error) {
