@@ -1,10 +1,9 @@
 import { Chip, Box, Paper, Stack, Typography, Container } from "@mui/material";
 import moment from "moment";
 import React from "react";
-import { Link as RouterLink, useParams } from "react-router-dom";
+import { Link as RouterLink } from "react-router-dom";
 
 export default function TodoDetail(props) {
-  const params = useParams();
   return (
     <>
       <Box sx={{ my: 2 }}>

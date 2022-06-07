@@ -3,7 +3,7 @@ import React, { useEffect } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 
 export default function OAuthCallbackContainer(props) {
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams] = useSearchParams();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -18,7 +18,7 @@ export default function OAuthCallbackContainer(props) {
         console.log(error);
       });
     }
-  },[]);
+  },[navigate, searchParams]);
 
   return (
     <>

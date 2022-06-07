@@ -1,9 +1,9 @@
 import axios from 'axios';
 
-const APIServiceBaseURL = process.env.API_SERVICE_BASE_URL;
-const clientId = process.env.CLIENT_ID;
-const redirectURI = process.env.REDIRECT_URI;
-const scope = process.env.SCOPE;
+const APIServiceBaseURL = process.env.REACT_APP_API_SERVICE_BASE_URL;
+const clientId = process.env.REACT_APP_CLIENT_ID;
+const redirectURI = process.env.REACT_APP_REDIRECT_URI;
+const scope = process.env.REACT_APP_SCOPE;
 
 // Add a request interceptor
 axios.interceptors.request.use(
