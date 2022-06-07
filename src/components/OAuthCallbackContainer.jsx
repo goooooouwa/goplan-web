@@ -19,7 +19,7 @@ export default function OAuthCallbackContainer(props) {
         console.log(error);
       });
     }
-  },[]);
+  },[authorizationCode, navigate]);
 
   return (
     <>
