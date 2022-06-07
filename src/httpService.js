@@ -27,24 +27,25 @@ axios.interceptors.response.use(
   }, function (error) {
     const originalRequest = error.config;
 
-    // request new access token with refresh token
-    if (error.response.status === 401 && !originalRequest._retry && localStorage.getItem("refresh_token") !== null) {
-      originalRequest._retry = true;
-      const refreshToken = localStorage.getItem("refresh_token");
-      return requestAccessTokenWithRefreshToken(refreshToken)
-        .then(res => {
-          if (res.status === 200) {
-            localStorage.setItem("access_token", res.data.access_token);
-            localStorage.setItem("refresh_token", res.data.refresh_token);
-            axios.defaults.headers.common['Authorization'] = 'Bearer ' + localStorage.getItem("access_token");
-            return axios(originalRequest);
-          }
-        })
-    }
-
-    if (error.response.status === 401) {
-      window.location.href = `${APIServiceBaseURL}/oauth/authorize?client_id=${clientId}&redirect_uri=${redirectURI}&response_type=code&scope=${scope}`;
-      return Promise.reject(error);
+    if (error.response.status === 401 && !originalRequest._retry) {
+      if (localStorage.getItem("refresh_token") !== null) {
+        // request new access token with refresh token
+        originalRequest._retry = true;
+        const refreshToken = localStorage.getItem("refresh_token");
+        return requestAccessTokenWithRefreshToken(refreshToken)
+          .then(res => {
+            if (res.status === 200) {
+              localStorage.setItem("access_token", res.data.access_token);
+              localStorage.setItem("refresh_token", res.data.refresh_token);
+              axios.defaults.headers.common['Authorization'] = 'Bearer ' + localStorage.getItem("access_token");
+              return axios(originalRequest);
+            }
+          });
+      } else {
+        // request new access token with authorization code flow
+        window.location.replace(`${APIServiceBaseURL}/oauth/authorize?client_id=${clientId}&redirect_uri=${redirectURI}&response_type=code&scope=${scope}`);
+        return Promise.reject(error);
+      }
     }
 
     return Promise.reject(error);

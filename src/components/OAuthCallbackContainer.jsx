@@ -8,7 +8,6 @@ export default function OAuthCallbackContainer(props) {
   const navigate = useNavigate();
 
   useEffect(() => {
-    console.log(searchParams.get("code"))
     if (authorizationCode !== null) {
       httpService.requestAccessTokenWithAuthorizationCode(authorizationCode)
       .then((response) => {
