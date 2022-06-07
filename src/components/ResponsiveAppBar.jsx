@@ -67,13 +67,8 @@ const ResponsiveAppBar = () => {
   };
 
   const handleLogout = () => {
-    httpService.logout()
-      .then((response) => {
-        window.location.reload();
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
+    httpService.logout();
+    window.location.reload();
   };
 
   return (

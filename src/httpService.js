@@ -88,7 +88,6 @@ const getCurrentUserId = () => {
 
 const logout = () => {
   localStorage.clear();
-  return axios.delete('/users/sign_out.json');
 };
 
 const httpService = {
