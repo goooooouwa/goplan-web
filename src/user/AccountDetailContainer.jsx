@@ -1,7 +1,7 @@
 import httpService from "lib/httpService";
 import React, { useEffect, useState } from "react";
 
-export default function AccountContainer(props) {
+export default function AccountDetailContainer(props) {
   const [user, setUser] = useState({
     id: null,
     name: "",

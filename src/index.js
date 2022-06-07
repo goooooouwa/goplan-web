@@ -20,7 +20,7 @@ import TimelineMonthContainer from 'timeline/TimelineMonthContainer';
 import EditProjectForm from 'project/EditProjectForm';
 import EditTodoForm from 'todo/EditTodoForm';
 import OAuthCallbackContainer from 'components/OAuthCallbackContainer';
-import AccountContainer from 'components/AccountContainer';
+import AccountDetailContainer from 'user/AccountDetailContainer';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -29,7 +29,7 @@ root.render(
       <Route path="/callback" element={<OAuthCallbackContainer />} />
       <Route path="/" element={<App />}>
         <Route index element={<ProjectListContainer />} />
-        <Route path="account" element={<AccountContainer />} />
+        <Route path="account" element={<AccountDetailContainer />} />
         <Route path="projects" element={<ProjectLayout />} >
           <Route index element={<ProjectListContainer />} />
           <Route path=":projectId/edit" element={<EditProjectForm />} />
