@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Outlet, useParams } from "react-router-dom";
-import httpService from "httpService";
+import httpService from "lib/httpService";
 import ProjectDetail from "components/ProjectDetail";
 import { Box } from "@mui/material";
 

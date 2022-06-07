@@ -13,7 +13,7 @@ import MenuItem from '@mui/material/MenuItem';
 import TaskAlt from '@mui/icons-material/TaskAlt';
 import { Link as RouterLink } from "react-router-dom";
 import { useEffect, useState } from 'react';
-import httpService from 'httpService';
+import httpService from 'lib/httpService';
 import { Avatar } from '@mui/material';
 
 const pages = [

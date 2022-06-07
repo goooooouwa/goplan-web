@@ -1,7 +1,7 @@
 import { Button, Container, Grid, Stack, Typography } from "@mui/material";
 import { Link as RouterLink } from "react-router-dom";
 import ProjectList from "components/ProjectList";
-import httpService from "httpService";
+import httpService from "lib/httpService";
 import React, { useEffect, useState } from "react";
 
 export default function ProjectListContainer() {

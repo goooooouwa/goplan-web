@@ -1,4 +1,4 @@
-import httpService from "httpService";
+import httpService from "lib/httpService";
 import React, { useEffect, useState } from "react";
 
 export default function AccountContainer(props) {

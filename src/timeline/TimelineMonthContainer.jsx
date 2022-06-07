@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import httpService from "httpService";
+import httpService from "lib/httpService";
 import { useParams, useSearchParams } from "react-router-dom";
 import { Button, Container, Grid, IconButton, Stack, Typography } from "@mui/material";
 import moment from "moment";
