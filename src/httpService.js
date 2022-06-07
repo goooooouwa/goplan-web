@@ -68,6 +68,23 @@ const requestAccessTokenWithRefreshToken = (refreshToken) => {
   });
 };
 
+const parseJwt = (token) => {
+  var base64Url = token.split('.')[1];
+  var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+  var jsonPayload = decodeURIComponent(atob(base64).split('').map(function (c) {
+    return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+  }).join(''));
+
+  return JSON.parse(jsonPayload);
+};
+
+const getCurrentUserId = () => {
+  const accessToken = localStorage.getItem("access_token");
+  if (accessToken !== null) {
+    return parseJwt(accessToken).user.id;
+  }
+};
+
 const httpService = {
   get: axios.get,
   post: axios.post,
@@ -76,6 +93,7 @@ const httpService = {
   patch: axios.patch,
   requestAccessTokenWithAuthorizationCode: requestAccessTokenWithAuthorizationCode,
   requestAccessTokenWithRefreshToken: requestAccessTokenWithRefreshToken,
+  getCurrentUserId: getCurrentUserId,
 };
 
 export default httpService;
