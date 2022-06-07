@@ -1,11 +1,13 @@
 import { Button, Container, FormControl, Grid, TextField, Typography } from "@mui/material";
 import httpService from "httpService";
+import { isNull, mergeWith } from "lodash";
 import React, { useState } from "react";
 import { Navigate } from "react-router-dom";
 
 export default function NewProjectForm() {
   const [project, setProject] = useState({
     id: null,
+    userId: httpService.getCurrentUserId(),
     name: "",
     targetDate: ""
   });
@@ -21,13 +23,15 @@ export default function NewProjectForm() {
     event.preventDefault();
 
     const projectData = {
+      user_id: project.userId,
       name: project.name,
       target_date: project.targetDate
     };
 
     httpService.post('/projects.json', projectData)
       .then((response) => {
-        setProject(response.data);
+        // merge two objects, overriding null values
+        setProject((project) => (mergeWith({}, project, response.data, (o, s) => isNull(s) ? o : s)));
       })
       .catch(function (error) {
         console.log(error);
