@@ -24,45 +24,43 @@ import AccountContainer from 'components/AccountContainer';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <React.StrictMode>
-    <BrowserRouter>
-      <Routes>
-        <Route path="/callback" element={<OAuthCallbackContainer />} />
-        <Route path="/" element={<App />}>
+  <BrowserRouter>
+    <Routes>
+      <Route path="/callback" element={<OAuthCallbackContainer />} />
+      <Route path="/" element={<App />}>
+        <Route index element={<ProjectListContainer />} />
+        <Route path="account" element={<AccountContainer />} />
+        <Route path="projects" element={<ProjectLayout />} >
           <Route index element={<ProjectListContainer />} />
-          <Route path="account" element={<AccountContainer />} />
-          <Route path="projects" element={<ProjectLayout />} >
-            <Route index element={<ProjectListContainer />} />
-            <Route path=":projectId/edit" element={<EditProjectForm />} />
-            <Route path=":projectId" element={<ProjectDetailContainer />} >
-              <Route path="year" element={<TimelineYearContainer />} />
-              <Route path="month" element={<TimelineMonthContainer />} />
-              <Route path="week" element={<TimelineWeekContainer />} />
-              <Route path="todos" element={<TodoLayout />} >
-                <Route index element={<TodoListContainer />} />
-                <Route path=":todoId" element={<TodoDetailContainer />} />
-                <Route path="new" element={<NewTodoForm />} />
-                <Route path=":todoId/edit" element={<EditTodoForm />} />
-              </Route>
-            </Route>
-            <Route path="new" element={<NewProjectForm />} />
-          </Route>
-          <Route path="todos" element={<TodoLayout />} >
-            <Route index element={<TodoListContainer />} />
-            <Route path=":todoId" element={<TodoDetailContainer />} />
-            <Route path="new" element={<NewTodoForm />} />
-            <Route path=":todoId/edit" element={<EditTodoForm />} />
-          </Route>
-          <Route path="timeline" element={<TimelineLayout />} >
-            <Route index element={<TimelineYearContainer />} />
+          <Route path=":projectId/edit" element={<EditProjectForm />} />
+          <Route path=":projectId" element={<ProjectDetailContainer />} >
+            <Route path="year" element={<TimelineYearContainer />} />
             <Route path="month" element={<TimelineMonthContainer />} />
             <Route path="week" element={<TimelineWeekContainer />} />
-            <Route path="day" element={<TimelineDayView />} />
+            <Route path="todos" element={<TodoLayout />} >
+              <Route index element={<TodoListContainer />} />
+              <Route path=":todoId" element={<TodoDetailContainer />} />
+              <Route path="new" element={<NewTodoForm />} />
+              <Route path=":todoId/edit" element={<EditTodoForm />} />
+            </Route>
           </Route>
+          <Route path="new" element={<NewProjectForm />} />
         </Route>
-      </Routes>
-    </BrowserRouter>
-  </React.StrictMode>
+        <Route path="todos" element={<TodoLayout />} >
+          <Route index element={<TodoListContainer />} />
+          <Route path=":todoId" element={<TodoDetailContainer />} />
+          <Route path="new" element={<NewTodoForm />} />
+          <Route path=":todoId/edit" element={<EditTodoForm />} />
+        </Route>
+        <Route path="timeline" element={<TimelineLayout />} >
+          <Route index element={<TimelineYearContainer />} />
+          <Route path="month" element={<TimelineMonthContainer />} />
+          <Route path="week" element={<TimelineWeekContainer />} />
+          <Route path="day" element={<TimelineDayView />} />
+        </Route>
+      </Route>
+    </Routes>
+  </BrowserRouter>
 );
 
 // If you want to start measuring performance in your app, pass a function

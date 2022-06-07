@@ -68,6 +68,7 @@ const requestAccessTokenWithRefreshToken = (refreshToken) => {
   });
 };
 
+// Ref: https://stackoverflow.com/questions/38552003/how-to-decode-jwt-token-in-javascript-without-using-a-library
 const parseJwt = (token) => {
   var base64Url = token.split('.')[1];
   var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
@@ -85,6 +86,11 @@ const getCurrentUserId = () => {
   }
 };
 
+const logout = () => {
+  localStorage.clear();
+  return axios.delete('/users/sign_out.json');
+};
+
 const httpService = {
   get: axios.get,
   post: axios.post,
@@ -94,6 +100,7 @@ const httpService = {
   requestAccessTokenWithAuthorizationCode: requestAccessTokenWithAuthorizationCode,
   requestAccessTokenWithRefreshToken: requestAccessTokenWithRefreshToken,
   getCurrentUserId: getCurrentUserId,
+  logout: logout,
 };
 
 export default httpService;
