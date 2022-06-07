@@ -12,7 +12,9 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import TaskAlt from '@mui/icons-material/TaskAlt';
 import { Link as RouterLink } from "react-router-dom";
-import { AccountCircle } from '@mui/icons-material';
+import { useEffect, useState } from 'react';
+import httpService from 'httpService';
+import { Avatar } from '@mui/material';
 
 const pages = [
     {
@@ -28,11 +30,36 @@ const pages = [
         url: '/timeline'
     },
 ];
-const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
+const settings = [
+    {
+        title: 'Account',
+        url: '/account'
+    },
+    {
+        title: 'Logout',
+        url: '/logout'
+    },
+];
 
 const ResponsiveAppBar = () => {
     const [anchorElNav, setAnchorElNav] = React.useState(null);
     const [anchorElUser, setAnchorElUser] = React.useState(null);
+    const [user, setUser] = useState({
+        id: null,
+        name: "",
+        email: "",
+        imageUrl: "",
+    });
+
+    useEffect(() => {
+        httpService.get('/me.json')
+            .then((response) => {
+                setUser(response.data);
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+    }, []);
 
     const handleOpenNavMenu = (event) => {
         setAnchorElNav(event.currentTarget);
@@ -142,9 +169,9 @@ const ResponsiveAppBar = () => {
                     </Box>
 
                     <Box sx={{ flexGrow: 0 }}>
-                        <Tooltip title="Open settings">
+                        <Tooltip title={user.name}>
                             <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                                <AccountCircle fontSize="large" sx={{ color: 'white' }}/>
+                                <Avatar alt={user.name} src={user.imageUrl} />
                             </IconButton>
                         </Tooltip>
                         <Menu
@@ -163,9 +190,9 @@ const ResponsiveAppBar = () => {
                             open={Boolean(anchorElUser)}
                             onClose={handleCloseUserMenu}
                         >
-                            {settings.map((setting) => (
-                                <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                                    <Typography textAlign="center">{setting}</Typography>
+                            {settings.map((setting, index) => (
+                                <MenuItem key={setting.title} component={RouterLink} to={setting.url} onClick={handleCloseUserMenu}>
+                                    <Typography textAlign="center">{setting.title}</Typography>
                                 </MenuItem>
                             ))}
                         </Menu>
