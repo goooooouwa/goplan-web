@@ -19,7 +19,7 @@ import TimelineWeekContainer from 'timeline/TimelineWeekContainer';
 import TimelineMonthContainer from 'timeline/TimelineMonthContainer';
 import EditProjectForm from 'projects/EditProjectForm';
 import EditTodoForm from 'todos/EditTodoForm';
-import OAuthCallbackContainer from 'components/OAuthCallbackContainer';
+import OAuthCallbackContainer from 'users/OAuthCallbackContainer';
 import AccountDetailContainer from 'users/AccountDetailContainer';
 import EditAccountForm from 'users/EditAccountForm';
 import AccountLayout from 'users/AccountLayout';

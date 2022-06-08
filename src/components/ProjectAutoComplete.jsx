@@ -4,7 +4,7 @@ import Autocomplete from '@mui/material/Autocomplete';
 import Grid from '@mui/material/Grid';
 import throttle from 'lodash/throttle';
 
-export default function AutoCompleteContainer(props) {
+export default function ProjectAutoComplete(props) {
   const [inputValue, setInputValue] = React.useState('');
   const [options, setOptions] = React.useState([]);
 

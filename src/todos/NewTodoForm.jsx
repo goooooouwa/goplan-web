@@ -1,6 +1,6 @@
 import { FormControl, FormControlLabel, TextField, MenuItem, Select, Switch, InputLabel, Button, Grid, Typography, Container, InputAdornment } from "@mui/material";
-import AutoCompleteContainer from "components/AutoCompleteContainer";
-import AutoCompleteMultipleContainer from "components/AutoCompleteMultipleContainer";
+import ProjectAutoComplete from "components/ProjectAutoComplete";
+import TodosAutoComplete from "components/TodosAutoComplete";
 import httpService from "lib/httpService";
 import moment from "moment";
 import React, { useCallback, useEffect, useState } from "react";
@@ -132,7 +132,7 @@ export default function NewTodoForm() {
             {(params.projectId === undefined) && (
               <Grid item>
                 <FormControl fullWidth margin="normal">
-                  <AutoCompleteContainer value={todo.project} label="Project" onChange={handleProjectChange} onSearch={projectSearch} />
+                  <ProjectAutoComplete value={todo.project} label="Project" onChange={handleProjectChange} onSearch={projectSearch} />
                 </FormControl>
               </Grid>
             )}
@@ -245,7 +245,7 @@ export default function NewTodoForm() {
             </Grid>
             <Grid item>
               <FormControl fullWidth margin="normal">
-                <AutoCompleteMultipleContainer value={todo.dependencies} label="Depended todos" onChange={handleDependencyChange} onSearch={todoSearch} />
+                <TodosAutoComplete value={todo.dependencies} label="Depended todos" onChange={handleDependencyChange} onSearch={todoSearch} />
               </FormControl>
             </Grid>
             <Grid item>
