@@ -1,101 +1,96 @@
 import moment from 'moment';
+import MockAdapter from "axios-mock-adapter";
 
-export default function setupGuestMode(mock) {
-  // const setLocalItem = (key, value) => {
-  //   localStorage.setItem(key, JSON.stringify(value));
-  // }
+const user = {
+  id: 1,
+  email: "guest@local",
+  name: "Guest",
+  image_url: "",
+};
 
-  // const getLocalItem = (key) => {
-  //   JSON.parse(localStorage.getItem(key));
-  // }
-
-  const todo1 = {
-    id: 1,
-    project: {
-      id: 1,
-      name: "Goal 1",
-      targetDate: moment().format("YYYY-MM-DD")
-    },
-    projectId: 1,
-    name: "Todo 1",
-    description: "",
-    startDate: moment().format("YYYY-MM-DD"),
-    endDate: moment().format("YYYY-MM-DD"),
-    repeat: false,
-    status: false,
-    repeatPeriod: "week",
-    repeatTimes: "1",
-    instanceTimeSpan: "1",
-    dependencies: [],
-    dependents: [],
-  };
-
-  const todo2 = {
-    id: 2,
-    project: {
-      id: 1,
-      name: "Goal 1",
-      targetDate: moment().format("YYYY-MM-DD")
-    },
-    projectId: 1,
-    name: "Todo 2",
-    description: "",
-    startDate: moment().format("YYYY-MM-DD"),
-    endDate: moment().format("YYYY-MM-DD"),
-    repeat: false,
-    status: false,
-    repeatPeriod: "week",
-    repeatTimes: "1",
-    instanceTimeSpan: "1",
-    dependencies: [],
-    dependents: [],
-  };
-
-  const todo3 = {
-    id: 3,
-    project: {
-      id: 2,
-      name: "Goal 2",
-      targetDate: moment().format("YYYY-MM-DD")
-    },
-    projectId: 2,
-    name: "Todo 3",
-    description: "",
-    startDate: moment().format("YYYY-MM-DD"),
-    endDate: moment().format("YYYY-MM-DD"),
-    repeat: false,
-    status: false,
-    repeatPeriod: "week",
-    repeatTimes: "1",
-    instanceTimeSpan: "1",
-    dependencies: [],
-    dependents: [],
-  };
-
-  const project1 = {
+const todo1 = {
+  id: 1,
+  project: {
     id: 1,
     name: "Goal 1",
-    targetDate: moment().format("YYYY-MM-DD"),
-  };
+    targetDate: moment().format("YYYY-MM-DD")
+  },
+  projectId: 1,
+  name: "Todo 1",
+  description: "",
+  startDate: moment().format("YYYY-MM-DD"),
+  endDate: moment().format("YYYY-MM-DD"),
+  repeat: false,
+  status: false,
+  repeatPeriod: "week",
+  repeatTimes: "1",
+  instanceTimeSpan: "1",
+  dependencies: [],
+  dependents: [],
+};
 
-  const project2 = {
+const todo2 = {
+  id: 2,
+  project: {
+    id: 1,
+    name: "Goal 1",
+    targetDate: moment().format("YYYY-MM-DD")
+  },
+  projectId: 1,
+  name: "Todo 2",
+  description: "",
+  startDate: moment().format("YYYY-MM-DD"),
+  endDate: moment().format("YYYY-MM-DD"),
+  repeat: false,
+  status: false,
+  repeatPeriod: "week",
+  repeatTimes: "1",
+  instanceTimeSpan: "1",
+  dependencies: [],
+  dependents: [],
+};
+
+const todo3 = {
+  id: 3,
+  project: {
     id: 2,
     name: "Goal 2",
-    targetDate: moment().format("YYYY-MM-DD"),
-  };
+    targetDate: moment().format("YYYY-MM-DD")
+  },
+  projectId: 2,
+  name: "Todo 3",
+  description: "",
+  startDate: moment().format("YYYY-MM-DD"),
+  endDate: moment().format("YYYY-MM-DD"),
+  repeat: false,
+  status: false,
+  repeatPeriod: "week",
+  repeatTimes: "1",
+  instanceTimeSpan: "1",
+  dependencies: [],
+  dependents: [],
+};
 
-  const todos = [todo1, todo2, todo3];
-  const projects = [project1, project2];
+const project1 = {
+  id: 1,
+  name: "Goal 1",
+  targetDate: moment().format("YYYY-MM-DD"),
+};
 
+const project2 = {
+  id: 2,
+  name: "Goal 2",
+  targetDate: moment().format("YYYY-MM-DD"),
+};
+
+const todos = [todo1, todo2, todo3];
+const projects = [project1, project2];
+
+function setupStaticRequests(mock){
   const staticRequests = [
     {
       key: "/me.json",
-      data: {
-        id: 1,
-        email: "guest@local",
-        name: "Guest",
-        image_url: "",
-      },
+      data: user,
     },
     {
       key: "/todos.json",
@@ -115,7 +110,9 @@ export default function setupGuestMode(mock) {
       return [200, response];
     });
   });
+}
 
+function setupIdRequests(mock) {
   const idRequests = [
     {
       urlRegex: /\/todos\/\d+\.json/,
@@ -137,7 +134,9 @@ export default function setupGuestMode(mock) {
       return [200, record];
     });
   });
+}
 
+function setupQueryRequests(mock) {
   const queryRequests = [
     {
       urlRegex: /\/todos\.json\?project_id=\d+/,
@@ -174,4 +173,20 @@ export default function setupGuestMode(mock) {
       return [200, records];
     });
   });
+}
+
+export default function setupGuestMode(axios) {
+  const mock = new MockAdapter(axios);
+
+  // const setLocalItem = (key, value) => {
+  //   localStorage.setItem(key, JSON.stringify(value));
+  // }
+
+  // const getLocalItem = (key) => {
+  //   JSON.parse(localStorage.getItem(key));
+  // }
+
+  setupStaticRequests(mock);
+  setupIdRequests(mock);
+  setupQueryRequests(mock);
 };

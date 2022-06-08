@@ -1,5 +1,4 @@
 import axios from 'axios';
-import MockAdapter from "axios-mock-adapter";
 import setupGuestMode from './guestMode';
 
 const APIServiceBaseURL = process.env.REACT_APP_API_SERVICE_BASE_URL;
@@ -10,8 +9,7 @@ const scope = process.env.REACT_APP_SCOPE;
 const guestMode = localStorage.getItem("guestMode");
 
 if (guestMode === 'true') {
-  const mock = new MockAdapter(axios);
-  setupGuestMode(mock);
+  setupGuestMode(axios);
 }
 
 // Add a request interceptor
