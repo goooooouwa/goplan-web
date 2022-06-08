@@ -11,7 +11,7 @@ import { isInMonthRange } from "lib/rangeCheck";
 
 export default function TimelineMonthContainer() {
   const params = useParams();
-  const todosUrl = params.projectId !== undefined ? `/todos.json/?project_id=${params.projectId}` : '/todos.json';
+  const todosUrl = params.projectId !== undefined ? `/todos.json?project_id=${params.projectId}` : '/todos.json';
   const [searchParams, setSearchParams] = useSearchParams();
   const selectedMonth = searchParams.get("month") !== null ? moment(searchParams.get("month")) : moment().startOf("month");
   const [todos, setTodos] = useState([]);

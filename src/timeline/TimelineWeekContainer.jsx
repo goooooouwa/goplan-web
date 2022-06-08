@@ -11,7 +11,7 @@ import { isInWeekRange } from "lib/rangeCheck";
 
 export default function TimelineWeekContainer() {
   const params = useParams();
-  const todosUrl = params.projectId !== undefined ? `/todos.json/?project_id=${params.projectId}` : '/todos.json';
+  const todosUrl = params.projectId !== undefined ? `/todos.json?project_id=${params.projectId}` : '/todos.json';
   const [searchParams, setSearchParams] = useSearchParams();
   const selectedWeek = searchParams.get("week") !== null ? moment(searchParams.get("week")) : moment().startOf("week");
   const [todos, setTodos] = useState([]);

@@ -11,7 +11,7 @@ export default function TodoListContainer() {
   const todosInJSON = JSON.stringify(todos);
 
   useEffect(() => {
-    const url = params.projectId !== undefined ? `/todos.json/?project_id=${params.projectId}` : '/todos.json';
+    const url = params.projectId !== undefined ? `/todos.json?project_id=${params.projectId}` : '/todos.json';
     httpService.get(url)
       .then((response) => {
         setTodos(response.data);
