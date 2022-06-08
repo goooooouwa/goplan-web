@@ -5,7 +5,7 @@ function valuetext(value) {
   return value;
 }
 
-export default function SliderContainer(props) {
+export default function TimelineSlider(props) {
   const [value, setValue] = useState([props.rangeStart, props.rangeEnd]);
 
   const valueLabelFormat = (value) => {

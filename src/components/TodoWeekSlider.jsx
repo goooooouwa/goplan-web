@@ -2,7 +2,7 @@ import { Grid } from '@mui/material';
 import { isInWeekRange } from 'lib/rangeCheck';
 import moment from 'moment';
 import React from 'react';
-import SliderContainer from './SliderContainer';
+import TimelineSlider from './TimelineSlider';
 import TodoItem from './TodoItem';
 
 const rangeMin = 0;
@@ -34,7 +34,7 @@ export default function TodoWeekSlider(props) {
         <TodoItem todo={props.todo} handleTodoChange={props.handleTodoChange}/>
       </Grid>
       <Grid item xs={12} md={8} sx={{ px: 3 }}>
-        <SliderContainer
+        <TimelineSlider
           marks={props.marks}
           rangeMin={rangeMin}
           rangeMax={rangeMax}
