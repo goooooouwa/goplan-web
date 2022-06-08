@@ -9,7 +9,7 @@ const scope = process.env.REACT_APP_SCOPE;
 
 const guestMode = localStorage.getItem("guestMode");
 
-if (guestMode) {
+if (guestMode === 'true') {
   const mock = new MockAdapter(axios);
   setupGuestMode(mock);
 }

@@ -66,6 +66,11 @@ const ResponsiveAppBar = () => {
     setAnchorElUser(null);
   };
 
+  const handleGuestMode = () => {
+    localStorage.setItem("guestMode", "true");
+    window.location.reload();
+  };
+
   const handleLogout = () => {
     httpService.logout();
     window.location.reload();
@@ -187,6 +192,9 @@ const ResponsiveAppBar = () => {
             >
               <MenuItem component={RouterLink} to='/account' onClick={handleCloseUserMenu}>
                 <Typography textAlign="center">Account</Typography>
+              </MenuItem>
+              <MenuItem onClick={handleGuestMode}>
+                <Typography textAlign="center">Guest mode</Typography>
               </MenuItem>
               <MenuItem onClick={handleLogout}>
                 <Typography textAlign="center">Logout</Typography>
