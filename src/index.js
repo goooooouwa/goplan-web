@@ -21,6 +21,8 @@ import EditProjectForm from 'projects/EditProjectForm';
 import EditTodoForm from 'todos/EditTodoForm';
 import OAuthCallbackContainer from 'components/OAuthCallbackContainer';
 import AccountDetailContainer from 'users/AccountDetailContainer';
+import EditAccountForm from 'users/EditAccountForm';
+import AccountLayout from 'users/AccountLayout';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -29,7 +31,10 @@ root.render(
       <Route path="/callback" element={<OAuthCallbackContainer />} />
       <Route path="/" element={<App />}>
         <Route index element={<ProjectListContainer />} />
-        <Route path="account" element={<AccountDetailContainer />} />
+        <Route path="account" element={<AccountLayout />} >
+          <Route index element={<AccountDetailContainer />} />
+          <Route path="edit" element={<EditAccountForm />} />
+        </Route>
         <Route path="projects" element={<ProjectLayout />} >
           <Route index element={<ProjectListContainer />} />
           <Route path=":projectId/edit" element={<EditProjectForm />} />
