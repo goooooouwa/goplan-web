@@ -22,11 +22,12 @@ export default function setupGuestMode(mock) {
     startDate: moment().format("YYYY-MM-DD"),
     endDate: moment().format("YYYY-MM-DD"),
     repeat: false,
+    status: false,
     repeatPeriod: "week",
     repeatTimes: "1",
     instanceTimeSpan: "1",
-    todo_dependencies: [],
     dependencies: [],
+    dependents: [],
   };
 
   const todo2 = {
@@ -42,11 +43,12 @@ export default function setupGuestMode(mock) {
     startDate: moment().format("YYYY-MM-DD"),
     endDate: moment().format("YYYY-MM-DD"),
     repeat: false,
+    status: false,
     repeatPeriod: "week",
     repeatTimes: "1",
     instanceTimeSpan: "1",
-    todo_dependencies: [],
     dependencies: [],
+    dependents: [],
   };
 
   const todo3 = {
@@ -62,11 +64,12 @@ export default function setupGuestMode(mock) {
     startDate: moment().format("YYYY-MM-DD"),
     endDate: moment().format("YYYY-MM-DD"),
     repeat: false,
+    status: false,
     repeatPeriod: "week",
     repeatTimes: "1",
     instanceTimeSpan: "1",
-    todo_dependencies: [],
     dependencies: [],
+    dependents: [],
   };
 
   const project1 = {
@@ -165,7 +168,9 @@ export default function setupGuestMode(mock) {
   queryRequests.forEach((request) => {
     mock.onGet(request.urlRegex).reply((config) => {
       const dataset = JSON.parse(localStorage.getItem(request.key));
-      const records = dataset.filter(request.filter);
+      const records = dataset.filter((datum) => {
+        return request.filter(datum, config);
+      });
       return [200, records];
     });
   });
