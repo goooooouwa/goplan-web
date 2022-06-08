@@ -1,6 +1,6 @@
 import httpService from "lib/httpService";
 import React, { useEffect, useState } from "react";
-import { Button, Checkbox, Container, Grid, Stack, Typography, IconButton, Box, Paper } from "@mui/material";
+import { Button, Container, Grid, Stack, Typography, Box, Paper } from "@mui/material";
 import { Link as RouterLink } from "react-router-dom";
 
 export default function AccountDetailContainer(props) {
@@ -57,11 +57,9 @@ export default function AccountDetailContainer(props) {
                       {user.email}
                     </Typography>
                     <Typography variant="h5" gutterBottom>
-                      Image URL
+                      Profile Image
                     </Typography>
-                    <Typography variant="body1" gutterBottom>
-                      {user.imageUrl}
-                    </Typography>
+                    <img alt={`${user.name}`} src={user.imageUrl} />
                   </Stack>
                 </Container>
               </Paper>
