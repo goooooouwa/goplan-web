@@ -1,6 +1,5 @@
 import { Button, Container, FormControl, Grid, TextField, Typography } from "@mui/material";
 import httpService from "lib/httpService";
-import { isNull, mergeWith } from "lodash";
 import React, { useState } from "react";
 import { Navigate } from "react-router-dom";
 
@@ -30,8 +29,7 @@ export default function NewProjectForm() {
 
     httpService.post('/projects.json', projectData)
       .then((response) => {
-        // merge two objects, overriding null values
-        setProject((project) => (mergeWith({}, project, response.data, (o, s) => isNull(s) ? o : s)));
+        setProject(response.data);
       })
       .catch(function (error) {
         console.log(error);
@@ -70,7 +68,7 @@ export default function NewProjectForm() {
                 <input
                   type="date"
                   name="targetDate"
-                  value={project.targetDate}
+                  value={project.targetDate || ''}
                   onChange={handleChange}
                 />
               </label>
