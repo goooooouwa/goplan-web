@@ -104,7 +104,7 @@ function seedData() {
   ];
 
   requests.forEach((request) => {
-    if (localStorage.getItem(request.key) !== null) {
+    if (localStorage.getItem(request.key) === null) {
       localStorage.setItem(request.key, JSON.stringify(request.data));
     }
   });
