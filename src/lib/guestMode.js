@@ -1,6 +1,6 @@
 import moment from 'moment';
 import MockAdapter from "axios-mock-adapter";
-import { some } from 'lodash';
+import { camelCase, mapKeys, some } from 'lodash';
 
 const user = {
   id: 1,
@@ -93,10 +93,20 @@ function seedData() {
       key: "/me.json",
       data: user,
     },
+    {
+      key: "/todos.json",
+      data: todos,
+    },
+    {
+      key: "/projects.json",
+      data: projects,
+    }
   ];
 
   requests.forEach((request) => {
-    localStorage.setItem(request.key, JSON.stringify(request.data));
+    if (localStorage.getItem(request.key) !== null) {
+      localStorage.setItem(request.key, JSON.stringify(request.data));
+    }
   });
 }
 
@@ -118,6 +128,11 @@ function setupStaticRequests(mock) {
       const response = JSON.parse(localStorage.getItem(request.key));
       return [200, response];
     });
+  });
+
+  mock.onPut("/me.json").reply((_config) => {
+    const response = JSON.parse(localStorage.getItem("/me.json"));
+    return [200, response];
   });
 }
 
@@ -151,8 +166,8 @@ function setupQueryRequests(mock) {
       urlRegex: /^\/todos\.json\?project_id=\d+$/,
       key: "/todos.json",
       filter: (todo, config) => {
-        const recordId = config.url.match(/(\d+)/g)[0];
-        return todo.projectId === parseInt(recordId);
+        const project_id = config.url.match(/(\d+)/g)[0];
+        return todo.projectId === parseInt(project_id);
       }
     },
     {
@@ -197,6 +212,16 @@ function setupQueryRequests(mock) {
 function setupPostRequests(mock) {
   const postRequests = [
     {
+      key: "/projects.json",
+      transform: (projectData, id) => {
+        return {
+          id: id,
+          name: projectData.name,
+          targetDate: projectData.target_date
+        };
+      }
+    },
+    {
       key: "/todos.json",
       transform: (todoData, id) => {
         const projects = JSON.parse(localStorage.getItem("/projects.json"));
@@ -227,16 +252,6 @@ function setupPostRequests(mock) {
         };
       }
     },
-    {
-      key: "/projects.json",
-      transform: (projectData, id) => {
-        return {
-          id: id,
-          name: projectData.name,
-          targetDate: projectData.target_date
-        };
-      }
-    }
   ];
 
   postRequests.forEach((request) => {
@@ -247,6 +262,71 @@ function setupPostRequests(mock) {
       dataset.push(item);
       localStorage.setItem(request.key, JSON.stringify(dataset));
       return [200, item];
+    });
+  });
+}
+
+function setupPutRequests(mock) {
+  const putRequests = [
+    {
+      urlRegex: /\/projects\/\d+\.json/,
+      key: "/projects.json",
+      transform: (projectData, project) => {
+        const projectUpdate = mapKeys(projectData, function (value, key) {
+          return camelCase(key);
+        });
+
+        return { ...project, ...projectUpdate };
+      }
+    },
+    {
+      urlRegex: /\/todos\/\d+\.json/,
+      key: "/todos.json",
+      transform: (todoData, todo) => {
+        const todoUpdate = mapKeys(todoData, function (value, key) {
+          return camelCase(key);
+        });
+
+        let updatedTodo = { ...todo, ...todoUpdate };
+
+        const projects = JSON.parse(localStorage.getItem("/projects.json"));
+        const project = projects.find((item) => {
+          return item.id === parseInt(updatedTodo.project_id);
+        });
+
+        const todos = JSON.parse(localStorage.getItem("/todos.json"));
+        const dependencies = todos.filter((item) => {
+          return some(todoUpdate.dependencies, { 'id': item.id });
+        });
+
+        updatedTodo = {
+          ...updatedTodo,
+          ...{
+            project: project,
+            dependencies: dependencies
+          }
+        };
+
+        return updatedTodo;
+      }
+    },
+  ];
+
+  putRequests.forEach((request) => {
+    mock.onPut(request.urlRegex).reply((config) => {
+      let dataset = JSON.parse(localStorage.getItem(request.key));
+      const id = config.url.match(/(\d+)/g)[0];
+      const record = dataset.find((item) => {
+        return item.id === parseInt(id);
+      });
+      const formData = JSON.parse(config.data);
+      const updatedItem = request.transform(formData, record);
+      dataset = dataset.filter(function( obj ) {
+        return obj.id !== updatedItem.id;
+      });
+      dataset.push(updatedItem);
+      localStorage.setItem(request.key, JSON.stringify(dataset));
+      return [200, updatedItem];
     });
   });
 }
@@ -267,4 +347,5 @@ export default function setupGuestMode(axios) {
   setupIdRequests(mock);
   setupQueryRequests(mock);
   setupPostRequests(mock);
+  setupPutRequests(mock);
 };
