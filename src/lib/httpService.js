@@ -49,14 +49,17 @@ axios.interceptors.response.use(
             }
           });
       } else {
-        // request new access token with authorization code flow
-        window.location.replace(`${APIServiceBaseURL}/oauth/authorize?client_id=${clientId}&redirect_uri=${redirectURI}&response_type=code&scope=${scope}`);
+        signIn();
         return Promise.reject(error);
       }
     }
 
     return Promise.reject(error);
   });
+
+const signIn = () => {
+  window.location.replace(`${APIServiceBaseURL}/oauth/authorize?client_id=${clientId}&redirect_uri=${redirectURI}&response_type=code&scope=${scope}`);
+};
 
 const requestAccessTokenWithAuthorizationCode = (authorizationCode) => {
   return axios.post('/oauth/token', {
@@ -111,6 +114,7 @@ const httpService = {
   requestAccessTokenWithRefreshToken: requestAccessTokenWithRefreshToken,
   getCurrentUserId: guestMode ? getGuestModeCurrentUserId : getCurrentUserId,
   logout: logout,
+  signIn: signIn,
 };
 
 export default httpService;

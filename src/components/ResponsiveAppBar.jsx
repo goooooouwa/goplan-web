@@ -190,15 +190,26 @@ const ResponsiveAppBar = () => {
               open={Boolean(anchorElUser)}
               onClose={handleCloseUserMenu}
             >
-              <MenuItem component={RouterLink} to='/account' onClick={handleCloseUserMenu}>
-                <Typography textAlign="center">Account</Typography>
-              </MenuItem>
-              <MenuItem onClick={handleGuestMode}>
-                <Typography textAlign="center">Guest mode</Typography>
-              </MenuItem>
-              <MenuItem onClick={handleLogout}>
-                <Typography textAlign="center">Logout</Typography>
-              </MenuItem>
+              {localStorage.getItem("access_token") !== null &&
+                <MenuItem component={RouterLink} to='/account' onClick={handleCloseUserMenu}>
+                  <Typography textAlign="center">Account</Typography>
+                </MenuItem>
+              }
+              {localStorage.getItem("access_token") === null &&
+                <MenuItem onClick={httpService.signIn}>
+                  <Typography textAlign="center">Sign in</Typography>
+                </MenuItem>
+              }
+              {localStorage.getItem("access_token") === null &&
+                <MenuItem onClick={handleGuestMode}>
+                  <Typography textAlign="center">Sign in as guest</Typography>
+                </MenuItem>
+              }
+              {localStorage.getItem("access_token") !== null &&
+                <MenuItem onClick={handleLogout}>
+                  <Typography textAlign="center">Logout</Typography>
+                </MenuItem>
+              }
             </Menu>
           </Box>
         </Toolbar>

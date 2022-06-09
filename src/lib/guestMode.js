@@ -90,6 +90,10 @@ const projects = [project1, project2];
 function seedData() {
   const requests = [
     {
+      key: "access_token",
+      data: "fake-access-token",
+    },
+    {
       key: "/me.json",
       data: user,
     },
