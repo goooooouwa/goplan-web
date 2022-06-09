@@ -1,5 +1,6 @@
 import moment from 'moment';
 import MockAdapter from "axios-mock-adapter";
+import { some } from 'lodash';
 
 const user = {
   id: 1,
@@ -86,25 +87,33 @@ const project2 = {
 const todos = [todo1, todo2, todo3];
 const projects = [project1, project2];
 
-function setupStaticRequests(mock){
-  const staticRequests = [
+function seedData() {
+  const requests = [
     {
       key: "/me.json",
       data: user,
     },
+  ];
+
+  requests.forEach((request) => {
+    localStorage.setItem(request.key, JSON.stringify(request.data));
+  });
+}
+
+function setupStaticRequests(mock) {
+  const staticRequests = [
+    {
+      key: "/me.json",
+    },
     {
       key: "/todos.json",
-      data: todos,
     },
     {
       key: "/projects.json",
-      data: projects,
     }
   ];
 
   staticRequests.forEach((request) => {
-    localStorage.setItem(request.key, JSON.stringify(request.data));
-
     mock.onGet(request.key).reply((_config) => {
       const response = JSON.parse(localStorage.getItem(request.key));
       return [200, response];
@@ -127,9 +136,9 @@ function setupIdRequests(mock) {
   idRequests.forEach((request) => {
     mock.onGet(request.urlRegex).reply((config) => {
       const dataset = JSON.parse(localStorage.getItem(request.key));
-      const record = dataset.find((datum) => {
+      const record = dataset.find((item) => {
         const recordId = config.url.match(/(\d+)/g)[0];
-        return datum.id === parseInt(recordId);
+        return item.id === parseInt(recordId);
       });
       return [200, record];
     });
@@ -139,11 +148,11 @@ function setupIdRequests(mock) {
 function setupQueryRequests(mock) {
   const queryRequests = [
     {
-      urlRegex: /\/todos\.json\?project_id=\d+/,
+      urlRegex: /^\/todos\.json\?project_id=\d+$/,
       key: "/todos.json",
       filter: (todo, config) => {
         const recordId = config.url.match(/(\d+)/g)[0];
-        return todo.id === parseInt(recordId);
+        return todo.projectId === parseInt(recordId);
       }
     },
     {
@@ -151,7 +160,17 @@ function setupQueryRequests(mock) {
       key: "/todos.json",
       filter: (todo, config) => {
         const name = config.url.split("=")[1];
-        return todo.name.contains(name);
+        return todo.name.toLowerCase().includes(name.toLowerCase());
+      }
+    },
+    {
+      urlRegex: /\/todos\.json\?project_id=\d+&name=\w+/,
+      key: "/todos.json",
+      filter: (todo, config) => {
+        const params = config.url.split("&");
+        const project_id = params[0].split("=")[1];
+        const name = params[1].split("=")[1];
+        return todo.projectId === parseInt(project_id) && todo.name.toLowerCase().includes(name.toLowerCase());
       }
     },
     {
@@ -159,7 +178,7 @@ function setupQueryRequests(mock) {
       key: "/projects.json",
       filter: (project, config) => {
         const name = config.url.split("=")[1];
-        return project.project.name.contains(name);
+        return project.name.toLowerCase().includes(name.toLowerCase());
       }
     }
   ];
@@ -167,10 +186,67 @@ function setupQueryRequests(mock) {
   queryRequests.forEach((request) => {
     mock.onGet(request.urlRegex).reply((config) => {
       const dataset = JSON.parse(localStorage.getItem(request.key));
-      const records = dataset.filter((datum) => {
-        return request.filter(datum, config);
+      const records = dataset.filter((item) => {
+        return request.filter(item, config);
       });
       return [200, records];
+    });
+  });
+}
+
+function setupPostRequests(mock) {
+  const postRequests = [
+    {
+      key: "/todos.json",
+      transform: (todoData, id) => {
+        const projects = JSON.parse(localStorage.getItem("/projects.json"));
+        const project = projects.find((item) => {
+          return item.id === parseInt(todoData.project_id);
+        });
+
+        const todos = JSON.parse(localStorage.getItem("/todos.json"));
+        const dependencies = todos.filter((item) => {
+          return some(todoData.todo_dependencies_attributes, { 'todo_id': item.id });
+        });
+
+        return {
+          id: id,
+          projectId: parseInt(todoData.project_id),
+          project: project,
+          name: todoData.name,
+          description: todoData.description,
+          startDate: todoData.start_date,
+          endDate: todoData.end_date,
+          repeat: todoData.repeat,
+          status: false,
+          repeatPeriod: todoData.repeat_period,
+          repeatTimes: todoData.repeat_times,
+          instanceTimeSpan: todoData.instance_time_span,
+          dependencies: dependencies,
+          dependents: [],
+        };
+      }
+    },
+    {
+      key: "/projects.json",
+      transform: (projectData, id) => {
+        return {
+          id: id,
+          name: projectData.name,
+          targetDate: projectData.target_date
+        };
+      }
+    }
+  ];
+
+  postRequests.forEach((request) => {
+    mock.onPost(request.key).reply((config) => {
+      const dataset = JSON.parse(localStorage.getItem(request.key));
+      const formData = JSON.parse(config.data);
+      const item = request.transform(formData, dataset.length + 1);
+      dataset.push(item);
+      localStorage.setItem(request.key, JSON.stringify(dataset));
+      return [200, item];
     });
   });
 }
@@ -186,7 +262,9 @@ export default function setupGuestMode(axios) {
   //   JSON.parse(localStorage.getItem(key));
   // }
 
+  seedData();
   setupStaticRequests(mock);
   setupIdRequests(mock);
   setupQueryRequests(mock);
+  setupPostRequests(mock);
 };
