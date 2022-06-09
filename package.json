@@ -55,6 +55,7 @@
     ]
   },
   "devDependencies": {
+    "cypress": "^10.0.3",
     "gh-pages": "^4.0.0",
     "react-test-renderer": "^18.1.0"
   }
