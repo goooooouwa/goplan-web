@@ -202,7 +202,7 @@ const ResponsiveAppBar = () => {
               }
               {localStorage.getItem("access_token") === null &&
                 <MenuItem onClick={handleGuestMode}>
-                  <Typography textAlign="center">Sign in as guest</Typography>
+                  <Typography textAlign="center">Guest mode</Typography>
                 </MenuItem>
               }
               {localStorage.getItem("access_token") !== null &&
