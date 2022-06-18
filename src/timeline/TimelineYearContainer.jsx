@@ -35,7 +35,7 @@ export default function TimelineYearContainer() {
 
     const todoData = {
       project_id: todo.projectId,
-      tarame: todo.name,
+      name: todo.name,
       description: todo.description,
       repeat: todo.repeat,
       repeat_period: todo.repeatPeriod,
