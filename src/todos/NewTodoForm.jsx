@@ -8,6 +8,8 @@ import { Navigate, useParams } from "react-router-dom";
 
 export default function NewTodoForm() {
   const params = useParams();
+  const [submitted, setSubmitted] = useState(false);
+  const [error, setError] = useState(null);
   const [todo, setTodo] = useState({
     id: null,
     project: null,
@@ -109,13 +111,17 @@ export default function NewTodoForm() {
         });
       })
       .catch(function (error) {
+        setError(error.response.data);
         console.log(error);
+      })
+      .then(() => {
+        setSubmitted(true);
       });
   }
 
   return (
     <div>
-      {todo.id && (
+      {(submitted && error === null) && (
         <Navigate to={`/projects/${todo.projectId}/todos/${todo.id}`} />
       )}
       <Container
@@ -129,6 +135,9 @@ export default function NewTodoForm() {
         </Typography>
         <form onSubmit={handleSubmit}>
           <Grid container alignItems="stretch" justifyContent="center" direction="column">
+            {(error !== null) && (
+              <p>{JSON.stringify(error)}</p>
+            )}
             {(params.projectId === undefined) && (
               <Grid item>
                 <FormControl fullWidth margin="normal">

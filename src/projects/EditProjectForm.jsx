@@ -50,7 +50,7 @@ export default function EditProjectForm() {
         });
       })
       .catch(function (error) {
-        setError(error)
+        setError(error.response.data);
         console.log(error);
       })
       .then(() => {
@@ -74,6 +74,9 @@ export default function EditProjectForm() {
         </Typography>
         <form onSubmit={handleSubmit}>
           <Grid container alignItems="stretch" justifyContent="center" direction="column">
+            {(error !== null) && (
+              <p>{JSON.stringify(error)}</p>
+            )}
             <Grid item>
               <TextField
                 required

@@ -88,7 +88,6 @@ export default function EditTodoForm() {
         .then((response) => {
         })
         .catch(function (error) {
-          setError(error)
           console.log(error);
         });
     }
@@ -139,7 +138,7 @@ export default function EditTodoForm() {
         });
       })
       .catch(function (error) {
-        setError(error)
+        setError(error.response.data);
         console.log(error);
       })
       .then(() => {
@@ -163,6 +162,9 @@ export default function EditTodoForm() {
         </Typography>
         <form onSubmit={handleSubmit}>
           <Grid container alignItems="stretch" justifyContent="center" direction="column">
+            {(error !== null) && (
+              <p>{JSON.stringify(error)}</p>
+            )}
             {(params.projectId === undefined) && (
               <Grid item>
                 <FormControl fullWidth margin="normal">

@@ -10,6 +10,8 @@ export default function NewProjectForm() {
     name: "",
     targetDate: ""
   });
+  const [submitted, setSubmitted] = useState(false);
+  const [error, setError] = useState(null);
 
   function handleChange(event) {
     setProject((project) => ({
@@ -32,13 +34,17 @@ export default function NewProjectForm() {
         setProject(response.data);
       })
       .catch(function (error) {
+        setError(error.response.data);
         console.log(error);
+      })
+      .then(() => {
+        setSubmitted(true);
       });
   }
 
   return (
     <div>
-      {project.id && (
+      {(submitted && error === null) && (
         <Navigate to={`/projects/${project.id}/todos`} />
       )}
       <Container
@@ -52,6 +58,9 @@ export default function NewProjectForm() {
         </Typography>
         <form onSubmit={handleSubmit}>
           <Grid container alignItems="stretch" justifyContent="center" direction="column">
+            {(error !== null) && (
+              <p>{JSON.stringify(error)}</p>
+            )}
             <Grid item>
               <TextField
                 required
