@@ -66,6 +66,7 @@ export default function TimelineMonthContainer() {
         });
       })
       .catch(function (error) {
+        setTodos([]);
         console.log(error);
       });
   }

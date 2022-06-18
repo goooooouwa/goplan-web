@@ -66,6 +66,7 @@ export default function TimelineYearContainer() {
         });
       })
       .catch(function (error) {
+        setTodos([]);
         console.log(error);
       });
   }

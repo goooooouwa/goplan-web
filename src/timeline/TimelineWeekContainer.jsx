@@ -66,6 +66,7 @@ export default function TimelineWeekContainer() {
         });
       })
       .catch(function (error) {
+        setTodos([]);
         console.log(error);
       });
   }
