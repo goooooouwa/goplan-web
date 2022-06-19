@@ -3,7 +3,7 @@ import { isInWeekRange } from 'lib/rangeCheck';
 import moment from 'moment';
 import React from 'react';
 import TimelineSlider from './TimelineSlider/TimelineSlider';
-import TodoItem from './TodoItem';
+import TodoItem from './TodoItem/TodoItem';
 
 const rangeMin = 0;
 const rangeMax = 6;

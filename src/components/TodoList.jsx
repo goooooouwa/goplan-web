@@ -1,7 +1,7 @@
 import { List } from "@mui/material";
 import moment from "moment";
 import React from "react";
-import TodoItem from "./TodoItem";
+import TodoItem from "./TodoItem/TodoItem";
 
 export default function TodoList(props) {
   return (
