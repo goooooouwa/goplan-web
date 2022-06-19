@@ -2,7 +2,7 @@ import { Grid } from '@mui/material';
 import { isInMonthRange } from 'lib/rangeCheck';
 import moment from 'moment';
 import React from 'react';
-import TimelineSlider from './TimelineSlider';
+import TimelineSlider from './TimelineSlider/TimelineSlider';
 import TodoItem from './TodoItem';
 
 const rangeMin = 1;

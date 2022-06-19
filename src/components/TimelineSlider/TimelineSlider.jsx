@@ -1,5 +1,6 @@
 import { Slider } from '@mui/material';
 import React, { useEffect, useState } from 'react';
+import PropTypes from 'prop-types';
 
 function valuetext(value) {
   return value;
@@ -58,3 +59,17 @@ export default function TimelineSlider(props) {
     </>
   );
 }
+
+TimelineSlider.propTypes = {
+  rangeMin: PropTypes.number.isRequired,
+  rangeMax: PropTypes.number.isRequired,
+  rangeStart: PropTypes.number.isRequired,
+  rangeEnd: PropTypes.number.isRequired,
+  disableRangeStart: PropTypes.bool,
+  disableRangeEnd: PropTypes.bool,
+  marks: PropTypes.arrayOf(PropTypes.shape({
+    label: PropTypes.string,
+    value: PropTypes.number
+  })).isRequired,
+  handleChangeCommited: PropTypes.func.isRequired
+};
