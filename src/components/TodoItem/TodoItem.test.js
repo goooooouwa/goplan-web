@@ -16,7 +16,7 @@ it('should show a todo item', () => {
     <BrowserRouter>
       <TodoItem
         todo={todo}
-        handleTodoChange={() => { }}
+        handleTodoChange={() => {}}
       />
     </BrowserRouter>
   );
@@ -24,22 +24,33 @@ it('should show a todo item', () => {
   expect(tree).toMatchSnapshot();
 });
 
-it('should display todo name', () => {
+it('should display a todo with checkbox', () => {
+  const handleTodoChange = jest.fn();
   render(
     <BrowserRouter>
       <TodoItem
         todo={todo}
-        handleTodoChange={() => { }}
+        handleTodoChange={handleTodoChange}
       />
     </BrowserRouter>
   );
 
   expect(screen.getByText(/Todo 1/)).toBeInTheDocument();
   expect(screen.getByRole('checkbox')).toBeInTheDocument();
+});
 
-  // expect(screen.getByRole('checkbox').checked).toBeFalsy();
+it('should call #handleTodoChange when checkbox clicked', () => {
+  const handleTodoChange = jest.fn();
+  render(
+    <BrowserRouter>
+      <TodoItem
+        todo={todo}
+        handleTodoChange={handleTodoChange}
+      />
+    </BrowserRouter>
+  );
 
-  // fireEvent.click(screen.getByRole('checkbox'));
+  fireEvent.click(screen.getByRole('checkbox'));
 
-  // expect(await screen.getByRole('checkbox').checked).toBeTruthy();
+  expect(handleTodoChange).toHaveBeenCalledTimes(1);
 });
