@@ -2,7 +2,7 @@ import { Box, Grid, Stack, Typography } from '@mui/material';
 import { isInWeekRange } from 'lib/rangeCheck';
 import moment from 'moment';
 import React from 'react';
-import TodoWeekSlider from './TodoWeekSlider';
+import TodoWeekSlider from './TodoWeekSlider/TodoWeekSlider';
 
 const marks = [
   {
