@@ -69,7 +69,7 @@ it('should update slider value if rangeStart or rangeEnd changed', () => {
   expect(screen.getAllByRole('slider')[1]).toHaveValue('2');
 });
 
-it('should call #handleChangeCommited when new rangeStart or rangeEnd selected', async () => {
+it('should change rangeStart or rangeEnd when new value selected', async () => {
   const handleChangeCommited = jest.fn();
   render(
      <TimelineSlider
@@ -85,16 +85,35 @@ it('should call #handleChangeCommited when new rangeStart or rangeEnd selected',
   );
   fireEvent.change(screen.getAllByRole('slider')[0], {target: {value: '2'}});
   expect(screen.getAllByRole('slider')[0]).toHaveValue('2');
+
+  fireEvent.change(screen.getAllByRole('slider')[1], {target: {value: '4'}});
+  expect(screen.getAllByRole('slider')[1]).toHaveValue('4');
+});
+
+it('should call #handleChangeCommited with new rangeStart or rangeEnd when new value selected', async () => {
+  const handleChangeCommited = jest.fn();
+  render(
+     <TimelineSlider
+       marks={marks}
+       rangeMin={0}
+       rangeMax={4}
+       rangeStart={1}
+       rangeEnd={3}
+       disableRangeStart={false}
+       disableRangeEnd={false}
+       handleChangeCommited={handleChangeCommited}
+     />
+  );
+  fireEvent.change(screen.getAllByRole('slider')[0], {target: {value: '2'}});
   expect(handleChangeCommited).toHaveBeenCalledTimes(1);
   expect(handleChangeCommited).toHaveBeenCalledWith([2,3]);
 
   fireEvent.change(screen.getAllByRole('slider')[1], {target: {value: '4'}});
-  expect(screen.getAllByRole('slider')[1]).toHaveValue('4');
   expect(handleChangeCommited).toHaveBeenCalledTimes(2);
   expect(handleChangeCommited).toHaveBeenCalledWith([2,4]);
 });
 
-it('should not change rangeStart or rangeEnd if disabled', () => {
+it('should not change rangeStart or rangeEnd if both are disabled', () => {
   const handleChangeCommited = jest.fn();
   render(
      <TimelineSlider
@@ -108,17 +127,13 @@ it('should not change rangeStart or rangeEnd if disabled', () => {
        handleChangeCommited={handleChangeCommited}
      />
   );
-  expect(screen.getAllByRole('slider')[0]).toHaveValue('1');
-  expect(screen.getAllByRole('slider')[1]).toHaveValue('3');
 
   fireEvent.change(screen.getAllByRole('slider')[0], {target: {value: '2'}});
   expect(screen.getAllByRole('slider')[0]).toHaveValue('1');
-
-  fireEvent.change(screen.getAllByRole('slider')[1], {target: {value: '2'}});
   expect(screen.getAllByRole('slider')[1]).toHaveValue('3');
 });
 
-it('should not call #handleChangeCommited if rangeStart or rangeEnd disabled', () => {
+it('should not call #handleChangeCommited if both rangeStart and rangeEnd are disabled', () => {
   const handleChangeCommited = jest.fn();
   render(
      <TimelineSlider
@@ -132,12 +147,104 @@ it('should not call #handleChangeCommited if rangeStart or rangeEnd disabled', (
        handleChangeCommited={handleChangeCommited}
      />
   );
-  expect(screen.getAllByRole('slider')[0]).toHaveValue('1');
-  expect(screen.getAllByRole('slider')[1]).toHaveValue('3');
 
   fireEvent.change(screen.getAllByRole('slider')[0], {target: {value: '2'}});
   expect(handleChangeCommited).not.toHaveBeenCalled();
 
   fireEvent.change(screen.getAllByRole('slider')[1], {target: {value: '2'}});
   expect(handleChangeCommited).not.toHaveBeenCalled();
+});
+
+it('should only change rangeEnd if rangeStart is disabled', () => {
+  const handleChangeCommited = jest.fn();
+  render(
+     <TimelineSlider
+       marks={marks}
+       rangeMin={0}
+       rangeMax={4}
+       rangeStart={1}
+       rangeEnd={3}
+       disableRangeStart={true}
+       disableRangeEnd={false}
+       handleChangeCommited={handleChangeCommited}
+     />
+  );
+
+  fireEvent.change(screen.getAllByRole('slider')[0], {target: {value: '2'}});
+  expect(screen.getAllByRole('slider')[0]).toHaveValue('1');
+  expect(screen.getAllByRole('slider')[1]).toHaveValue('3');
+
+  fireEvent.change(screen.getAllByRole('slider')[1], {target: {value: '2'}});
+  expect(screen.getAllByRole('slider')[0]).toHaveValue('1');
+  expect(screen.getAllByRole('slider')[1]).toHaveValue('2');
+});
+
+it('should only change rangeStart if rangeEnd is disabled', () => {
+  const handleChangeCommited = jest.fn();
+  render(
+     <TimelineSlider
+       marks={marks}
+       rangeMin={0}
+       rangeMax={4}
+       rangeStart={1}
+       rangeEnd={3}
+       disableRangeStart={false}
+       disableRangeEnd={true}
+       handleChangeCommited={handleChangeCommited}
+     />
+  );
+
+  fireEvent.change(screen.getAllByRole('slider')[0], {target: {value: '2'}});
+  expect(screen.getAllByRole('slider')[0]).toHaveValue('2');
+  expect(screen.getAllByRole('slider')[1]).toHaveValue('3');
+
+  fireEvent.change(screen.getAllByRole('slider')[1], {target: {value: '2'}});
+  expect(screen.getAllByRole('slider')[0]).toHaveValue('2');
+  expect(screen.getAllByRole('slider')[1]).toHaveValue('3');
+});
+
+it('should call #handleChangeCommited with old rangeEnd if rangeEnd is disabled', () => {
+  const handleChangeCommited = jest.fn();
+  render(
+     <TimelineSlider
+       marks={marks}
+       rangeMin={0}
+       rangeMax={4}
+       rangeStart={1}
+       rangeEnd={3}
+       disableRangeStart={false}
+       disableRangeEnd={true}
+       handleChangeCommited={handleChangeCommited}
+     />
+  );
+
+  fireEvent.change(screen.getAllByRole('slider')[1], {target: {value: '2'}});
+  expect(handleChangeCommited).not.toHaveBeenCalled();
+
+  fireEvent.change(screen.getAllByRole('slider')[0], {target: {value: '2'}});
+  expect(handleChangeCommited).toHaveBeenCalledTimes(1);
+  expect(handleChangeCommited).toHaveBeenCalledWith([2,3]);
+});
+
+it('should call #handleChangeCommited with old rangeStart if rangeStart is disabled', () => {
+  const handleChangeCommited = jest.fn();
+  render(
+     <TimelineSlider
+       marks={marks}
+       rangeMin={0}
+       rangeMax={4}
+       rangeStart={1}
+       rangeEnd={3}
+       disableRangeStart={false}
+       disableRangeEnd={true}
+       handleChangeCommited={handleChangeCommited}
+     />
+  );
+
+  fireEvent.change(screen.getAllByRole('slider')[0], {target: {value: '2'}});
+  expect(handleChangeCommited).not.toHaveBeenCalled();
+
+  fireEvent.change(screen.getAllByRole('slider')[1], {target: {value: '2'}});
+  expect(handleChangeCommited).toHaveBeenCalledTimes(1);
+  expect(handleChangeCommited).toHaveBeenCalledWith([1,2]);
 });
