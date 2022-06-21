@@ -19,7 +19,18 @@ export default function TimelineSlider(props) {
   };
 
   const handleChangeCommitted = (event, newValue) => {
-    props.handleChangeCommited(value);
+    props.handleChangeCommited(filteredRangeValue(newValue));
+  };
+
+  const filteredRangeValue = (newValue) => {
+    let [rangeStart, rangeEnd] = value;
+    if (!props.disableRangeStart) {
+      rangeStart = newValue[0];
+    }
+    if (!props.disableRangeEnd) {
+      rangeEnd = newValue[1];
+    }
+    return [rangeStart, rangeEnd];
   };
 
   const handleChange = (event, newValue, activeThumb) => {
@@ -27,15 +38,7 @@ export default function TimelineSlider(props) {
       return;
     }
 
-    if (activeThumb === 0) {
-      if (!props.disableRangeStart) {
-        setValue(newValue);
-      }
-    } else {
-      if (!props.disableRangeEnd) {
-        setValue(newValue);
-      }
-    }
+    setValue(filteredRangeValue(newValue));
   };
 
   useEffect(()=>{

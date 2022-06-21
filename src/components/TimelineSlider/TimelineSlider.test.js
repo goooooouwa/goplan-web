@@ -1,5 +1,6 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
+import { fireEvent, screen, render } from '@testing-library/react';
 import TimelineSlider from './TimelineSlider';
 
 const marks = [{
@@ -36,10 +37,87 @@ it('should show a timeline slider', () => {
   expect(tree).toMatchSnapshot();
 });
 
-it('should disable rangeStart if disableRangeStart is true', () => {
-  // left empty since I don't know how to simulate drag event with react-testing-library
+it('should update slider value if rangeStart or rangeEnd changed', () => {
+  const { rerender } = render(
+     <TimelineSlider
+       marks={marks}
+       rangeMin={0}
+       rangeMax={4}
+       rangeStart={1}
+       rangeEnd={3}
+       disableRangeStart={false}
+       disableRangeEnd={false}
+       handleChangeCommited={() => {}}
+     />
+  );
+  expect(screen.getAllByRole('slider')[0]).toHaveValue('1');
+  expect(screen.getAllByRole('slider')[1]).toHaveValue('3');
+
+  rerender(
+     <TimelineSlider
+       marks={marks}
+       rangeMin={0}
+       rangeMax={4}
+       rangeStart={0}
+       rangeEnd={2}
+       disableRangeStart={false}
+       disableRangeEnd={false}
+       handleChangeCommited={() => {}}
+     />
+  );
+  expect(screen.getAllByRole('slider')[0]).toHaveValue('0');
+  expect(screen.getAllByRole('slider')[1]).toHaveValue('2');
 });
 
 it('should call #handleChangeCommited when new rangeStart or rangeEnd selected', async () => {
-  // left empty since I don't know how to simulate drag event with react-testing-library
+  const handleChangeCommited = jest.fn();
+  render(
+     <TimelineSlider
+       marks={marks}
+       rangeMin={0}
+       rangeMax={4}
+       rangeStart={1}
+       rangeEnd={3}
+       disableRangeStart={false}
+       disableRangeEnd={false}
+       handleChangeCommited={handleChangeCommited}
+     />
+  );
+  fireEvent.change(screen.getAllByRole('slider')[0], {target: {value: '2'}});
+  expect(screen.getAllByRole('slider')[0]).toHaveValue('2');
+  expect(handleChangeCommited).toHaveBeenCalledTimes(1);
+  expect(handleChangeCommited).toHaveBeenCalledWith([2,3]);
+
+  fireEvent.change(screen.getAllByRole('slider')[1], {target: {value: '4'}});
+  expect(screen.getAllByRole('slider')[1]).toHaveValue('4');
+  expect(handleChangeCommited).toHaveBeenCalledTimes(2);
+  expect(handleChangeCommited).toHaveBeenCalledWith([2,4]);
+});
+
+it('should not change rangeStart or rangeEnd if disabled', () => {
+  const handleChangeCommited = jest.fn();
+  render(
+     <TimelineSlider
+       marks={marks}
+       rangeMin={0}
+       rangeMax={4}
+       rangeStart={1}
+       rangeEnd={3}
+       disableRangeStart={true}
+       disableRangeEnd={true}
+       handleChangeCommited={handleChangeCommited}
+     />
+  );
+  expect(screen.getAllByRole('slider')[0]).toHaveValue('1');
+  expect(screen.getAllByRole('slider')[1]).toHaveValue('3');
+
+  fireEvent.change(screen.getAllByRole('slider')[0], {target: {value: '2'}});
+  expect(screen.getAllByRole('slider')[0]).toHaveValue('1');
+  expect(handleChangeCommited).toHaveBeenCalledTimes(1);
+  expect(handleChangeCommited).toHaveBeenCalledWith([1,3]);
+
+  fireEvent.change(screen.getAllByRole('slider')[1], {target: {value: '2'}});
+  expect(screen.getAllByRole('slider')[1]).toHaveValue('3');
+  expect(handleChangeCommited).toHaveBeenCalledTimes(2);
+  expect(handleChangeCommited).toHaveBeenCalledWith([1,3]);
 });
