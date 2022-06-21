@@ -34,7 +34,7 @@ const todo = {
 it('should show a timeline slider', () => {
   const component = renderer.create(
     <BrowserRouter>
-      <TodoWeekSlider todo={todo} marks={marks} selectedWeek={moment()} handleTodoChange={() => { }} handleDayChange={() => { }} />
+      <TodoWeekSlider todo={todo} marks={marks} selectedWeek={moment('2022-02-01')} handleTodoChange={() => { }} handleDayChange={() => { }} />
     </BrowserRouter>
   );
   let tree = component.toJSON();

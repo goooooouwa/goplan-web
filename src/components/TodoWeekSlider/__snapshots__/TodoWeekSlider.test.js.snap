@@ -90,7 +90,7 @@ Array [
         style={
           Object {
             "left": "0%",
-            "width": "0%",
+            "width": "50%",
           }
         }
       />
@@ -104,7 +104,7 @@ Array [
         }
       />
       <span
-        className="MuiSlider-mark css-1tfve6q-MuiSlider-mark"
+        className="MuiSlider-mark MuiSlider-markActive css-6cwnna-MuiSlider-mark"
         data-index={1}
         style={
           Object {
@@ -113,7 +113,7 @@ Array [
         }
       />
       <span
-        className="MuiSlider-mark css-1tfve6q-MuiSlider-mark"
+        className="MuiSlider-mark MuiSlider-markActive css-6cwnna-MuiSlider-mark"
         data-index={2}
         style={
           Object {
@@ -122,7 +122,7 @@ Array [
         }
       />
       <span
-        className="MuiSlider-mark css-1tfve6q-MuiSlider-mark"
+        className="MuiSlider-mark MuiSlider-markActive css-6cwnna-MuiSlider-mark"
         data-index={3}
         style={
           Object {
@@ -220,7 +220,7 @@ Array [
         onMouseOver={[Function]}
         style={
           Object {
-            "left": "0%",
+            "left": "50%",
             "pointerEvents": undefined,
           }
         }
@@ -229,8 +229,8 @@ Array [
           aria-orientation="horizontal"
           aria-valuemax={6}
           aria-valuemin={0}
-          aria-valuenow={0}
-          aria-valuetext={0}
+          aria-valuenow={3}
+          aria-valuetext={3}
           data-index={1}
           disabled={false}
           max={6}
@@ -254,7 +254,7 @@ Array [
             }
           }
           type="range"
-          value={0}
+          value={3}
         />
         <span
           aria-hidden={true}
@@ -265,7 +265,9 @@ Array [
           >
             <span
               className="MuiSlider-valueLabelLabel"
-            />
+            >
+              Week 3
+            </span>
           </span>
         </span>
       </span>

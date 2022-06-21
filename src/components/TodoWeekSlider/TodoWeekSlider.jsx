@@ -43,8 +43,8 @@ export default function TodoWeekSlider(props) {
           rangeMax={rangeMax}
           rangeStart={rangeMark(startDate)}
           rangeEnd={rangeMark(endDate)}
-          disableRangeStart={!isInWeekRange(moment(), props.selectedWeek)}
-          disableRangeEnd={!isInWeekRange(moment(), props.selectedWeek)}
+          disableRangeStart={!isInWeekRange(startDate, props.selectedWeek)}
+          disableRangeEnd={!isInWeekRange(endDate, props.selectedWeek)}
           handleChangeCommited={(newValue)=>{props.handleDayChange(props.todo, newValue)}}
         />
       </Grid>
