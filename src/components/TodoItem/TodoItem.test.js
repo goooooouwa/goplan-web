@@ -10,8 +10,8 @@ const todo = {
   projectId: 1,
   status: false,
   name: "Todo 1",
-  startDate: moment(),
-  endDate: moment(),
+  startDate: '2022-01-02',
+  endDate: '2022-02-02',
   instanceTimeSpan: 1,
 };
 
@@ -55,6 +55,5 @@ it('should call #handleTodoChange when checkbox clicked', () => {
   );
 
   fireEvent.click(screen.getByRole('checkbox'));
-
   expect(handleTodoChange).toHaveBeenCalledTimes(1);
 });

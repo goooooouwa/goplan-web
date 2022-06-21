@@ -115,7 +115,7 @@ exports[`should show a timeline slider 1`] = `
         <span
           className="MuiSlider-valueLabelLabel"
         >
-          Week 2
+          Mark 2
         </span>
       </span>
     </span>
@@ -173,7 +173,7 @@ exports[`should show a timeline slider 1`] = `
         <span
           className="MuiSlider-valueLabelLabel"
         >
-          Week 4
+          Mark 4
         </span>
       </span>
     </span>

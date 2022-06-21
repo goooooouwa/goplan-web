@@ -89,13 +89,13 @@ Array [
         className="MuiSlider-track css-1gv0vcd-MuiSlider-track"
         style={
           Object {
-            "left": "33.333333333333336%",
+            "left": "0%",
             "width": "0%",
           }
         }
       />
       <span
-        className="MuiSlider-mark css-1tfve6q-MuiSlider-mark"
+        className="MuiSlider-mark MuiSlider-markActive css-6cwnna-MuiSlider-mark"
         data-index={0}
         style={
           Object {
@@ -113,7 +113,7 @@ Array [
         }
       />
       <span
-        className="MuiSlider-mark MuiSlider-markActive css-6cwnna-MuiSlider-mark"
+        className="MuiSlider-mark css-1tfve6q-MuiSlider-mark"
         data-index={2}
         style={
           Object {
@@ -164,7 +164,7 @@ Array [
         onMouseOver={[Function]}
         style={
           Object {
-            "left": "33.333333333333336%",
+            "left": "0%",
             "pointerEvents": undefined,
           }
         }
@@ -173,8 +173,8 @@ Array [
           aria-orientation="horizontal"
           aria-valuemax={6}
           aria-valuemin={0}
-          aria-valuenow={2}
-          aria-valuetext={2}
+          aria-valuenow={0}
+          aria-valuetext={0}
           data-index={0}
           disabled={false}
           max={6}
@@ -198,7 +198,7 @@ Array [
             }
           }
           type="range"
-          value={2}
+          value={0}
         />
         <span
           aria-hidden={true}
@@ -209,9 +209,7 @@ Array [
           >
             <span
               className="MuiSlider-valueLabelLabel"
-            >
-              Week 3
-            </span>
+            />
           </span>
         </span>
       </span>
@@ -222,7 +220,7 @@ Array [
         onMouseOver={[Function]}
         style={
           Object {
-            "left": "33.333333333333336%",
+            "left": "0%",
             "pointerEvents": undefined,
           }
         }
@@ -231,8 +229,8 @@ Array [
           aria-orientation="horizontal"
           aria-valuemax={6}
           aria-valuemin={0}
-          aria-valuenow={2}
-          aria-valuetext={2}
+          aria-valuenow={0}
+          aria-valuetext={0}
           data-index={1}
           disabled={false}
           max={6}
@@ -256,7 +254,7 @@ Array [
             }
           }
           type="range"
-          value={2}
+          value={0}
         />
         <span
           aria-hidden={true}
@@ -267,9 +265,7 @@ Array [
           >
             <span
               className="MuiSlider-valueLabelLabel"
-            >
-              Week 3
-            </span>
+            />
           </span>
         </span>
       </span>

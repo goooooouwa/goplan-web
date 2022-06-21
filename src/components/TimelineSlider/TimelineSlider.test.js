@@ -5,19 +5,19 @@ import TimelineSlider from './TimelineSlider';
 
 const marks = [{
   value: 0,
-  label: "Week 1"
+  label: "Mark 1"
 }, {
   value: 1,
-  label: "Week 2"
+  label: "Mark 2"
 }, {
   value: 2,
-  label: "Week 3"
+  label: "Mark 3"
 }, {
   value: 3,
-  label: "Week 4"
+  label: "Mark 4"
 }, {
   value: 4,
-  label: "Week 5"
+  label: "Mark 5"
 }];
 
 it('should show a timeline slider', () => {

@@ -5,19 +5,19 @@ import renderer from 'react-test-renderer';
 import TodoWeekSlider from './TodoWeekSlider';
 
 const marks = [{
-  value: 0,
+  value: 1,
   label: "Week 1"
 }, {
-  value: 1,
+  value: 2,
   label: "Week 2"
 }, {
-  value: 2,
+  value: 3,
   label: "Week 3"
 }, {
-  value: 3,
+  value: 4,
   label: "Week 4"
 }, {
-  value: 4,
+  value: 5,
   label: "Week 5"
 }];
 
@@ -26,8 +26,8 @@ const todo = {
   projectId: 1,
   status: false,
   name: "Todo 1",
-  startDate: moment(),
-  endDate: moment(),
+  startDate: '2022-01-02',
+  endDate: '2022-02-02',
   instanceTimeSpan: 1,
 };
 

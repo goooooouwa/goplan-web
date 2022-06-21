@@ -15,7 +15,7 @@ export default function TodoWeekSlider(props) {
   const startDate = (props.todo.startDate !== null) ? moment(props.todo.startDate) : moment();
   const endDate = (props.todo.endDate !== null) ? moment(props.todo.endDate) : moment();
 
-  function rangeMark(date) {
+  const rangeMark = (date) => {
     if (date.isValid()) {
       let rangeMark;
       if (date.isBefore(props.selectedWeek.clone().startOf("week"))) {
@@ -29,7 +29,7 @@ export default function TodoWeekSlider(props) {
     } else {
       return -1;
     }
-  }
+  };
 
   return (
     <>
