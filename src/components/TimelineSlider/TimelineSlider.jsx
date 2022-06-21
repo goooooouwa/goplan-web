@@ -2,6 +2,7 @@ import { Slider } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import SHARED_PROP_TYPES from 'utils/sharedPropTypes';
+import { isEqual } from 'lodash';
 
 function valuetext(value) {
   return value;
@@ -19,7 +20,9 @@ export default function TimelineSlider(props) {
   };
 
   const handleChangeCommitted = (event, newValue) => {
-    props.handleChangeCommited(filteredRangeValue(newValue));
+    if(!isEqual(filteredRangeValue(newValue), value)) {
+      props.handleChangeCommited(filteredRangeValue(newValue));
+    }
   };
 
   const filteredRangeValue = (newValue) => {
