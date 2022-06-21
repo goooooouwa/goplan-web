@@ -24,6 +24,7 @@
     "react-date-picker": "^8.4.0",
     "react-dom": "^18.1.0",
     "react-moment": "^1.1.2",
+    "react-moment-proptypes": "^1.8.1",
     "react-rnd": "^10.3.7",
     "react-router-dom": "^6.3.0",
     "react-scripts": "5.0.1",
