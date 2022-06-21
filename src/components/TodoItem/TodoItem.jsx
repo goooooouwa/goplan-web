@@ -2,6 +2,7 @@ import { Checkbox, ListItem, ListItemButton, ListItemText } from "@mui/material"
 import React from "react";
 import PropTypes from 'prop-types';
 import { Link } from "react-router-dom";
+import SHARED_PROP_TYPES from "utils/sharedPropTypes";
 
 export default function TodoItem(props) {
   return (
@@ -21,11 +22,6 @@ export default function TodoItem(props) {
 }
 
 TodoItem.propTypes = {
-  todo: PropTypes.shape({
-    id: PropTypes.number,
-    projectId: PropTypes.number,
-    status: PropTypes.bool,
-    name: PropTypes.string
-  }).isRequired,
+  todo: SHARED_PROP_TYPES.todo,
   handleTodoChange: PropTypes.func.isRequired
 };

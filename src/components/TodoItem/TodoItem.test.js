@@ -3,12 +3,16 @@ import renderer from 'react-test-renderer';
 import { fireEvent, screen, render } from '@testing-library/react';
 import TodoItem from './TodoItem';
 import { BrowserRouter } from 'react-router-dom';
+import moment from 'moment';
 
 const todo = {
   id: 1,
   projectId: 1,
   status: false,
-  name: "Todo 1"
+  name: "Todo 1",
+  startDate: moment(),
+  endDate: moment(),
+  instanceTimeSpan: 1,
 };
 
 it('should show a todo item', () => {

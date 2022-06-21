@@ -1,6 +1,7 @@
 import { Slider } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
+import SHARED_PROP_TYPES from 'utils/sharedPropTypes';
 
 function valuetext(value) {
   return value;
@@ -67,9 +68,6 @@ TimelineSlider.propTypes = {
   rangeEnd: PropTypes.number.isRequired,
   disableRangeStart: PropTypes.bool,
   disableRangeEnd: PropTypes.bool,
-  marks: PropTypes.arrayOf(PropTypes.shape({
-    label: PropTypes.string,
-    value: PropTypes.number
-  })).isRequired,
+  marks: SHARED_PROP_TYPES.marks,
   handleChangeCommited: PropTypes.func.isRequired
 };

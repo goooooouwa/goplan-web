@@ -6,6 +6,7 @@ import PropTypes from 'prop-types';
 import momentPropTypes from 'react-moment-proptypes';
 import TimelineSlider from 'components/TimelineSlider/TimelineSlider';
 import TodoItem from 'components/TodoItem/TodoItem';
+import SHARED_PROP_TYPES from 'utils/sharedPropTypes';
 
 const rangeMin = 0;
 const rangeMax = 6;
@@ -53,24 +54,8 @@ export default function TodoWeekSlider(props) {
 
 TodoWeekSlider.propTypes = {
   selectedWeek: momentPropTypes.momentObj.isRequired,
-  marks: PropTypes.arrayOf(PropTypes.shape({
-    label: PropTypes.string,
-    value: PropTypes.number
-  })).isRequired,
-  todo: PropTypes.shape({
-    id: PropTypes.number.isRequired,
-    projectId: PropTypes.number.isRequired,
-    status: PropTypes.bool,
-    name: PropTypes.string.isRequired,
-    startDate: momentPropTypes.momentObj.isRequired,
-    endDate: momentPropTypes.momentObj.isRequired,
-      description: PropTypes.string,
-      repeat: PropTypes.bool,
-      repeat_period: PropTypes.string,
-      repeat_times: PropTypes.number,
-      instanceTimeSpan: PropTypes.number.isRequired,
-      dependencies: PropTypes.array
-  }).isRequired,
+  marks: SHARED_PROP_TYPES.marks,
+  todo: SHARED_PROP_TYPES.todo,
   handleTodoChange: PropTypes.func.isRequired,
   handleDayChange: PropTypes.func.isRequired
 };
