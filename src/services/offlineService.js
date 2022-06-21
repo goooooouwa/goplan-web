@@ -329,7 +329,7 @@ function setupPutRequests(mock) {
       });
       const formData = JSON.parse(config.data);
       const updatedItem = request.transform(formData, record);
-      dataset = dataset.filter(function( obj ) {
+      dataset = dataset.filter(function (obj) {
         return obj.id !== updatedItem.id;
       });
       dataset.push(updatedItem);
@@ -339,7 +339,7 @@ function setupPutRequests(mock) {
   });
 }
 
-export default function setupGuestMode(axios) {
+export default function setupOfflineMode(axios) {
   const mock = new MockAdapter(axios);
 
   // const setLocalItem = (key, value) => {

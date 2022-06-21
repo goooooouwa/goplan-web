@@ -66,8 +66,8 @@ const ResponsiveAppBar = () => {
     setAnchorElUser(null);
   };
 
-  const handleGuestMode = () => {
-    localStorage.setItem("guestMode", "true");
+  const handleOfflineMode = () => {
+    localStorage.setItem("offlineMode", "true");
     window.location.reload();
   };
 
@@ -201,8 +201,8 @@ const ResponsiveAppBar = () => {
                 </MenuItem>
               }
               {localStorage.getItem("access_token") === null &&
-                <MenuItem onClick={handleGuestMode}>
-                  <Typography textAlign="center">Guest mode</Typography>
+                <MenuItem onClick={handleOfflineMode}>
+                  <Typography textAlign="center">Offline mode</Typography>
                 </MenuItem>
               }
               {localStorage.getItem("access_token") !== null &&

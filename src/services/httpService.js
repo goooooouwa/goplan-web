@@ -1,15 +1,15 @@
 import axios from 'axios';
-import setupGuestMode from './guestMode';
+import setupOfflineMode from './offlineService';
 
 const APIServiceBaseURL = process.env.REACT_APP_API_SERVICE_BASE_URL;
 const clientId = process.env.REACT_APP_CLIENT_ID;
 const redirectURI = process.env.REACT_APP_REDIRECT_URI;
 const scope = process.env.REACT_APP_SCOPE;
 
-const guestMode = localStorage.getItem("guestMode");
+const offlineMode = localStorage.getItem("offlineMode");
 
-if (guestMode === 'true') {
-  setupGuestMode(axios);
+if (offlineMode === 'true') {
+  setupOfflineMode(axios);
 }
 
 // Add a request interceptor
@@ -89,7 +89,7 @@ const parseJwt = (token) => {
   return JSON.parse(jsonPayload);
 };
 
-const getGuestModeCurrentUserId = () => {
+const getOfflineModeCurrentUserId = () => {
   return 1;
 };
 
@@ -112,7 +112,7 @@ const httpService = {
   patch: axios.patch,
   requestAccessTokenWithAuthorizationCode: requestAccessTokenWithAuthorizationCode,
   requestAccessTokenWithRefreshToken: requestAccessTokenWithRefreshToken,
-  getCurrentUserId: guestMode ? getGuestModeCurrentUserId : getCurrentUserId,
+  getCurrentUserId: offlineMode ? getOfflineModeCurrentUserId : getCurrentUserId,
   logout: logout,
   signIn: signIn,
 };
