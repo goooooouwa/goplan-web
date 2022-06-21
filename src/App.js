@@ -3,9 +3,6 @@ import ResponsiveAppBar from "components/ResponsiveAppBar";
 import React from "react";
 import { Outlet } from "react-router-dom";
 import './App.css';
-import './slider.css';
-import './draggable.css';
-import './grid-snap.css';
 
 function App() {
   return (
