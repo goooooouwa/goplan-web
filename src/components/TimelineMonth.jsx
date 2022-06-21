@@ -1,5 +1,5 @@
 import { Box, Grid, IconButton, Stack, Typography } from '@mui/material';
-import { isInMonthRange } from 'lib/rangeCheck';
+import { isInMonthRange } from 'utils/rangeCheck';
 import moment from 'moment';
 import React from 'react';
 import { Link as RouterLink, useParams } from 'react-router-dom';

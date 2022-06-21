@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import httpService from "lib/httpService";
+import httpService from "services/httpService";
 import { useParams, useSearchParams } from "react-router-dom";
 import { Button, Container, Grid, IconButton, Stack, Typography } from "@mui/material";
 import moment from "moment";
@@ -7,7 +7,7 @@ import TimelineWeek from "components/TimelineWeek";
 import TodoActionGroup from "components/TodoActionGroup";
 import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
-import { isInWeekRange } from "lib/rangeCheck";
+import { isInWeekRange } from "utils/rangeCheck";
 
 export default function TimelineWeekContainer() {
   const params = useParams();

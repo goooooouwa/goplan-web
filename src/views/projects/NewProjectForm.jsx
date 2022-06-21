@@ -1,5 +1,5 @@
 import { Button, Container, FormControl, Grid, TextField, Typography } from "@mui/material";
-import httpService from "lib/httpService";
+import httpService from "services/httpService";
 import React, { useState } from "react";
 import { Navigate } from "react-router-dom";
 

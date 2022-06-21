@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import httpService from "lib/httpService";
+import httpService from "services/httpService";
 import TimelineYear from "components/TimelineYear";
 import { useParams, useSearchParams } from "react-router-dom";
 import { Button, Container, Grid, IconButton, Stack, Typography } from "@mui/material";
@@ -7,7 +7,7 @@ import moment from "moment";
 import TodoActionGroup from "components/TodoActionGroup";
 import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
-import isInYearRange from 'lib/rangeCheck';
+import isInYearRange from 'utils/rangeCheck';
 
 export default function TimelineYearContainer() {
   const params = useParams();

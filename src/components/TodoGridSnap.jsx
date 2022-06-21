@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import moment from 'moment'
 import GridSnap from "./GridSnap";
-import httpService from "lib/httpService";
+import httpService from "services/httpService";
 
 export default function TodoGridSnap(props) {
   const [todo, setTodo] = useState(props.todo);

@@ -1,4 +1,4 @@
-import httpService from "lib/httpService";
+import httpService from "services/httpService";
 import React, { useEffect, useState } from "react";
 import { Button, Container, Grid, Stack, Typography, Box, Paper } from "@mui/material";
 import { Link as RouterLink } from "react-router-dom";

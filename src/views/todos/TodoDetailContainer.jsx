@@ -1,7 +1,7 @@
 import TodoDetail from "components/TodoDetail";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import httpService from "lib/httpService";
+import httpService from "services/httpService";
 import { Button, Checkbox, Container, Grid, Stack, Typography, IconButton } from "@mui/material";
 import { Link as RouterLink } from "react-router-dom";
 import EditIcon from '@mui/icons-material/Edit';

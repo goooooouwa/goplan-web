@@ -1,5 +1,5 @@
 import { Grid } from '@mui/material';
-import { isInMonthRange } from 'lib/rangeCheck';
+import { isInMonthRange } from 'utils/rangeCheck';
 import moment from 'moment';
 import React from 'react';
 import TimelineSlider from './TimelineSlider/TimelineSlider';

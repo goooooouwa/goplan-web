@@ -1,4 +1,4 @@
-import httpService from "lib/httpService";
+import httpService from "services/httpService";
 import React, { useEffect } from "react";
 import { Navigate, useNavigate, useSearchParams } from "react-router-dom";
 
