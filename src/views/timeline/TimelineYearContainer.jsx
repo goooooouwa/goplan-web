@@ -66,7 +66,16 @@ export default function TimelineYearContainer() {
         });
       })
       .catch(function (error) {
-        setTodos([]);
+        const updatedTodoId = todo.id;
+        setTodos((todos) => {
+          return todos.map((todo) => {
+            if (todo.id === updatedTodoId) {
+              todo.startDate = todoData.start_date || todo.startDate;
+              todo.endDate = todoData.end_date || todo.endDate;
+            }
+            return todo;
+          });
+        });
         console.log(error);
       });
   }
