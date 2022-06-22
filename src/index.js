@@ -16,7 +16,7 @@ import TimelineLayout from './views/timeline/TimelineLayout';
 import TimelineYearContainer from './views/timeline/TimelineYearContainer/TimelineYearContainer';
 import TimelineDayView from './views/timeline/TimelineDayView';
 import TimelineWeekContainer from 'views/timeline/TimelineWeekContainer/TimelineWeekContainer';
-import TimelineMonthContainer from 'views/timeline/TimelineMonthContainer';
+import TimelineMonthContainer from 'views/timeline/TimelineMonthContainer/TimelineMonthContainer';
 import EditProjectForm from 'views/projects/EditProjectForm';
 import EditTodoForm from 'views/todos/EditTodoForm';
 import OAuthCallbackContainer from 'views/users/OAuthCallbackContainer';
