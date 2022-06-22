@@ -1,5 +1,4 @@
 import PropTypes from 'prop-types';
-import momentPropTypes from 'react-moment-proptypes';
 
 const SHARED_PROP_TYPES = {
     marks: PropTypes.arrayOf(PropTypes.shape({

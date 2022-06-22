@@ -5,7 +5,7 @@ import { Outlet } from "react-router-dom";
 import './App.css';
 import moment from 'moment';
 
-moment.locale('zh-cn');
+moment.locale('en');
 
 function App() {
   return (

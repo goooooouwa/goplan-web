@@ -49,7 +49,7 @@ axios.interceptors.response.use(
             }
           });
       } else {
-        signIn();
+        logout();
         return Promise.reject(error);
       }
     }
