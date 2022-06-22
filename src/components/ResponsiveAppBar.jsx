@@ -167,6 +167,9 @@ const ResponsiveAppBar = () => {
             ))}
           </Box>
 
+          {localStorage.getItem("offlineMode") === 'true' &&
+            <Typography textAlign="center" sx={{ mr: 1 }}>Offline</Typography>
+          }
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title={user.name || ''}>
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
