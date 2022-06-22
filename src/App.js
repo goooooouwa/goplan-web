@@ -3,6 +3,9 @@ import ResponsiveAppBar from "components/ResponsiveAppBar";
 import React from "react";
 import { Outlet } from "react-router-dom";
 import './App.css';
+import moment from 'moment';
+
+moment.locale('zh-cn');
 
 function App() {
   return (
