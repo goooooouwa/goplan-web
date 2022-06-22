@@ -2,7 +2,10 @@ import { Box, Grid, Stack, Typography } from '@mui/material';
 import { isInWeekRange } from 'utils/rangeCheck';
 import moment from 'moment';
 import React from 'react';
-import TodoWeekSlider from './TodoWeekSlider/TodoWeekSlider';
+import PropTypes from 'prop-types';
+import momentPropTypes from 'react-moment-proptypes';
+import TodoWeekSlider from '../TodoWeekSlider/TodoWeekSlider';
+import SHARED_PROP_TYPES from 'utils/sharedPropTypes';
 
 const marks = [
   {
@@ -95,3 +98,10 @@ export default function TimelineWeek(props) {
     </>
   );
 }
+
+TimelineWeek.propTypes = {
+  selectedWeek: momentPropTypes.momentObj.isRequired,
+  todos: PropTypes.arrayOf(SHARED_PROP_TYPES.todo).isRequired,
+  handleTodoChange: PropTypes.func.isRequired,
+  handleDayChange: PropTypes.func.isRequired
+};

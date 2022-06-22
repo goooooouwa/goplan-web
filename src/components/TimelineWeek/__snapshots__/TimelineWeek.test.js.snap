@@ -1,0 +1,400 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should show a timeline week view 1`] = `
+<div
+  className="MuiGrid-root MuiGrid-container css-1sjizby-MuiGrid-root"
+>
+  <div
+    className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 MuiGrid-grid-md-4 css-1lj5egr-MuiGrid-root"
+  >
+    <p
+      className="MuiTypography-root MuiTypography-body1 MuiTypography-gutterBottom css-1xzmp4b-MuiTypography-root"
+    >
+      Todos
+    </p>
+  </div>
+  <div
+    className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 MuiGrid-grid-md-8 css-9drkqd-MuiGrid-root"
+  >
+    <div
+      className="MuiBox-root css-1ynyhby"
+    >
+      <div
+        className="css-3y1137-MuiStack-root"
+      >
+        <div
+          className="css-nen11g-MuiStack-root"
+        >
+          <p
+            className="MuiTypography-root MuiTypography-body2 css-1yr8029-MuiTypography-root"
+          >
+            Sun
+          </p>
+          <p
+            className="MuiTypography-root MuiTypography-body1 MuiTypography-gutterBottom css-ooliek-MuiTypography-root"
+          >
+            30
+          </p>
+        </div>
+        <div
+          className="css-nen11g-MuiStack-root"
+        >
+          <p
+            className="MuiTypography-root MuiTypography-body2 css-1yr8029-MuiTypography-root"
+          >
+            Mon
+          </p>
+          <p
+            className="MuiTypography-root MuiTypography-body1 MuiTypography-gutterBottom css-ooliek-MuiTypography-root"
+          >
+            31
+          </p>
+        </div>
+        <div
+          className="css-nen11g-MuiStack-root"
+        >
+          <p
+            className="MuiTypography-root MuiTypography-body2 css-1yr8029-MuiTypography-root"
+          >
+            Tue
+          </p>
+          <p
+            className="MuiTypography-root MuiTypography-body1 MuiTypography-gutterBottom css-ooliek-MuiTypography-root"
+          >
+            1
+          </p>
+        </div>
+        <div
+          className="css-nen11g-MuiStack-root"
+        >
+          <p
+            className="MuiTypography-root MuiTypography-body2 css-1yr8029-MuiTypography-root"
+          >
+            Wed
+          </p>
+          <p
+            className="MuiTypography-root MuiTypography-body1 MuiTypography-gutterBottom css-ooliek-MuiTypography-root"
+          >
+            2
+          </p>
+        </div>
+        <div
+          className="css-nen11g-MuiStack-root"
+        >
+          <p
+            className="MuiTypography-root MuiTypography-body2 css-1yr8029-MuiTypography-root"
+          >
+            Thu
+          </p>
+          <p
+            className="MuiTypography-root MuiTypography-body1 MuiTypography-gutterBottom css-ooliek-MuiTypography-root"
+          >
+            3
+          </p>
+        </div>
+        <div
+          className="css-nen11g-MuiStack-root"
+        >
+          <p
+            className="MuiTypography-root MuiTypography-body2 css-1yr8029-MuiTypography-root"
+          >
+            Fri
+          </p>
+          <p
+            className="MuiTypography-root MuiTypography-body1 MuiTypography-gutterBottom css-ooliek-MuiTypography-root"
+          >
+            4
+          </p>
+        </div>
+        <div
+          className="css-nen11g-MuiStack-root"
+        >
+          <p
+            className="MuiTypography-root MuiTypography-body2 css-1yr8029-MuiTypography-root"
+          >
+            Sat
+          </p>
+          <p
+            className="MuiTypography-root MuiTypography-body1 MuiTypography-gutterBottom css-ooliek-MuiTypography-root"
+          >
+            5
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 MuiGrid-grid-md-4 css-1lj5egr-MuiGrid-root"
+  >
+    <li
+      className="MuiListItem-root MuiListItem-gutters css-1nxmd3h-MuiListItem-root"
+      disabled={false}
+    >
+      <span
+        className="MuiCheckbox-root MuiCheckbox-colorPrimary MuiButtonBase-root MuiCheckbox-root MuiCheckbox-colorPrimary PrivateSwitchBase-root css-12wnr2w-MuiButtonBase-root-MuiCheckbox-root"
+        onBlur={[Function]}
+        onContextMenu={[Function]}
+        onDragLeave={[Function]}
+        onFocus={[Function]}
+        onKeyDown={[Function]}
+        onKeyUp={[Function]}
+        onMouseDown={[Function]}
+        onMouseLeave={[Function]}
+        onMouseUp={[Function]}
+        onTouchEnd={[Function]}
+        onTouchMove={[Function]}
+        onTouchStart={[Function]}
+        tabIndex={null}
+      >
+        <input
+          aria-label="controlled"
+          checked={false}
+          className="PrivateSwitchBase-input css-1m9pwf3"
+          data-indeterminate={false}
+          onChange={[Function]}
+          type="checkbox"
+        />
+        <svg
+          aria-hidden={true}
+          className="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-i4bv87-MuiSvgIcon-root"
+          data-testid="CheckBoxOutlineBlankIcon"
+          focusable="false"
+          viewBox="0 0 24 24"
+        >
+          <path
+            d="M19 5v14H5V5h14m0-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z"
+          />
+        </svg>
+      </span>
+      <a
+        className="MuiListItemButton-root MuiListItemButton-gutters MuiButtonBase-root css-16ac5r2-MuiButtonBase-root-MuiListItemButton-root"
+        href="/projects/1/todos/1"
+        onBlur={[Function]}
+        onClick={[Function]}
+        onContextMenu={[Function]}
+        onDragLeave={[Function]}
+        onFocus={[Function]}
+        onKeyDown={[Function]}
+        onKeyUp={[Function]}
+        onMouseDown={[Function]}
+        onMouseLeave={[Function]}
+        onMouseUp={[Function]}
+        onTouchEnd={[Function]}
+        onTouchMove={[Function]}
+        onTouchStart={[Function]}
+        tabIndex={0}
+      >
+        <div
+          className="MuiListItemText-root css-tlelie-MuiListItemText-root"
+        >
+          <span
+            className="MuiTypography-root MuiTypography-body1 MuiListItemText-primary css-10hburv-MuiTypography-root"
+          >
+            Todo 1
+          </span>
+        </div>
+      </a>
+    </li>
+  </div>
+  <div
+    className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 MuiGrid-grid-md-8 css-1x9uoy6-MuiGrid-root"
+  >
+    <span
+      className="MuiSlider-colorPrimary MuiSlider-sizeMedium MuiSlider-root css-187mznn-MuiSlider-root"
+      onMouseDown={[Function]}
+    >
+      <span
+        className="MuiSlider-rail css-14pt78w-MuiSlider-rail"
+      />
+      <span
+        className="MuiSlider-track css-1gv0vcd-MuiSlider-track"
+        style={
+          Object {
+            "left": "0%",
+            "width": "50%",
+          }
+        }
+      />
+      <span
+        className="MuiSlider-mark MuiSlider-markActive css-6cwnna-MuiSlider-mark"
+        data-index={0}
+        style={
+          Object {
+            "left": "0%",
+          }
+        }
+      />
+      <span
+        className="MuiSlider-mark MuiSlider-markActive css-6cwnna-MuiSlider-mark"
+        data-index={1}
+        style={
+          Object {
+            "left": "16.666666666666668%",
+          }
+        }
+      />
+      <span
+        className="MuiSlider-mark MuiSlider-markActive css-6cwnna-MuiSlider-mark"
+        data-index={2}
+        style={
+          Object {
+            "left": "33.333333333333336%",
+          }
+        }
+      />
+      <span
+        className="MuiSlider-mark MuiSlider-markActive css-6cwnna-MuiSlider-mark"
+        data-index={3}
+        style={
+          Object {
+            "left": "50%",
+          }
+        }
+      />
+      <span
+        className="MuiSlider-mark css-1tfve6q-MuiSlider-mark"
+        data-index={4}
+        style={
+          Object {
+            "left": "66.66666666666667%",
+          }
+        }
+      />
+      <span
+        className="MuiSlider-mark css-1tfve6q-MuiSlider-mark"
+        data-index={5}
+        style={
+          Object {
+            "left": "83.33333333333333%",
+          }
+        }
+      />
+      <span
+        className="MuiSlider-mark css-1tfve6q-MuiSlider-mark"
+        data-index={6}
+        style={
+          Object {
+            "left": "100%",
+          }
+        }
+      />
+      <span
+        className="MuiSlider-thumbColorPrimary MuiSlider-thumbSizeMedium MuiSlider-thumb css-eg0mwd-MuiSlider-thumb"
+        data-index={0}
+        onMouseLeave={[Function]}
+        onMouseOver={[Function]}
+        style={
+          Object {
+            "left": "0%",
+            "pointerEvents": undefined,
+          }
+        }
+      >
+        <input
+          aria-orientation="horizontal"
+          aria-valuemax={6}
+          aria-valuemin={0}
+          aria-valuenow={0}
+          aria-valuetext={0}
+          data-index={0}
+          disabled={false}
+          max={6}
+          min={0}
+          onBlur={[Function]}
+          onChange={[Function]}
+          onFocus={[Function]}
+          step={1}
+          style={
+            Object {
+              "border": 0,
+              "clip": "rect(0 0 0 0)",
+              "direction": "ltr",
+              "height": "100%",
+              "margin": -1,
+              "overflow": "hidden",
+              "padding": 0,
+              "position": "absolute",
+              "whiteSpace": "nowrap",
+              "width": "100%",
+            }
+          }
+          type="range"
+          value={0}
+        />
+        <span
+          aria-hidden={true}
+          className="MuiSlider-valueLabel css-1kz0hui-MuiSlider-valueLabel"
+        >
+          <span
+            className="MuiSlider-valueLabelCircle"
+          >
+            <span
+              className="MuiSlider-valueLabelLabel"
+            >
+              Sun
+            </span>
+          </span>
+        </span>
+      </span>
+      <span
+        className="MuiSlider-thumbColorPrimary MuiSlider-thumbSizeMedium MuiSlider-thumb css-eg0mwd-MuiSlider-thumb"
+        data-index={1}
+        onMouseLeave={[Function]}
+        onMouseOver={[Function]}
+        style={
+          Object {
+            "left": "50%",
+            "pointerEvents": undefined,
+          }
+        }
+      >
+        <input
+          aria-orientation="horizontal"
+          aria-valuemax={6}
+          aria-valuemin={0}
+          aria-valuenow={3}
+          aria-valuetext={3}
+          data-index={1}
+          disabled={false}
+          max={6}
+          min={0}
+          onBlur={[Function]}
+          onChange={[Function]}
+          onFocus={[Function]}
+          step={1}
+          style={
+            Object {
+              "border": 0,
+              "clip": "rect(0 0 0 0)",
+              "direction": "ltr",
+              "height": "100%",
+              "margin": -1,
+              "overflow": "hidden",
+              "padding": 0,
+              "position": "absolute",
+              "whiteSpace": "nowrap",
+              "width": "100%",
+            }
+          }
+          type="range"
+          value={3}
+        />
+        <span
+          aria-hidden={true}
+          className="MuiSlider-valueLabel css-1kz0hui-MuiSlider-valueLabel"
+        >
+          <span
+            className="MuiSlider-valueLabelCircle"
+          >
+            <span
+              className="MuiSlider-valueLabelLabel"
+            >
+              Wed
+            </span>
+          </span>
+        </span>
+      </span>
+    </span>
+  </div>
+</div>
+`;
