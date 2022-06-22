@@ -2,7 +2,6 @@ import { Slider } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import SHARED_PROP_TYPES from 'utils/sharedPropTypes';
-import { isEqual } from 'lodash';
 
 function valuetext(value) {
   return value;
@@ -20,20 +19,18 @@ export default function TimelineSlider(props) {
   };
 
   const handleChangeCommitted = (event, newValue) => {
-    if(!isEqual(filteredRangeValue(newValue), value)) {
-      props.handleChangeCommited(filteredRangeValue(newValue));
-    }
+    props.handleChangeCommited(filteredRangeValue(newValue));
   };
 
   const filteredRangeValue = (newValue) => {
-    let [rangeStart, rangeEnd] = value;
+    let [filteredRangeStart, filterRangeEnd] = value;
     if (!props.disableRangeStart) {
-      rangeStart = newValue[0];
+      filteredRangeStart = newValue[0];
     }
     if (!props.disableRangeEnd) {
-      rangeEnd = newValue[1];
+      filterRangeEnd = newValue[1];
     }
-    return [rangeStart, rangeEnd];
+    return [filteredRangeStart, filterRangeEnd];
   };
 
   const handleChange = (event, newValue, activeThumb) => {
@@ -44,9 +41,9 @@ export default function TimelineSlider(props) {
     setValue(filteredRangeValue(newValue));
   };
 
-  useEffect(()=>{
+  useEffect(() => {
     setValue([props.rangeStart, props.rangeEnd]);
-  },[props.rangeStart, props.rangeEnd]);
+  }, [props.rangeStart, props.rangeEnd]);
 
   return (
     <>
