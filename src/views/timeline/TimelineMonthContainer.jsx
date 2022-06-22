@@ -33,15 +33,7 @@ export default function TimelineMonthContainer() {
     const startDate = (todo.startDate !== null) ? moment(todo.startDate) : moment();
     const endDate = (todo.endDate !== null) ? moment(todo.endDate) : moment();
 
-    let todoData = {
-      project_id: todo.projectId,
-      name: todo.name,
-      description: todo.description,
-      repeat: todo.repeat,
-      repeat_period: todo.repeatPeriod,
-      repeat_times: todo.repeatTimes,
-      instance_time_span: todo.instanceTimeSpan
-    };
+    let todoData = {};
 
     if (isInMonthRange(startDate, selectedMonth)) {
       todoData.start_date = startDate.week(startDate.date(1).week() + weeks[0] - 1).toISOString();
@@ -66,7 +58,16 @@ export default function TimelineMonthContainer() {
         });
       })
       .catch(function (error) {
-        setTodos([]);
+        const updatedTodoId = todo.id;
+        setTodos((todos) => {
+          return todos.map((todo) => {
+            if (todo.id === updatedTodoId) {
+              todo.startDate = todoData.start_date || todo.startDate;
+              todo.endDate = todoData.end_date || todo.endDate;
+            }
+            return todo;
+          });
+        });
         console.log(error);
       });
   }

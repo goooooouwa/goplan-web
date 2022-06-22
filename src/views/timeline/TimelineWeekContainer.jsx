@@ -33,15 +33,7 @@ export default function TimelineWeekContainer() {
     const startDate = (todo.startDate !== null) ? moment(todo.startDate) : moment();
     const endDate = (todo.endDate !== null) ? moment(todo.endDate) : moment();
 
-    const todoData = {
-      project_id: todo.projectId,
-      name: todo.name,
-      description: todo.description,
-      repeat: todo.repeat,
-      repeat_period: todo.repeatPeriod,
-      repeat_times: todo.repeatTimes,
-      instance_time_span: todo.instanceTimeSpan
-    };
+    const todoData = {};
 
     if (isInWeekRange(startDate, selectedWeek)) {
       todoData.start_date = startDate.day(days[0]).toISOString();
@@ -66,7 +58,16 @@ export default function TimelineWeekContainer() {
         });
       })
       .catch(function (error) {
-        setTodos([]);
+        const updatedTodoId = todo.id;
+        setTodos((todos) => {
+          return todos.map((todo) => {
+            if (todo.id === updatedTodoId) {
+              todo.startDate = todoData.start_date || todo.startDate;
+              todo.endDate = todoData.end_date || todo.endDate;
+            }
+            return todo;
+          });
+        });
         console.log(error);
       });
   }
