@@ -3,7 +3,10 @@ import { isInMonthRange } from 'utils/rangeCheck';
 import moment from 'moment';
 import React from 'react';
 import { Link as RouterLink, useParams } from 'react-router-dom';
-import TodoMonthSlider from './TodoMonthSlider';
+import PropTypes from 'prop-types';
+import momentPropTypes from 'react-moment-proptypes';
+import SHARED_PROP_TYPES from 'utils/sharedPropTypes';
+import TodoMonthSlider from '../TodoMonthSlider';
 
 const marks = [
   {
@@ -93,3 +96,10 @@ export default function TimelineMonth(props) {
     </>
   );
 }
+
+TimelineMonth.propTypes = {
+  selectedMonth: momentPropTypes.momentObj.isRequired,
+  todos: PropTypes.arrayOf(SHARED_PROP_TYPES.todo).isRequired,
+  handleTodoChange: PropTypes.func.isRequired,
+  handleWeekChange: PropTypes.func.isRequired
+};

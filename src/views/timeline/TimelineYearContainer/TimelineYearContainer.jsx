@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import httpService from "services/httpService";
-import TimelineYear from "components/TimelineYear";
+import TimelineYear from "components/TimelineYear/TimelineYear";
 import { useParams, useSearchParams } from "react-router-dom";
 import { Button, Container, Grid, IconButton, Stack, Typography } from "@mui/material";
 import moment from "moment";
