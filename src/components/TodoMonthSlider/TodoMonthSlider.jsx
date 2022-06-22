@@ -2,8 +2,11 @@ import { Grid } from '@mui/material';
 import { isInMonthRange } from 'utils/rangeCheck';
 import moment from 'moment';
 import React from 'react';
-import TimelineSlider from './TimelineSlider/TimelineSlider';
-import TodoItem from './TodoItem/TodoItem';
+import TimelineSlider from '../TimelineSlider/TimelineSlider';
+import PropTypes from 'prop-types';
+import momentPropTypes from 'react-moment-proptypes';
+import SHARED_PROP_TYPES from 'utils/sharedPropTypes';
+import TodoItem from '../TodoItem/TodoItem';
 
 const rangeMin = 1;
 const rangeMax = 5;
@@ -48,3 +51,11 @@ export default function TodoMonthSlider(props) {
     </>
   );
 }
+
+TodoMonthSlider.propTypes = {
+  selectedMonth: momentPropTypes.momentObj.isRequired,
+  marks: SHARED_PROP_TYPES.marks,
+  todo: SHARED_PROP_TYPES.todo,
+  handleTodoChange: PropTypes.func.isRequired,
+  handleWeekChange: PropTypes.func.isRequired
+};

@@ -6,7 +6,7 @@ import { Link as RouterLink, useParams } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import momentPropTypes from 'react-moment-proptypes';
 import SHARED_PROP_TYPES from 'utils/sharedPropTypes';
-import TodoMonthSlider from '../TodoMonthSlider';
+import TodoMonthSlider from '../TodoMonthSlider/TodoMonthSlider';
 
 const marks = [
   {

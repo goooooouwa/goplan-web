@@ -2,8 +2,11 @@ import { Grid } from '@mui/material';
 import isInYearRange from 'utils/rangeCheck';
 import moment from 'moment';
 import React from 'react';
-import TimelineSlider from './TimelineSlider/TimelineSlider';
-import TodoItem from './TodoItem/TodoItem';
+import PropTypes from 'prop-types';
+import momentPropTypes from 'react-moment-proptypes';
+import SHARED_PROP_TYPES from 'utils/sharedPropTypes';
+import TimelineSlider from 'components/TimelineSlider/TimelineSlider';
+import TodoItem from 'components/TodoItem/TodoItem';
 
 const rangeMin = 0;
 const rangeMax = 11;
@@ -48,3 +51,11 @@ export default function TodoYearSlider(props) {
     </>
   );
 }
+
+TodoYearSlider.propTypes = {
+  selectedYear: momentPropTypes.momentObj.isRequired,
+  marks: SHARED_PROP_TYPES.marks,
+  todo: SHARED_PROP_TYPES.todo,
+  handleTodoChange: PropTypes.func.isRequired,
+  handleMonthChange: PropTypes.func.isRequired
+};

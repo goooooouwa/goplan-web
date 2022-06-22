@@ -4,9 +4,9 @@ import moment from 'moment';
 import React from 'react';
 import PropTypes from 'prop-types';
 import momentPropTypes from 'react-moment-proptypes';
+import SHARED_PROP_TYPES from 'utils/sharedPropTypes';
 import TimelineSlider from 'components/TimelineSlider/TimelineSlider';
 import TodoItem from 'components/TodoItem/TodoItem';
-import SHARED_PROP_TYPES from 'utils/sharedPropTypes';
 
 const rangeMin = 0;
 const rangeMax = 6;
