@@ -49,7 +49,7 @@ axios.interceptors.response.use(
             }
           });
       } else {
-        logout();
+        signIn();
         return Promise.reject(error);
       }
     }
@@ -102,6 +102,7 @@ const getCurrentUserId = () => {
 
 const logout = () => {
   localStorage.clear();
+  window.location.replace(APIServiceBaseURL);
 };
 
 const httpService = {

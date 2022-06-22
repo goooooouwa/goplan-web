@@ -73,7 +73,6 @@ const ResponsiveAppBar = () => {
 
   const handleLogout = () => {
     httpService.logout();
-    window.location.reload();
   };
 
   return (
@@ -168,6 +167,12 @@ const ResponsiveAppBar = () => {
             ))}
           </Box>
 
+          <Button
+            onClick={handleOfflineMode}
+            sx={{ my: 2, color: 'white', display: 'block' }}
+          >
+            Offline mode
+          </Button>
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title={user.name || ''}>
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
@@ -198,11 +203,6 @@ const ResponsiveAppBar = () => {
               {localStorage.getItem("access_token") === null &&
                 <MenuItem onClick={httpService.signIn}>
                   <Typography textAlign="center">Sign in</Typography>
-                </MenuItem>
-              }
-              {localStorage.getItem("access_token") === null &&
-                <MenuItem onClick={handleOfflineMode}>
-                  <Typography textAlign="center">Offline mode</Typography>
                 </MenuItem>
               }
               {localStorage.getItem("access_token") !== null &&
