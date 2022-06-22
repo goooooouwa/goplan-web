@@ -333,6 +333,7 @@ function setupPutRequests(mock) {
         return obj.id !== updatedItem.id;
       });
       dataset.push(updatedItem);
+      dataset.sort((a, b) => (a.id - b.id));
       localStorage.setItem(request.key, JSON.stringify(dataset));
       return [200, updatedItem];
     });
