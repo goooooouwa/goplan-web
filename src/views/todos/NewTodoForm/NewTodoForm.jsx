@@ -15,7 +15,7 @@ export default function NewTodoForm() {
     project: null,
     projectId: (params.projectId !== undefined) ? params.projectId : "",
     name: "",
-    description: "",
+    description: "this is desc",
     startDate: moment().format("YYYY-MM-DD"),
     endDate: moment().format("YYYY-MM-DD"),
     repeat: false,
