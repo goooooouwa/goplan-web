@@ -190,26 +190,3 @@ it('should only change rangeStart if rangeEnd is disabled', () => {
   expect(handleChangeCommited).toHaveBeenCalledTimes(2);
   expect(handleChangeCommited).toHaveBeenCalledWith([2,3]);
 });
-
-it('should support expand single day tasks', () => {
-  const handleChangeCommited = jest.fn();
-  render(
-     <TimelineRangeSlider
-       marks={marks}
-       rangeMin={0}
-       rangeMax={4}
-       rangeStart={3}
-       rangeEnd={3}
-       disableRangeStart={false}
-       disableRangeEnd={false}
-       handleChangeCommited={handleChangeCommited}
-     />
-  );
-  fireEvent.change(screen.getAllByRole('slider')[0], {target: {value: '2'}});
-  expect(screen.getAllByRole('slider')[0]).toHaveValue('2');
-  expect(screen.getAllByRole('slider')[1]).toHaveValue('2');
-
-  fireEvent.change(screen.getAllByRole('slider')[1], {target: {value: '3'}});
-  expect(screen.getAllByRole('slider')[0]).toHaveValue('3');
-  expect(screen.getAllByRole('slider')[1]).toHaveValue('3');
-});
