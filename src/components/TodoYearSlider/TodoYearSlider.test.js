@@ -2,38 +2,59 @@ import moment from 'moment';
 import React from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import renderer from 'react-test-renderer';
-import TodoWeekSlider from './TodoWeekSlider';
+import TodoYearSlider from '../TodoYearSlider/TodoYearSlider';
 
 const marks = [
   {
     value: 0,
-    label: 'Sun',
+    label: 'Jan',
   },
   {
     value: 1,
-    label: 'Mon',
+    label: 'Feb',
   },
   {
     value: 2,
-    label: 'Tue',
+    label: 'Mar',
   },
   {
     value: 3,
-    label: 'Wed',
+    label: 'Apr',
   },
   {
     value: 4,
-    label: 'Thu',
+    label: 'May',
   },
   {
     value: 5,
-    label: 'Fri',
+    label: 'Jun',
   },
   {
     value: 6,
-    label: 'Sat',
+    label: 'Jul',
+  },
+  {
+    value: 7,
+    label: 'Aug',
+  },
+  {
+    value: 8,
+    label: 'Sep',
+  },
+  {
+    value: 9,
+    label: 'Oct',
+  },
+  {
+    value: 10,
+    label: 'Nov',
+  },
+  {
+    value: 11,
+    label: 'Dec',
   },
 ];
+
 
 const todo = {
   id: 1,
@@ -49,7 +70,7 @@ const todo = {
 it('should show a timeline slider', () => {
   const component = renderer.create(
     <BrowserRouter>
-      <TodoWeekSlider todo={todo} marks={marks} selectedWeek={moment('2022-01-02')} handleTodoChange={() => { }} handleDayChange={() => { }} />
+      <TodoYearSlider todo={todo} marks={marks} selectedYear={moment('2022-01-02')} handleTodoChange={() => { }} handleMonthChange={() => { }} />
     </BrowserRouter>
   );
   let tree = component.toJSON();
