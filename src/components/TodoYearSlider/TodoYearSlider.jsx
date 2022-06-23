@@ -7,6 +7,7 @@ import momentPropTypes from 'react-moment-proptypes';
 import SHARED_PROP_TYPES from 'utils/sharedPropTypes';
 import TimelineRangeSlider from 'components/TimelineRangeSlider/TimelineRangeSlider';
 import TodoItem from 'components/TodoItem/TodoItem';
+import TimelineSlider from 'components/TimelineSlider/TimelineSlider';
 
 const rangeMin = 0;
 const rangeMax = 11;
@@ -37,16 +38,28 @@ export default function TodoYearSlider(props) {
         <TodoItem todo={props.todo} handleTodoChange={props.handleTodoChange}/>
       </Grid>
       <Grid item xs={12} md={8} sx={{ px: 3 }}>
-        <TimelineRangeSlider
-          marks={props.marks}
-          rangeMin={rangeMin}
-          rangeMax={rangeMax}
-          rangeStart={rangeMark(startDate)}
-          rangeEnd={rangeMark(endDate)}
-          disableRangeStart={!isInYearRange(startDate, props.selectedYear)}
-          disableRangeEnd={!isInYearRange(endDate, props.selectedYear)}
-          handleChangeCommited={(newValue)=>{props.handleMonthChange(props.todo, newValue)}}
-        />
+        {props.todo.repeat &&
+          <TimelineRangeSlider
+            marks={props.marks}
+            rangeMin={rangeMin}
+            rangeMax={rangeMax}
+            rangeStart={rangeMark(startDate)}
+            rangeEnd={rangeMark(endDate)}
+            disableRangeStart={!isInYearRange(startDate, props.selectedYear)}
+            disableRangeEnd={!isInYearRange(endDate, props.selectedYear)}
+            handleChangeCommited={(newValue) => { props.handleMonthChange(props.todo, newValue) }}
+          />
+        }
+        {!props.todo.repeat &&
+          <TimelineSlider
+            marks={props.marks}
+            rangeMin={rangeMin}
+            rangeMax={rangeMax}
+            rangeStart={rangeMark(startDate)}
+            disableRangeStart={!isInYearRange(startDate, props.selectedYear)}
+            handleChangeCommited={(newValue) => { props.handleMonthChange(props.todo, newValue) }}
+          />
+        }
       </Grid>
     </>
   );

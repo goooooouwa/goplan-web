@@ -79,7 +79,7 @@ Array [
     className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 MuiGrid-grid-md-8 css-5swanh-MuiGrid-root"
   >
     <span
-      className="MuiSlider-colorPrimary MuiSlider-sizeMedium MuiSlider-root css-187mznn-MuiSlider-root"
+      className="MuiSlider-colorPrimary MuiSlider-sizeMedium MuiSlider-root css-101tn95-MuiSlider-root"
       onMouseDown={[Function]}
     >
       <span
@@ -221,64 +221,6 @@ Array [
           aria-valuenow={0}
           aria-valuetext={0}
           data-index={0}
-          disabled={false}
-          max={11}
-          min={0}
-          onBlur={[Function]}
-          onChange={[Function]}
-          onFocus={[Function]}
-          step={1}
-          style={
-            Object {
-              "border": 0,
-              "clip": "rect(0 0 0 0)",
-              "direction": "ltr",
-              "height": "100%",
-              "margin": -1,
-              "overflow": "hidden",
-              "padding": 0,
-              "position": "absolute",
-              "whiteSpace": "nowrap",
-              "width": "100%",
-            }
-          }
-          type="range"
-          value={0}
-        />
-        <span
-          aria-hidden={true}
-          className="MuiSlider-valueLabel css-1kz0hui-MuiSlider-valueLabel"
-        >
-          <span
-            className="MuiSlider-valueLabelCircle"
-          >
-            <span
-              className="MuiSlider-valueLabelLabel"
-            >
-              Jan
-            </span>
-          </span>
-        </span>
-      </span>
-      <span
-        className="MuiSlider-thumbColorPrimary MuiSlider-thumbSizeMedium MuiSlider-thumb css-eg0mwd-MuiSlider-thumb"
-        data-index={1}
-        onMouseLeave={[Function]}
-        onMouseOver={[Function]}
-        style={
-          Object {
-            "left": "0%",
-            "pointerEvents": undefined,
-          }
-        }
-      >
-        <input
-          aria-orientation="horizontal"
-          aria-valuemax={11}
-          aria-valuemin={0}
-          aria-valuenow={0}
-          aria-valuetext={0}
-          data-index={1}
           disabled={false}
           max={11}
           min={0}
