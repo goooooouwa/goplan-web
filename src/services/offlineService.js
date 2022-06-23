@@ -24,8 +24,8 @@ const todo1 = {
   repeat: false,
   status: false,
   repeatPeriod: "week",
-  repeatTimes: "1",
-  instanceTimeSpan: "1",
+  repeatTimes: 1,
+  instanceTimeSpan: 1,
   dependencies: [],
   dependents: [],
 };
@@ -45,8 +45,8 @@ const todo2 = {
   repeat: false,
   status: false,
   repeatPeriod: "week",
-  repeatTimes: "1",
-  instanceTimeSpan: "1",
+  repeatTimes: 1,
+  instanceTimeSpan: 1,
   dependencies: [],
   dependents: [],
 };
@@ -66,8 +66,8 @@ const todo3 = {
   repeat: false,
   status: false,
   repeatPeriod: "week",
-  repeatTimes: "1",
-  instanceTimeSpan: "1",
+  repeatTimes: 1,
+  instanceTimeSpan: 1,
   dependencies: [],
   dependents: [],
 };

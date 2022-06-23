@@ -20,8 +20,8 @@ export default function NewTodoForm() {
     endDate: moment().format("YYYY-MM-DD"),
     repeat: false,
     repeatPeriod: "week",
-    repeatTimes: "1",
-    instanceTimeSpan: "1",
+    repeatTimes: 1,
+    instanceTimeSpan: 1,
     dependencies: [],
   });
   const queryByProjectId = params.projectId !== undefined ? `project_id=${params.projectId}&` : '';
@@ -181,6 +181,7 @@ export default function NewTodoForm() {
                   fullWidth
                   value={todo.instanceTimeSpan}
                   onChange={handleChange}
+                  inputProps={{ inputMode: 'numeric', pattern: '[0-9]*' }}
                   InputProps={{
                     endAdornment: <InputAdornment position="start">hours</InputAdornment>,
                   }}
@@ -212,6 +213,7 @@ export default function NewTodoForm() {
                       name="repeatTimes"
                       margin="normal"
                       fullWidth
+                      inputProps={{ inputMode: 'numeric', pattern: '[0-9]*' }}
                       value={todo.repeatTimes}
                       onChange={handleChange}
                     />
