@@ -7,7 +7,7 @@ function valuetext(value) {
   return value;
 }
 
-export default function TimelineSlider(props) {
+export default function TimelineRangeSlider(props) {
   const [value, setValue] = useState([props.rangeStart, props.rangeEnd]);
 
   const valueLabelFormat = (value) => {
@@ -64,7 +64,7 @@ export default function TimelineSlider(props) {
   );
 }
 
-TimelineSlider.propTypes = {
+TimelineRangeSlider.propTypes = {
   rangeMin: PropTypes.number.isRequired,
   rangeMax: PropTypes.number.isRequired,
   rangeStart: PropTypes.number.isRequired,

@@ -1,7 +1,7 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
 import { fireEvent, screen, render } from '@testing-library/react';
-import TimelineSlider from './TimelineSlider';
+import TimelineRangeSlider from './TimelineRangeSlider';
 
 const marks = [{
   value: 0,
@@ -22,7 +22,7 @@ const marks = [{
 
 it('should show a timeline slider', () => {
   const component = renderer.create(
-     <TimelineSlider
+     <TimelineRangeSlider
        marks={marks}
        rangeMin={0}
        rangeMax={4}
@@ -39,7 +39,7 @@ it('should show a timeline slider', () => {
 
 it('should update slider value if props.rangeStart or props.rangeEnd changed', () => {
   const { rerender } = render(
-     <TimelineSlider
+     <TimelineRangeSlider
        marks={marks}
        rangeMin={0}
        rangeMax={4}
@@ -54,7 +54,7 @@ it('should update slider value if props.rangeStart or props.rangeEnd changed', (
   expect(screen.getAllByRole('slider')[1]).toHaveValue('3');
 
   rerender(
-     <TimelineSlider
+     <TimelineRangeSlider
        marks={marks}
        rangeMin={0}
        rangeMax={4}
@@ -72,7 +72,7 @@ it('should update slider value if props.rangeStart or props.rangeEnd changed', (
 it('should change rangeStart or rangeEnd when new value selected', async () => {
   const handleChangeCommited = jest.fn();
   render(
-     <TimelineSlider
+     <TimelineRangeSlider
        marks={marks}
        rangeMin={0}
        rangeMax={4}
@@ -93,7 +93,7 @@ it('should change rangeStart or rangeEnd when new value selected', async () => {
 it('should call #handleChangeCommited with new rangeStart or rangeEnd when new value selected', async () => {
   const handleChangeCommited = jest.fn();
   render(
-     <TimelineSlider
+     <TimelineRangeSlider
        marks={marks}
        rangeMin={0}
        rangeMax={4}
@@ -116,7 +116,7 @@ it('should call #handleChangeCommited with new rangeStart or rangeEnd when new v
 it('should not change rangeStart or rangeEnd if both are disabled', () => {
   const handleChangeCommited = jest.fn();
   render(
-     <TimelineSlider
+     <TimelineRangeSlider
        marks={marks}
        rangeMin={0}
        rangeMax={4}
@@ -138,7 +138,7 @@ it('should not change rangeStart or rangeEnd if both are disabled', () => {
 it('should only change rangeEnd if rangeStart is disabled', () => {
   const handleChangeCommited = jest.fn();
   render(
-     <TimelineSlider
+     <TimelineRangeSlider
        marks={marks}
        rangeMin={0}
        rangeMax={4}
@@ -166,7 +166,7 @@ it('should only change rangeEnd if rangeStart is disabled', () => {
 it('should only change rangeStart if rangeEnd is disabled', () => {
   const handleChangeCommited = jest.fn();
   render(
-     <TimelineSlider
+     <TimelineRangeSlider
        marks={marks}
        rangeMin={0}
        rangeMax={4}
@@ -189,4 +189,27 @@ it('should only change rangeStart if rangeEnd is disabled', () => {
   expect(screen.getAllByRole('slider')[1]).toHaveValue('3');
   expect(handleChangeCommited).toHaveBeenCalledTimes(2);
   expect(handleChangeCommited).toHaveBeenCalledWith([2,3]);
+});
+
+it('should support expand single day tasks', () => {
+  const handleChangeCommited = jest.fn();
+  render(
+     <TimelineRangeSlider
+       marks={marks}
+       rangeMin={0}
+       rangeMax={4}
+       rangeStart={3}
+       rangeEnd={3}
+       disableRangeStart={false}
+       disableRangeEnd={false}
+       handleChangeCommited={handleChangeCommited}
+     />
+  );
+  fireEvent.change(screen.getAllByRole('slider')[0], {target: {value: '2'}});
+  expect(screen.getAllByRole('slider')[0]).toHaveValue('2');
+  expect(screen.getAllByRole('slider')[1]).toHaveValue('2');
+
+  fireEvent.change(screen.getAllByRole('slider')[1], {target: {value: '3'}});
+  expect(screen.getAllByRole('slider')[0]).toHaveValue('3');
+  expect(screen.getAllByRole('slider')[1]).toHaveValue('3');
 });

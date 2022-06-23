@@ -2,7 +2,7 @@ import { Grid } from '@mui/material';
 import { isInMonthRange } from 'utils/rangeCheck';
 import moment from 'moment';
 import React from 'react';
-import TimelineSlider from '../TimelineSlider/TimelineSlider';
+import TimelineRangeSlider from '../TimelineRangeSlider/TimelineRangeSlider';
 import PropTypes from 'prop-types';
 import momentPropTypes from 'react-moment-proptypes';
 import SHARED_PROP_TYPES from 'utils/sharedPropTypes';
@@ -37,7 +37,7 @@ export default function TodoMonthSlider(props) {
         <TodoItem todo={props.todo} handleTodoChange={props.handleTodoChange}/>
       </Grid>
       <Grid item xs={12} md={8} sx={{ px: 3 }}>
-        <TimelineSlider
+        <TimelineRangeSlider
           marks={props.marks}
           rangeMin={rangeMin}
           rangeMax={rangeMax}

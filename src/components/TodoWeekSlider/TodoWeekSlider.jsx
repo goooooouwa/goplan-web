@@ -5,7 +5,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import momentPropTypes from 'react-moment-proptypes';
 import SHARED_PROP_TYPES from 'utils/sharedPropTypes';
-import TimelineSlider from 'components/TimelineSlider/TimelineSlider';
+import TimelineRangeSlider from 'components/TimelineRangeSlider/TimelineRangeSlider';
 import TodoItem from 'components/TodoItem/TodoItem';
 
 const rangeMin = 0;
@@ -37,7 +37,7 @@ export default function TodoWeekSlider(props) {
         <TodoItem todo={props.todo} handleTodoChange={props.handleTodoChange}/>
       </Grid>
       <Grid item xs={12} md={8} sx={{ px: 3 }}>
-        <TimelineSlider
+        <TimelineRangeSlider
           marks={props.marks}
           rangeMin={rangeMin}
           rangeMax={rangeMax}
