@@ -1,11 +1,10 @@
 import React from 'react';
-import renderer from 'react-test-renderer';
+import { render } from '@testing-library/react';
 import NewTodoForm from './NewTodoForm';
 
 it('should show a new todo form', () => {
-  const component = renderer.create(
+  const view = render(
     <NewTodoForm />
   );
-  let tree = component.toJSON();
-  expect(tree).toMatchSnapshot();
+  expect(view).toMatchSnapshot();
 });
