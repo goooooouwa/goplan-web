@@ -8,6 +8,7 @@ const todos = [{
   id: 1,
   projectId: 1,
   status: false,
+  repeat: true,
   name: "Todo 1",
   startDate: '2022-01-02',
   endDate: '2022-02-02',

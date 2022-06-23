@@ -25,16 +25,17 @@ const todo = {
   id: 1,
   projectId: 1,
   status: false,
+  repeat: false,
   name: "Todo 1",
   startDate: '2022-01-02',
-  endDate: '2022-02-02',
+  endDate: '2022-01-02',
   instanceTimeSpan: 1,
 };
 
 it('should show a timeline slider', () => {
   const component = renderer.create(
     <BrowserRouter>
-      <TodoWeekSlider todo={todo} marks={marks} selectedWeek={moment('2022-02-01')} handleTodoChange={() => { }} handleDayChange={() => { }} />
+      <TodoWeekSlider todo={todo} marks={marks} selectedWeek={moment('2022-01-02')} handleTodoChange={() => { }} handleDayChange={() => { }} />
     </BrowserRouter>
   );
   let tree = component.toJSON();
