@@ -2,7 +2,7 @@
 
 exports[`should show a timeline slider 1`] = `
 <span
-  className="MuiSlider-colorPrimary MuiSlider-sizeMedium MuiSlider-root css-187mznn-MuiSlider-root"
+  className="MuiSlider-colorPrimary MuiSlider-sizeMedium MuiSlider-root css-101tn95-MuiSlider-root"
   onMouseDown={[Function]}
 >
   <span

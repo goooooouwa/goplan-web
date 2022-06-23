@@ -53,6 +53,11 @@ export default function TimelineSlider(props) {
         marks
         min={props.rangeMin}
         max={props.rangeMax}
+        sx={{
+          '& .MuiSlider-track': {
+            display: 'none',
+          },
+        }}
       />
     </>
   );
