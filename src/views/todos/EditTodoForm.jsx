@@ -197,7 +197,7 @@ export default function EditTodoForm() {
             </Grid>
             <Grid item>
               <Typography variant="body1" gutterBottom textAlign="left">
-                How long would it take per day?
+                How long would it take each time?
               </Typography>
             </Grid>
             <Grid item container xs={12} spacing={2}>

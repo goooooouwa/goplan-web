@@ -164,8 +164,8 @@ Object {
                   class="MuiFormControl-root MuiFormControl-marginNormal MuiFormControl-fullWidth MuiTextField-root css-17vbkzs-MuiFormControl-root-MuiTextField-root"
                 >
                   <label
-                    class="MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-outlined MuiFormLabel-root MuiFormLabel-colorPrimary MuiFormLabel-filled css-1sumxir-MuiFormLabel-root-MuiInputLabel-root"
-                    data-shrink="true"
+                    class="MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-outlined MuiFormLabel-root MuiFormLabel-colorPrimary css-14s5rfu-MuiFormLabel-root-MuiInputLabel-root"
+                    data-shrink="false"
                     for=":r3:"
                     id=":r3:-label"
                   >
@@ -181,9 +181,7 @@ Object {
                       name="description"
                       rows="4"
                       style="height: 0px; overflow: hidden;"
-                    >
-                      this is desc
-                    </textarea>
+                    />
                     <textarea
                       aria-hidden="true"
                       class="MuiOutlinedInput-input MuiInputBase-input MuiInputBase-inputMultiline css-1sqnrkk-MuiInputBase-input-MuiOutlinedInput-input"
@@ -196,7 +194,7 @@ Object {
                       class="MuiOutlinedInput-notchedOutline css-1d3z3hw-MuiOutlinedInput-notchedOutline"
                     >
                       <legend
-                        class="css-1in441m"
+                        class="css-1ftyaf0"
                       >
                         <span>
                           Description
@@ -212,7 +210,7 @@ Object {
                 <p
                   class="MuiTypography-root MuiTypography-body1 MuiTypography-gutterBottom css-msoikk-MuiTypography-root"
                 >
-                  How long would it take per day?
+                  How long would it take each time?
                 </p>
               </div>
               <div
@@ -588,8 +586,8 @@ Object {
                 class="MuiFormControl-root MuiFormControl-marginNormal MuiFormControl-fullWidth MuiTextField-root css-17vbkzs-MuiFormControl-root-MuiTextField-root"
               >
                 <label
-                  class="MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-outlined MuiFormLabel-root MuiFormLabel-colorPrimary MuiFormLabel-filled css-1sumxir-MuiFormLabel-root-MuiInputLabel-root"
-                  data-shrink="true"
+                  class="MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-outlined MuiFormLabel-root MuiFormLabel-colorPrimary css-14s5rfu-MuiFormLabel-root-MuiInputLabel-root"
+                  data-shrink="false"
                   for=":r3:"
                   id=":r3:-label"
                 >
@@ -605,9 +603,7 @@ Object {
                     name="description"
                     rows="4"
                     style="height: 0px; overflow: hidden;"
-                  >
-                    this is desc
-                  </textarea>
+                  />
                   <textarea
                     aria-hidden="true"
                     class="MuiOutlinedInput-input MuiInputBase-input MuiInputBase-inputMultiline css-1sqnrkk-MuiInputBase-input-MuiOutlinedInput-input"
@@ -620,7 +616,7 @@ Object {
                     class="MuiOutlinedInput-notchedOutline css-1d3z3hw-MuiOutlinedInput-notchedOutline"
                   >
                     <legend
-                      class="css-1in441m"
+                      class="css-1ftyaf0"
                     >
                       <span>
                         Description
@@ -636,7 +632,7 @@ Object {
               <p
                 class="MuiTypography-root MuiTypography-body1 MuiTypography-gutterBottom css-msoikk-MuiTypography-root"
               >
-                How long would it take per day?
+                How long would it take each time?
               </p>
             </div>
             <div

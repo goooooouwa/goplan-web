@@ -15,7 +15,7 @@ export default function NewTodoForm() {
     project: null,
     projectId: (params.projectId !== undefined) ? params.projectId : "",
     name: "",
-    description: "this is desc",
+    description: "",
     startDate: moment().format("YYYY-MM-DD"),
     endDate: moment().format("YYYY-MM-DD"),
     repeat: false,
@@ -170,7 +170,7 @@ export default function NewTodoForm() {
             </Grid>
             <Grid item>
               <Typography variant="body1" gutterBottom textAlign="left">
-                How long would it take per day?
+                How long would it take each time?
               </Typography>
             </Grid>
             <Grid item container xs={12} spacing={2}>
