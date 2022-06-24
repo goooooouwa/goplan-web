@@ -102,7 +102,7 @@ const getCurrentUserId = () => {
 
 const logout = () => {
   localStorage.clear();
-  window.location.replace(APIServiceBaseURL);
+  return axios.get(`${APIServiceBaseURL}/users/sign_out`);
 };
 
 const httpService = {
