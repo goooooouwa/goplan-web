@@ -1,4 +1,5 @@
 import axios from 'axios';
+import qs from 'qs';
 import setupOfflineMode from './offlineService';
 
 const APIServiceBaseURL = process.env.REACT_APP_API_SERVICE_BASE_URL;
@@ -101,8 +102,22 @@ const getCurrentUserId = () => {
 };
 
 const logout = () => {
-  localStorage.clear();
-  return axios.get(`${APIServiceBaseURL}/users/sign_out`);
+  const accessToken = localStorage.getItem("access_token");
+  axios.delete('/users/sign_out_with_token.json')
+  .then((response) => {
+    axios.create().post(`${APIServiceBaseURL}/oauth/revoke`,
+    qs.stringify({
+      token: accessToken
+    }), {
+      headers: {
+        'Authorization': 'Basic ' + btoa(clientId),
+        'content-type': 'application/x-www-form-urlencoded'
+      }
+    })
+    .then((response) => {
+      localStorage.clear();
+    });
+  });
 };
 
 const httpService = {
