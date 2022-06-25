@@ -58,13 +58,9 @@ axios.interceptors.response.use(
     return Promise.reject(error);
   });
 
-const signIn = () => {
-  window.location.replace(`${APIServiceBaseURL}/oauth/authorize?client_id=${clientId}&redirect_uri=${redirectURI}&response_type=code&scope=${scope}`);
-};
+const signInPage = `${APIServiceBaseURL}/oauth/authorize?client_id=${clientId}&redirect_uri=${redirectURI}&response_type=code&scope=${scope}`;
 
-const goToAPIServer = () => {
-  window.location.replace(APIServiceBaseURL);
-};
+const logoutPage = `${APIServiceBaseURL}/profile`;
 
 const handleOAuthCallback = (authorizationCode, callback) => {
   if (authorizationCode !== null) {
@@ -78,6 +74,11 @@ const handleOAuthCallback = (authorizationCode, callback) => {
         console.log(error);
       });
   }
+};
+
+const handleOfflineMode = () => {
+  localStorage.setItem("offlineMode", "true");
+  window.location.reload();
 };
 
 const requestAccessTokenWithAuthorizationCode = (authorizationCode) => {
@@ -106,6 +107,11 @@ const parseJwt = (token) => {
   }).join(''));
 
   return JSON.parse(jsonPayload);
+};
+
+const logoutOfflineMode = (callback) => {
+  localStorage.clear();
+  callback();
 };
 
 const getOfflineModeCurrentUserId = () => {
@@ -147,11 +153,13 @@ const httpService = {
   put: axios.put,
   patch: axios.patch,
   logout,
-  signIn,
+  signInPage,
   getCurrentUserId: offlineMode ? getOfflineModeCurrentUserId : getCurrentUserId,
-  goToAPIServer,
+  logout: offlineMode ? logoutOfflineMode : logout,
+  logoutPage,
   getAccessToken,
-  handleOAuthCallback
+  handleOAuthCallback,
+  handleOfflineMode
 };
 
 export default httpService;

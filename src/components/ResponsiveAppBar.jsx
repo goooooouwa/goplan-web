@@ -67,14 +67,9 @@ const ResponsiveAppBar = () => {
     setAnchorElUser(null);
   };
 
-  const handleOfflineMode = () => {
-    localStorage.setItem("offlineMode", "true");
-    window.location.reload();
-  };
-
   const handleLogout = () => {
     httpService.logout(()=>{
-      navigate("/");
+      navigate("/goodbye");
     });
   };
 
@@ -198,16 +193,6 @@ const ResponsiveAppBar = () => {
               {localStorage.getItem("access_token") !== null &&
                 <MenuItem component={RouterLink} to='/account' onClick={handleCloseUserMenu}>
                   <Typography textAlign="center">Account</Typography>
-                </MenuItem>
-              }
-              {localStorage.getItem("access_token") === null &&
-                <MenuItem onClick={httpService.signIn}>
-                  <Typography textAlign="center">Sign in</Typography>
-                </MenuItem>
-              }
-              {localStorage.getItem("offlineMode") !== 'true' &&
-                <MenuItem onClick={handleOfflineMode}>
-                  <Typography textAlign="center">Offline mode</Typography>
                 </MenuItem>
               }
               {localStorage.getItem("access_token") !== null &&

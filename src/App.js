@@ -25,6 +25,7 @@ import ProtectedRoute from 'components/ProtectedRoute';
 import AppLayout from 'views/app/AppLayout';
 import './App.css';
 import { AuthProvider } from "hooks/useAuth";
+import GoodByePage from "views/app/GoodByePage";
 
 moment.locale('en');
 
@@ -34,6 +35,7 @@ function App() {
       <Routes>
         <Route path="/callback" element={<OAuthCallbackContainer />} />
         <Route path="/" element={<LandingPage />} />
+        <Route path="/goodbye" element={<GoodByePage />} />
         <Route path="/" element={
           <ProtectedRoute>
             <AppLayout />

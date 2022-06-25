@@ -8,10 +8,11 @@ export const AuthProvider = ({ children }) => {
   const value = {
     getAccessToken: httpService.getAccessToken,
     getCurrentUserId: httpService.getCurrentUserId,
-    signIn: httpService.signIn,
+    signInPage: httpService.signInPage,
     handleOAuthCallback: httpService.handleOAuthCallback,
+    handleOfflineMode: httpService.handleOfflineMode,
     logout: httpService.logout,
-    goToAPIServer: httpService.goToAPIServer
+    logoutPage: httpService.logoutPage
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
