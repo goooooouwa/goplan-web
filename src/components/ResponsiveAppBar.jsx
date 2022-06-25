@@ -74,7 +74,7 @@ const ResponsiveAppBar = () => {
 
   const handleLogout = () => {
     httpService.logout(()=>{
-      navigate('/');
+      navigate("/");
     });
   };
 

@@ -50,7 +50,7 @@ axios.interceptors.response.use(
             }
           });
       } else {
-        signIn();
+        window.location.replace("/");
         return Promise.reject(error);
       }
     }
@@ -62,7 +62,7 @@ const signIn = () => {
   window.location.replace(`${APIServiceBaseURL}/oauth/authorize?client_id=${clientId}&redirect_uri=${redirectURI}&response_type=code&scope=${scope}`);
 };
 
-const redirectToAPIServer = () => {
+const goToAPIServer = () => {
   window.location.replace(APIServiceBaseURL);
 };
 
@@ -97,6 +97,28 @@ const requestAccessTokenWithRefreshToken = (refreshToken) => {
   });
 };
 
+// Ref: https://stackoverflow.com/questions/38552003/how-to-decode-jwt-token-in-javascript-without-using-a-library
+const parseJwt = (token) => {
+  var base64Url = token.split('.')[1];
+  var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+  var jsonPayload = decodeURIComponent(atob(base64).split('').map(function (c) {
+    return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+  }).join(''));
+
+  return JSON.parse(jsonPayload);
+};
+
+const getOfflineModeCurrentUserId = () => {
+  return 1;
+};
+
+const getCurrentUserId = () => {
+  const accessToken = localStorage.getItem("access_token");
+  if (accessToken !== null) {
+    return parseJwt(accessToken).user.id;
+  }
+};
+
 const logout = (callback) => {
   const accessToken = localStorage.getItem("access_token");
   return axios.create().post(`${APIServiceBaseURL}/oauth/revoke`,
@@ -114,6 +136,10 @@ const logout = (callback) => {
     });
 };
 
+const getAccessToken = () => {
+  return localStorage.getItem("access_token");
+}
+
 const httpService = {
   get: axios.get,
   post: axios.post,
@@ -122,7 +148,9 @@ const httpService = {
   patch: axios.patch,
   logout,
   signIn,
-  redirectToAPIServer,
+  getCurrentUserId: offlineMode ? getOfflineModeCurrentUserId : getCurrentUserId,
+  goToAPIServer,
+  getAccessToken,
   handleOAuthCallback
 };
 

@@ -20,57 +20,60 @@ import OAuthCallbackContainer from 'views/users/OAuthCallbackContainer';
 import AccountDetailContainer from 'views/users/AccountDetailContainer';
 import EditAccountForm from 'views/users/EditAccountForm';
 import AccountLayout from 'views/users/AccountLayout';
-import HomeContainer from 'views/app/LandingPage';
+import LandingPage from 'views/app/LandingPage';
 import ProtectedRoute from 'components/ProtectedRoute';
 import AppLayout from 'views/app/AppLayout';
 import './App.css';
+import { AuthProvider } from "hooks/useAuth";
 
 moment.locale('en');
 
 function App() {
   return (
-    <Routes>
-      <Route path="/callback" element={<OAuthCallbackContainer />} />
-      <Route path="/" element={<HomeContainer />} />
-      <Route path="/" element={
-        <ProtectedRoute isLoggedIn={true}>
-          <AppLayout />
-        </ProtectedRoute>
-      }>
-        <Route path="account" element={<AccountLayout />} >
-          <Route index element={<AccountDetailContainer />} />
-          <Route path="edit" element={<EditAccountForm />} />
-        </Route>
-        <Route path="projects" element={<ProjectLayout />} >
-          <Route index element={<ProjectListContainer />} />
-          <Route path=":projectId/edit" element={<EditProjectForm />} />
-          <Route path=":projectId" element={<ProjectDetailContainer />} >
-            <Route path="year" element={<TimelineYearContainer />} />
+    <AuthProvider>
+      <Routes>
+        <Route path="/callback" element={<OAuthCallbackContainer />} />
+        <Route path="/" element={<LandingPage />} />
+        <Route path="/" element={
+          <ProtectedRoute>
+            <AppLayout />
+          </ProtectedRoute>
+        }>
+          <Route path="account" element={<AccountLayout />} >
+            <Route index element={<AccountDetailContainer />} />
+            <Route path="edit" element={<EditAccountForm />} />
+          </Route>
+          <Route path="projects" element={<ProjectLayout />} >
+            <Route index element={<ProjectListContainer />} />
+            <Route path=":projectId/edit" element={<EditProjectForm />} />
+            <Route path=":projectId" element={<ProjectDetailContainer />} >
+              <Route path="year" element={<TimelineYearContainer />} />
+              <Route path="month" element={<TimelineMonthContainer />} />
+              <Route path="week" element={<TimelineWeekContainer />} />
+              <Route path="todos" element={<TodoLayout />} >
+                <Route index element={<TodoListContainer />} />
+                <Route path=":todoId" element={<TodoDetailContainer />} />
+                <Route path="new" element={<NewTodoForm />} />
+                <Route path=":todoId/edit" element={<EditTodoForm />} />
+              </Route>
+            </Route>
+            <Route path="new" element={<NewProjectForm />} />
+          </Route>
+          <Route path="todos" element={<TodoLayout />} >
+            <Route index element={<TodoListContainer />} />
+            <Route path=":todoId" element={<TodoDetailContainer />} />
+            <Route path="new" element={<NewTodoForm />} />
+            <Route path=":todoId/edit" element={<EditTodoForm />} />
+          </Route>
+          <Route path="timeline" element={<TimelineLayout />} >
+            <Route index element={<TimelineYearContainer />} />
             <Route path="month" element={<TimelineMonthContainer />} />
             <Route path="week" element={<TimelineWeekContainer />} />
-            <Route path="todos" element={<TodoLayout />} >
-              <Route index element={<TodoListContainer />} />
-              <Route path=":todoId" element={<TodoDetailContainer />} />
-              <Route path="new" element={<NewTodoForm />} />
-              <Route path=":todoId/edit" element={<EditTodoForm />} />
-            </Route>
+            <Route path="day" element={<TimelineDayView />} />
           </Route>
-          <Route path="new" element={<NewProjectForm />} />
         </Route>
-        <Route path="todos" element={<TodoLayout />} >
-          <Route index element={<TodoListContainer />} />
-          <Route path=":todoId" element={<TodoDetailContainer />} />
-          <Route path="new" element={<NewTodoForm />} />
-          <Route path=":todoId/edit" element={<EditTodoForm />} />
-        </Route>
-        <Route path="timeline" element={<TimelineLayout />} >
-          <Route index element={<TimelineYearContainer />} />
-          <Route path="month" element={<TimelineMonthContainer />} />
-          <Route path="week" element={<TimelineWeekContainer />} />
-          <Route path="day" element={<TimelineDayView />} />
-        </Route>
-      </Route>
-    </Routes>
+      </Routes>
+    </AuthProvider>
   );
 }
 

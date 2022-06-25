@@ -1,8 +1,11 @@
-const React = require("react");
-const { Navigate, Outlet } = require("react-router-dom");
+import { useAuth } from "hooks/useAuth";
+import React from "react";
+import { Navigate, Outlet } from "react-router-dom";
 
-const ProtectedRoute = ({ isLoggedIn, children }) => {
-  if (!isLoggedIn) {
+const ProtectedRoute = ({ children }) => {
+  const { getAccessToken } = useAuth();
+
+  if (getAccessToken() === null) {
     return <Navigate to="/" replace />;
   }
 

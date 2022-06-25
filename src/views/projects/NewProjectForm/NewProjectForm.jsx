@@ -2,11 +2,13 @@ import { Button, Container, FormControl, Grid, TextField, Typography } from "@mu
 import httpService from "services/httpService";
 import React, { useState } from "react";
 import { Navigate } from "react-router-dom";
+import { useAuth } from "hooks/useAuth";
 
 export default function NewProjectForm() {
+  const { getCurrentUserId } = useAuth();
   const [project, setProject] = useState({
     id: null,
-    userId: httpService.getCurrentUserId(),
+    userId: getCurrentUserId(),
     name: "",
     targetDate: ""
   });

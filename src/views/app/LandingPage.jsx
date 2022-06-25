@@ -1,26 +1,26 @@
 import { Button } from "@mui/material";
-import httpService from "services/httpService";
 import React from "react";
 import { Navigate } from "react-router-dom";
+import { useAuth } from "hooks/useAuth";
 
 export default function LandingPage() {
-  const accessToken = localStorage.getItem("access_token");
+  const { getAccessToken, signIn, goToAPIServer } = useAuth();
   return (
     <>
-      {accessToken !== null &&
-        <Navigate to={'/projects'} />
+      {getAccessToken() !== null &&
+        <Navigate to="/projects" />
       }
       <h1>Welcome to GoPlan Web</h1>
       <Button
-        onClick={httpService.signIn}
+        onClick={signIn}
       >
-        Authorize with GoPlan
+        Sign in with GoPlan
       </Button>
       <br/>
       <Button
-        onClick={httpService.redirectToAPIServer}
+        onClick={goToAPIServer}
       >
-        Visit GoPlan
+        Go to GoPlan
       </Button>
     </>
   );
