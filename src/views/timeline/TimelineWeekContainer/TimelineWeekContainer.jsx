@@ -8,6 +8,7 @@ import TodoActionGroup from "components/TodoActionGroup";
 import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
 import { isInWeekRange } from "utils/rangeCheck";
+import todoTraversal from "utils/todoTraversal";
 
 export default function TimelineWeekContainer() {
   const params = useParams();
@@ -59,14 +60,10 @@ export default function TimelineWeekContainer() {
       })
       .catch(function (error) {
         const updatedTodoId = todo.id;
+        const startDate = todoData.start_date || todo.startDate;
+        const endDate = todoData.end_date || todo.endDate;
         setTodos((todos) => {
-          return todos.map((todo) => {
-            if (todo.id === updatedTodoId) {
-              todo.startDate = todoData.start_date || todo.startDate;
-              todo.endDate = todoData.end_date || todo.endDate;
-            }
-            return todo;
-          });
+          return todoTraversal.markDirtyTodosAndDepdents(todos, updatedTodoId, { startDate, endDate });
         });
         console.log(error);
       });
