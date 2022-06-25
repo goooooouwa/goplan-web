@@ -39,7 +39,6 @@ const marks = [
 ];
 
 export default function TimelineWeek(props) {
-
   return (
     <>
       <Grid container rowSpacing={1} >
