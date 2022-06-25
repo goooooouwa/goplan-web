@@ -14,7 +14,10 @@ export default function TodoItem(props) {
           inputProps={{ 'aria-label': 'controlled' }}
         />
         <ListItemButton component={Link} to={`/projects/${props.todo.projectId}/todos/${props.todo.id}`} >
-          <ListItemText primary={props.todo.name} />
+          <ListItemText primary={props.todo.name} sx={{
+            textDecoration: props.todo.status ? 'line-through': 'none',
+            color: props.todo.status ? 'text.secondary': 'text.primary',
+            }}/>
         </ListItemButton>
       </ListItem>
     </>
