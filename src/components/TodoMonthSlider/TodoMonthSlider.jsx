@@ -1,4 +1,4 @@
-import { Grid } from '@mui/material';
+import { Collapse, Grid } from '@mui/material';
 import { isInMonthRange } from 'utils/rangeCheck';
 import moment from 'moment';
 import React from 'react';
@@ -9,12 +9,40 @@ import SHARED_PROP_TYPES from 'utils/sharedPropTypes';
 import TodoItem from '../TodoItem/TodoItem';
 import TimelineSlider from 'components/TimelineSlider/TimelineSlider';
 
+const marks = [
+  {
+    value: 1,
+    label: 'Week 1',
+  },
+  {
+    value: 2,
+    label: 'Week 2',
+  },
+  {
+    value: 3,
+    label: 'Week 3',
+  },
+  {
+    value: 4,
+    label: 'Week 4',
+  },
+  {
+    value: 5,
+    label: 'Week 5',
+  },
+];
+
 const rangeMin = 1;
 const rangeMax = 5;
 
 export default function TodoMonthSlider(props) {
   const startDate = (props.todo.startDate !== null) ? moment(props.todo.startDate) : moment();
   const endDate = (props.todo.endDate !== null) ? moment(props.todo.endDate) : moment();
+  const [open, setOpen] = React.useState(true);
+
+  const handleTodoExpand = () => {
+    setOpen(!open);
+  };
 
   const rangeMark = (date) => {
     if (date.isValid()) {
@@ -35,7 +63,7 @@ export default function TodoMonthSlider(props) {
   return (
     <>
       <Grid item xs={12} md={4}>
-        <TodoItem todo={props.todo} handleTodoChange={props.handleTodoChange}/>
+        <TodoItem todo={props.todo} handleTodoChange={props.handleTodoChange} handleTodoExpand={handleTodoExpand} />
       </Grid>
       <Grid item xs={12} md={8} sx={{ px: 3 }}>
         {props.todo.repeat &&
@@ -60,6 +88,15 @@ export default function TodoMonthSlider(props) {
             handleChangeCommited={(newValue) => { props.handleWeekChange(props.todo, newValue) }}
           />
         }
+      </Grid>
+      <Grid item xs={12} md={12}>
+        <Collapse in={open} timeout="auto" unmountOnExit>
+          {props.todo.dependents.map((todo, index) => (
+            <Grid key={index} container item xs={12} md={12}>
+              <TodoMonthSlider key={index} todo={todo} marks={marks} selectedMonth={props.selectedMonth} handleTodoChange={props.handleTodoChange} handleWeekChange={props.handleWeekChange} />
+            </Grid>
+          ))}
+        </Collapse>
       </Grid>
     </>
   );

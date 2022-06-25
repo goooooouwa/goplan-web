@@ -100,7 +100,7 @@ export default function TodoWeekSlider(props) {
       <Grid item xs={12} md={12}>
         <Collapse in={open} timeout="auto" unmountOnExit>
             {props.todo.dependents.map((todo, index) => (
-              <Grid container item xs={12} md={12}>
+              <Grid key={index} container item xs={12} md={12}>
                 <TodoWeekSlider key={index} todo={todo} marks={marks} selectedWeek={props.selectedWeek} handleTodoChange={props.handleTodoChange} handleDayChange={props.handleDayChange} />
               </Grid>
             ))}

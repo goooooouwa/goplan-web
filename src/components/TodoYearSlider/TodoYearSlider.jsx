@@ -1,4 +1,4 @@
-import { Grid } from '@mui/material';
+import { Collapse, Grid } from '@mui/material';
 import isInYearRange from 'utils/rangeCheck';
 import moment from 'moment';
 import React from 'react';
@@ -9,12 +9,68 @@ import TimelineRangeSlider from 'components/TimelineRangeSlider/TimelineRangeSli
 import TodoItem from 'components/TodoItem/TodoItem';
 import TimelineSlider from 'components/TimelineSlider/TimelineSlider';
 
+const marks = [
+  {
+    value: 0,
+    label: 'Jan',
+  },
+  {
+    value: 1,
+    label: 'Feb',
+  },
+  {
+    value: 2,
+    label: 'Mar',
+  },
+  {
+    value: 3,
+    label: 'Apr',
+  },
+  {
+    value: 4,
+    label: 'May',
+  },
+  {
+    value: 5,
+    label: 'Jun',
+  },
+  {
+    value: 6,
+    label: 'Jul',
+  },
+  {
+    value: 7,
+    label: 'Aug',
+  },
+  {
+    value: 8,
+    label: 'Sep',
+  },
+  {
+    value: 9,
+    label: 'Oct',
+  },
+  {
+    value: 10,
+    label: 'Nov',
+  },
+  {
+    value: 11,
+    label: 'Dec',
+  },
+];
+
 const rangeMin = 0;
 const rangeMax = 11;
 
 export default function TodoYearSlider(props) {
   const startDate = (props.todo.startDate !== null) ? moment(props.todo.startDate) : moment();
   const endDate = (props.todo.endDate !== null) ? moment(props.todo.endDate) : moment();
+  const [open, setOpen] = React.useState(true);
+
+  const handleTodoExpand = () => {
+    setOpen(!open);
+  };
 
   const rangeMark = (date) => {
     if (date.isValid()) {
@@ -35,7 +91,7 @@ export default function TodoYearSlider(props) {
   return (
     <>
       <Grid item xs={12} md={4}>
-        <TodoItem todo={props.todo} handleTodoChange={props.handleTodoChange}/>
+        <TodoItem todo={props.todo} handleTodoChange={props.handleTodoChange} handleTodoExpand={handleTodoExpand} />
       </Grid>
       <Grid item xs={12} md={8} sx={{ px: 3 }}>
         {props.todo.repeat &&
@@ -60,6 +116,15 @@ export default function TodoYearSlider(props) {
             handleChangeCommited={(newValue) => { props.handleMonthChange(props.todo, newValue) }}
           />
         }
+      </Grid>
+      <Grid item xs={12} md={12}>
+        <Collapse in={open} timeout="auto" unmountOnExit>
+          {props.todo.dependents.map((todo, index) => (
+            <Grid key={index} container item xs={12} md={12}>
+              <TodoYearSlider key={index} todo={todo} marks={marks} selectedYear={props.selectedYear} handleTodoChange={props.handleTodoChange} handleMonthChange={props.handleMonthChange} />
+            </Grid>
+          ))}
+        </Collapse>
       </Grid>
     </>
   );
