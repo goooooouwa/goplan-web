@@ -1,34 +1,76 @@
-import { CssBaseline } from "@mui/material";
-import ResponsiveAppBar from "components/ResponsiveAppBar";
 import React from "react";
-import { Outlet } from "react-router-dom";
-import './App.css';
+import { Route, Routes } from 'react-router-dom';
 import moment from 'moment';
+import ProjectLayout from './views/projects/ProjectLayout';
+import ProjectListContainer from './views/projects/ProjectListContainer';
+import ProjectDetailContainer from './views/projects/ProjectDetailContainer';
+import NewProjectForm from './views/projects/NewProjectForm/NewProjectForm';
+import TodoLayout from './views/todos/TodoLayout';
+import TodoListContainer from './views/todos/TodoListContainer';
+import TodoDetailContainer from './views/todos/TodoDetailContainer';
+import NewTodoForm from './views/todos/NewTodoForm/NewTodoForm';
+import TimelineLayout from './views/timeline/TimelineLayout';
+import TimelineYearContainer from './views/timeline/TimelineYearContainer/TimelineYearContainer';
+import TimelineDayView from './views/timeline/TimelineDayView';
+import TimelineWeekContainer from 'views/timeline/TimelineWeekContainer/TimelineWeekContainer';
+import TimelineMonthContainer from 'views/timeline/TimelineMonthContainer/TimelineMonthContainer';
+import EditProjectForm from 'views/projects/EditProjectForm';
+import EditTodoForm from 'views/todos/EditTodoForm';
+import OAuthCallbackContainer from 'views/users/OAuthCallbackContainer';
+import AccountDetailContainer from 'views/users/AccountDetailContainer';
+import EditAccountForm from 'views/users/EditAccountForm';
+import AccountLayout from 'views/users/AccountLayout';
+import HomeContainer from 'views/app/HomeContainer';
+import ProtectedRoute from 'components/ProtectedRoute';
+import AppLayout from 'views/app/AppLayout';
+import './App.css';
 
 moment.locale('en');
 
 function App() {
   return (
-    <>
-      <CssBaseline />
-      <div className="App">
-        {/* <nav>
-          <Link to="/">Home</Link> |{' '}
-          <Link to="/projects">projects</Link> |{' '}
-          <Link to="/projects/new">new project</Link> |{' '}
-          <Link to="/projects/1">project #1</Link> |{' '}
-          <Link to="/todos">todos</Link> |{' '}
-          <Link to="/todos/new">new todo</Link> |{' '}
-          <Link to="/todos/1">todo #1</Link> |{' '}
-          <Link to="/timeline">timeline Year</Link> |{' '}
-          <Link to="/timeline/month">timeline Month</Link> |{' '}
-          <Link to="/timeline/week">timeline Week</Link> |{' '}
-          <Link to="/timeline/day">timeline Day</Link> |{' '}
-        </nav> */}
-        <ResponsiveAppBar />
-        <Outlet />
-      </div>
-    </>
+    <Routes>
+      <Route path="/callback" element={<OAuthCallbackContainer />} />
+      <Route path="/" element={<HomeContainer />} />
+      <Route path="/" element={
+        <ProtectedRoute isLoggedIn={true}>
+          <AppLayout />
+        </ProtectedRoute>
+      }>
+        <Route path="account" element={<AccountLayout />} >
+          <Route index element={<AccountDetailContainer />} />
+          <Route path="edit" element={<EditAccountForm />} />
+        </Route>
+        <Route path="projects" element={<ProjectLayout />} >
+          <Route index element={<ProjectListContainer />} />
+          <Route path=":projectId/edit" element={<EditProjectForm />} />
+          <Route path=":projectId" element={<ProjectDetailContainer />} >
+            <Route path="year" element={<TimelineYearContainer />} />
+            <Route path="month" element={<TimelineMonthContainer />} />
+            <Route path="week" element={<TimelineWeekContainer />} />
+            <Route path="todos" element={<TodoLayout />} >
+              <Route index element={<TodoListContainer />} />
+              <Route path=":todoId" element={<TodoDetailContainer />} />
+              <Route path="new" element={<NewTodoForm />} />
+              <Route path=":todoId/edit" element={<EditTodoForm />} />
+            </Route>
+          </Route>
+          <Route path="new" element={<NewProjectForm />} />
+        </Route>
+        <Route path="todos" element={<TodoLayout />} >
+          <Route index element={<TodoListContainer />} />
+          <Route path=":todoId" element={<TodoDetailContainer />} />
+          <Route path="new" element={<NewTodoForm />} />
+          <Route path=":todoId/edit" element={<EditTodoForm />} />
+        </Route>
+        <Route path="timeline" element={<TimelineLayout />} >
+          <Route index element={<TimelineYearContainer />} />
+          <Route path="month" element={<TimelineMonthContainer />} />
+          <Route path="week" element={<TimelineWeekContainer />} />
+          <Route path="day" element={<TimelineDayView />} />
+        </Route>
+      </Route>
+    </Routes>
   );
 }
 
