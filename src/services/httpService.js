@@ -101,23 +101,21 @@ const getCurrentUserId = () => {
   }
 };
 
-const logout = () => {
+const logout = (callback) => {
   const accessToken = localStorage.getItem("access_token");
-  axios.delete('/users/sign_out_with_token.json')
-  .then((response) => {
-    axios.create().post(`${APIServiceBaseURL}/oauth/revoke`,
+  return axios.create().post(`${APIServiceBaseURL}/oauth/revoke`,
     qs.stringify({
       token: accessToken
     }), {
-      headers: {
-        'Authorization': 'Basic ' + btoa(clientId),
-        'content-type': 'application/x-www-form-urlencoded'
-      }
-    })
+    headers: {
+      'Authorization': 'Basic ' + btoa(clientId),
+      'content-type': 'application/x-www-form-urlencoded'
+    }
+  })
     .then((response) => {
       localStorage.clear();
+      callback();
     });
-  });
 };
 
 const httpService = {

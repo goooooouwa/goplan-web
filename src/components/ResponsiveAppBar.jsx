@@ -11,7 +11,7 @@ import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import TaskAlt from '@mui/icons-material/TaskAlt';
-import { Link as RouterLink } from "react-router-dom";
+import { Link as RouterLink, useNavigate } from "react-router-dom";
 import { useEffect, useState } from 'react';
 import httpService from 'services/httpService';
 import { Avatar } from '@mui/material';
@@ -40,6 +40,7 @@ const ResponsiveAppBar = () => {
     email: "",
     imageUrl: "",
   });
+  const navigate = useNavigate();
 
   useEffect(() => {
     httpService.get('/me.json')
@@ -72,7 +73,9 @@ const ResponsiveAppBar = () => {
   };
 
   const handleLogout = () => {
-    httpService.logout();
+    httpService.logout(()=>{
+      navigate('/');
+    });
   };
 
   return (

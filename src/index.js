@@ -23,6 +23,7 @@ import OAuthCallbackContainer from 'views/users/OAuthCallbackContainer';
 import AccountDetailContainer from 'views/users/AccountDetailContainer';
 import EditAccountForm from 'views/users/EditAccountForm';
 import AccountLayout from 'views/users/AccountLayout';
+import HomeContainer from 'views/home/HomeContainer';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -30,7 +31,7 @@ root.render(
     <Routes>
       <Route path="/callback" element={<OAuthCallbackContainer />} />
       <Route path="/" element={<App />}>
-        <Route index element={<ProjectListContainer />} />
+        <Route index element={<HomeContainer />} />
         <Route path="account" element={<AccountLayout />} >
           <Route index element={<AccountDetailContainer />} />
           <Route path="edit" element={<EditAccountForm />} />
