@@ -6,7 +6,7 @@ import SHARED_PROP_TYPES from "utils/sharedPropTypes";
 import { ExpandLess, ExpandMore } from "@mui/icons-material";
 
 export default function TodoItem(props) {
-  const [open, setOpen] = React.useState(true);
+  const [open, setOpen] = React.useState(false);
 
   const handleClick = () => {
     setOpen(!open);
@@ -23,9 +23,9 @@ export default function TodoItem(props) {
             {
               props.todo.dependents.length > 0 &&
               <IconButton edge="end" aria-label="expand" onClick={handleClick}>
-                  {
-                    open ? <ExpandLess /> : <ExpandMore />
-                  }
+                {
+                  open ? <ExpandLess /> : <ExpandMore />
+                }
               </IconButton>
             }
           </>
