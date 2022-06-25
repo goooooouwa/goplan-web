@@ -16,6 +16,12 @@ export default function HomeContainer() {
       >
         Authorize with GoPlan
       </Button>
+      <br/>
+      <Button
+        onClick={httpService.redirectToAPIServer}
+      >
+        Visit GoPlan
+      </Button>
     </>
   );
 }

@@ -62,6 +62,10 @@ const signIn = () => {
   window.location.replace(`${APIServiceBaseURL}/oauth/authorize?client_id=${clientId}&redirect_uri=${redirectURI}&response_type=code&scope=${scope}`);
 };
 
+const redirectToAPIServer = () => {
+  window.location.replace(APIServiceBaseURL);
+};
+
 const requestAccessTokenWithAuthorizationCode = (authorizationCode) => {
   return axios.post('/oauth/token', {
     grant_type: 'authorization_code',
@@ -129,6 +133,7 @@ const httpService = {
   getCurrentUserId: offlineMode ? getOfflineModeCurrentUserId : getCurrentUserId,
   logout: logout,
   signIn: signIn,
+  redirectToAPIServer: redirectToAPIServer
 };
 
 export default httpService;
