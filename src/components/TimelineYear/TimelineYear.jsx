@@ -67,48 +67,52 @@ export default function TimelineYear(props) {
     <>
       <Grid container rowSpacing={1} >
         <Grid item xs={12} md={4}>
-            <Typography
-              variant="body1"
-              gutterBottom
-              sx={{
-                fontWeight: 'bold',
-                textAlign: 'left',
-                mt: 1,
-                ml: 2
-              }}
-            >
-              Todos
-            </Typography>
-          </Grid>
-          <Grid item xs={12} md={8}>
-            <Box display='block' m={1}>
-              <Stack
-                direction="row"
-                justifyContent="space-between"
-                alignItems="center"
-              >
-                {marks.map((mark, index) => (
-                  <IconButton
-                    key={index}
-                    component={ RouterLink }
-                    size="small"
-                    to={`${monthUrlPrefix}${props.selectedYear.clone().add(mark.value, "months").format("YYYYMM")}`}
-                    sx={{
-                      fontWeight: 'bold',
-                      fontSize: { xs: 10, sm: 16},
-                      color: (isInYearRange(moment(), props.selectedYear) && moment().month() === index) ? 'error.main' : 'text.primary'
-                    }}
-                  >
-                    {mark.label}
-                  </IconButton>
-                ))}
-              </Stack>
-            </Box>
-          </Grid>
-          {props.todos.map((todo, index) => (
-              <TodoYearSlider key={index} todo={todo} marks={marks} selectedYear={props.selectedYear} handleTodoChange={props.handleTodoChange} handleMonthChange={props.handleMonthChange} />
-            ))}
+          <Typography
+            variant="body1"
+            gutterBottom
+            sx={{
+              fontWeight: 'bold',
+              textAlign: 'left',
+              mt: 1,
+              ml: 2
+            }}
+          >
+            Todos
+          </Typography>
         </Grid>
+        <Grid item xs={12} md={8}>
+          <Box display='block' m={1}>
+            <Stack
+              direction="row"
+              justifyContent="space-between"
+              alignItems="center"
+            >
+              {marks.map((mark, index) => (
+                <IconButton
+                  key={index}
+                  component={RouterLink}
+                  size="small"
+                  to={`${monthUrlPrefix}${props.selectedYear.clone().add(mark.value, "months").format("YYYYMM")}`}
+                  sx={{
+                    fontWeight: 'bold',
+                    fontSize: { xs: 10, sm: 16 },
+                    color: (isInYearRange(moment(), props.selectedYear) && moment().month() === index) ? 'error.main' : 'text.primary'
+                  }}
+                >
+                  {mark.label}
+                </IconButton>
+              ))}
+            </Stack>
+          </Box>
+        </Grid>
+        {props.todos
+          .filter((todo) => {
+            return todo.dependencies.length === 0;
+          })
+          .map((todo, index) => (
+            <TodoYearSlider key={index} todo={todo} marks={marks} selectedYear={props.selectedYear} handleTodoChange={props.handleTodoChange} handleMonthChange={props.handleMonthChange} />
+          ))}
+      </Grid>
     </>
   );
 }

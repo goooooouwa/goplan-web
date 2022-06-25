@@ -87,8 +87,12 @@ export default function TimelineMonth(props) {
             </Stack>
           </Box>
         </Grid>
-        {props.todos.map((todo, index) => (
-            <TodoMonthSlider key={index} todo={todo} marks={marks} selectedMonth={props.selectedMonth} handleTodoChange={props.handleTodoChange} handleWeekChange={props.handleWeekChange}/>
+        {props.todos
+          .filter((todo) => {
+            return todo.dependencies.length === 0;
+          })
+          .map((todo, index) => (
+            <TodoMonthSlider key={index} todo={todo} marks={marks} selectedMonth={props.selectedMonth} handleTodoChange={props.handleTodoChange} handleWeekChange={props.handleWeekChange} />
           ))}
       </Grid>
     </>
