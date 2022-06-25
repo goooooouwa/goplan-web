@@ -8,17 +8,9 @@ export default function OAuthCallbackContainer(props) {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (authorizationCode !== null) {
-      httpService.requestAccessTokenWithAuthorizationCode(authorizationCode)
-      .then((response) => {
-        localStorage.setItem("access_token", response.data.access_token);
-        localStorage.setItem("refresh_token", response.data.refresh_token);
-        navigate("/");
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
-    }
+    httpService.handleOAuthCallback(authorizationCode, () => {
+      navigate("/");
+    });
   },[authorizationCode, navigate]);
 
   return (

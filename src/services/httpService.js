@@ -66,6 +66,20 @@ const redirectToAPIServer = () => {
   window.location.replace(APIServiceBaseURL);
 };
 
+const handleOAuthCallback = (authorizationCode, callback) => {
+  if (authorizationCode !== null) {
+    requestAccessTokenWithAuthorizationCode(authorizationCode)
+      .then((response) => {
+        localStorage.setItem("access_token", response.data.access_token);
+        localStorage.setItem("refresh_token", response.data.refresh_token);
+        callback();
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  }
+};
+
 const requestAccessTokenWithAuthorizationCode = (authorizationCode) => {
   return axios.post('/oauth/token', {
     grant_type: 'authorization_code',
@@ -81,28 +95,6 @@ const requestAccessTokenWithRefreshToken = (refreshToken) => {
     refresh_token: refreshToken,
     client_id: clientId,
   });
-};
-
-// Ref: https://stackoverflow.com/questions/38552003/how-to-decode-jwt-token-in-javascript-without-using-a-library
-const parseJwt = (token) => {
-  var base64Url = token.split('.')[1];
-  var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
-  var jsonPayload = decodeURIComponent(atob(base64).split('').map(function (c) {
-    return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
-  }).join(''));
-
-  return JSON.parse(jsonPayload);
-};
-
-const getOfflineModeCurrentUserId = () => {
-  return 1;
-};
-
-const getCurrentUserId = () => {
-  const accessToken = localStorage.getItem("access_token");
-  if (accessToken !== null) {
-    return parseJwt(accessToken).user.id;
-  }
 };
 
 const logout = (callback) => {
@@ -128,12 +120,10 @@ const httpService = {
   delete: axios.delete,
   put: axios.put,
   patch: axios.patch,
-  requestAccessTokenWithAuthorizationCode: requestAccessTokenWithAuthorizationCode,
-  requestAccessTokenWithRefreshToken: requestAccessTokenWithRefreshToken,
-  getCurrentUserId: offlineMode ? getOfflineModeCurrentUserId : getCurrentUserId,
-  logout: logout,
-  signIn: signIn,
-  redirectToAPIServer: redirectToAPIServer
+  logout,
+  signIn,
+  redirectToAPIServer,
+  handleOAuthCallback
 };
 
 export default httpService;
