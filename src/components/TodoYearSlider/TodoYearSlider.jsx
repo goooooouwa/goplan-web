@@ -119,9 +119,9 @@ export default function TodoYearSlider(props) {
       </Grid>
       <Grid item xs={12} md={12}>
         <Collapse in={open} timeout="auto" unmountOnExit>
-          {props.todo.dependents.map((todo, index) => (
+          {props.todo.dependents.map((dependent, index) => (
             <Grid key={index} container item xs={12} md={12}>
-              <TodoYearSlider key={index} todo={todo} marks={marks} selectedYear={props.selectedYear} handleTodoChange={props.handleTodoChange} handleMonthChange={props.handleMonthChange} />
+              <TodoYearSlider key={index} todo={dependent} marks={marks} selectedYear={props.selectedYear} handleTodoChange={props.handleTodoChange} handleMonthChange={props.handleMonthChange} />
             </Grid>
           ))}
         </Collapse>

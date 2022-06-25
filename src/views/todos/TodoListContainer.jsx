@@ -1,6 +1,6 @@
 import httpService from "services/httpService";
 import React, { useEffect, useState } from "react";
-import TodoList from "components/TodoList";
+import TodoListItem from "components/TodoListItem";
 import { Container, Grid, Stack, Typography } from "@mui/material";
 import { useParams } from "react-router-dom";
 import TodoActionGroup from "components/TodoActionGroup";
@@ -65,9 +65,13 @@ export default function TodoListContainer() {
               <TodoActionGroup activeViewTitle="Todos" />
             </Stack>
           </Grid>
-          <Grid item xs={12}>
-            <TodoList todos={todos} handleTodoChange={handleTodoChange} />
-          </Grid>
+          {todos
+            .filter((todo) => {
+              return todo.dependencies.length === 0;
+            })
+            .map((todo, index) => (
+              <TodoListItem key={index} todo={todo} handleTodoChange={handleTodoChange} />
+            ))}
         </Grid>
       </Container>
     </>
