@@ -20,7 +20,7 @@ import OAuthCallbackContainer from 'views/users/OAuthCallbackContainer';
 import AccountDetailContainer from 'views/users/AccountDetailContainer';
 import EditAccountForm from 'views/users/EditAccountForm';
 import AccountLayout from 'views/users/AccountLayout';
-import HomeContainer from 'views/app/HomeContainer';
+import HomeContainer from 'views/app/LandingPage';
 import ProtectedRoute from 'components/ProtectedRoute';
 import AppLayout from 'views/app/AppLayout';
 import './App.css';
