@@ -152,7 +152,6 @@ const httpService = {
   delete: axios.delete,
   put: axios.put,
   patch: axios.patch,
-  logout,
   signInPage,
   getCurrentUserId: offlineMode ? getOfflineModeCurrentUserId : getCurrentUserId,
   logout: offlineMode ? logoutOfflineMode : logout,

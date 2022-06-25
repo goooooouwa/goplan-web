@@ -4,7 +4,7 @@ import { Navigate } from "react-router-dom";
 import { useAuth } from "hooks/useAuth";
 
 export default function LandingPage() {
-  const { getAccessToken, signInPage, logoutPage, handleOfflineMode } = useAuth();
+  const { getAccessToken, signInPage, handleOfflineMode } = useAuth();
 
   return (
     <>

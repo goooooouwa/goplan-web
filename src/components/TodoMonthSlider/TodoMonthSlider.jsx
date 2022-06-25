@@ -1,5 +1,5 @@
 import { Collapse, Grid } from '@mui/material';
-import { isInMonthRange } from 'utils/rangeCheck';
+import { isInMonthRange, nthWeekOfMonth } from 'utils/rangeCheck';
 import moment from 'moment';
 import React from 'react';
 import TimelineRangeSlider from '../TimelineRangeSlider/TimelineRangeSlider';
@@ -52,7 +52,7 @@ export default function TodoMonthSlider(props) {
       } else if (date.isAfter(props.selectedMonth.clone().endOf("month"))) {
         rangeMark = rangeMax;
       } else {
-        rangeMark = Math.ceil(date.date() / 7);
+        rangeMark = nthWeekOfMonth(date, props.selectedMonth);
       }
       return rangeMark;
     } else {
