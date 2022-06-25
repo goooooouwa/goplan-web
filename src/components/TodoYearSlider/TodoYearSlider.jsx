@@ -45,8 +45,8 @@ export default function TodoYearSlider(props) {
             rangeMax={rangeMax}
             rangeStart={rangeMark(startDate)}
             rangeEnd={rangeMark(endDate)}
-            disableRangeStart={!isInYearRange(startDate, props.selectedYear)}
-            disableRangeEnd={!isInYearRange(endDate, props.selectedYear)}
+            disableRangeStart={props.todo.status || !isInYearRange(startDate, props.selectedYear)}
+            disableRangeEnd={props.todo.status || !isInYearRange(endDate, props.selectedYear)}
             handleChangeCommited={(newValue) => { props.handleMonthChange(props.todo, newValue) }}
           />
         }
@@ -56,7 +56,7 @@ export default function TodoYearSlider(props) {
             rangeMin={rangeMin}
             rangeMax={rangeMax}
             rangeStart={rangeMark(startDate)}
-            disableRangeStart={!isInYearRange(startDate, props.selectedYear)}
+            disableRangeStart={props.todo.status || !isInYearRange(startDate, props.selectedYear)}
             handleChangeCommited={(newValue) => { props.handleMonthChange(props.todo, newValue) }}
           />
         }
