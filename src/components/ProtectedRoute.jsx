@@ -6,7 +6,7 @@ const ProtectedRoute = ({ children }) => {
   const { getAccessToken } = useAuth();
 
   if (getAccessToken() === null) {
-    return <Navigate to="/" replace />;
+    return <Navigate to="/welcome" replace />;
   }
 
   return children ? children : <Outlet />;

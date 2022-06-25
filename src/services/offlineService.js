@@ -11,81 +11,60 @@ const user = {
 
 const todo1 = {
   id: 1,
-  project: {
-    id: 1,
-    name: "Goal 1",
-    targetDate: moment().format("YYYY-MM-DD")
-  },
   projectId: 1,
-  name: "Todo 1",
+  name: "Study to get a medical degree",
   description: "",
-  startDate: moment().format("YYYY-MM-DD"),
+  startDate: moment().subtract(5, 'years').format("YYYY-MM-DD"),
   endDate: moment().format("YYYY-MM-DD"),
-  repeat: false,
-  status: false,
+  repeat: true,
+  status: true,
   repeatPeriod: "week",
-  repeatTimes: 1,
-  instanceTimeSpan: 1,
+  repeatTimes: 5,
+  instanceTimeSpan: 8,
   dependencies: [],
   dependents: [],
 };
 
 const todo2 = {
   id: 2,
-  project: {
-    id: 1,
-    name: "Goal 1",
-    targetDate: moment().format("YYYY-MM-DD")
-  },
   projectId: 1,
-  name: "Todo 2",
+  name: "Apply for internship",
   description: "",
   startDate: moment().format("YYYY-MM-DD"),
-  endDate: moment().format("YYYY-MM-DD"),
-  repeat: false,
+  endDate: moment().add(3, 'months').format("YYYY-MM-DD"),
+  repeat: true,
   status: false,
   repeatPeriod: "week",
-  repeatTimes: 1,
-  instanceTimeSpan: 1,
+  repeatTimes: 5,
+  instanceTimeSpan: 8,
   dependencies: [],
   dependents: [],
 };
 
 const todo3 = {
   id: 3,
-  project: {
-    id: 2,
-    name: "Goal 2",
-    targetDate: moment().format("YYYY-MM-DD")
-  },
-  projectId: 2,
-  name: "Todo 3",
+  projectId: 1,
+  name: "Find a job",
   description: "",
-  startDate: moment().format("YYYY-MM-DD"),
-  endDate: moment().format("YYYY-MM-DD"),
-  repeat: false,
+  startDate: moment().add(3, 'months').format("YYYY-MM-DD"),
+  endDate: moment().add(6, 'months').format("YYYY-MM-DD"),
+  repeat: true,
   status: false,
-  repeatPeriod: "week",
-  repeatTimes: 1,
-  instanceTimeSpan: 1,
+  repeatPeriod: "month",
+  repeatTimes: 2,
+  instanceTimeSpan: 4,
   dependencies: [],
   dependents: [],
 };
 
 const project1 = {
   id: 1,
-  name: "Goal 1",
-  targetDate: moment().format("YYYY-MM-DD"),
-};
-
-const project2 = {
-  id: 2,
-  name: "Goal 2",
-  targetDate: moment().format("YYYY-MM-DD"),
+  name: "Become a doctor (example)",
+  targetDate: moment().add(1, 'years').format("YYYY-MM-DD"),
 };
 
 const todos = [todo1, todo2, todo3];
-const projects = [project1, project2];
+const projects = [project1];
 
 function seedData() {
   const requests = [

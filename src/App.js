@@ -34,13 +34,14 @@ function App() {
     <AuthProvider>
       <Routes>
         <Route path="/callback" element={<OAuthCallbackContainer />} />
-        <Route path="/" element={<LandingPage />} />
+        <Route path="/welcome" element={<LandingPage />} />
         <Route path="/goodbye" element={<GoodByePage />} />
         <Route path="/" element={
           <ProtectedRoute>
             <AppLayout />
           </ProtectedRoute>
         }>
+          <Route index element={<ProjectListContainer />} />
           <Route path="account" element={<AccountLayout />} >
             <Route index element={<AccountDetailContainer />} />
             <Route path="edit" element={<EditAccountForm />} />

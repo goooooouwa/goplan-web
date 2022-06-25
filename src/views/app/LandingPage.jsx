@@ -9,16 +9,16 @@ export default function LandingPage() {
   return (
     <>
       {getAccessToken() !== null &&
-        <Navigate to="/projects" />
+        <Navigate to="/" />
       }
       <h1>GoPlan Web: a todo app with a timeline view</h1>
       <p>It's designed to help you achieve your goals by turning your plans into actionable tasks that are super easy to manage over time.</p>
       <Button variant="contained" component={Link} href={signInPage}>
-        Staring using GoPlan
+        Starting using GoPlan
       </Button>
       <br/>
       <Button variant="outlined" onClick={handleOfflineMode}>
-        Use it offline
+        Try it now
       </Button>
     </>
   );
