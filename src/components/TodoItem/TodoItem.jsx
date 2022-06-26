@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { Link } from "react-router-dom";
 import SHARED_PROP_TYPES from "utils/sharedPropTypes";
 import { ExpandLess, ExpandMore } from "@mui/icons-material";
+import todoTraversal from "utils/todoTraversal";
 
 export default function TodoItem(props) {
   const [open, setOpen] = React.useState(true);
@@ -21,7 +22,7 @@ export default function TodoItem(props) {
         secondaryAction={
           <>
             {
-              props.todo.dependents.length > 0 &&
+              todoTraversal.isEarliestInOpenTodosAndDependents(props.todos, props.todo) &&
               <IconButton edge="end" aria-label="expand" onClick={handleClick}>
                   {
                     open ? <ExpandLess /> : <ExpandMore />
@@ -51,6 +52,7 @@ export default function TodoItem(props) {
 
 TodoItem.propTypes = {
   todo: SHARED_PROP_TYPES.todo,
+  todos: PropTypes.arrayOf(SHARED_PROP_TYPES.todo).isRequired,
   handleTodoChange: PropTypes.func.isRequired,
   handleTodoExpand: PropTypes.func.isRequired
 };

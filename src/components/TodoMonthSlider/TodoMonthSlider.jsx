@@ -63,7 +63,7 @@ export default function TodoMonthSlider(props) {
   return (
     <>
       <Grid item xs={12} md={4}>
-        <TodoItem todo={props.todo} handleTodoChange={props.handleTodoChange} handleTodoExpand={handleTodoExpand} />
+        <TodoItem todo={props.todo} todos={props.todos} handleTodoChange={props.handleTodoChange} handleTodoExpand={handleTodoExpand} />
       </Grid>
       <Grid item xs={12} md={8} sx={{ px: 3 }}>
         {props.todo.repeat &&
@@ -93,7 +93,7 @@ export default function TodoMonthSlider(props) {
         <Collapse in={open} timeout="auto" unmountOnExit>
           {props.todo.dependents.map((todo, index) => (
             <Grid key={index} container item xs={12} md={12}>
-              <TodoMonthSlider key={index} todo={todo} marks={marks} selectedMonth={props.selectedMonth} handleTodoChange={props.handleTodoChange} handleWeekChange={props.handleWeekChange} />
+              <TodoMonthSlider key={index} todo={todo} todos={props.todo.dependents} marks={marks} selectedMonth={props.selectedMonth} handleTodoChange={props.handleTodoChange} handleWeekChange={props.handleWeekChange} />
             </Grid>
           ))}
         </Collapse>
@@ -106,6 +106,7 @@ TodoMonthSlider.propTypes = {
   selectedMonth: momentPropTypes.momentObj.isRequired,
   marks: SHARED_PROP_TYPES.marks,
   todo: SHARED_PROP_TYPES.todo,
+  todos: PropTypes.arrayOf(SHARED_PROP_TYPES.todo).isRequired,
   handleTodoChange: PropTypes.func.isRequired,
   handleWeekChange: PropTypes.func.isRequired
 };

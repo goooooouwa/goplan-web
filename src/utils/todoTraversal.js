@@ -33,7 +33,7 @@ const isEarliestInOpenTodosAndDependents = (todos, todo) => {
   const earlierOpenTodos = todos.filter((todo) => {
     return todo.status === false;
   }).filter((openTodo) => {
-    return moment(todo.createdAt).isBefore(openTodo.createdAt);
+    return moment(openTodo.createdAt).isBefore(todo.createdAt);
   });
   return queryTodoInTodosAndDependents(earlierOpenTodos, todo.id).length === 0;
 };

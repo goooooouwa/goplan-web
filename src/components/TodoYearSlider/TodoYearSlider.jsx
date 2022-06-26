@@ -91,7 +91,7 @@ export default function TodoYearSlider(props) {
   return (
     <>
       <Grid item xs={12} md={4}>
-        <TodoItem todo={props.todo} handleTodoChange={props.handleTodoChange} handleTodoExpand={handleTodoExpand} />
+        <TodoItem todo={props.todo} todos={props.todos} handleTodoChange={props.handleTodoChange} handleTodoExpand={handleTodoExpand} />
       </Grid>
       <Grid item xs={12} md={8} sx={{ px: 3 }}>
         {props.todo.repeat &&
@@ -121,7 +121,7 @@ export default function TodoYearSlider(props) {
         <Collapse in={open} timeout="auto" unmountOnExit>
           {props.todo.dependents.map((dependent, index) => (
             <Grid key={index} container item xs={12} md={12}>
-              <TodoYearSlider key={index} todo={dependent} marks={marks} selectedYear={props.selectedYear} handleTodoChange={props.handleTodoChange} handleMonthChange={props.handleMonthChange} />
+              <TodoYearSlider key={index} todo={dependent} todos={props.todo.dependents} marks={marks} selectedYear={props.selectedYear} handleTodoChange={props.handleTodoChange} handleMonthChange={props.handleMonthChange} />
             </Grid>
           ))}
         </Collapse>
@@ -134,6 +134,7 @@ TodoYearSlider.propTypes = {
   selectedYear: momentPropTypes.momentObj.isRequired,
   marks: SHARED_PROP_TYPES.marks,
   todo: SHARED_PROP_TYPES.todo,
+  todos: PropTypes.arrayOf(SHARED_PROP_TYPES.todo).isRequired,
   handleTodoChange: PropTypes.func.isRequired,
   handleMonthChange: PropTypes.func.isRequired
 };

@@ -110,7 +110,7 @@ export default function TimelineYear(props) {
             return todo.dependencies.length === 0;
           })
           .map((todo, index) => (
-            <TodoYearSlider key={index} todo={todo} marks={marks} selectedYear={props.selectedYear} handleTodoChange={props.handleTodoChange} handleMonthChange={props.handleMonthChange} />
+            <TodoYearSlider key={index} todo={todo} todos={props.todos} marks={marks} selectedYear={props.selectedYear} handleTodoChange={props.handleTodoChange} handleMonthChange={props.handleMonthChange} />
           ))}
       </Grid>
     </>

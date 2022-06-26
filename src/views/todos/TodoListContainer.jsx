@@ -70,7 +70,7 @@ export default function TodoListContainer() {
               return todo.dependencies.length === 0;
             })
             .map((todo, index) => (
-              <TodoListItem key={index} todo={todo} handleTodoChange={handleTodoChange} />
+              <TodoListItem key={index} todo={todo} todos={todos} handleTodoChange={handleTodoChange} />
             ))}
         </Grid>
       </Container>
