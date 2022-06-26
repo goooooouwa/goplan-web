@@ -63,6 +63,7 @@ const marks = [
 export default function TimelineYear(props) {
   const params = useParams();
   const monthUrlPrefix = params.projectId !== undefined ? `/projects/${params.projectId}/month?month=` : '/timeline/month?month=';
+  const topLevelWipTodos = todoTraversal.topLevelWipTodos(props.todos);
 
   return (
     <>
@@ -106,12 +107,9 @@ export default function TimelineYear(props) {
             </Stack>
           </Box>
         </Grid>
-        {props.todos
-          .filter((todo) => {
-            return todo.dependencies.length === 0;
-          })
+          {topLevelWipTodos
           .map((todo, index) => (
-            <TodoYearSlider key={index} todo={todo} expandable={todoTraversal.hasEarliestDependentAmongOpenTodosAndDependents(props.todos, todo)} marks={marks} selectedYear={props.selectedYear} handleTodoChange={props.handleTodoChange} handleMonthChange={props.handleMonthChange} />
+            <TodoYearSlider key={index} todo={todo} expandable={todoTraversal.hasEarliestDependentAmongOpenTodosAndDependents(topLevelWipTodos, todo)} marks={marks} selectedYear={props.selectedYear} handleTodoChange={props.handleTodoChange} handleMonthChange={props.handleMonthChange} />
           ))}
       </Grid>
     </>

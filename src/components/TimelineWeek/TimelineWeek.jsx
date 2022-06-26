@@ -40,6 +40,8 @@ const marks = [
 ];
 
 export default function TimelineWeek(props) {
+  const topLevelWipTodos = todoTraversal.topLevelWipTodos(props.todos);
+
   return (
     <>
       <Grid container rowSpacing={1} >
@@ -89,12 +91,9 @@ export default function TimelineWeek(props) {
             </Stack>
           </Box>
         </Grid>
-        {props.todos
-          .filter((todo) => {
-            return todo.dependencies.length === 0;
-          })
+        {topLevelWipTodos
           .map((todo, index) => (
-            <TodoWeekSlider key={index} todo={todo} expandable={todoTraversal.hasEarliestDependentAmongOpenTodosAndDependents(props.todos, todo)} marks={marks} selectedWeek={props.selectedWeek} handleTodoChange={props.handleTodoChange} handleDayChange={props.handleDayChange} />
+            <TodoWeekSlider key={index} todo={todo} expandable={todoTraversal.hasEarliestDependentAmongOpenTodosAndDependents(topLevelWipTodos, todo)} marks={marks} selectedWeek={props.selectedWeek} handleTodoChange={props.handleTodoChange} handleDayChange={props.handleDayChange} />
           ))}
       </Grid>
     </>

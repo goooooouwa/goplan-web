@@ -41,9 +41,22 @@ const hasEarliestDependentAmongOpenTodosAndDependents = (todos, todo) => {
   });
 };
 
+const topLevelWipTodos = (todos) => {
+  return todos.filter((todo) => {
+    if (todo.status) {
+      return false;
+    }
+
+    return todo.dependencies.filter((dependency) => {
+      return !dependency.status;
+    }).length === 0;
+  });
+};
+
 const todoTraversal = {
   markDirtyTodosAndDependents,
-  hasEarliestDependentAmongOpenTodosAndDependents
+  hasEarliestDependentAmongOpenTodosAndDependents,
+  topLevelWipTodos
 };
 
 export default todoTraversal;
