@@ -1,3 +1,5 @@
+import moment from "moment";
+
 const markDirtyTodosAndDependents = (todos, updatedTodoId, { startDate, endDate }) => {
   return todos.map((todo) => {
     if (todo.id === updatedTodoId) {
@@ -21,8 +23,24 @@ const flattenTodosAndDependents = (todos) => {
   });
 };
 
+const queryTodoInTodosAndDependents = (todos, todoId) => {
+  return flattenTodosAndDependents(todos).filter((todo) => {
+    return todo.id === todoId;
+  });
+};
+
+const isEarliestInOpenTodosAndDependents = (todos, todo) => {
+  const earlierOpenTodos = todos.filter((todo) => {
+    return todo.status === false;
+  }).filter((openTodo) => {
+    return moment(todo.createdAt).isBefore(openTodo.createdAt);
+  });
+  return queryTodoInTodosAndDependents(earlierOpenTodos, todo.id).length === 0;
+};
+
 const todoTraversal = {
-  markDirtyTodosAndDependents
+  markDirtyTodosAndDependents,
+  isEarliestInOpenTodosAndDependents
 };
 
 export default todoTraversal;
