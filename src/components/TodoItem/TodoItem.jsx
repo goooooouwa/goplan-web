@@ -23,9 +23,9 @@ export default function TodoItem(props) {
             {
               props.expandable &&
               <IconButton edge="end" aria-label="expand" onClick={handleClick}>
-                  {
-                    open ? <ExpandLess /> : <ExpandMore />
-                  }
+                {
+                  open ? <ExpandLess /> : <ExpandMore />
+                }
               </IconButton>
             }
           </>

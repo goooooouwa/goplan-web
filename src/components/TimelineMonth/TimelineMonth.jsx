@@ -1,5 +1,5 @@
 import { Box, Grid, IconButton, Stack, Typography } from '@mui/material';
-import { isInMonthRange } from 'utils/rangeCheck';
+import { isInMonthRange, nthWeekOfMonth } from 'utils/rangeCheck';
 import moment from 'moment';
 import React from 'react';
 import { Link as RouterLink, useParams } from 'react-router-dom';
@@ -65,7 +65,7 @@ export default function TimelineMonth(props) {
                   <Typography
                     variant="body2"
                     sx={{
-                      color: (isInMonthRange(moment(), props.selectedMonth) && (Math.ceil(moment().date() / 7) === index + 1)) ? 'error.main' : 'text.primary'
+                      color: (isInMonthRange(moment(), props.selectedMonth) && (nthWeekOfMonth(moment(), props.selectedMonth) === index + 1)) ? 'error.main' : 'text.primary'
                     }}
                   >
                     {mark.label}
@@ -78,7 +78,7 @@ export default function TimelineMonth(props) {
                     sx={{
                       fontWeight: 'bold',
                       fontSize: 16,
-                      color: (isInMonthRange(moment(), props.selectedMonth) && (Math.ceil(moment().date() / 7) === index + 1)) ? 'error.main' : 'text.primary'
+                      color: (isInMonthRange(moment(), props.selectedMonth) && (nthWeekOfMonth(moment(), props.selectedMonth) === index + 1)) ? 'error.main' : 'text.primary'
                     }}
                   >
                     {`${props.selectedMonth.clone().add(mark.value - 1, "weeks").startOf("week").format("D")} - ${props.selectedMonth.clone().add(mark.value - 1, "weeks").startOf("week").add(6, "days").format("D")}`}

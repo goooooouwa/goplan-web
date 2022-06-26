@@ -4,7 +4,7 @@ import { Navigate } from "react-router-dom";
 import { useAuth } from "hooks/useAuth";
 
 export default function GoodByePage() {
-  const { getAccessToken, signInPage, logoutPage, handleOfflineMode } = useAuth();
+  const { getAccessToken, logoutPage } = useAuth();
 
   return (
     <>
