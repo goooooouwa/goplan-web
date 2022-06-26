@@ -63,7 +63,7 @@ export default function TimelineWeekContainer() {
         const startDate = todoData.start_date || todo.startDate;
         const endDate = todoData.end_date || todo.endDate;
         setTodos((todos) => {
-          return todoTraversal.markDirtyTodosAndDepdents(todos, updatedTodoId, { startDate, endDate });
+          return todoTraversal.markDirtyTodosAndDependents(todos, updatedTodoId, { startDate, endDate });
         });
         console.log(error);
       });

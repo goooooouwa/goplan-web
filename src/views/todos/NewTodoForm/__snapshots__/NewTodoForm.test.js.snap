@@ -271,7 +271,7 @@ Object {
                     name="startDate"
                     required=""
                     type="date"
-                    value="2022-06-23"
+                    value="2022-06-26"
                   />
                 </label>
               </div>
@@ -693,7 +693,7 @@ Object {
                   name="startDate"
                   required=""
                   type="date"
-                  value="2022-06-23"
+                  value="2022-06-26"
                 />
               </label>
             </div>
