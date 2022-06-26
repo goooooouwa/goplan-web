@@ -20,7 +20,7 @@ const flattenTodosAndDependents = (todos) => {
     } else {
       return todo;
     }
-  });
+  }).flat();
 };
 
 const queryTodoInTodosAndDependents = (todos, todoId) => {
@@ -29,18 +29,21 @@ const queryTodoInTodosAndDependents = (todos, todoId) => {
   });
 };
 
-const isEarliestInOpenTodosAndDependents = (todos, todo) => {
+const hasEarliestDependentAmongOpenTodosAndDependents = (todos, todo) => {
   const earlierOpenTodos = todos.filter((todo) => {
     return todo.status === false;
   }).filter((openTodo) => {
     return moment(openTodo.createdAt).isBefore(todo.createdAt);
   });
-  return queryTodoInTodosAndDependents(earlierOpenTodos, todo.id).length === 0;
+
+  return todo.dependents.some((dependent) => {
+    return queryTodoInTodosAndDependents(earlierOpenTodos, dependent.id).length === 0;
+  });
 };
 
 const todoTraversal = {
   markDirtyTodosAndDependents,
-  isEarliestInOpenTodosAndDependents
+  hasEarliestDependentAmongOpenTodosAndDependents
 };
 
 export default todoTraversal;

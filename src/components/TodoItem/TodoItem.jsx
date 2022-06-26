@@ -22,7 +22,7 @@ export default function TodoItem(props) {
         secondaryAction={
           <>
             {
-              todoTraversal.isEarliestInOpenTodosAndDependents(props.todos, props.todo) &&
+              todoTraversal.hasEarliestDependentAmongOpenTodosAndDependents(props.todos, props.todo) &&
               <IconButton edge="end" aria-label="expand" onClick={handleClick}>
                   {
                     open ? <ExpandLess /> : <ExpandMore />
