@@ -21,7 +21,7 @@ export default function TodoItem(props) {
         secondaryAction={
           <>
             {
-              props.expandable &&
+              !props.todo.status && props.expandable &&
               <IconButton edge="end" aria-label="expand" onClick={handleClick}>
                 {
                   open ? <ExpandLess /> : <ExpandMore />
