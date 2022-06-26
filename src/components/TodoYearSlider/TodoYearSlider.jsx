@@ -8,6 +8,7 @@ import SHARED_PROP_TYPES from 'utils/sharedPropTypes';
 import TimelineRangeSlider from 'components/TimelineRangeSlider/TimelineRangeSlider';
 import TodoItem from 'components/TodoItem/TodoItem';
 import TimelineSlider from 'components/TimelineSlider/TimelineSlider';
+import todoTraversal from 'utils/todoTraversal';
 
 const marks = [
   {
@@ -66,7 +67,7 @@ const rangeMax = 11;
 export default function TodoYearSlider(props) {
   const startDate = (props.todo.startDate !== null) ? moment(props.todo.startDate) : moment();
   const endDate = (props.todo.endDate !== null) ? moment(props.todo.endDate) : moment();
-  const [open, setOpen] = React.useState(true);
+  const [open, setOpen] = React.useState(false);
 
   const handleTodoExpand = () => {
     setOpen(!open);
@@ -91,7 +92,7 @@ export default function TodoYearSlider(props) {
   return (
     <>
       <Grid item xs={12} md={4}>
-        <TodoItem todo={props.todo} todos={props.todos} handleTodoChange={props.handleTodoChange} handleTodoExpand={handleTodoExpand} />
+        <TodoItem todo={props.todo} expandable={props.expandable} handleTodoChange={props.handleTodoChange} handleTodoExpand={handleTodoExpand} />
       </Grid>
       <Grid item xs={12} md={8} sx={{ px: 3 }}>
         {props.todo.repeat &&
@@ -117,15 +118,17 @@ export default function TodoYearSlider(props) {
           />
         }
       </Grid>
-      <Grid item xs={12} md={12}>
-        <Collapse in={open} timeout="auto" unmountOnExit>
-          {props.todo.dependents.map((dependent, index) => (
-            <Grid key={index} container item xs={12} md={12}>
-              <TodoYearSlider key={index} todo={dependent} todos={props.todo.dependents} marks={marks} selectedYear={props.selectedYear} handleTodoChange={props.handleTodoChange} handleMonthChange={props.handleMonthChange} />
-            </Grid>
-          ))}
-        </Collapse>
-      </Grid>
+      {props.expandable &&
+        <Grid item xs={12} md={12}>
+          <Collapse in={open} timeout="auto" unmountOnExit>
+            {props.todo.dependents.map((dependent, index) => (
+              <Grid key={index} container item xs={12} md={12}>
+                <TodoYearSlider key={index} todo={dependent} expandable={todoTraversal.hasEarliestDependentAmongOpenTodosAndDependents(props.todo.dependents, dependent)} marks={marks} selectedYear={props.selectedYear} handleTodoChange={props.handleTodoChange} handleMonthChange={props.handleMonthChange} />
+              </Grid>
+            ))}
+          </Collapse>
+        </Grid>
+      }
     </>
   );
 }
@@ -134,7 +137,7 @@ TodoYearSlider.propTypes = {
   selectedYear: momentPropTypes.momentObj.isRequired,
   marks: SHARED_PROP_TYPES.marks,
   todo: SHARED_PROP_TYPES.todo,
-  todos: PropTypes.arrayOf(SHARED_PROP_TYPES.todo).isRequired,
+  expandable: PropTypes.bool.isRequired,
   handleTodoChange: PropTypes.func.isRequired,
   handleMonthChange: PropTypes.func.isRequired
 };

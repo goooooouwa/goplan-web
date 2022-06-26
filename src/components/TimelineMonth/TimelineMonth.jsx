@@ -7,6 +7,7 @@ import PropTypes from 'prop-types';
 import momentPropTypes from 'react-moment-proptypes';
 import SHARED_PROP_TYPES from 'utils/sharedPropTypes';
 import TodoMonthSlider from '../TodoMonthSlider/TodoMonthSlider';
+import todoTraversal from 'utils/todoTraversal';
 
 const marks = [
   {
@@ -92,7 +93,7 @@ export default function TimelineMonth(props) {
             return todo.dependencies.length === 0;
           })
           .map((todo, index) => (
-            <TodoMonthSlider key={index} todo={todo} todos={props.todos} marks={marks} selectedMonth={props.selectedMonth} handleTodoChange={props.handleTodoChange} handleWeekChange={props.handleWeekChange} />
+            <TodoMonthSlider key={index} todo={todo} expandable={todoTraversal.hasEarliestDependentAmongOpenTodosAndDependents(props.todos, todo)} marks={marks} selectedMonth={props.selectedMonth} handleTodoChange={props.handleTodoChange} handleWeekChange={props.handleWeekChange} />
           ))}
       </Grid>
     </>

@@ -8,6 +8,7 @@ import momentPropTypes from 'react-moment-proptypes';
 import SHARED_PROP_TYPES from 'utils/sharedPropTypes';
 import TodoItem from '../TodoItem/TodoItem';
 import TimelineSlider from 'components/TimelineSlider/TimelineSlider';
+import todoTraversal from 'utils/todoTraversal';
 
 const marks = [
   {
@@ -38,7 +39,7 @@ const rangeMax = 5;
 export default function TodoMonthSlider(props) {
   const startDate = (props.todo.startDate !== null) ? moment(props.todo.startDate) : moment();
   const endDate = (props.todo.endDate !== null) ? moment(props.todo.endDate) : moment();
-  const [open, setOpen] = React.useState(true);
+  const [open, setOpen] = React.useState(false);
 
   const handleTodoExpand = () => {
     setOpen(!open);
@@ -63,7 +64,7 @@ export default function TodoMonthSlider(props) {
   return (
     <>
       <Grid item xs={12} md={4}>
-        <TodoItem todo={props.todo} todos={props.todos} handleTodoChange={props.handleTodoChange} handleTodoExpand={handleTodoExpand} />
+        <TodoItem todo={props.todo} expandable={props.expandable} handleTodoChange={props.handleTodoChange} handleTodoExpand={handleTodoExpand} />
       </Grid>
       <Grid item xs={12} md={8} sx={{ px: 3 }}>
         {props.todo.repeat &&
@@ -91,9 +92,9 @@ export default function TodoMonthSlider(props) {
       </Grid>
       <Grid item xs={12} md={12}>
         <Collapse in={open} timeout="auto" unmountOnExit>
-          {props.todo.dependents.map((todo, index) => (
+          {props.todo.dependents.map((dependent, index) => (
             <Grid key={index} container item xs={12} md={12}>
-              <TodoMonthSlider key={index} todo={todo} todos={props.todo.dependents} marks={marks} selectedMonth={props.selectedMonth} handleTodoChange={props.handleTodoChange} handleWeekChange={props.handleWeekChange} />
+              <TodoMonthSlider key={index} todo={dependent} expandable={todoTraversal.hasEarliestDependentAmongOpenTodosAndDependents(props.todo.dependents, dependent)} marks={marks} selectedMonth={props.selectedMonth} handleTodoChange={props.handleTodoChange} handleWeekChange={props.handleWeekChange} />
             </Grid>
           ))}
         </Collapse>
@@ -106,7 +107,7 @@ TodoMonthSlider.propTypes = {
   selectedMonth: momentPropTypes.momentObj.isRequired,
   marks: SHARED_PROP_TYPES.marks,
   todo: SHARED_PROP_TYPES.todo,
-  todos: PropTypes.arrayOf(SHARED_PROP_TYPES.todo).isRequired,
+  expandable: PropTypes.bool.isRequired,
   handleTodoChange: PropTypes.func.isRequired,
   handleWeekChange: PropTypes.func.isRequired
 };

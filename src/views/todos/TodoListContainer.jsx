@@ -4,6 +4,7 @@ import TodoListItem from "components/TodoListItem";
 import { Container, Grid, Stack, Typography } from "@mui/material";
 import { useParams } from "react-router-dom";
 import TodoActionGroup from "components/TodoActionGroup";
+import todoTraversal from "utils/todoTraversal";
 
 export default function TodoListContainer() {
   const params = useParams();
@@ -70,7 +71,7 @@ export default function TodoListContainer() {
               return todo.dependencies.length === 0;
             })
             .map((todo, index) => (
-              <TodoListItem key={index} todo={todo} todos={todos} handleTodoChange={handleTodoChange} />
+              <TodoListItem key={index} todo={todo} expandable={todoTraversal.hasEarliestDependentAmongOpenTodosAndDependents(todos, todo)} handleTodoChange={handleTodoChange} />
             ))}
         </Grid>
       </Container>
