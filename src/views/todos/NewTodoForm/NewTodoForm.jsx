@@ -1,11 +1,11 @@
-import { FormControl, FormControlLabel, TextField, MenuItem, Select, Switch, InputLabel, Button, Grid, Typography, Container, InputAdornment } from "@mui/material";
+import { FormControl, FormControlLabel, TextField, MenuItem, Select, Switch, InputLabel, Button, Grid, Typography, Container, InputAdornment, Alert } from "@mui/material";
 import ProjectAutoComplete from "components/ProjectAutoComplete";
 import TodosAutoComplete from "components/TodosAutoComplete";
 import httpService from "services/httpService";
 import moment from "moment";
 import React, { useCallback, useEffect, useState } from "react";
 import { Navigate, useParams } from "react-router-dom";
-import { useAPIError } from "hooks/useAPIError";
+import { reduce } from "lodash";
 
 export default function NewTodoForm() {
   const params = useParams();
@@ -27,7 +27,6 @@ export default function NewTodoForm() {
   });
   const queryByProjectId = params.projectId !== undefined ? `project_id=${params.projectId}&` : '';
   const dependenciesInJSON = JSON.stringify(todo.dependencies);
-  const { addError } = useAPIError();
 
   const todoSearch = useCallback((name, callback) => {
     httpService.get(`/todos.json?${queryByProjectId}name=${name}`)
@@ -115,7 +114,6 @@ export default function NewTodoForm() {
       })
       .catch(function (error) {
         setError(error.response.data);
-        addError(error.response.data, error.response.status);
         console.log(error);
       })
       .then(() => {
@@ -125,9 +123,9 @@ export default function NewTodoForm() {
 
   return (
     <div>
-      {(submitted && error === null) && (
+      {submitted && error === null &&
         <Navigate to={`/projects/${todo.projectId}/todos/${todo.id}`} />
-      )}
+      }
       <Container
         sx={{
           maxWidth: { xs: 600 },
@@ -139,9 +137,15 @@ export default function NewTodoForm() {
         </Typography>
         <form onSubmit={handleSubmit}>
           <Grid container alignItems="stretch" justifyContent="center" direction="column">
-            {(error !== null) && (
-              <p>{JSON.stringify(error)}</p>
-            )}
+            {error !== null &&
+              <Grid item>
+                <Alert severity="error">{
+                  reduce(error, function (result, value, key) {
+                    return result + value + '. ';
+                  }, '')
+                }</Alert>
+              </Grid>
+            }
             {(params.projectId === undefined) && (
               <Grid item>
                 <FormControl fullWidth margin="normal">

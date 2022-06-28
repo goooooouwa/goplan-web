@@ -1,11 +1,11 @@
-import { FormControl, FormControlLabel, TextField, MenuItem, Select, Switch, InputLabel, Button, Grid, Typography, Container, InputAdornment } from "@mui/material";
+import { FormControl, FormControlLabel, TextField, MenuItem, Select, Switch, InputLabel, Button, Grid, Typography, Container, InputAdornment, Alert } from "@mui/material";
 import ProjectAutoComplete from "components/ProjectAutoComplete";
 import TodosAutoComplete from "components/TodosAutoComplete";
 import httpService from "services/httpService";
 import moment from "moment";
 import React, { useCallback, useEffect, useState } from "react";
 import { Navigate, useParams } from "react-router-dom";
-import { useAPIError } from "hooks/useAPIError";
+import { reduce } from "lodash";
 
 export default function EditTodoForm() {
   const params = useParams();
@@ -28,7 +28,6 @@ export default function EditTodoForm() {
   const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState(null);
   const dependenciesInJSON = JSON.stringify(todo.dependencies);
-  const { addError } = useAPIError();
 
   useEffect(() => {
     httpService.get(`/todos/${params.todoId}.json`)
@@ -40,7 +39,7 @@ export default function EditTodoForm() {
         });
       })
       .catch(function (error) {
-        addError(error.response.data, error.response.status);
+        setError(error.response.data);
         console.log(error);
       });
   }, [params.todoId]);
@@ -91,7 +90,7 @@ export default function EditTodoForm() {
         .then((response) => {
         })
         .catch(function (error) {
-          addError(error.response.data, error.response.status);
+          setError(error.response.data);
           console.log(error);
         });
     }
@@ -144,7 +143,6 @@ export default function EditTodoForm() {
       })
       .catch(function (error) {
         setError(error.response.data);
-        addError(error.response.data, error.response.status);
         console.log(error);
       })
       .then(() => {
@@ -168,9 +166,15 @@ export default function EditTodoForm() {
         </Typography>
         <form onSubmit={handleSubmit}>
           <Grid container alignItems="stretch" justifyContent="center" direction="column">
-            {(error !== null) && (
-              <p>{JSON.stringify(error)}</p>
-            )}
+            {error !== null &&
+              <Grid item>
+                <Alert severity="error">{
+                  reduce(error, function (result, value, key) {
+                    return result + value + '. ';
+                  }, '')
+                }</Alert>
+              </Grid>
+            }
             {(params.projectId === undefined) && (
               <Grid item>
                 <FormControl fullWidth margin="normal">

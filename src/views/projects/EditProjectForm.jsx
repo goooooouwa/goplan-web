@@ -1,9 +1,9 @@
-import { Button, Container, FormControl, Grid, TextField, Typography } from "@mui/material";
+import { Alert, Button, Container, FormControl, Grid, TextField, Typography } from "@mui/material";
 import httpService from "services/httpService";
 import React, { useEffect, useState } from "react";
 import { Navigate, useParams } from "react-router-dom";
 import moment from "moment";
-import { useAPIError } from "hooks/useAPIError";
+import { reduce } from "lodash";
 
 export default function EditProjectForm() {
   const params = useParams();
@@ -14,7 +14,6 @@ export default function EditProjectForm() {
   });
   const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState(null);
-  const { addError } = useAPIError();
 
   useEffect(() => {
     httpService.get(`/projects/${params.projectId}.json`)
@@ -25,7 +24,7 @@ export default function EditProjectForm() {
         });
       })
       .catch(function (error) {
-        addError(error.response.data, error.response.status);
+        setError(error.response.data);
         console.log(error);
       });
   }, [params.projectId]);
@@ -55,7 +54,6 @@ export default function EditProjectForm() {
       })
       .catch(function (error) {
         setError(error.response.data);
-        addError(error.response.data, error.response.status);
         console.log(error);
       })
       .then(() => {
@@ -79,9 +77,15 @@ export default function EditProjectForm() {
         </Typography>
         <form onSubmit={handleSubmit}>
           <Grid container alignItems="stretch" justifyContent="center" direction="column">
-            {(error !== null) && (
-              <p>{JSON.stringify(error)}</p>
-            )}
+            {error !== null &&
+              <Grid item>
+                <Alert severity="error">{
+                  reduce(error, function (result, value, key) {
+                    return result + value + '. ';
+                  }, '')
+                }</Alert>
+              </Grid>
+            }
             <Grid item>
               <TextField
                 required

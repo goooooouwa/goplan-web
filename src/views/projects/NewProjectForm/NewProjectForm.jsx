@@ -1,9 +1,9 @@
-import { Button, Container, FormControl, Grid, TextField, Typography } from "@mui/material";
+import { Alert, Button, Container, FormControl, Grid, TextField, Typography } from "@mui/material";
 import httpService from "services/httpService";
 import React, { useState } from "react";
 import { Navigate } from "react-router-dom";
 import { useAuth } from "hooks/useAuth";
-import { useAPIError } from "hooks/useAPIError";
+import { reduce } from "lodash";
 
 export default function NewProjectForm() {
   const { getCurrentUserId } = useAuth();
@@ -15,7 +15,6 @@ export default function NewProjectForm() {
   });
   const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState(null);
-  const { addError } = useAPIError();
 
   function handleChange(event) {
     setProject((project) => ({
@@ -40,7 +39,6 @@ export default function NewProjectForm() {
       })
       .catch(function (error) {
         setError(error.response.data);
-        addError(error.response.data, error.response.status);
         console.log(error);
       })
       .then(() => {
@@ -64,9 +62,15 @@ export default function NewProjectForm() {
         </Typography>
         <form onSubmit={handleSubmit}>
           <Grid container alignItems="stretch" justifyContent="center" direction="column">
-            {(error !== null) && (
-              <p>{JSON.stringify(error)}</p>
-            )}
+            {error !== null &&
+              <Grid item>
+                <Alert severity="error">{
+                  reduce(error, function (result, value, key) {
+                    return result + value + '. ';
+                  }, '')
+                }</Alert>
+              </Grid>
+            }
             <Grid item>
               <TextField
                 required
