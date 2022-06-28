@@ -26,12 +26,16 @@ import AppLayout from 'views/app/AppLayout';
 import './App.css';
 import { AuthProvider } from "hooks/useAuth";
 import GoodByePage from "views/app/GoodByePage";
+import APIErrorNotification from "components/APIErrorNotification";
+import { APIErrorProvider } from "hooks/useAPIError";
 
 moment.locale('en');
 
 function App() {
   return (
     <AuthProvider>
+      <APIErrorProvider>
+        <APIErrorNotification />
       <Routes>
         <Route path="/callback" element={<OAuthCallbackContainer />} />
         <Route path="/welcome" element={<LandingPage />} />
@@ -76,6 +80,7 @@ function App() {
           </Route>
         </Route>
       </Routes>
+      </APIErrorProvider>
     </AuthProvider>
   );
 }

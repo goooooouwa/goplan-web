@@ -9,6 +9,7 @@ import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
 import isInYearRange from 'utils/rangeCheck';
 import todoTraversal from "utils/todoTraversal";
+import { useAPIError } from "hooks/useAPIError";
 
 export default function TimelineYearContainer() {
   const params = useParams();
@@ -17,6 +18,8 @@ export default function TimelineYearContainer() {
   const selectedYear = searchParams.get("year") !== null ? moment(searchParams.get("year")) : moment().startOf("year");
   const [todos, setTodos] = useState([]);
   const todosInJSON = JSON.stringify(todos);
+  const { addError } = useAPIError();
+
 
   const handleTodayClick = (event) => {
     setSearchParams({ year: moment().format("YYYY") });
@@ -65,6 +68,7 @@ export default function TimelineYearContainer() {
         setTodos((todos) => {
           return todoTraversal.markDirtyTodosAndDependents(todos, updatedTodoId, { startDate, endDate });
         });
+        addError(error.response.data, error.response.status);
         console.log(error);
       });
   }
@@ -89,6 +93,7 @@ export default function TimelineYearContainer() {
         });
       })
       .catch(function (error) {
+        addError(error.response.data, error.response.status);
         console.log(error);
       });
   };
@@ -100,6 +105,7 @@ export default function TimelineYearContainer() {
       })
       .catch(function (error) {
         // handle error
+        addError(error.response.data, error.response.status);
         console.log(error);
       })
       .then(function () {
