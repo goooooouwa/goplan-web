@@ -12,7 +12,7 @@ import todoTraversal from "utils/todoTraversal";
 
 export default function TimelineWeekContainer() {
   const params = useParams();
-  const todosUrl = params.projectId !== undefined ? `/todos.json?project_id=${params.projectId}` : '/todos.json';
+  const todosUrl = params.projectId !== undefined ? `/todos/dependents.json?project_id=${params.projectId}` : '/todos/dependents.json';
   const [searchParams, setSearchParams] = useSearchParams();
   const selectedWeek = searchParams.get("week") !== null ? moment(searchParams.get("week")) : moment().startOf("week");
   const [todos, setTodos] = useState([]);
