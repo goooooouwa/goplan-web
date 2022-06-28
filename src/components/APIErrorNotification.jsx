@@ -1,5 +1,6 @@
 import { Alert, Snackbar } from '@mui/material';
 import { useAPIError } from 'hooks/useAPIError';
+import { reduce } from 'lodash';
 import React from 'react';
 
 export default function APIErrorNotification() {
@@ -14,7 +15,11 @@ export default function APIErrorNotification() {
       {error !== null &&
         <Snackbar open={error !== null} autoHideDuration={6000} onClose={handleSubmit}>
           <Alert severity="error" sx={{ width: '100%' }} onClose={handleSubmit}>
-            {JSON.stringify(error.message)}
+            {
+              reduce(error.message, function(result, value, key) {
+                return result + value + '. ';
+              }, '')
+            }
           </Alert>
         </Snackbar>
       }
