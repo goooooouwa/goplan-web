@@ -33,6 +33,7 @@ export default function NewProjectForm() {
 
     httpService.post('/projects.json', projectData)
       .then((response) => {
+        setError(null);
         setProject(response.data);
       })
       .catch(function (error) {

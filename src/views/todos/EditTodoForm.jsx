@@ -131,6 +131,7 @@ export default function EditTodoForm() {
 
     httpService.put(`/todos/${todo.id}.json`, todoData)
       .then((response) => {
+        setError(null);
         setTodo({
           ...response.data,
           startDate: moment(response.data.startDate).format("YYYY-MM-DD"),

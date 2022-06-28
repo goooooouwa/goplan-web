@@ -44,6 +44,7 @@ export default function EditProjectForm() {
 
     httpService.put(`/projects/${project.id}.json`, projectData)
       .then((response) => {
+        setError(null);
         setProject({
           ...response.data,
           targetDate: moment(response.data.targetDate).isValid() ? moment(response.data.targetDate).format("YYYY-MM-DD") : "",
