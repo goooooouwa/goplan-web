@@ -3,6 +3,7 @@ import httpService from "services/httpService";
 import React, { useState } from "react";
 import { Navigate } from "react-router-dom";
 import { useAuth } from "hooks/useAuth";
+import { useAPIError } from "hooks/useAPIError";
 
 export default function NewProjectForm() {
   const { getCurrentUserId } = useAuth();
@@ -14,6 +15,7 @@ export default function NewProjectForm() {
   });
   const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState(null);
+  const { addError } = useAPIError();
 
   function handleChange(event) {
     setProject((project) => ({
@@ -38,6 +40,7 @@ export default function NewProjectForm() {
       })
       .catch(function (error) {
         setError(error.response.data);
+        addError(error.response.data, error.response.status);
         console.log(error);
       })
       .then(() => {

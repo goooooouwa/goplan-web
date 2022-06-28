@@ -2,6 +2,7 @@ import httpService from "services/httpService";
 import React, { useEffect, useState } from "react";
 import { Button, Container, Grid, Stack, Typography, Box, Paper } from "@mui/material";
 import { Link as RouterLink } from "react-router-dom";
+import { useAPIError } from "hooks/useAPIError";
 
 export default function AccountDetailContainer(props) {
   const [user, setUser] = useState({
@@ -10,6 +11,7 @@ export default function AccountDetailContainer(props) {
     email: "",
     imageUrl: "",
   });
+  const { addError } = useAPIError();
 
   useEffect(() => {
     httpService.get('/me.json')
@@ -17,6 +19,7 @@ export default function AccountDetailContainer(props) {
         setUser(response.data);
       })
       .catch(function (error) {
+        addError(error.response.data, error.response.status);
         console.log(error);
       });
   }, []);

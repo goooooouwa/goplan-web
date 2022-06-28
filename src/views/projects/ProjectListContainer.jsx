@@ -3,9 +3,11 @@ import { Link as RouterLink } from "react-router-dom";
 import ProjectList from "components/ProjectList";
 import httpService from "services/httpService";
 import React, { useEffect, useState } from "react";
+import { useAPIError } from "hooks/useAPIError";
 
 export default function ProjectListContainer() {
   const [projects, setProjects] = useState([]);
+  const { addError } = useAPIError();
 
   useEffect(() => {
     httpService.get('/projects.json')
@@ -14,6 +16,7 @@ export default function ProjectListContainer() {
       })
       .catch(function (error) {
         // handle error
+        addError(error.response.data, error.response.status);
         console.log(error);
       })
       .then(function () {

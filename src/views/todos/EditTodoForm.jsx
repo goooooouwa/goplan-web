@@ -5,6 +5,7 @@ import httpService from "services/httpService";
 import moment from "moment";
 import React, { useCallback, useEffect, useState } from "react";
 import { Navigate, useParams } from "react-router-dom";
+import { useAPIError } from "hooks/useAPIError";
 
 export default function EditTodoForm() {
   const params = useParams();
@@ -27,6 +28,7 @@ export default function EditTodoForm() {
   const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState(null);
   const dependenciesInJSON = JSON.stringify(todo.dependencies);
+  const { addError } = useAPIError();
 
   useEffect(() => {
     httpService.get(`/todos/${params.todoId}.json`)
@@ -38,6 +40,7 @@ export default function EditTodoForm() {
         });
       })
       .catch(function (error) {
+        addError(error.response.data, error.response.status);
         console.log(error);
       });
   }, [params.todoId]);
@@ -88,6 +91,7 @@ export default function EditTodoForm() {
         .then((response) => {
         })
         .catch(function (error) {
+          addError(error.response.data, error.response.status);
           console.log(error);
         });
     }
@@ -140,6 +144,7 @@ export default function EditTodoForm() {
       })
       .catch(function (error) {
         setError(error.response.data);
+        addError(error.response.data, error.response.status);
         console.log(error);
       })
       .then(() => {

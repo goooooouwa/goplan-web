@@ -3,6 +3,7 @@ import httpService from "services/httpService";
 import React, { useEffect, useState } from "react";
 import { Navigate, useParams } from "react-router-dom";
 import moment from "moment";
+import { useAPIError } from "hooks/useAPIError";
 
 export default function EditProjectForm() {
   const params = useParams();
@@ -13,8 +14,9 @@ export default function EditProjectForm() {
   });
   const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState(null);
+  const { addError } = useAPIError();
 
-  useEffect(()=>{
+  useEffect(() => {
     httpService.get(`/projects/${params.projectId}.json`)
       .then((response) => {
         setProject({
@@ -23,9 +25,10 @@ export default function EditProjectForm() {
         });
       })
       .catch(function (error) {
+        addError(error.response.data, error.response.status);
         console.log(error);
       });
-  },[params.projectId]);
+  }, [params.projectId]);
 
   function handleChange(event) {
     setProject((project) => ({
@@ -52,6 +55,7 @@ export default function EditProjectForm() {
       })
       .catch(function (error) {
         setError(error.response.data);
+        addError(error.response.data, error.response.status);
         console.log(error);
       })
       .then(() => {

@@ -9,6 +9,7 @@ import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
 import { isInWeekRange } from "utils/rangeCheck";
 import todoTraversal from "utils/todoTraversal";
+import { useAPIError } from "hooks/useAPIError";
 
 export default function TimelineWeekContainer() {
   const params = useParams();
@@ -17,6 +18,7 @@ export default function TimelineWeekContainer() {
   const selectedWeek = searchParams.get("week") !== null ? moment(searchParams.get("week")) : moment().startOf("week");
   const [todos, setTodos] = useState([]);
   const todosInJSON = JSON.stringify(todos);
+  const { addError } = useAPIError();
 
   const handleTodayClick = (event) => {
     setSearchParams({ week: moment().format("YYYY[W]WW") });
@@ -65,6 +67,7 @@ export default function TimelineWeekContainer() {
         setTodos((todos) => {
           return todoTraversal.markDirtyTodosAndDependents(todos, updatedTodoId, { startDate, endDate });
         });
+        addError(error.response.data, error.response.status);
         console.log(error);
       });
   }
@@ -89,6 +92,7 @@ export default function TimelineWeekContainer() {
         });
       })
       .catch(function (error) {
+        addError(error.response.data, error.response.status);
         console.log(error);
       });
   };
@@ -100,6 +104,7 @@ export default function TimelineWeekContainer() {
       })
       .catch(function (error) {
         // handle error
+        addError(error.response.data, error.response.status);
         console.log(error);
       })
       .then(function () {
@@ -146,7 +151,7 @@ export default function TimelineWeekContainer() {
             </Stack>
           </Grid>
           <Grid item xs={12}>
-            <TimelineWeek todos={todos} selectedWeek={selectedWeek} handleTodoChange={handleTodoChange} handleDayChange={handleDayChange}/>
+            <TimelineWeek todos={todos} selectedWeek={selectedWeek} handleTodoChange={handleTodoChange} handleDayChange={handleDayChange} />
           </Grid>
         </Grid>
       </Container>

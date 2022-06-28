@@ -15,6 +15,7 @@ import { Link as RouterLink, useNavigate } from "react-router-dom";
 import { useEffect, useState } from 'react';
 import httpService from 'services/httpService';
 import { Avatar } from '@mui/material';
+import { useAPIError } from 'hooks/useAPIError';
 
 const pages = [
   {
@@ -41,6 +42,7 @@ const ResponsiveAppBar = () => {
     imageUrl: "",
   });
   const navigate = useNavigate();
+  const { addError } = useAPIError();
 
   useEffect(() => {
     httpService.get('/me.json')
@@ -48,6 +50,7 @@ const ResponsiveAppBar = () => {
         setUser(response.data);
       })
       .catch(function (error) {
+        addError(error.response.data, error.response.status);
         console.log(error);
       });
   }, []);
@@ -68,7 +71,7 @@ const ResponsiveAppBar = () => {
   };
 
   const handleLogout = () => {
-    httpService.logout(()=>{
+    httpService.logout(() => {
       navigate("/goodbye");
     });
   };

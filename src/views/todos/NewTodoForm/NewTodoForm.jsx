@@ -5,6 +5,7 @@ import httpService from "services/httpService";
 import moment from "moment";
 import React, { useCallback, useEffect, useState } from "react";
 import { Navigate, useParams } from "react-router-dom";
+import { useAPIError } from "hooks/useAPIError";
 
 export default function NewTodoForm() {
   const params = useParams();
@@ -26,6 +27,7 @@ export default function NewTodoForm() {
   });
   const queryByProjectId = params.projectId !== undefined ? `project_id=${params.projectId}&` : '';
   const dependenciesInJSON = JSON.stringify(todo.dependencies);
+  const { addError } = useAPIError();
 
   const todoSearch = useCallback((name, callback) => {
     httpService.get(`/todos.json?${queryByProjectId}name=${name}`)
@@ -57,7 +59,7 @@ export default function NewTodoForm() {
   }, [todo.startDate, dependenciesInJSON]);
 
   useEffect(() => {
-    if(moment(todo.startDate).isValid()){
+    if (moment(todo.startDate).isValid()) {
       setTodo((todo) => ({
         ...todo,
         endDate: todo.repeat ? moment.max(moment(todo.endDate), moment(todo.startDate).add(1, `${todo.repeatPeriod}s`)).format("YYYY-MM-DD") : todo.startDate
@@ -113,6 +115,7 @@ export default function NewTodoForm() {
       })
       .catch(function (error) {
         setError(error.response.data);
+        addError(error.response.data, error.response.status);
         console.log(error);
       })
       .then(() => {

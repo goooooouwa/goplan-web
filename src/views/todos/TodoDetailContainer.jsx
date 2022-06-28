@@ -5,6 +5,7 @@ import httpService from "services/httpService";
 import { Button, Checkbox, Container, Grid, Stack, Typography, IconButton } from "@mui/material";
 import { Link as RouterLink } from "react-router-dom";
 import EditIcon from '@mui/icons-material/Edit';
+import { useAPIError } from "hooks/useAPIError";
 
 export default function TodoDetailContainer() {
   const params = useParams();
@@ -24,6 +25,7 @@ export default function TodoDetailContainer() {
   });
   const todoListUrl = params.projectId !== undefined ? `/projects/${params.projectId}/todos` : '/todos';
   const todoEditUrl = params.projectId !== undefined ? `/projects/${params.projectId}/todos/${todo.id}/edit` : `/todos/${todo.id}/edit`;
+  const { addError } = useAPIError();
 
   useEffect(() => {
     httpService.get(`/todos/${params.todoId}.json`)
@@ -32,6 +34,7 @@ export default function TodoDetailContainer() {
       })
       .catch(function (error) {
         // handle error
+        addError(error.response.data, error.response.status);
         console.log(error);
       })
       .then(function () {
@@ -49,6 +52,7 @@ export default function TodoDetailContainer() {
         setTodo(response.data);
       })
       .catch(function (error) {
+        addError(error.response.data, error.response.status);
         console.log(error);
       });
   };

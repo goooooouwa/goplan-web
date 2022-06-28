@@ -2,6 +2,7 @@ import { Button, Container, FormControl, Grid, TextField, Typography } from "@mu
 import httpService from "services/httpService";
 import React, { useEffect, useState } from "react";
 import { Navigate } from "react-router-dom";
+import { useAPIError } from "hooks/useAPIError";
 
 export default function EditAccountForm() {
   const [user, setUser] = useState({
@@ -12,16 +13,18 @@ export default function EditAccountForm() {
   });
   const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState(null);
+  const { addError } = useAPIError();
 
-  useEffect(()=>{
+  useEffect(() => {
     httpService.get('/me.json')
       .then((response) => {
         setUser(response.data);
       })
       .catch(function (error) {
+        addError(error.response.data, error.response.status);
         console.log(error);
       });
-  },[]);
+  }, []);
 
   function handleChange(event) {
     setUser((user) => ({
@@ -44,6 +47,7 @@ export default function EditAccountForm() {
       })
       .catch(function (error) {
         setError(error)
+        addError(error.response.data, error.response.status);
         console.log(error);
       })
       .then(() => {

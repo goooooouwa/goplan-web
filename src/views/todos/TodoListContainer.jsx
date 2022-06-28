@@ -4,12 +4,13 @@ import TodoListItem from "components/TodoListItem";
 import { Container, Grid, Stack, Typography } from "@mui/material";
 import { useParams } from "react-router-dom";
 import TodoActionGroup from "components/TodoActionGroup";
-import todoTraversal from "utils/todoTraversal";
+import { useAPIError } from "hooks/useAPIError";
 
 export default function TodoListContainer() {
   const params = useParams();
   const [todos, setTodos] = useState([]);
   const todosInJSON = JSON.stringify(todos);
+  const { addError } = useAPIError();
 
   useEffect(() => {
     const url = params.projectId !== undefined ? `/todos/dependents.json?project_id=${params.projectId}` : '/todos/dependents.json';
@@ -19,6 +20,7 @@ export default function TodoListContainer() {
       })
       .catch(function (error) {
         // handle error
+        addError(error.response.data, error.response.status);
         console.log(error);
       })
       .then(function () {
@@ -46,6 +48,7 @@ export default function TodoListContainer() {
         });
       })
       .catch(function (error) {
+        addError(error.response.data, error.response.status);
         console.log(error);
       });
   };

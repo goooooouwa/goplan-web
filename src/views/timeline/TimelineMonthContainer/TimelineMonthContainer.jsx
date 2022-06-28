@@ -9,6 +9,7 @@ import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
 import { isInMonthRange } from "utils/rangeCheck";
 import todoTraversal from "utils/todoTraversal";
+import { useAPIError } from "hooks/useAPIError";
 
 export default function TimelineMonthContainer() {
   const params = useParams();
@@ -17,6 +18,7 @@ export default function TimelineMonthContainer() {
   const selectedMonth = searchParams.get("month") !== null ? moment(searchParams.get("month")) : moment().startOf("month");
   const [todos, setTodos] = useState([]);
   const todosInJSON = JSON.stringify(todos);
+  const { addError } = useAPIError();
 
   const handleTodayClick = (event) => {
     setSearchParams({ month: moment().format("YYYYMM") });
@@ -65,6 +67,7 @@ export default function TimelineMonthContainer() {
         setTodos((todos) => {
           return todoTraversal.markDirtyTodosAndDependents(todos, updatedTodoId, { startDate, endDate });
         });
+        addError(error.response.data, error.response.status);
         console.log(error);
       });
   }
@@ -89,6 +92,7 @@ export default function TimelineMonthContainer() {
         });
       })
       .catch(function (error) {
+        addError(error.response.data, error.response.status);
         console.log(error);
       });
   };
@@ -100,6 +104,7 @@ export default function TimelineMonthContainer() {
       })
       .catch(function (error) {
         // handle error
+        addError(error.response.data, error.response.status);
         console.log(error);
       })
       .then(function () {
@@ -146,7 +151,7 @@ export default function TimelineMonthContainer() {
             </Stack>
           </Grid>
           <Grid item xs={12}>
-            <TimelineMonth todos={todos} selectedMonth={selectedMonth} handleTodoChange={handleTodoChange} handleWeekChange={handleWeekChange}/>
+            <TimelineMonth todos={todos} selectedMonth={selectedMonth} handleTodoChange={handleTodoChange} handleWeekChange={handleWeekChange} />
           </Grid>
         </Grid>
       </Container>
