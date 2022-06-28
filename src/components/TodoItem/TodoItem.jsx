@@ -20,8 +20,7 @@ export default function TodoItem(props) {
         disablePadding
         secondaryAction={
           <>
-            {
-              !props.todo.status && props.expandable &&
+            { !props.todo.status && props.todo.dependents.length > 0 &&
               <IconButton edge="end" aria-label="expand" onClick={handleClick}>
                 {
                   open ? <ExpandLess /> : <ExpandMore />
@@ -51,7 +50,6 @@ export default function TodoItem(props) {
 
 TodoItem.propTypes = {
   todo: SHARED_PROP_TYPES.todo,
-  expandable: PropTypes.bool.isRequired,
   handleTodoChange: PropTypes.func.isRequired,
   handleTodoExpand: PropTypes.func.isRequired
 };

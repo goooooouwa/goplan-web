@@ -35,7 +35,6 @@ const marks = [
 export default function TimelineMonth(props) {
   const params = useParams();
   const weekUrlPrefix = params.projectId !== undefined ? `/projects/${params.projectId}/week?week=` : '/timeline/week?week=';
-  const topLevelWipTodos = todoTraversal.topLevelWipTodos(props.todos);
 
   return (
     <>
@@ -89,9 +88,9 @@ export default function TimelineMonth(props) {
             </Stack>
           </Box>
         </Grid>
-        {topLevelWipTodos
+        {props.todos
           .map((todo, index) => (
-            <TodoMonthSlider key={index} todo={todo} expandable={todoTraversal.hasEarliestDependentAmongOpenTodosAndDependents(topLevelWipTodos, todo)} marks={marks} selectedMonth={props.selectedMonth} handleTodoChange={props.handleTodoChange} handleWeekChange={props.handleWeekChange} />
+            <TodoMonthSlider key={index} todo={todo} marks={marks} selectedMonth={props.selectedMonth} handleTodoChange={props.handleTodoChange} handleWeekChange={props.handleWeekChange} />
           ))}
       </Grid>
     </>

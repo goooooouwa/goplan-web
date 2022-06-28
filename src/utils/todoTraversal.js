@@ -13,50 +13,8 @@ const markDirtyTodosAndDependents = (todos, updatedTodoId, { startDate, endDate 
   });
 };
   
-const flattenTodosAndDependents = (todos) => {
-  return todos.map((todo) => {
-    if (todo.dependents.length > 0) {
-      return [todo, flattenTodosAndDependents(todo.dependents)].flat();
-    } else {
-      return todo;
-    }
-  }).flat();
-};
-
-const queryTodoInTodosAndDependents = (todos, todoId) => {
-  return flattenTodosAndDependents(todos).filter((todo) => {
-    return todo.id === todoId;
-  });
-};
-
-const hasEarliestDependentAmongOpenTodosAndDependents = (todos, todo) => {
-  const earlierOpenTodos = todos.filter((todo) => {
-    return todo.status === false;
-  }).filter((openTodo) => {
-    return moment(openTodo.createdAt).isBefore(todo.createdAt);
-  });
-
-  return todo.dependents.some((dependent) => {
-    return queryTodoInTodosAndDependents(earlierOpenTodos, dependent.id).length === 0;
-  });
-};
-
-const topLevelWipTodos = (todos) => {
-  return todos.filter((todo) => {
-    if (todo.status) {
-      return false;
-    }
-
-    return todo.dependencies.filter((dependency) => {
-      return !dependency.status;
-    }).length === 0;
-  });
-};
-
 const todoTraversal = {
-  markDirtyTodosAndDependents,
-  hasEarliestDependentAmongOpenTodosAndDependents,
-  topLevelWipTodos
+  markDirtyTodosAndDependents
 };
 
 export default todoTraversal;

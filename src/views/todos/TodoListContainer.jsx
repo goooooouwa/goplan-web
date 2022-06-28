@@ -10,7 +10,6 @@ export default function TodoListContainer() {
   const params = useParams();
   const [todos, setTodos] = useState([]);
   const todosInJSON = JSON.stringify(todos);
-  const topLevelWipTodos = todoTraversal.topLevelWipTodos(todos);
 
   useEffect(() => {
     const url = params.projectId !== undefined ? `/todos.json?project_id=${params.projectId}` : '/todos.json';
@@ -67,9 +66,9 @@ export default function TodoListContainer() {
               <TodoActionGroup activeViewTitle="Todos" />
             </Stack>
           </Grid>
-          {topLevelWipTodos
+          {todos
             .map((todo, index) => (
-              <TodoListItem key={index} todo={todo} expandable={todoTraversal.hasEarliestDependentAmongOpenTodosAndDependents(topLevelWipTodos, todo)} handleTodoChange={handleTodoChange} />
+              <TodoListItem key={index} todo={todo} handleTodoChange={handleTodoChange} />
             ))}
         </Grid>
       </Container>
