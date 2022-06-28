@@ -6,7 +6,7 @@ import SHARED_PROP_TYPES from "utils/sharedPropTypes";
 import { ExpandLess, ExpandMore } from "@mui/icons-material";
 
 export default function TodoItem(props) {
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = React.useState(true);
 
   const handleClick = () => {
     setOpen(!open);
