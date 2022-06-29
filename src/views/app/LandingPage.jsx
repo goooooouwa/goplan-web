@@ -21,7 +21,7 @@ export default function LandingPage() {
                 GoPlan
               </Typography>
             </Stack>
-            <h2>Where todos meets a timeline</h2>
+            <h2>Where plans meet their timeline</h2>
             <p>GoPlan is an app to help you achieve your goals, by turning your plan into actionable tasks that can be easily managed over time with a timeline overview.</p>
           </Grid>
           <Grid item xs={12}>
