@@ -1,4 +1,4 @@
-import { Button, Link } from "@mui/material";
+import { Button, Container, Grid, Link } from "@mui/material";
 import React from "react";
 import { Navigate } from "react-router-dom";
 import { useAuth } from "hooks/useAuth";
@@ -11,10 +11,18 @@ export default function GoodByePage() {
       {getAccessToken() !== null &&
         <Navigate to="/projects" />
       }
-      <p>Logged out of GoPlan Web. Click if you want to sign out your GoPlan account as well: </p>
-      <Button variant="contained" component={Link} href={logoutPage}>
-        Go to GoPlan to sign out
-      </Button>
+      <Container sx={{ mt: 2 }}>
+        <Grid container spacing={2}>
+          <Grid item xs={12}>
+            <p>You've successfully logged out of GoPlan web client. Click below if you want to sign out your GoPlan account as well: </p>
+          </Grid>
+          <Grid item xs={12}>
+            <Button variant="contained" component={Link} href={logoutPage}>
+              GoPlan account
+            </Button>
+          </Grid>
+        </Grid>
+      </Container>
     </>
   );
 }
