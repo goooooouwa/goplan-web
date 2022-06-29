@@ -21,17 +21,17 @@ export default function LandingPage() {
                 GoPlan
               </Typography>
             </Stack>
-            <h2>Where plans meet their timeline</h2>
+            <h2>Where plans meet their timeline.</h2>
             <p>GoPlan is an app to help you achieve your goals, by turning your plan into actionable tasks that can be easily managed over time with a timeline overview.</p>
           </Grid>
           <Grid item xs={12}>
             <Button variant="contained" component={Link} href={signInPage}>
-              Sign up / Login
+              Start using GoPlan
             </Button>
           </Grid>
           <Grid item xs={12}>
             <Button variant="outlined" onClick={handleOfflineMode}>
-              Try it without login
+              Try it first
             </Button>
           </Grid>
         </Grid>
