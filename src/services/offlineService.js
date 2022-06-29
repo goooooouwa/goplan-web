@@ -81,6 +81,10 @@ function seedData() {
       data: todos,
     },
     {
+      key: "/todos/dependents.json",
+      data: todos,
+    },
+    {
       key: "/projects.json",
       data: projects,
     }
@@ -100,6 +104,9 @@ function setupStaticRequests(mock) {
     },
     {
       key: "/todos.json",
+    },
+    {
+      key: "/todos/dependents.json",
     },
     {
       key: "/projects.json",
@@ -173,6 +180,14 @@ function setupQueryRequests(mock) {
         const project_id = params[0].split("=")[1];
         const name = params[1].split("=")[1];
         return todo.projectId === parseInt(project_id) && todo.name.toLowerCase().includes(name.toLowerCase());
+      }
+    },
+    {
+      urlRegex: /^\/todos\/dependents\.json\?project_id=\d+$/,
+      key: "/todos.json",
+      filter: (todo, config) => {
+        const project_id = config.url.match(/(\d+)/g)[0];
+        return todo.projectId === parseInt(project_id);
       }
     },
     {
