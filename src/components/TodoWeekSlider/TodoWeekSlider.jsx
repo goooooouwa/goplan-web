@@ -47,7 +47,7 @@ const rangeMax = 6;
 export default function TodoWeekSlider(props) {
   const startDate = (props.todo.startDate !== null) ? moment(props.todo.startDate) : moment();
   const endDate = (props.todo.endDate !== null) ? moment(props.todo.endDate) : moment();
-  const [open, setOpen] = React.useState(true);
+  const [open, setOpen] = React.useState(false);
 
   const handleTodoExpand = () => {
     setOpen(!open);
