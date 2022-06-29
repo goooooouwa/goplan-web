@@ -23,9 +23,11 @@ export default function ProjectDetail(props) {
             <EditIcon />
           </IconButton>
         </Stack>
-        <Typography variant="body1" gutterBottom>
-          {(props.project.targetDate !== null) ? moment(props.project.targetDate).fromNow() : "Indefinitely"}
-        </Typography>
+        <Stack alignItems="center">
+          <Typography variant="body1" gutterBottom>
+            {(props.project.targetDate !== null) ? moment(props.project.targetDate).fromNow() : "Indefinitely"}
+          </Typography>
+        </Stack>
       </Stack>
     </>
   );

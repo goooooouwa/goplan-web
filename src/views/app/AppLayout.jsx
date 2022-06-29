@@ -1,4 +1,4 @@
-import { Container, CssBaseline, Grid, Box, Typography } from "@mui/material";
+import { Container, CssBaseline, Grid, Box } from "@mui/material";
 import ResponsiveAppBar from "components/ResponsiveAppBar";
 import React from "react";
 import { Outlet } from "react-router-dom";
@@ -10,7 +10,7 @@ function AppLayout() {
   return (
     <>
       <CssBaseline />
-      <div className="App">
+      <div>
         <ResponsiveAppBar />
         <Outlet />
         <Container maxWidth="xl">

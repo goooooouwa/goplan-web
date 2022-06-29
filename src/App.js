@@ -23,7 +23,6 @@ import AccountLayout from 'views/users/AccountLayout';
 import LandingPage from 'views/app/LandingPage';
 import ProtectedRoute from 'components/ProtectedRoute';
 import AppLayout from 'views/app/AppLayout';
-import './App.css';
 import { AuthProvider } from "hooks/useAuth";
 import GoodByePage from "views/app/GoodByePage";
 import APIErrorNotification from "components/APIErrorNotification";
