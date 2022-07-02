@@ -3,7 +3,6 @@ import React from "react";
 import PropTypes from 'prop-types';
 import SHARED_PROP_TYPES from 'utils/sharedPropTypes';
 import TodoItem from "./TodoItem/TodoItem";
-import todoTraversal from "utils/todoTraversal";
 
 export default function TodoListItem(props) {
   const [open, setOpen] = React.useState(true);
