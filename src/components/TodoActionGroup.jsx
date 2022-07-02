@@ -7,6 +7,7 @@ import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 export default function TodoActionGroup(props) {
   const params = useParams();
   const timelineYearUrl = params.projectId !== undefined ? `/projects/${params.projectId}/year` : '/timeline';
+  const timelineQuarterUrl = params.projectId !== undefined ? `/projects/${params.projectId}/quarter` : '/timeline/quarter';
   const timelineMonthUrl = params.projectId !== undefined ? `/projects/${params.projectId}/month` : '/timeline/month';
   const timelineWeekUrl = params.projectId !== undefined ? `/projects/${params.projectId}/week` : '/timeline/week';
   const todoListUrl = params.projectId !== undefined ? `/projects/${params.projectId}/todos` : '/todos';
@@ -54,6 +55,7 @@ export default function TodoActionGroup(props) {
       >
         <MenuItem component={RouterLink} to={todoListUrl}>Todos</MenuItem>
         <MenuItem component={RouterLink} to={timelineYearUrl} sx={{ minWidth: 130 }}>Year</MenuItem>
+        <MenuItem component={RouterLink} to={timelineQuarterUrl}>Quarter</MenuItem>
         <MenuItem component={RouterLink} to={timelineMonthUrl}>Month</MenuItem>
         <MenuItem component={RouterLink} to={timelineWeekUrl}>Week</MenuItem>
       </Menu>

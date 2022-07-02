@@ -8,7 +8,6 @@ import momentPropTypes from 'react-moment-proptypes';
 import SHARED_PROP_TYPES from 'utils/sharedPropTypes';
 import TodoItem from '../TodoItem/TodoItem';
 import TimelineSlider from 'components/TimelineSlider/TimelineSlider';
-import todoTraversal from 'utils/todoTraversal';
 
 const marks = [
   {

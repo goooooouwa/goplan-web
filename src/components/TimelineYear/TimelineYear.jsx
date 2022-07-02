@@ -7,7 +7,6 @@ import PropTypes from 'prop-types';
 import momentPropTypes from 'react-moment-proptypes';
 import SHARED_PROP_TYPES from 'utils/sharedPropTypes';
 import TodoYearSlider from '../TodoYearSlider/TodoYearSlider';
-import todoTraversal from 'utils/todoTraversal';
 
 const marks = [
   {

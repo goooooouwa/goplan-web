@@ -28,6 +28,7 @@ import GoodByePage from "views/app/GoodByePage";
 import APIErrorNotification from "components/APIErrorNotification";
 import { APIErrorProvider } from "hooks/useAPIError";
 import PublicLayout from "views/app/PublicLayout";
+import TimelineQuarterContainer from "views/timeline/TimelineQuarterContainer/TimelineQuarterContainer";
 
 moment.locale('en');
 
@@ -59,6 +60,7 @@ function App() {
               <Route path=":projectId/edit" element={<EditProjectForm />} />
               <Route path=":projectId" element={<ProjectDetailContainer />} >
                 <Route path="year" element={<TimelineYearContainer />} />
+                <Route path="quarter" element={<TimelineQuarterContainer />} />
                 <Route path="month" element={<TimelineMonthContainer />} />
                 <Route path="week" element={<TimelineWeekContainer />} />
                 <Route path="todos" element={<TodoLayout />} >
