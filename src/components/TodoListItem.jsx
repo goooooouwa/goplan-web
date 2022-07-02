@@ -6,7 +6,7 @@ import TodoItem from "./TodoItem/TodoItem";
 import todoTraversal from "utils/todoTraversal";
 
 export default function TodoListItem(props) {
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = React.useState(true);
 
   const handleTodoExpand = () => {
     setOpen(!open);
