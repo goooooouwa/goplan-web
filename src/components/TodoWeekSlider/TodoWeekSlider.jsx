@@ -8,46 +8,45 @@ import SHARED_PROP_TYPES from 'utils/sharedPropTypes';
 import TimelineRangeSlider from 'components/TimelineRangeSlider/TimelineRangeSlider';
 import TodoItem from 'components/TodoItem/TodoItem';
 import TimelineSlider from 'components/TimelineSlider/TimelineSlider';
-import todoTraversal from 'utils/todoTraversal';
 
-const marks = [
-  {
-    value: 0,
-    label: 'Sun',
-  },
-  {
-    value: 1,
-    label: 'Mon',
-  },
-  {
-    value: 2,
-    label: 'Tue',
-  },
-  {
-    value: 3,
-    label: 'Wed',
-  },
-  {
-    value: 4,
-    label: 'Thu',
-  },
-  {
-    value: 5,
-    label: 'Fri',
-  },
-  {
-    value: 6,
-    label: 'Sat',
-  },
-];
-
-const rangeMin = 0;
-const rangeMax = 6;
 
 export default function TodoWeekSlider(props) {
   const startDate = (props.todo.startDate !== null) ? moment(props.todo.startDate) : moment();
   const endDate = (props.todo.endDate !== null) ? moment(props.todo.endDate) : moment();
   const [open, setOpen] = React.useState(true);
+  const marks = [
+    {
+      value: 0,
+      label: props.selectedWeek.clone().startOf("week").format("MMM DD, YYYY"),
+    },
+    {
+      value: 1,
+      label: props.selectedWeek.clone().startOf("week").add(1, 'days').format("MMM DD, YYYY"),
+    },
+    {
+      value: 2,
+      label: props.selectedWeek.clone().startOf("week").add(2, 'days').format("MMM DD, YYYY"),
+    },
+    {
+      value: 3,
+      label: props.selectedWeek.clone().startOf("week").add(3, 'days').format("MMM DD, YYYY"),
+    },
+    {
+      value: 4,
+      label: props.selectedWeek.clone().startOf("week").add(4, 'days').format("MMM DD, YYYY"),
+    },
+    {
+      value: 5,
+      label: props.selectedWeek.clone().startOf("week").add(5, 'days').format("MMM DD, YYYY"),
+    },
+    {
+      value: 6,
+      label: props.selectedWeek.clone().startOf("week").add(6, 'days').format("MMM DD, YYYY"),
+    },
+  ];
+
+  const rangeMin = 0;
+  const rangeMax = 6;
 
   const handleTodoExpand = () => {
     setOpen(!open);
@@ -77,7 +76,7 @@ export default function TodoWeekSlider(props) {
       <Grid item xs={12} md={8} sx={{ px: 3 }}>
         {props.todo.repeat &&
           <TimelineRangeSlider
-            marks={props.marks}
+            marks={marks}
             rangeMin={rangeMin}
             rangeMax={rangeMax}
             rangeStart={rangeMark(startDate)}
@@ -89,7 +88,7 @@ export default function TodoWeekSlider(props) {
         }
         {!props.todo.repeat &&
           <TimelineSlider
-            marks={props.marks}
+            marks={marks}
             rangeMin={rangeMin}
             rangeMax={rangeMax}
             rangeStart={rangeMark(startDate)}
@@ -103,7 +102,7 @@ export default function TodoWeekSlider(props) {
           <Collapse in={open} timeout="auto" unmountOnExit>
             {props.todo.dependencies.map((dependent, index) => (
               <Grid key={index} container item xs={12} md={12}>
-                <TodoWeekSlider key={index} todo={dependent} marks={marks} selectedWeek={props.selectedWeek} handleTodoChange={props.handleTodoChange} handleDayChange={props.handleDayChange} />
+                <TodoWeekSlider key={index} todo={dependent} selectedWeek={props.selectedWeek} handleTodoChange={props.handleTodoChange} handleDayChange={props.handleDayChange} />
               </Grid>
             ))}
           </Collapse>
@@ -115,7 +114,6 @@ export default function TodoWeekSlider(props) {
 
 TodoWeekSlider.propTypes = {
   selectedWeek: momentPropTypes.momentObj.isRequired,
-  marks: SHARED_PROP_TYPES.marks,
   todo: SHARED_PROP_TYPES.todo,
   handleTodoChange: PropTypes.func.isRequired,
   handleDayChange: PropTypes.func.isRequired

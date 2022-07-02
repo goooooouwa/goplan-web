@@ -8,23 +8,21 @@ import momentPropTypes from 'react-moment-proptypes';
 import SHARED_PROP_TYPES from 'utils/sharedPropTypes';
 import TodoQuarterSlider from '../TodoQuarterSlider/TodoQuarterSlider';
 
+const marks = [
+  {
+    value: 1,
+  },
+  {
+    value: 2,
+  },
+  {
+    value: 3,
+  },
+];
+
 export default function TimelineQuarter(props) {
   const params = useParams();
   const monthUrlPrefix = params.projectId !== undefined ? `/projects/${params.projectId}/month?month=` : '/timeline/month?month=';
-  const marks = [
-    {
-      value: 1,
-      label: props.selectedQuarter.clone().startOf("quarter").format("MMM"),
-    },
-    {
-      value: 2,
-      label: props.selectedQuarter.clone().startOf("quarter").add(1, "months").format("MMM"),
-    },
-    {
-      value: 3,
-      label: props.selectedQuarter.clone().startOf("quarter").add(2, "months").format("MMM"),
-    },
-  ];
 
   return (
     <>
@@ -72,7 +70,7 @@ export default function TimelineQuarter(props) {
         </Grid>
         {props.todos
           .map((todo, index) => (
-            <TodoQuarterSlider key={index} todo={todo} marks={marks} selectedQuarter={props.selectedQuarter} handleTodoChange={props.handleTodoChange} handleMonthChange={props.handleMonthChange} />
+            <TodoQuarterSlider key={index} todo={todo} selectedQuarter={props.selectedQuarter} handleTodoChange={props.handleTodoChange} handleMonthChange={props.handleMonthChange} />
           ))}
       </Grid>
     </>

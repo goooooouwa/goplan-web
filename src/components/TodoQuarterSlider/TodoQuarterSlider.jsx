@@ -13,8 +13,22 @@ export default function TodoQuarterSlider(props) {
   const startDate = (props.todo.startDate !== null) ? moment(props.todo.startDate) : moment();
   const endDate = (props.todo.endDate !== null) ? moment(props.todo.endDate) : moment();
   const [open, setOpen] = React.useState(true);
+  const marks = [
+    {
+      value: 1,
+      label: props.selectedQuarter.clone().startOf("quarter").format("MMM, YYYY"),
+    },
+    {
+      value: 2,
+      label: props.selectedQuarter.clone().startOf("quarter").add(1, "months").format("MMM, YYYY"),
+    },
+    {
+      value: 3,
+      label: props.selectedQuarter.clone().startOf("quarter").add(2, "months").format("MMM, YYYY"),
+    },
+  ];
   const rangeMin = 1;
-  const rangeMax = props.marks.length;
+  const rangeMax = marks.length;
 
   const handleTodoExpand = () => {
     setOpen(!open);
@@ -44,7 +58,7 @@ export default function TodoQuarterSlider(props) {
       <Grid item xs={12} md={8} sx={{ px: 3 }}>
         {props.todo.repeat &&
           <TimelineRangeSlider
-            marks={props.marks}
+            marks={marks}
             rangeMin={rangeMin}
             rangeMax={rangeMax}
             rangeStart={rangeMark(startDate)}
@@ -56,7 +70,7 @@ export default function TodoQuarterSlider(props) {
         }
         {!props.todo.repeat &&
           <TimelineSlider
-            marks={props.marks}
+            marks={marks}
             rangeMin={rangeMin}
             rangeMax={rangeMax}
             rangeStart={rangeMark(startDate)}
@@ -70,7 +84,7 @@ export default function TodoQuarterSlider(props) {
           <Collapse in={open} timeout="auto" unmountOnExit>
             {props.todo.dependencies.map((dependent, index) => (
               <Grid key={index} container item xs={12} md={12}>
-                <TodoQuarterSlider key={index} todo={dependent} marks={props.marks} selectedQuarter={props.selectedQuarter} handleTodoChange={props.handleTodoChange} handleMonthChange={props.handleMonthChange} />
+                <TodoQuarterSlider key={index} todo={dependent} selectedQuarter={props.selectedQuarter} handleTodoChange={props.handleTodoChange} handleMonthChange={props.handleMonthChange} />
               </Grid>
             ))}
           </Collapse>
@@ -83,7 +97,6 @@ export default function TodoQuarterSlider(props) {
 TodoQuarterSlider.propTypes = {
   selectedQuarter: momentPropTypes.momentObj.isRequired,
   todo: SHARED_PROP_TYPES.todo,
-  marks: SHARED_PROP_TYPES.marks,
   handleTodoChange: PropTypes.func.isRequired,
   handleMonthChange: PropTypes.func.isRequired
 };

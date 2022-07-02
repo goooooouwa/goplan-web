@@ -9,36 +9,35 @@ import SHARED_PROP_TYPES from 'utils/sharedPropTypes';
 import TodoItem from '../TodoItem/TodoItem';
 import TimelineSlider from 'components/TimelineSlider/TimelineSlider';
 
-const marks = [
-  {
-    value: 1,
-    label: 'Week 1',
-  },
-  {
-    value: 2,
-    label: 'Week 2',
-  },
-  {
-    value: 3,
-    label: 'Week 3',
-  },
-  {
-    value: 4,
-    label: 'Week 4',
-  },
-  {
-    value: 5,
-    label: 'Week 5',
-  },
-];
-
-const rangeMin = 1;
-const rangeMax = 5;
 
 export default function TodoMonthSlider(props) {
   const startDate = (props.todo.startDate !== null) ? moment(props.todo.startDate) : moment();
   const endDate = (props.todo.endDate !== null) ? moment(props.todo.endDate) : moment();
   const [open, setOpen] = React.useState(true);
+  const marks = [
+    {
+      value: 1,
+      label: props.selectedMonth.clone().add(0, "weeks").startOf("week").format("[Week 1], MMM")
+    },
+    {
+      value: 2,
+      label: props.selectedMonth.clone().add(1, "weeks").startOf("week").format("[Week 2], MMM")
+    },
+    {
+      value: 3,
+      label: props.selectedMonth.clone().add(1, "weeks").startOf("week").format("[Week 3], MMM")
+    },
+    {
+      value: 4,
+      label: props.selectedMonth.clone().add(3, "weeks").startOf("week").format("[Week 4], MMM")
+    },
+    {
+      value: 5,
+      label: props.selectedMonth.clone().add(4, "weeks").startOf("week").format("[Week 5], MMM")
+    },
+  ];
+  const rangeMin = 1;
+  const rangeMax = marks.length;
 
   const handleTodoExpand = () => {
     setOpen(!open);
@@ -68,7 +67,7 @@ export default function TodoMonthSlider(props) {
       <Grid item xs={12} md={8} sx={{ px: 3 }}>
         {props.todo.repeat &&
           <TimelineRangeSlider
-            marks={props.marks}
+            marks={marks}
             rangeMin={rangeMin}
             rangeMax={rangeMax}
             rangeStart={rangeMark(startDate)}
@@ -80,7 +79,7 @@ export default function TodoMonthSlider(props) {
         }
         {!props.todo.repeat &&
           <TimelineSlider
-            marks={props.marks}
+            marks={marks}
             rangeMin={rangeMin}
             rangeMax={rangeMax}
             rangeStart={rangeMark(startDate)}
@@ -94,7 +93,7 @@ export default function TodoMonthSlider(props) {
           <Collapse in={open} timeout="auto" unmountOnExit>
             {props.todo.dependencies.map((dependent, index) => (
               <Grid key={index} container item xs={12} md={12}>
-                <TodoMonthSlider key={index} todo={dependent} marks={marks} selectedMonth={props.selectedMonth} handleTodoChange={props.handleTodoChange} handleWeekChange={props.handleWeekChange} />
+                <TodoMonthSlider key={index} todo={dependent} selectedMonth={props.selectedMonth} handleTodoChange={props.handleTodoChange} handleWeekChange={props.handleWeekChange} />
               </Grid>
             ))}
           </Collapse>
@@ -106,7 +105,6 @@ export default function TodoMonthSlider(props) {
 
 TodoMonthSlider.propTypes = {
   selectedMonth: momentPropTypes.momentObj.isRequired,
-  marks: SHARED_PROP_TYPES.marks,
   todo: SHARED_PROP_TYPES.todo,
   handleTodoChange: PropTypes.func.isRequired,
   handleWeekChange: PropTypes.func.isRequired

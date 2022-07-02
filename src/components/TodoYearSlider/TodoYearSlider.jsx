@@ -9,64 +9,62 @@ import TimelineRangeSlider from 'components/TimelineRangeSlider/TimelineRangeSli
 import TodoItem from 'components/TodoItem/TodoItem';
 import TimelineSlider from 'components/TimelineSlider/TimelineSlider';
 
-const marks = [
-  {
-    value: 0,
-    label: 'Jan',
-  },
-  {
-    value: 1,
-    label: 'Feb',
-  },
-  {
-    value: 2,
-    label: 'Mar',
-  },
-  {
-    value: 3,
-    label: 'Apr',
-  },
-  {
-    value: 4,
-    label: 'May',
-  },
-  {
-    value: 5,
-    label: 'Jun',
-  },
-  {
-    value: 6,
-    label: 'Jul',
-  },
-  {
-    value: 7,
-    label: 'Aug',
-  },
-  {
-    value: 8,
-    label: 'Sep',
-  },
-  {
-    value: 9,
-    label: 'Oct',
-  },
-  {
-    value: 10,
-    label: 'Nov',
-  },
-  {
-    value: 11,
-    label: 'Dec',
-  },
-];
-
-const rangeMin = 0;
-const rangeMax = 11;
-
 export default function TodoYearSlider(props) {
   const startDate = (props.todo.startDate !== null) ? moment(props.todo.startDate) : moment();
   const endDate = (props.todo.endDate !== null) ? moment(props.todo.endDate) : moment();
   const [open, setOpen] = React.useState(true);
+  const marks = [
+    {
+      value: 0,
+      label: props.selectedYear.clone().startOf("year").format("MMM, YYYY"),
+    },
+    {
+      value: 1,
+      label: props.selectedYear.clone().startOf("year").add(1, "months").format("MMM, YYYY"),
+    },
+    {
+      value: 2,
+      label: props.selectedYear.clone().startOf("year").add(2, "months").format("MMM, YYYY"),
+    },
+    {
+      value: 3,
+      label: props.selectedYear.clone().startOf("year").add(3, "months").format("MMM, YYYY"),
+    },
+    {
+      value: 4,
+      label: props.selectedYear.clone().startOf("year").add(4, "months").format("MMM, YYYY"),
+    },
+    {
+      value: 5,
+      label: props.selectedYear.clone().startOf("year").add(5, "months").format("MMM, YYYY"),
+    },
+    {
+      value: 6,
+      label: props.selectedYear.clone().startOf("year").add(6, "months").format("MMM, YYYY"),
+    },
+    {
+      value: 7,
+      label: props.selectedYear.clone().startOf("year").add(7, "months").format("MMM, YYYY"),
+    },
+    {
+      value: 8,
+      label: props.selectedYear.clone().startOf("year").add(8, "months").format("MMM, YYYY"),
+    },
+    {
+      value: 9,
+      label: props.selectedYear.clone().startOf("year").add(9, "months").format("MMM, YYYY"),
+    },
+    {
+      value: 10,
+      label: props.selectedYear.clone().startOf("year").add(10, "months").format("MMM, YYYY"),
+    },
+    {
+      value: 11,
+      label: props.selectedYear.clone().startOf("year").add(11, "months").format("MMM, YYYY"),
+    },
+  ];
+  const rangeMin = 0;
+  const rangeMax = marks.length - 1;
 
   const handleTodoExpand = () => {
     setOpen(!open);
@@ -96,7 +94,7 @@ export default function TodoYearSlider(props) {
       <Grid item xs={12} md={8} sx={{ px: 3 }}>
         {props.todo.repeat &&
           <TimelineRangeSlider
-            marks={props.marks}
+            marks={marks}
             rangeMin={rangeMin}
             rangeMax={rangeMax}
             rangeStart={rangeMark(startDate)}
@@ -108,7 +106,7 @@ export default function TodoYearSlider(props) {
         }
         {!props.todo.repeat &&
           <TimelineSlider
-            marks={props.marks}
+            marks={marks}
             rangeMin={rangeMin}
             rangeMax={rangeMax}
             rangeStart={rangeMark(startDate)}
@@ -122,7 +120,7 @@ export default function TodoYearSlider(props) {
           <Collapse in={open} timeout="auto" unmountOnExit>
             {props.todo.dependencies.map((dependent, index) => (
               <Grid key={index} container item xs={12} md={12}>
-                <TodoYearSlider key={index} todo={dependent} marks={marks} selectedYear={props.selectedYear} handleTodoChange={props.handleTodoChange} handleMonthChange={props.handleMonthChange} />
+                <TodoYearSlider key={index} todo={dependent} selectedYear={props.selectedYear} handleTodoChange={props.handleTodoChange} handleMonthChange={props.handleMonthChange} />
               </Grid>
             ))}
           </Collapse>
@@ -134,7 +132,6 @@ export default function TodoYearSlider(props) {
 
 TodoYearSlider.propTypes = {
   selectedYear: momentPropTypes.momentObj.isRequired,
-  marks: SHARED_PROP_TYPES.marks,
   todo: SHARED_PROP_TYPES.todo,
   handleTodoChange: PropTypes.func.isRequired,
   handleMonthChange: PropTypes.func.isRequired
