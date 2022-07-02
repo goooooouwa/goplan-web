@@ -1,20 +1,30 @@
-import moment from "moment";
-
-const markDirtyTodosAndDependents = (todos, updatedTodoId, { startDate, endDate }) => {
+const markDirtyTodosAndDependents = (todos, updatedTodo) => {
   return todos.map((todo) => {
-    if (todo.id === updatedTodoId) {
-      todo.startDate = startDate;
-      todo.endDate = endDate;
+    if (todo.id === updatedTodo.id) {
+      todo = updatedTodo;
     }
     if (todo.dependents.length > 0) {
-      todo.dependents = markDirtyTodosAndDependents(todo.dependents, updatedTodoId, { startDate, endDate });
+      todo.dependents = markDirtyTodosAndDependents(todo.dependents, updatedTodo);
+    }
+    return todo;
+  });
+};
+
+const markDirtyTodosAndDependencies = (todos, updatedTodo) => {
+  return todos.map((todo) => {
+    if (todo.id === updatedTodo.id) {
+      todo = updatedTodo;
+    }
+    if (todo.dependencies.length > 0) {
+      todo.dependencies = markDirtyTodosAndDependencies(todo.dependencies, updatedTodo);
     }
     return todo;
   });
 };
   
 const todoTraversal = {
-  markDirtyTodosAndDependents
+  markDirtyTodosAndDependents,
+  markDirtyTodosAndDependencies
 };
 
 export default todoTraversal;

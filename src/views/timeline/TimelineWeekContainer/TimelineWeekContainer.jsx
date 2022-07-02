@@ -10,6 +10,7 @@ import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
 import { isInWeekRange } from "utils/rangeCheck";
 import todoTraversal from "utils/todoTraversal";
 import { useAPIError } from "hooks/useAPIError";
+import { cloneDeep } from "lodash";
 
 export default function TimelineWeekContainer() {
   const params = useParams();
@@ -61,11 +62,11 @@ export default function TimelineWeekContainer() {
         });
       })
       .catch(function (error) {
-        const updatedTodoId = todo.id;
-        const startDate = todoData.start_date || todo.startDate;
-        const endDate = todoData.end_date || todo.endDate;
+        let updatedTodo = cloneDeep(todo);
+        updatedTodo.startDate = todoData.start_date || todo.startDate;
+        updatedTodo.endDate = todoData.end_date || todo.endDate;
         setTodos((todos) => {
-          return todoTraversal.markDirtyTodosAndDependents(todos, updatedTodoId, { startDate, endDate });
+          return todoTraversal.markDirtyTodosAndDependencies(todos, updatedTodo);
         });
         addError(error.response.data, error.response.status);
         console.log(error);
