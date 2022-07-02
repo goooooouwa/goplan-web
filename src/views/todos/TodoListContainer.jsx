@@ -5,6 +5,7 @@ import { Container, Grid, Stack, Typography } from "@mui/material";
 import { useParams } from "react-router-dom";
 import TodoActionGroup from "components/TodoActionGroup";
 import { useAPIError } from "hooks/useAPIError";
+import todoTraversal from "utils/todoTraversal";
 
 export default function TodoListContainer() {
   const params = useParams();
@@ -37,14 +38,7 @@ export default function TodoListContainer() {
       .then((response) => {
         const updatedTodo = response.data;
         setTodos((todos) => {
-          return todos.map((todo) => {
-            if (todo.id === updatedTodo.id) {
-              return updatedTodo;
-            }
-            else {
-              return todo;
-            }
-          });
+          return todoTraversal.updateTodosAndDependencies(todos, updatedTodo);
         });
       })
       .catch(function (error) {

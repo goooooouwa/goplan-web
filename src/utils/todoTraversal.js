@@ -1,30 +1,19 @@
-const markDirtyTodosAndDependents = (todos, updatedTodo) => {
-  return todos.map((todo) => {
-    if (todo.id === updatedTodo.id) {
-      todo = updatedTodo;
-    }
-    if (todo.dependents.length > 0) {
-      todo.dependents = markDirtyTodosAndDependents(todo.dependents, updatedTodo);
-    }
-    return todo;
-  });
-};
+import { cloneDeep } from "lodash";
 
-const markDirtyTodosAndDependencies = (todos, updatedTodo) => {
-  return todos.map((todo) => {
+const updateTodosAndDependencies = (todos, updatedTodo) => {
+  return cloneDeep(todos).map((todo) => {
     if (todo.id === updatedTodo.id) {
       todo = updatedTodo;
     }
-    if (todo.dependencies.length > 0) {
-      todo.dependencies = markDirtyTodosAndDependencies(todo.dependencies, updatedTodo);
+    if (todo.dependencies !== undefined && todo.dependencies.length > 0) {
+      todo.dependencies = updateTodosAndDependencies(todo.dependencies, updatedTodo);
     }
     return todo;
   });
 };
   
 const todoTraversal = {
-  markDirtyTodosAndDependents,
-  markDirtyTodosAndDependencies
+  updateTodosAndDependencies
 };
 
 export default todoTraversal;
