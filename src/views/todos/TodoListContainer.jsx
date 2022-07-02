@@ -13,7 +13,7 @@ export default function TodoListContainer() {
   const { addError } = useAPIError();
 
   useEffect(() => {
-    const url = params.projectId !== undefined ? `/todos/dependents.json?project_id=${params.projectId}` : '/todos/dependents.json';
+    const url = params.projectId !== undefined ? `/todos/dependencies.json?project_id=${params.projectId}` : '/todos/dependencies.json';
     httpService.get(url)
       .then((response) => {
         setTodos(response.data);

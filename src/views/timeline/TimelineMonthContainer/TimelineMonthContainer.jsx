@@ -13,7 +13,7 @@ import { useAPIError } from "hooks/useAPIError";
 
 export default function TimelineMonthContainer() {
   const params = useParams();
-  const todosUrl = params.projectId !== undefined ? `/todos/dependents.json?project_id=${params.projectId}` : '/todos/dependents.json';
+  const todosUrl = params.projectId !== undefined ? `/todos/dependencies.json?project_id=${params.projectId}` : '/todos/dependencies.json';
   const [searchParams, setSearchParams] = useSearchParams();
   const selectedMonth = searchParams.get("month") !== null ? moment(searchParams.get("month")) : moment().startOf("month");
   const [todos, setTodos] = useState([]);

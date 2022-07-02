@@ -13,7 +13,7 @@ import { useAPIError } from "hooks/useAPIError";
 
 export default function TimelineWeekContainer() {
   const params = useParams();
-  const todosUrl = params.projectId !== undefined ? `/todos/dependents.json?project_id=${params.projectId}` : '/todos/dependents.json';
+  const todosUrl = params.projectId !== undefined ? `/todos/dependencies.json?project_id=${params.projectId}` : '/todos/dependencies.json';
   const [searchParams, setSearchParams] = useSearchParams();
   const selectedWeek = searchParams.get("week") !== null ? moment(searchParams.get("week")) : moment().startOf("week");
   const [todos, setTodos] = useState([]);
