@@ -80,6 +80,7 @@ function App() {
             </Route>
             <Route path="timeline" element={<TimelineLayout />} >
               <Route index element={<TimelineYearContainer />} />
+              <Route path="quarter" element={<TimelineQuarterContainer />} />
               <Route path="month" element={<TimelineMonthContainer />} />
               <Route path="week" element={<TimelineWeekContainer />} />
               <Route path="day" element={<TimelineDayView />} />
