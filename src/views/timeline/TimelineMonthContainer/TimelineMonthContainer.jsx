@@ -107,7 +107,7 @@ export default function TimelineMonthContainer() {
               justifyContent="space-between"
               alignItems="center"
             >
-              <Typography variant="h3" component="div">
+              <Typography variant="h4" component="div">
                 {selectedMonth.format("MMMM, YYYY")}
               </Typography>
               <Stack

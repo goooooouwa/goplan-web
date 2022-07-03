@@ -107,7 +107,7 @@ export default function TimelineWeekContainer() {
               justifyContent="space-between"
               alignItems="center"
             >
-              <Typography variant="h3" component="div">
+              <Typography variant="h4" component="div">
                 {selectedWeek.format("MMMM, YYYY")}
               </Typography>
               <Stack

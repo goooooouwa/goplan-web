@@ -107,7 +107,7 @@ export default function TimelineQuarterContainer() {
               justifyContent="space-between"
               alignItems="center"
             >
-              <Typography variant="h3" component="div">
+              <Typography variant="h4" component="div">
                 {selectedQuarter.format("[Q]Q, YYYY")}
               </Typography>
               <Stack

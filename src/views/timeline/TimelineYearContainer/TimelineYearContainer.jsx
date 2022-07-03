@@ -108,7 +108,7 @@ export default function TimelineYearContainer() {
               justifyContent="space-between"
               alignItems="center"
             >
-              <Typography variant="h3" component="div">
+              <Typography variant="h4" component="div">
                 {selectedYear.format("YYYY")}
               </Typography>
               <Stack
