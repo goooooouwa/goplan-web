@@ -19,6 +19,7 @@ const SHARED_PROP_TYPES = {
         repeat_period: PropTypes.string,
         repeat_times: PropTypes.number,
         instanceTimeSpan: PropTypes.number.isRequired,
+        children: PropTypes.array,
         dependencies: PropTypes.array,
         dependents: PropTypes.array
     }).isRequired,

@@ -24,6 +24,8 @@ export default function NewTodoForm() {
     repeatTimes: 1,
     instanceTimeSpan: 1,
     dependencies: [],
+    newSubtask: "",
+    children: [],
   });
   const queryByProjectId = params.projectId !== undefined ? `project_id=${params.projectId}&` : '';
   const dependenciesInJSON = JSON.stringify(todo.dependencies);
@@ -87,6 +89,14 @@ export default function NewTodoForm() {
     }));
   }
 
+  function handleAddSubtask(event) {
+    setTodo((todo) => ({
+      ...todo,
+      children: [{name: todo.newSubtask}, ...todo.children],
+      newSubtask: ''
+    }));
+  }
+
   function handleSubmit(event) {
     event.preventDefault();
 
@@ -101,6 +111,7 @@ export default function NewTodoForm() {
       repeat_times: Math.round(Number(todo.repeatTimes)),
       instance_time_span: Number(todo.instanceTimeSpan),
       todo_dependencies_attributes: todo.dependencies.map((todo) => ({ todo_id: todo.id })),
+      children_attributes: todo.children.map((todo) => ({ name: todo.name })),
     };
 
     httpService.post('/todos.json', todoData)
@@ -257,6 +268,41 @@ export default function NewTodoForm() {
                 </Grid>
               </>
             )}
+            <Grid item>
+              <Typography variant="h5" gutterBottom textAlign="left">
+                Subtasks
+              </Typography>
+            </Grid>
+            <Grid container alignItems="center" justifyContent="flex-start" direction="row" columnSpacing={1}>
+              <Grid item>
+                <TextField
+                  label="Subtask"
+                  name="newSubtask"
+                  margin="normal"
+                  value={todo.newSubtask}
+                  onChange={handleChange}
+                />
+              </Grid>
+              <Grid item>
+                <FormControl margin="normal">
+                  <Button variant="contained" onClick={handleAddSubtask}>Add</Button>
+                </FormControl>
+              </Grid>
+            </Grid>
+            <Grid item>
+              <ul>
+                {todo.children
+                  .map((todo, index) => (
+                    <li key={index}>
+                      <Typography variant="body1" gutterBottom textAlign="left">
+                        {
+                          todo.name
+                        }
+                      </Typography>
+                    </li>
+                  ))}
+              </ul>
+            </Grid>
             <Grid item>
               <Typography variant="h5" gutterBottom textAlign="left">
                 Dependencies
