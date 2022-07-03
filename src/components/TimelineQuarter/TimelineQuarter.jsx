@@ -10,13 +10,13 @@ import TodoQuarterSlider from '../TodoQuarterSlider/TodoQuarterSlider';
 
 const marks = [
   {
+    value: 0,
+  },
+  {
     value: 1,
   },
   {
     value: 2,
-  },
-  {
-    value: 3,
   },
 ];
 
@@ -54,14 +54,14 @@ export default function TimelineQuarter(props) {
                     key={index}
                     component={RouterLink}
                     size="small"
-                    to={`${monthUrlPrefix}${props.selectedQuarter.clone().add(mark.value - 1, "months").format("YYYYMM")}`}
+                    to={`${monthUrlPrefix}${props.selectedQuarter.clone().add(mark.value, "months").format("YYYYMM")}`}
                     sx={{
                       fontWeight: 'bold',
                       fontSize: 16,
                       color: (isInQuarterRange(moment(), props.selectedQuarter) && (moment().month() % 3 === index)) ? 'error.main' : 'text.primary'
                     }}
                   >
-                    {`${props.selectedQuarter.clone().add(mark.value - 1, "months").startOf("month").format("MMM")}`}
+                    {`${props.selectedQuarter.clone().add(mark.value, "months").startOf("month").format("MMM")}`}
                   </IconButton>
                 </Stack>
               ))}

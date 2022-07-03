@@ -15,20 +15,20 @@ export default function TodoQuarterSlider(props) {
   const [open, setOpen] = React.useState(true);
   const marks = [
     {
-      value: 1,
+      value: 0,
       label: props.selectedQuarter.clone().startOf("quarter").format("MMM, YYYY"),
     },
     {
-      value: 2,
+      value: 1,
       label: props.selectedQuarter.clone().startOf("quarter").add(1, "months").format("MMM, YYYY"),
     },
     {
-      value: 3,
+      value: 2,
       label: props.selectedQuarter.clone().startOf("quarter").add(2, "months").format("MMM, YYYY"),
     },
   ];
-  const rangeMin = 1;
-  const rangeMax = marks.length;
+  const rangeMin = 0;
+  const rangeMax = marks.length - 1;
 
   const handleTodoExpand = () => {
     setOpen(!open);
@@ -42,7 +42,7 @@ export default function TodoQuarterSlider(props) {
       } else if (date.isAfter(props.selectedQuarter.clone().endOf("quarter"))) {
         rangeMark = rangeMax;
       } else {
-        rangeMark = date.month() % 3 + 1;
+        rangeMark = date.month() % 3;
       }
       return rangeMark;
     } else {

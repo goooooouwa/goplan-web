@@ -40,11 +40,11 @@ export default function TimelineQuarterContainer() {
     let todoData = {};
 
     if (isInQuarterRange(startDate, selectedQuarter)) {
-      todoData.start_date = startDate.month(months[0]).toISOString();
+      todoData.start_date = startDate.month((selectedQuarter.quarter() - 1) * 3 + months[0]).toISOString();
     }
 
     if (isInQuarterRange(endDate, selectedQuarter)) {
-      todoData.end_date = endDate.month(months[1]).toISOString();
+      todoData.end_date = endDate.month((selectedQuarter.quarter() - 1) * 3 + months[1]).toISOString();
     }
 
     httpService.put(`/todos/${todo.id}.json`, todoData)
