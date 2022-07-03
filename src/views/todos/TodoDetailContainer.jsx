@@ -21,7 +21,8 @@ export default function TodoDetailContainer() {
     instanceTimeSpan: "",
     status: false,
     dependencies: [],
-    dependents: []
+    dependents: [],
+    children: []
   });
   const todoListUrl = params.projectId !== undefined ? `/projects/${params.projectId}/todos` : '/todos';
   const todoEditUrl = params.projectId !== undefined ? `/projects/${params.projectId}/todos/${todo.id}/edit` : `/todos/${todo.id}/edit`;
@@ -40,7 +41,7 @@ export default function TodoDetailContainer() {
       .then(function () {
         // always executed
       });
-  }, [params.todoId]);
+  }, [params.todoId, addError]);
 
   const handleTodoChange = (event, todo) => {
     const todoData = {
@@ -90,7 +91,7 @@ export default function TodoDetailContainer() {
             </Stack>
           </Grid>
           <Grid item xs={12}>
-            <TodoDetail todo={todo} />
+            <TodoDetail todo={todo} handleTodoChange={handleTodoChange} />
           </Grid>
         </Grid>
       </Container>

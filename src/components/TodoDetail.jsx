@@ -1,7 +1,8 @@
-import { Chip, Box, Paper, Stack, Typography, Container } from "@mui/material";
+import { Chip, Box, Paper, Stack, Typography, Container, Grid } from "@mui/material";
 import moment from "moment";
 import React from "react";
 import { Link as RouterLink } from "react-router-dom";
+import TodoListItem from "./TodoListItem";
 
 export default function TodoDetail(props) {
   return (
@@ -41,6 +42,15 @@ export default function TodoDetail(props) {
               <Typography variant="body1" gutterBottom>
                 Each time: {moment.duration(props.todo.instanceTimeSpan * 3600000).humanize()}
               </Typography>
+              <Typography variant="h5" gutterBottom>
+                Subtasks:
+              </Typography>
+              <Grid container spacing={2}>
+                {props.todo.children
+                  .map((child, index) => (
+                    <TodoListItem key={index} todo={child} handleTodoChange={props.handleTodoChange} />
+                  ))}
+              </Grid>
               <Typography variant="h5" gutterBottom>
                 Dependencies:
               </Typography>
