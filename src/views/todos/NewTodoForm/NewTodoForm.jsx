@@ -92,7 +92,13 @@ export default function NewTodoForm() {
   function handleAddSubtask(event) {
     setTodo((todo) => ({
       ...todo,
-      children: [{name: todo.newSubtask}, ...todo.children],
+      children: [{
+        projectId: todo.projectId,
+        name: todo.newSubtask,
+        startDate: todo.startDate,
+        endDate: todo.endDate,
+        instanceTimeSpan: Number(todo.instanceTimeSpan),
+      }, ...todo.children],
       newSubtask: ''
     }));
   }
@@ -111,7 +117,13 @@ export default function NewTodoForm() {
       repeat_times: Math.round(Number(todo.repeatTimes)),
       instance_time_span: Number(todo.instanceTimeSpan),
       todo_dependencies_attributes: todo.dependencies.map((todo) => ({ todo_id: todo.id })),
-      children_attributes: todo.children.map((todo) => ({ name: todo.name })),
+      children_attributes: todo.children.map((child) => ({
+        project_id: child.projectId,
+        name: child.name,
+        start_date: child.startDate,
+        end_date: child.endDate,
+        instance_time_span: Number(child.instanceTimeSpan),
+      })),
     };
 
     httpService.post('/todos.json', todoData)
