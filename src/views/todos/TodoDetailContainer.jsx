@@ -10,6 +10,7 @@ import { useAPIError } from "hooks/useAPIError";
 export default function TodoDetailContainer() {
   const params = useParams();
   const [todo, setTodo] = useState({
+    id: "",
     projectId: "",
     name: "",
     description: "",
@@ -43,9 +44,29 @@ export default function TodoDetailContainer() {
       });
   }, [params.todoId, addError]);
 
-  const handleTodoChange = (event, todo) => {
+  const handleTodoChange = (event, targetTodo) => {
     const todoData = {
       status: event.target.checked,
+    };
+
+    httpService.put(`/todos/${todo.id}.json`, todoData)
+      .then((response) => {
+        setTodo(response.data);
+      })
+      .catch(function (error) {
+        addError(error.response.data, error.response.status);
+        console.log(error);
+      });
+  };
+
+  const handleSubtaskChange = (event, subtask) => {
+    const todoData = {
+      children_attributes: todo.children
+        .filter((child) => (child.id === subtask.id))
+        .map((child) => ({
+          id: child.id,
+          status: event.target.checked,
+        }))
     };
 
     httpService.put(`/todos/${todo.id}.json`, todoData)
@@ -91,7 +112,7 @@ export default function TodoDetailContainer() {
             </Stack>
           </Grid>
           <Grid item xs={12}>
-            <TodoDetail todo={todo} handleTodoChange={handleTodoChange} />
+            <TodoDetail todo={todo} handleTodoChange={handleTodoChange} handleSubtaskChange={handleSubtaskChange} />
           </Grid>
         </Grid>
       </Container>

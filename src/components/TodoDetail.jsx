@@ -48,7 +48,7 @@ export default function TodoDetail(props) {
               <Grid container spacing={2}>
                 {props.todo.children
                   .map((child, index) => (
-                    <TodoListItem key={index} todo={child} handleTodoChange={props.handleTodoChange} />
+                    <TodoListItem key={index} todo={child} handleTodoChange={props.handleSubtaskChange} />
                   ))}
               </Grid>
               <Typography variant="h5" gutterBottom>
