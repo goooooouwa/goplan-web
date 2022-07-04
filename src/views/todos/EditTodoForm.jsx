@@ -23,6 +23,8 @@ export default function EditTodoForm() {
     instanceTimeSpan: "1",
     todo_dependencies: [],
     dependencies: [],
+    newSubtask: "",
+    children: [],
   });
   const queryByProjectId = params.projectId !== undefined ? `project_id=${params.projectId}&` : '';
   const [submitted, setSubmitted] = useState(false);
@@ -32,11 +34,12 @@ export default function EditTodoForm() {
   useEffect(() => {
     httpService.get(`/todos/${params.todoId}.json`)
       .then((response) => {
-        setTodo({
+        setTodo((todo) => ({
+          ...todo,
           ...response.data,
           startDate: moment(response.data.startDate).format("YYYY-MM-DD"),
           endDate: moment(response.data.endDate).format("YYYY-MM-DD"),
-        });
+        }));
       })
       .catch(function (error) {
         setError(error.response.data);
@@ -110,6 +113,20 @@ export default function EditTodoForm() {
     }));
   }
 
+  function handleAddSubtask(event) {
+    setTodo((todo) => ({
+      ...todo,
+      children: [{
+        projectId: todo.projectId,
+        name: todo.newSubtask,
+        startDate: todo.startDate,
+        endDate: todo.endDate,
+        instanceTimeSpan: Number(todo.instanceTimeSpan),
+      }, ...todo.children],
+      newSubtask: ''
+    }));
+  }
+
   function handleChange(event) {
     setTodo((todo) => ({
       ...todo,
@@ -130,16 +147,25 @@ export default function EditTodoForm() {
       repeat_period: todo.repeatPeriod,
       repeat_times: Math.round(Number(todo.repeatTimes)),
       instance_time_span: Number(todo.instanceTimeSpan),
+      children_attributes: todo.children.map((child) => ({
+        id: child.id,
+        project_id: child.projectId,
+        name: child.name,
+        start_date: child.startDate,
+        end_date: child.endDate,
+        instance_time_span: Number(child.instanceTimeSpan),
+      })),
     };
 
     httpService.put(`/todos/${todo.id}.json`, todoData)
       .then((response) => {
         setError(null);
-        setTodo({
+        setTodo((todo) => ({
+          ...todo,
           ...response.data,
           startDate: moment(response.data.startDate).format("YYYY-MM-DD"),
           endDate: moment(response.data.endDate).format("YYYY-MM-DD"),
-        });
+        }));
       })
       .catch(function (error) {
         setError(error.response.data);
@@ -284,6 +310,41 @@ export default function EditTodoForm() {
                 </Grid>
               </>
             )}
+            <Grid item>
+              <Typography variant="h5" gutterBottom textAlign="left">
+                Subtasks
+              </Typography>
+            </Grid>
+            <Grid container alignItems="center" justifyContent="flex-start" direction="row" columnSpacing={1}>
+              <Grid item>
+                <TextField
+                  label="Subtask"
+                  name="newSubtask"
+                  margin="normal"
+                  value={todo.newSubtask}
+                  onChange={handleChange}
+                />
+              </Grid>
+              <Grid item>
+                <FormControl margin="normal">
+                  <Button variant="contained" onClick={handleAddSubtask}>Add</Button>
+                </FormControl>
+              </Grid>
+            </Grid>
+            <Grid item>
+              <ul>
+                {todo.children
+                  .map((todo, index) => (
+                    <li key={index}>
+                      <Typography variant="body1" gutterBottom textAlign="left">
+                        {
+                          todo.name
+                        }
+                      </Typography>
+                    </li>
+                  ))}
+              </ul>
+            </Grid>
             <Grid item>
               <Typography variant="h5" gutterBottom textAlign="left">
                 Dependencies
