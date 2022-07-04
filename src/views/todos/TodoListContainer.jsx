@@ -27,7 +27,7 @@ export default function TodoListContainer() {
       .then(function () {
         // always executed
       });
-  }, [params.projectId, todosInJSON]);
+  }, [params.projectId, todosInJSON, addError]);
 
   const handleTodoChange = (event, todo) => {
     const todoData = {

@@ -95,7 +95,7 @@ export default function TimelineMonthContainer() {
       .then(function () {
         // always executed
       });
-  }, [todosUrl, todosInJSON]);
+  }, [todosUrl, todosInJSON, addError]);
 
   return (
     <>

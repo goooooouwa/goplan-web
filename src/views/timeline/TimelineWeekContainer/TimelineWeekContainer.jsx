@@ -95,7 +95,7 @@ export default function TimelineWeekContainer() {
       .then(function () {
         // always executed
       });
-  }, [todosUrl, todosInJSON]);
+  }, [todosUrl, todosInJSON, addError]);
 
   return (
     <>
