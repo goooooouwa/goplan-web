@@ -129,11 +129,12 @@ export default function NewTodoForm() {
     httpService.post('/todos.json', todoData)
       .then((response) => {
         setError(null);
-        setTodo({
+        setTodo((todo) => ({
+          ...todo,
           ...response.data,
           startDate: moment(response.data.startDate).format("YYYY-MM-DD"),
           endDate: moment(response.data.endDate).format("YYYY-MM-DD"),
-        });
+        }));
       })
       .catch(function (error) {
         setError(error.response.data);
