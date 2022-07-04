@@ -5,7 +5,7 @@ import SHARED_PROP_TYPES from 'utils/sharedPropTypes';
 import TodoItem from "./TodoItem/TodoItem";
 
 export default function TodoListItem(props) {
-  const [open, setOpen] = React.useState(true);
+  const [open, setOpen] = React.useState(false);
 
   const handleTodoExpand = () => {
     setOpen(!open);
