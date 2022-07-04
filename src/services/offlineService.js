@@ -23,6 +23,7 @@ const todo1 = {
   instanceTimeSpan: 8,
   dependencies: [],
   dependents: [],
+  children: [],
 };
 
 const todo2 = {
@@ -39,6 +40,7 @@ const todo2 = {
   instanceTimeSpan: 8,
   dependencies: [],
   dependents: [],
+  children: [],
 };
 
 const todo3 = {
@@ -55,6 +57,7 @@ const todo3 = {
   instanceTimeSpan: 4,
   dependencies: [],
   dependents: [],
+  children: [],
 };
 
 const project1 = {
@@ -85,7 +88,11 @@ function seedData() {
       data: todos,
     },
     {
-      key: "/todos/dependencies.json",
+      key: "/todos/dependents.json",
+      data: todos,
+    },
+    {
+      key: "/todos/children.json",
       data: todos,
     },
     {
@@ -113,7 +120,10 @@ function setupStaticRequests(mock) {
       key: "/todos/dependencies.json",
     },
     {
-      key: "/todos/dependencies.json",
+      key: "/todos/dependents.json",
+    },
+    {
+      key: "/todos/children.json",
     },
     {
       key: "/projects.json",
@@ -199,6 +209,14 @@ function setupQueryRequests(mock) {
     },
     {
       urlRegex: /^\/todos\/dependents\.json\?project_id=\d+$/,
+      key: "/todos.json",
+      filter: (todo, config) => {
+        const project_id = config.url.match(/(\d+)/g)[0];
+        return todo.projectId === parseInt(project_id);
+      }
+    },
+    {
+      urlRegex: /^\/todos\/children\.json\?project_id=\d+$/,
       key: "/todos.json",
       filter: (todo, config) => {
         const project_id = config.url.match(/(\d+)/g)[0];
