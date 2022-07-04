@@ -51,7 +51,7 @@ export default function TimelineYearContainer() {
     httpService.put(`/todos/${todo.id}.json`, todoData)
       .then((response) => {
         setTodos((todos) => {
-          return todoTraversal.updateTodosAndDependencies(todos, response.data);
+          return todoTraversal.updateTodosAndChildren(todos, response.data);
         });
       })
       .catch(function (error) {
@@ -59,7 +59,7 @@ export default function TimelineYearContainer() {
         updatedTodo.startDate = todoData.start_date || todo.startDate;
         updatedTodo.endDate = todoData.end_date || todo.endDate;
         setTodos((todos) => {
-          return todoTraversal.updateTodosAndDependencies(todos, updatedTodo);
+          return todoTraversal.updateTodosAndChildren(todos, updatedTodo);
         });
         addError(error.response.data, error.response.status);
         console.log(error);
@@ -74,7 +74,7 @@ export default function TimelineYearContainer() {
     httpService.put(`/todos/${todo.id}.json`, todoData)
       .then((response) => {
         setTodos((todos) => {
-          return todoTraversal.updateTodosAndDependencies(todos, response.data);
+          return todoTraversal.updateTodosAndChildren(todos, response.data);
         });
       })
       .catch(function (error) {

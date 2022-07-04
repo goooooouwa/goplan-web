@@ -11,9 +11,22 @@ const updateTodosAndDependencies = (todos, updatedTodo) => {
     return todo;
   });
 };
+
+const updateTodosAndChildren = (todos, updatedTodo) => {
+  return cloneDeep(todos).map((todo) => {
+    if (todo.id === updatedTodo.id) {
+      todo = updatedTodo;
+    }
+    if (todo.children !== undefined && todo.children.length > 0) {
+      todo.children = updateTodosAndChildren(todo.children, updatedTodo);
+    }
+    return todo;
+  });
+};
   
 const todoTraversal = {
-  updateTodosAndDependencies
+  updateTodosAndDependencies,
+  updateTodosAndChildren
 };
 
 export default todoTraversal;

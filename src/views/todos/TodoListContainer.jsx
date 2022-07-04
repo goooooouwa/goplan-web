@@ -38,7 +38,7 @@ export default function TodoListContainer() {
       .then((response) => {
         const updatedTodo = response.data;
         setTodos((todos) => {
-          return todoTraversal.updateTodosAndDependencies(todos, updatedTodo);
+          return todoTraversal.updateTodosAndChildren(todos, updatedTodo);
         });
       })
       .catch(function (error) {
