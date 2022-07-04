@@ -14,7 +14,7 @@ import { cloneDeep } from "lodash";
 
 export default function TimelineMonthContainer() {
   const params = useParams();
-  const todosUrl = params.projectId !== undefined ? `/todos/dependencies.json?project_id=${params.projectId}` : '/todos/dependencies.json';
+  const todosUrl = params.projectId !== undefined ? `/todos/children.json?project_id=${params.projectId}` : '/todos/children.json';
   const [searchParams, setSearchParams] = useSearchParams();
   const selectedMonth = searchParams.get("month") !== null ? moment(searchParams.get("month")) : moment().startOf("month");
   const [todos, setTodos] = useState([]);

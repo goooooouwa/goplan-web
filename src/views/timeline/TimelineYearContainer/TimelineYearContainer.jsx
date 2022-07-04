@@ -14,7 +14,7 @@ import { cloneDeep } from "lodash";
 
 export default function TimelineYearContainer() {
   const params = useParams();
-  const todosUrl = params.projectId !== undefined ? `/todos/dependencies.json?project_id=${params.projectId}` : '/todos/dependencies.json';
+  const todosUrl = params.projectId !== undefined ? `/todos/children.json?project_id=${params.projectId}` : '/todos/children.json';
   const [searchParams, setSearchParams] = useSearchParams();
   const selectedYear = searchParams.get("year") !== null ? moment(searchParams.get("year")) : moment().startOf("year");
   const [todos, setTodos] = useState([]);

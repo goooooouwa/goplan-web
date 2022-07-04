@@ -14,7 +14,7 @@ import { cloneDeep } from "lodash";
 
 export default function TimelineWeekContainer() {
   const params = useParams();
-  const todosUrl = params.projectId !== undefined ? `/todos/dependencies.json?project_id=${params.projectId}` : '/todos/dependencies.json';
+  const todosUrl = params.projectId !== undefined ? `/todos/children.json?project_id=${params.projectId}` : '/todos/children.json';
   const [searchParams, setSearchParams] = useSearchParams();
   const selectedWeek = searchParams.get("week") !== null ? moment(searchParams.get("week")) : moment().startOf("week");
   const [todos, setTodos] = useState([]);

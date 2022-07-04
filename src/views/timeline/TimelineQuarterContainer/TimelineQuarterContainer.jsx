@@ -14,7 +14,7 @@ import { cloneDeep } from "lodash";
 
 export default function TimelineQuarterContainer() {
   const params = useParams();
-  const todosUrl = params.projectId !== undefined ? `/todos/dependencies.json?project_id=${params.projectId}` : '/todos/dependencies.json';
+  const todosUrl = params.projectId !== undefined ? `/todos/children.json?project_id=${params.projectId}` : '/todos/children.json';
   const [searchParams, setSearchParams] = useSearchParams();
   const selectedQuarter = searchParams.get("quarter") !== null ? moment(searchParams.get("quarter"), "YYYY[Q]Q") : moment().startOf("quarter");
   const [todos, setTodos] = useState([]);

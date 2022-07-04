@@ -15,11 +15,11 @@ export default function TodoListItem(props) {
       <Grid item xs={12}>
         <TodoItem todo={props.todo} handleTodoChange={props.handleTodoChange} handleTodoExpand={handleTodoExpand} />
         <Grid item xs={12} md={12}>
-          {Array.isArray(props.todo.dependencies) && props.todo.dependencies.length > 0 &&
+          {Array.isArray(props.todo.children) && props.todo.children.length > 0 &&
             <Collapse in={open} timeout="auto" unmountOnExit>
-              {props.todo.dependencies.map((dependent, index) => (
+              {props.todo.children.map((child, index) => (
                 <Grid key={index} container item xs={12} md={12}>
-                  <TodoListItem key={index} todo={dependent} handleTodoChange={props.handleTodoChange} />
+                  <TodoListItem key={index} todo={child} handleTodoChange={props.handleTodoChange} />
                 </Grid>
               ))}
             </Collapse>
