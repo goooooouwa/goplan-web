@@ -92,13 +92,15 @@ export default function NewTodoForm() {
   function handleAddSubtask(event) {
     setTodo((todo) => ({
       ...todo,
-      children: [{
-        projectId: todo.projectId,
-        name: todo.newSubtask,
-        startDate: todo.startDate,
-        endDate: todo.endDate,
-        instanceTimeSpan: Number(todo.instanceTimeSpan),
-      }, ...todo.children],
+      children: [
+        ...todo.children,
+        {
+          projectId: todo.projectId,
+          name: todo.newSubtask,
+          startDate: todo.startDate,
+          endDate: todo.startDate,
+          instanceTimeSpan: 1,
+        }],
       newSubtask: ''
     }));
   }
