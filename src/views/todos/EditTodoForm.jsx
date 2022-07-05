@@ -5,7 +5,7 @@ import httpService from "services/httpService";
 import moment from "moment";
 import React, { useCallback, useEffect, useState } from "react";
 import { Navigate, useParams } from "react-router-dom";
-import { cloneDeep, mapKeys, reduce, snakeCase, some } from "lodash";
+import { reduce } from "lodash";
 
 export default function EditTodoForm() {
   const params = useParams();
@@ -22,14 +22,13 @@ export default function EditTodoForm() {
     repeatTimes: "1",
     instanceTimeSpan: "1",
     dependencies: [],
-    newDependencies: [],
     newSubtask: "",
     children: [],
   });
   const queryByProjectId = params.projectId !== undefined ? `project_id=${params.projectId}&` : '';
   const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState(null);
-  const dependenciesInJSON = JSON.stringify(todo.newDependencies);
+  const dependenciesInJSON = JSON.stringify(todo.dependencies);
 
   useEffect(() => {
     httpService.get(`/todos/${params.todoId}.json`)
@@ -37,7 +36,6 @@ export default function EditTodoForm() {
         setTodo((todo) => ({
           ...todo,
           ...response.data,
-          newDependencies: response.data.dependencies,
           startDate: moment(response.data.startDate).format("YYYY-MM-DD"),
           endDate: moment(response.data.endDate).format("YYYY-MM-DD"),
         }));
@@ -87,7 +85,7 @@ export default function EditTodoForm() {
   function handleDependencyChange(newValue) {
     setTodo((todo) => ({
       ...todo,
-      newDependencies: newValue
+      dependencies: newValue
     }));
   }
 
@@ -119,31 +117,8 @@ export default function EditTodoForm() {
     }));
   }
 
-  function buildUpdatedDependencies(dependencies, newDependencies) {
-    let updatedDependencies = cloneDeep(dependencies);
-    updatedDependencies.map((dependency) => {
-      if (!some(newDependencies, { 'id': dependency.id })) {
-        return {
-          ...dependency,
-          _destroy: '1'
-        };
-      }
-      return dependency;
-    });
-
-    newDependencies.forEach((newDependency) => {
-      if (!some(updatedDependencies, { 'id': newDependency.id })) {
-        updatedDependencies.push(newDependency);
-      }
-    });
-
-    return updatedDependencies;
-  }
-
   function handleSubmit(event) {
     event.preventDefault();
-
-    const updatedDependencies = buildUpdatedDependencies(todo.dependencies, todo.newDependencies);
 
     const todoData = {
       project_id: todo.projectId,
@@ -155,10 +130,7 @@ export default function EditTodoForm() {
       repeat_period: todo.repeatPeriod,
       repeat_times: Math.round(Number(todo.repeatTimes)),
       instance_time_span: Number(todo.instanceTimeSpan),
-      dependents_attributes: updatedDependencies.map((dependency) => ({
-        id: dependency.id,
-        _destory: dependency._destroy
-      })),
+      dependencies_attributes: todo.dependencies.map((todo) => (todo.id)),
       children_attributes: todo.children.map((child) => ({
         id: child.id,
         project_id: child.projectId,
@@ -364,7 +336,7 @@ export default function EditTodoForm() {
             </Grid>
             <Grid item>
               <FormControl fullWidth margin="normal">
-                <TodosAutoComplete value={todo.newDependencies} label="Depended todos" onChange={handleDependencyChange} onSearch={todoSearch} />
+                <TodosAutoComplete value={todo.dependencies} label="Depended todos" onChange={handleDependencyChange} onSearch={todoSearch} />
               </FormControl>
             </Grid>
             <Grid item>
