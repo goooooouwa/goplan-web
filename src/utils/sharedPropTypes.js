@@ -12,8 +12,6 @@ const SHARED_PROP_TYPES = {
         name: PropTypes.string.isRequired,
         startDate: PropTypes.string.isRequired,
         endDate: PropTypes.string.isRequired,
-        createdAt: PropTypes.string.isRequired,
-        updatedAt: PropTypes.string.isRequired,
         description: PropTypes.string,
         repeat: PropTypes.bool,
         repeat_period: PropTypes.string,
