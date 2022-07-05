@@ -52,7 +52,7 @@ export default function TimelineMonth(props) {
               ml: 2
             }}
           >
-            Todos
+            Tasks
           </Typography>
         </Grid>
         <Grid item xs={12} md={8}>
@@ -97,7 +97,7 @@ export default function TimelineMonth(props) {
           <Grid item xs={12}>
             <Stack alignItems="center" justifyContent="center" sx={{ height: 200 }}>
               <Typography alignItems="center">
-                No todos in selected time range
+                No tasks in selected time range
               </Typography>
             </Stack>
           </Grid>

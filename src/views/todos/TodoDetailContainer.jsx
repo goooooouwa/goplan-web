@@ -107,7 +107,7 @@ export default function TodoDetailContainer() {
                 </IconButton>
               </Stack>
               <Button variant="contained" component={RouterLink} to={todoListUrl} sx={{ maxWidth: 160 }}>
-                Todos
+                Tasks
               </Button>
             </Stack>
           </Grid>

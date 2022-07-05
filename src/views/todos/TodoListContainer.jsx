@@ -58,9 +58,9 @@ export default function TodoListContainer() {
               alignItems="center"
             >
               <Typography variant="h4" component="div">
-                Todos
+                Tasks
               </Typography>
-              <TodoActionGroup activeViewTitle="Todos" />
+              <TodoActionGroup activeViewTitle="Tasks" />
             </Stack>
           </Grid>
           {todos

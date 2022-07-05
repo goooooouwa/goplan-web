@@ -23,7 +23,7 @@ const pages = [
     url: '/projects'
   },
   {
-    title: 'Todos',
+    title: 'Tasks',
     url: '/todos'
   },
   {
