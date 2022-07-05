@@ -5,7 +5,7 @@ import httpService from "services/httpService";
 import moment from "moment";
 import React, { useCallback, useEffect, useState } from "react";
 import { Navigate, useParams } from "react-router-dom";
-import { reduce, some } from "lodash";
+import { cloneDeep, mapKeys, reduce, snakeCase, some } from "lodash";
 
 export default function EditTodoForm() {
   const params = useParams();
@@ -29,7 +29,7 @@ export default function EditTodoForm() {
   const queryByProjectId = params.projectId !== undefined ? `project_id=${params.projectId}&` : '';
   const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState(null);
-  const dependenciesInJSON = JSON.stringify(todo.dependencies);
+  const dependenciesInJSON = JSON.stringify(todo.newDependencies);
 
   useEffect(() => {
     httpService.get(`/todos/${params.todoId}.json`)
@@ -119,17 +119,29 @@ export default function EditTodoForm() {
     }));
   }
 
+  function buildUpdatedDependencies(dependencies, newDependencies) {
+    let updatedDependencies = cloneDeep(dependencies);
+    updatedDependencies.map((dependency) => {
+      if (!some(newDependencies, { 'id': dependency.id })) {
+        return {
+          ...dependency,
+          _destroy: '1'
+        };
+      }
+      return dependency;
+    });
+
+    newDependencies.forEach((newDependency) => {
+      if (!some(updatedDependencies, { 'id': newDependency.id })) {
+        updatedDependencies.push(newDependency);
+      }
+    });
+
+    return updatedDependencies;
+  }
+
   function handleSubmit(event) {
     event.preventDefault();
-
-    // todo.dependencies.forEach((todo) => {
-    //   if (!some(newDependencies, { 'id': todo.id })) {
-    //     newDependencies.push({
-    //       ...todo,
-    //       _destroy: '1'
-    //     });
-    //   }
-    // });
 
     const todoData = {
       project_id: todo.projectId,
@@ -141,7 +153,7 @@ export default function EditTodoForm() {
       repeat_period: todo.repeatPeriod,
       repeat_times: Math.round(Number(todo.repeatTimes)),
       instance_time_span: Number(todo.instanceTimeSpan),
-      dependencies_attributes: todo.dependencies,
+      dependencies_attributes: buildUpdatedDependencies(todo.dependencies, todo.newDependencies),
       children_attributes: todo.children.map((child) => ({
         id: child.id,
         project_id: child.projectId,
