@@ -298,7 +298,7 @@ export default function NewTodoForm() {
               </Grid>
               <Grid item>
                 <FormControl margin="normal">
-                  <Button variant="contained" onClick={handleAddSubtask}>Add</Button>
+                  <Button variant="outlined" onClick={handleAddSubtask}>Add</Button>
                 </FormControl>
               </Grid>
             </Grid>
