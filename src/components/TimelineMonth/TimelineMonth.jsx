@@ -34,6 +34,9 @@ const marks = [
 export default function TimelineMonth(props) {
   const params = useParams();
   const weekUrlPrefix = params.projectId !== undefined ? `/projects/${params.projectId}/week?week=` : '/timeline/week?week=';
+  const todosInRange = props.todos.filter(todo => (
+    isInMonthRange(moment(todo.startDate), props.selectedMonth) || isInMonthRange(moment(todo.endDate), props.selectedMonth)
+  ));
 
   return (
     <>
@@ -87,10 +90,18 @@ export default function TimelineMonth(props) {
             </Stack>
           </Box>
         </Grid>
-        {props.todos
-          .map((todo, index) => (
-            <TodoMonthSlider key={index} todo={todo} marks={marks} selectedMonth={props.selectedMonth} handleTodoChange={props.handleTodoChange} handleWeekChange={props.handleWeekChange} />
-          ))}
+        {todosInRange.map((todo, index) => (
+          <TodoMonthSlider key={index} todo={todo} selectedMonth={props.selectedMonth} handleTodoChange={props.handleTodoChange} handleWeekChange={props.handleWeekChange} />
+        ))}
+        {todosInRange.length === 0 &&
+          <Grid item xs={12}>
+            <Stack alignItems="center" justifyContent="center" sx={{ height: 200 }}>
+              <Typography alignItems="center">
+                No todos in selected time range
+              </Typography>
+            </Stack>
+          </Grid>
+        }
       </Grid>
     </>
   );

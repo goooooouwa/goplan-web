@@ -40,6 +40,10 @@ const marks = [
 
 export default function TimelineWeek(props) {
 
+  const todosInRange = props.todos.filter(todo => (
+    isInWeekRange(moment(todo.startDate), props.selectedWeek) || isInWeekRange(moment(todo.endDate), props.selectedWeek)
+  ));
+
   return (
     <>
       <Grid container rowSpacing={1} >
@@ -89,10 +93,18 @@ export default function TimelineWeek(props) {
             </Stack>
           </Box>
         </Grid>
-        {props.todos
-          .map((todo, index) => (
-            <TodoWeekSlider key={index} todo={todo} selectedWeek={props.selectedWeek} handleTodoChange={props.handleTodoChange} handleDayChange={props.handleDayChange} />
-          ))}
+        {todosInRange.map((todo, index) => (
+          <TodoWeekSlider key={index} todo={todo} selectedWeek={props.selectedWeek} handleTodoChange={props.handleTodoChange} handleDayChange={props.handleDayChange} />
+        ))}
+        {todosInRange.length === 0 &&
+          <Grid item xs={12}>
+            <Stack alignItems="center" justifyContent="center" sx={{ height: 200 }}>
+              <Typography alignItems="center">
+                No todos in selected time range
+              </Typography>
+            </Stack>
+          </Grid>
+        }
       </Grid>
     </>
   );

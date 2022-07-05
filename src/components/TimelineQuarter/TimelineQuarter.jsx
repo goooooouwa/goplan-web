@@ -23,6 +23,9 @@ const marks = [
 export default function TimelineQuarter(props) {
   const params = useParams();
   const monthUrlPrefix = params.projectId !== undefined ? `/projects/${params.projectId}/month?month=` : '/timeline/month?month=';
+  const todosInRange = props.todos.filter(todo => (
+    isInQuarterRange(moment(todo.startDate), props.selectedQuarter) || isInQuarterRange(moment(todo.endDate), props.selectedQuarter)
+  ));
 
   return (
     <>
@@ -68,10 +71,18 @@ export default function TimelineQuarter(props) {
             </Stack>
           </Box>
         </Grid>
-        {props.todos
-          .map((todo, index) => (
-            <TodoQuarterSlider key={index} todo={todo} selectedQuarter={props.selectedQuarter} handleTodoChange={props.handleTodoChange} handleMonthChange={props.handleMonthChange} />
-          ))}
+        {todosInRange.map((todo, index) => (
+          <TodoQuarterSlider key={index} todo={todo} selectedQuarter={props.selectedQuarter} handleTodoChange={props.handleTodoChange} handleMonthChange={props.handleMonthChange} />
+        ))}
+        {todosInRange.length === 0 &&
+          <Grid item xs={12}>
+            <Stack alignItems="center" justifyContent="center" sx={{ height: 200 }}>
+              <Typography alignItems="center">
+                No todos in selected time range
+              </Typography>
+            </Stack>
+          </Grid>
+        }
       </Grid>
     </>
   );

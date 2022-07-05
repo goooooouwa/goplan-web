@@ -62,6 +62,9 @@ const marks = [
 export default function TimelineYear(props) {
   const params = useParams();
   const monthUrlPrefix = params.projectId !== undefined ? `/projects/${params.projectId}/month?month=` : '/timeline/month?month=';
+  const todosInRange = props.todos.filter(todo => (
+    isInYearRange(moment(todo.startDate), props.selectedYear) || isInYearRange(moment(todo.endDate), props.selectedYear)
+  ));
 
   return (
     <>
@@ -105,10 +108,18 @@ export default function TimelineYear(props) {
             </Stack>
           </Box>
         </Grid>
-        {props.todos
-          .map((todo, index) => (
-            <TodoYearSlider key={index} todo={todo} selectedYear={props.selectedYear} handleTodoChange={props.handleTodoChange} handleMonthChange={props.handleMonthChange} />
-          ))}
+        {todosInRange.map((todo, index) => (
+          <TodoYearSlider key={index} todo={todo} selectedYear={props.selectedYear} handleTodoChange={props.handleTodoChange} handleMonthChange={props.handleMonthChange} />
+        ))}
+        {todosInRange.length === 0 &&
+          <Grid item xs={12}>
+            <Stack alignItems="center" justifyContent="center" sx={{ height: 200 }}>
+              <Typography alignItems="center">
+                No todos in selected time range
+              </Typography>
+            </Stack>
+          </Grid>
+        }
       </Grid>
     </>
   );
