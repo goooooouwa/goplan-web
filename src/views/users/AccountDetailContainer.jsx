@@ -22,7 +22,7 @@ export default function AccountDetailContainer(props) {
         addError(error.response.data, error.response.status);
         console.log(error);
       });
-  }, []);
+  }, [addError]);
 
   return (
     <>

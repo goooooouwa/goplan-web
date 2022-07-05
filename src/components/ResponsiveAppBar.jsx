@@ -53,7 +53,7 @@ const ResponsiveAppBar = () => {
         addError(error.response.data, error.response.status);
         console.log(error);
       });
-  }, []);
+  }, [addError]);
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);

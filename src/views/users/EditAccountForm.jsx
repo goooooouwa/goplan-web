@@ -24,7 +24,7 @@ export default function EditAccountForm() {
         addError(error.response.data, error.response.status);
         console.log(error);
       });
-  }, []);
+  }, [addError]);
 
   function handleChange(event) {
     setUser((user) => ({

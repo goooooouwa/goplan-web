@@ -22,7 +22,7 @@ export default function ProjectListContainer() {
       .then(function () {
         // always executed
       });
-  }, []);
+  }, [addError]);
 
   return (
     <>

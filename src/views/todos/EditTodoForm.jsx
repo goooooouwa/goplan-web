@@ -5,7 +5,7 @@ import httpService from "services/httpService";
 import moment from "moment";
 import React, { useCallback, useEffect, useState } from "react";
 import { Navigate, useParams } from "react-router-dom";
-import { cloneDeep, reduce, some } from "lodash";
+import { reduce, some } from "lodash";
 
 export default function EditTodoForm() {
   const params = useParams();
@@ -22,6 +22,7 @@ export default function EditTodoForm() {
     repeatTimes: "1",
     instanceTimeSpan: "1",
     dependencies: [],
+    newDependencies: [],
     newSubtask: "",
     children: [],
   });
@@ -36,6 +37,7 @@ export default function EditTodoForm() {
         setTodo((todo) => ({
           ...todo,
           ...response.data,
+          newDependencies: response.data.dependencies,
           startDate: moment(response.data.startDate).format("YYYY-MM-DD"),
           endDate: moment(response.data.endDate).format("YYYY-MM-DD"),
         }));
@@ -83,19 +85,9 @@ export default function EditTodoForm() {
   }, [todo.startDate, todo.repeat, todo.repeatPeriod]);
 
   function handleDependencyChange(newValue) {
-    let newDependencies = cloneDeep(newValue);
-    todo.dependencies.forEach((todo) => {
-      if (!some(newDependencies, { 'id': todo.id })) {
-        newDependencies.push({
-          ...todo,
-          _destroy: '1'
-        });
-      }
-    });
-
     setTodo((todo) => ({
       ...todo,
-      dependencies: newDependencies
+      newDependencies: newValue
     }));
   }
 
@@ -129,6 +121,15 @@ export default function EditTodoForm() {
 
   function handleSubmit(event) {
     event.preventDefault();
+
+    // todo.dependencies.forEach((todo) => {
+    //   if (!some(newDependencies, { 'id': todo.id })) {
+    //     newDependencies.push({
+    //       ...todo,
+    //       _destroy: '1'
+    //     });
+    //   }
+    // });
 
     const todoData = {
       project_id: todo.projectId,
@@ -346,7 +347,7 @@ export default function EditTodoForm() {
             </Grid>
             <Grid item>
               <FormControl fullWidth margin="normal">
-                <TodosAutoComplete value={todo.dependencies} label="Depended todos" onChange={handleDependencyChange} onSearch={todoSearch} />
+                <TodosAutoComplete value={todo.newDependencies} label="Depended todos" onChange={handleDependencyChange} onSearch={todoSearch} />
               </FormControl>
             </Grid>
             <Grid item>
