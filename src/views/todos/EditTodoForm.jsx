@@ -143,6 +143,8 @@ export default function EditTodoForm() {
   function handleSubmit(event) {
     event.preventDefault();
 
+    const updatedDependencies = buildUpdatedDependencies(todo.dependencies, todo.newDependencies);
+
     const todoData = {
       project_id: todo.projectId,
       name: todo.name,
@@ -153,7 +155,10 @@ export default function EditTodoForm() {
       repeat_period: todo.repeatPeriod,
       repeat_times: Math.round(Number(todo.repeatTimes)),
       instance_time_span: Number(todo.instanceTimeSpan),
-      dependencies_attributes: buildUpdatedDependencies(todo.dependencies, todo.newDependencies),
+      dependents_attributes: updatedDependencies.map((dependency) => ({
+        id: dependency.id,
+        _destory: dependency._destroy
+      })),
       children_attributes: todo.children.map((child) => ({
         id: child.id,
         project_id: child.projectId,
