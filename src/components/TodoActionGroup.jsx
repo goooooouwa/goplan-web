@@ -30,7 +30,7 @@ export default function TodoActionGroup(props) {
       spacing={2}
     >
       <Button variant="contained" component={RouterLink} to={newTodoUrl} sx={{ maxWidth: 160 }}>
-        New Todo
+        New Task
       </Button>
       <Button
         variant="outlined"

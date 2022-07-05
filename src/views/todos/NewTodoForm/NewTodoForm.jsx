@@ -159,7 +159,7 @@ export default function NewTodoForm() {
         }}
       >
         <Typography variant="h3" component="div" gutterBottom>
-          New Todo
+          New Task
         </Typography>
         <form onSubmit={handleSubmit}>
           <Grid container alignItems="stretch" justifyContent="center" direction="column">
@@ -181,7 +181,7 @@ export default function NewTodoForm() {
             )}
             <Grid item>
               <TextField
-                label="Todo"
+                label="Task"
                 name="name"
                 margin="normal"
                 fullWidth
@@ -325,7 +325,7 @@ export default function NewTodoForm() {
             </Grid>
             <Grid item>
               <FormControl fullWidth margin="normal">
-                <TodosAutoComplete value={todo.dependencies} label="Depended todos" onChange={handleDependencyChange} onSearch={todoSearch} />
+                <TodosAutoComplete value={todo.dependencies} label="Depended tasks" onChange={handleDependencyChange} onSearch={todoSearch} />
               </FormControl>
             </Grid>
             <Grid item>

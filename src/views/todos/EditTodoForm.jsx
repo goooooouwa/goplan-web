@@ -174,7 +174,7 @@ export default function EditTodoForm() {
         }}
       >
         <Typography variant="h3" component="div" gutterBottom>
-          Edit Todo
+          Edit Task
         </Typography>
         <form onSubmit={handleSubmit}>
           <Grid container alignItems="stretch" justifyContent="center" direction="column">
@@ -196,7 +196,7 @@ export default function EditTodoForm() {
             )}
             <Grid item>
               <TextField
-                label="Todo"
+                label="Task"
                 name="name"
                 margin="normal"
                 fullWidth
@@ -338,7 +338,7 @@ export default function EditTodoForm() {
             </Grid>
             <Grid item>
               <FormControl fullWidth margin="normal">
-                <TodosAutoComplete value={todo.dependencies} label="Depended todos" onChange={handleDependencyChange} onSearch={todoSearch} />
+                <TodosAutoComplete value={todo.dependencies} label="Depended tasks" onChange={handleDependencyChange} onSearch={todoSearch} />
               </FormControl>
             </Grid>
             <Grid item>
