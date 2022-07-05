@@ -141,10 +141,6 @@ function setupStaticRequests(mock) {
     const response = JSON.parse(localStorage.getItem("/me.json"));
     return [200, response];
   });
-
-  mock.onPut(/\/todos\/\d+\/dependencies.json/).reply((_config) => {
-    return [200, {}];
-  });
 }
 
 function setupIdRequests(mock) {

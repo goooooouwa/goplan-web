@@ -5,7 +5,7 @@ import httpService from "services/httpService";
 import moment from "moment";
 import React, { useCallback, useEffect, useState } from "react";
 import { Navigate, useParams } from "react-router-dom";
-import { reduce } from "lodash";
+import { cloneDeep, reduce, some } from "lodash";
 
 export default function EditTodoForm() {
   const params = useParams();
@@ -21,7 +21,6 @@ export default function EditTodoForm() {
     repeatPeriod: "week",
     repeatTimes: "1",
     instanceTimeSpan: "1",
-    todo_dependencies: [],
     dependencies: [],
     newSubtask: "",
     children: [],
@@ -83,26 +82,20 @@ export default function EditTodoForm() {
     }));
   }, [todo.startDate, todo.repeat, todo.repeatPeriod]);
 
-  useEffect(() => {
-    if (todo.id !== null) {
-      const dependenciesData = {
-        dependencies_attributes: todo.dependencies.map((todo) => (todo.id)),
-      };
-
-      httpService.put(`/todos/${todo.id}/dependencies.json`, dependenciesData)
-        .then((response) => {
-        })
-        .catch(function (error) {
-          setError(error.response.data);
-          console.log(error);
-        });
-    }
-  }, [todo.id, todo.dependencies, dependenciesInJSON]);
-
   function handleDependencyChange(newValue) {
+    let newDependencies = cloneDeep(newValue);
+    todo.dependencies.forEach((todo) => {
+      if (!some(newDependencies, { 'id': todo.id })) {
+        newDependencies.push({
+          ...todo,
+          _destroy: '1'
+        });
+      }
+    });
+
     setTodo((todo) => ({
       ...todo,
-      dependencies: newValue
+      dependencies: newDependencies
     }));
   }
 
@@ -147,6 +140,7 @@ export default function EditTodoForm() {
       repeat_period: todo.repeatPeriod,
       repeat_times: Math.round(Number(todo.repeatTimes)),
       instance_time_span: Number(todo.instanceTimeSpan),
+      dependencies_attributes: todo.dependencies,
       children_attributes: todo.children.map((child) => ({
         id: child.id,
         project_id: child.projectId,
