@@ -279,6 +279,7 @@ function setupPostRequests(mock) {
           repeatTimes: todoData.repeat_times,
           instanceTimeSpan: todoData.instance_time_span,
           dependencies: dependencies,
+          children: [],
           dependents: [],
         };
       }
