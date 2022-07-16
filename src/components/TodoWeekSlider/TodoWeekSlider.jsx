@@ -97,8 +97,8 @@ export default function TodoWeekSlider(props) {
           />
         }
       </Grid>
-      {Array.isArray(props.todo.children) && props.todo.children.length > 0 &&
-        <Grid item xs={12} md={12} sx={{ml: 4}}>
+      {props.todo.children.length > 0 &&
+        <Grid item xs={12} md={12}>
           <Collapse in={open} timeout="auto" unmountOnExit>
             {props.todo.children.map((child, index) => (
               <Grid key={index} container item xs={12} md={12}>

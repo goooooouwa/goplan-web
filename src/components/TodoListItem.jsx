@@ -14,8 +14,8 @@ export default function TodoListItem(props) {
     <>
       <Grid item xs={12}>
         <TodoItem todo={props.todo} handleTodoChange={props.handleTodoChange} handleTodoExpand={handleTodoExpand} />
-        <Grid item xs={12} md={12} sx={{ml: 4}}>
-          {Array.isArray(props.todo.children) && props.todo.children.length > 0 &&
+        <Grid item xs={12}>
+          {props.todo.children.length > 0 &&
             <Collapse in={open} timeout="auto" unmountOnExit>
               {props.todo.children.map((child, index) => (
                 <Grid key={index} container item xs={12} md={12}>
