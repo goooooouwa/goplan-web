@@ -97,6 +97,10 @@ export default function EditTodoForm() {
   }
 
   function handleAddSubtask(event) {
+    if (todo.newSubtask.trim() === "") {
+      return;
+    }
+
     setTodo((todo) => ({
       ...todo,
       children: [

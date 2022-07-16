@@ -90,6 +90,10 @@ export default function NewTodoForm() {
   }
 
   function handleAddSubtask(event) {
+    if (todo.newSubtask.trim() === "") {
+      return;
+    }
+
     setTodo((todo) => ({
       ...todo,
       children: [
