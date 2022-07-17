@@ -35,7 +35,7 @@ export default function TimelineMonth(props) {
   const params = useParams();
   const weekUrlPrefix = params.projectId !== undefined ? `/projects/${params.projectId}/week?week=` : '/timeline/week?week=';
   const todosInRange = props.todos.filter(todo => (
-    isInMonthRange(moment(todo.startDate), props.selectedMonth) || isInMonthRange(moment(todo.endDate), props.selectedMonth)
+    !(moment(todo.endDate).isBefore(props.selectedMonth, 'month') || moment(todo.startDate).isAfter(props.selectedMonth, 'month'))
   ));
 
   return (

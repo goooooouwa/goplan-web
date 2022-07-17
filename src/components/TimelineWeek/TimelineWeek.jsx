@@ -41,7 +41,7 @@ const marks = [
 export default function TimelineWeek(props) {
 
   const todosInRange = props.todos.filter(todo => (
-    isInWeekRange(moment(todo.startDate), props.selectedWeek) || isInWeekRange(moment(todo.endDate), props.selectedWeek)
+    !(moment(todo.endDate).isBefore(props.selectedWeek, 'week') || moment(todo.startDate).isAfter(props.selectedWeek, 'week'))
   ));
 
   return (

@@ -24,7 +24,7 @@ export default function TimelineQuarter(props) {
   const params = useParams();
   const monthUrlPrefix = params.projectId !== undefined ? `/projects/${params.projectId}/month?month=` : '/timeline/month?month=';
   const todosInRange = props.todos.filter(todo => (
-    isInQuarterRange(moment(todo.startDate), props.selectedQuarter) || isInQuarterRange(moment(todo.endDate), props.selectedQuarter)
+    !(moment(todo.endDate).isBefore(props.selectedQuarter, 'quarter') || moment(todo.startDate).isAfter(props.selectedQuarter, 'quarter'))
   ));
 
   return (

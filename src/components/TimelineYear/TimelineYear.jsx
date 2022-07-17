@@ -63,7 +63,7 @@ export default function TimelineYear(props) {
   const params = useParams();
   const monthUrlPrefix = params.projectId !== undefined ? `/projects/${params.projectId}/month?month=` : '/timeline/month?month=';
   const todosInRange = props.todos.filter(todo => (
-    isInYearRange(moment(todo.startDate), props.selectedYear) || isInYearRange(moment(todo.endDate), props.selectedYear)
+    !(moment(todo.endDate).isBefore(props.selectedYear, 'year') || moment(todo.startDate).isAfter(props.selectedYear, 'year'))
   ));
 
   return (
