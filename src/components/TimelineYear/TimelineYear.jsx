@@ -1,12 +1,14 @@
 import { Box, Grid, IconButton, Stack, Typography } from '@mui/material';
 import isInYearRange from 'utils/rangeCheck';
 import moment from 'moment';
-import React from 'react';
+import React, { Fragment } from 'react';
 import { Link as RouterLink, useParams } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import momentPropTypes from 'react-moment-proptypes';
 import SHARED_PROP_TYPES from 'utils/sharedPropTypes';
 import TodoYearSlider from '../TodoYearSlider/TodoYearSlider';
+import ProjectYearSlider from 'components/ProjectYearSlider/ProjectYearSlider';
+import todoTraversal from 'utils/todoTraversal';
 
 const marks = [
   {
@@ -65,6 +67,7 @@ export default function TimelineYear(props) {
   const todosInRange = props.todos.filter(todo => (
     !(moment(todo.endDate).isBefore(props.selectedYear, 'year') || moment(todo.startDate).isAfter(props.selectedYear, 'year'))
   ));
+  const todosByProject = todoTraversal.groupByProject(todosInRange);
 
   return (
     <>
@@ -108,8 +111,15 @@ export default function TimelineYear(props) {
             </Stack>
           </Box>
         </Grid>
-        {todosInRange.map((todo, index) => (
-          <TodoYearSlider key={index} todo={todo} selectedYear={props.selectedYear} handleTodoChange={props.handleTodoChange} handleMonthChange={props.handleMonthChange} />
+        {Object.entries(todosByProject).map(([_, todos], index) => (
+          <Fragment key={index}>
+            {todos.length > 0 &&
+              <ProjectYearSlider project={todos[0].project} selectedYear={props.selectedYear} />
+            }
+            {todos.map((todo, index) => (
+              <TodoYearSlider key={index} todo={todo} selectedYear={props.selectedYear} handleTodoChange={props.handleTodoChange} handleMonthChange={props.handleMonthChange} />
+            ))}
+          </Fragment>
         ))}
         {todosInRange.length === 0 &&
           <Grid item xs={12}>

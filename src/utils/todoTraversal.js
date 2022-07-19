@@ -24,9 +24,17 @@ const updateTodosAndChildren = (todos, updatedTodo) => {
   });
 };
   
+const groupByProject = (todos) => {
+  return todos.reduce((projects, todo) => ({
+    ...projects,
+    [todo.project.id]: [...(projects[todo.project.id] || []), todo]
+  }), {});
+};
+
 const todoTraversal = {
   updateTodosAndDependencies,
-  updateTodosAndChildren
+  updateTodosAndChildren,
+  groupByProject,
 };
 
 export default todoTraversal;

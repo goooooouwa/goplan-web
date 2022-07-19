@@ -5,6 +5,11 @@ const SHARED_PROP_TYPES = {
         label: PropTypes.string,
         value: PropTypes.number
     })).isRequired,
+    project: PropTypes.shape({
+        id: PropTypes.number.isRequired,
+        name: PropTypes.string.isRequired,
+        targetDate: PropTypes.string,
+    }).isRequired,
     todo: PropTypes.shape({
         id: PropTypes.number.isRequired,
         projectId: PropTypes.number.isRequired,
