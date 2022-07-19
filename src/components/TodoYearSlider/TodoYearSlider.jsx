@@ -1,5 +1,5 @@
 import { Collapse, Grid } from '@mui/material';
-import isInYearRange from 'utils/rangeCheck';
+import isInYearRange, { marksForYear } from 'utils/rangeCheck';
 import moment from 'moment';
 import React from 'react';
 import PropTypes from 'prop-types';
@@ -13,58 +13,7 @@ export default function TodoYearSlider(props) {
   const startDate = (props.todo.startDate !== null) ? moment(props.todo.startDate) : moment();
   const endDate = (props.todo.endDate !== null) ? moment(props.todo.endDate) : moment();
   const [open, setOpen] = React.useState(false);
-  const marks = [
-    {
-      value: 0,
-      label: props.selectedYear.clone().startOf("year").format("MMM, YYYY"),
-    },
-    {
-      value: 1,
-      label: props.selectedYear.clone().startOf("year").add(1, "months").format("MMM, YYYY"),
-    },
-    {
-      value: 2,
-      label: props.selectedYear.clone().startOf("year").add(2, "months").format("MMM, YYYY"),
-    },
-    {
-      value: 3,
-      label: props.selectedYear.clone().startOf("year").add(3, "months").format("MMM, YYYY"),
-    },
-    {
-      value: 4,
-      label: props.selectedYear.clone().startOf("year").add(4, "months").format("MMM, YYYY"),
-    },
-    {
-      value: 5,
-      label: props.selectedYear.clone().startOf("year").add(5, "months").format("MMM, YYYY"),
-    },
-    {
-      value: 6,
-      label: props.selectedYear.clone().startOf("year").add(6, "months").format("MMM, YYYY"),
-    },
-    {
-      value: 7,
-      label: props.selectedYear.clone().startOf("year").add(7, "months").format("MMM, YYYY"),
-    },
-    {
-      value: 8,
-      label: props.selectedYear.clone().startOf("year").add(8, "months").format("MMM, YYYY"),
-    },
-    {
-      value: 9,
-      label: props.selectedYear.clone().startOf("year").add(9, "months").format("MMM, YYYY"),
-    },
-    {
-      value: 10,
-      label: props.selectedYear.clone().startOf("year").add(10, "months").format("MMM, YYYY"),
-    },
-    {
-      value: 11,
-      label: props.selectedYear.clone().startOf("year").add(11, "months").format("MMM, YYYY"),
-    },
-  ];
-  const rangeMin = 0;
-  const rangeMax = marks.length - 1;
+  const [marks, rangeMin, rangeMax] = marksForYear(props.selectedYear);
 
   const handleTodoExpand = () => {
     setOpen(!open);

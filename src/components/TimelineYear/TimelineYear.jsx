@@ -1,5 +1,5 @@
 import { Box, Grid, IconButton, Stack, Typography } from '@mui/material';
-import isInYearRange from 'utils/rangeCheck';
+import isInYearRange, { marksForYear } from 'utils/rangeCheck';
 import moment from 'moment';
 import React, { Fragment } from 'react';
 import { Link as RouterLink, useParams } from 'react-router-dom';
@@ -10,57 +10,6 @@ import TodoYearSlider from '../TodoYearSlider/TodoYearSlider';
 import ProjectYearSlider from 'components/ProjectYearSlider/ProjectYearSlider';
 import todoTraversal from 'utils/todoTraversal';
 
-const marks = [
-  {
-    value: 0,
-    label: 'Jan',
-  },
-  {
-    value: 1,
-    label: 'Feb',
-  },
-  {
-    value: 2,
-    label: 'Mar',
-  },
-  {
-    value: 3,
-    label: 'Apr',
-  },
-  {
-    value: 4,
-    label: 'May',
-  },
-  {
-    value: 5,
-    label: 'Jun',
-  },
-  {
-    value: 6,
-    label: 'Jul',
-  },
-  {
-    value: 7,
-    label: 'Aug',
-  },
-  {
-    value: 8,
-    label: 'Sep',
-  },
-  {
-    value: 9,
-    label: 'Oct',
-  },
-  {
-    value: 10,
-    label: 'Nov',
-  },
-  {
-    value: 11,
-    label: 'Dec',
-  },
-];
-
 export default function TimelineYear(props) {
   const params = useParams();
   const monthUrlPrefix = params.projectId !== undefined ? `/projects/${params.projectId}/month?month=` : '/timeline/month?month=';
@@ -68,6 +17,7 @@ export default function TimelineYear(props) {
     !(moment(todo.endDate).isBefore(props.selectedYear, 'year') || moment(todo.startDate).isAfter(props.selectedYear, 'year'))
   ));
   const todosByProject = todoTraversal.groupByProject(todosInRange);
+  const [marks] = marksForYear(props.selectedYear);
 
   return (
     <>
@@ -105,7 +55,7 @@ export default function TimelineYear(props) {
                     color: (isInYearRange(moment(), props.selectedYear) && moment().month() === index) ? 'error.main' : 'text.primary'
                   }}
                 >
-                  {mark.label}
+                  {mark.headerLabel}
                 </IconButton>
               ))}
             </Stack>
