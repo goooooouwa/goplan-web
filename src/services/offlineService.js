@@ -24,6 +24,7 @@ const todo1 = {
   dependencies: [],
   dependents: [],
   children: [],
+  parents: [],
 };
 
 const todo2 = {
@@ -41,6 +42,7 @@ const todo2 = {
   dependencies: [],
   dependents: [],
   children: [],
+  parents: [],
 };
 
 const todo3 = {
@@ -58,6 +60,7 @@ const todo3 = {
   dependencies: [],
   dependents: [],
   children: [],
+  parents: [],
 };
 
 const project1 = {
@@ -280,6 +283,7 @@ function setupPostRequests(mock) {
           instanceTimeSpan: todoData.instance_time_span,
           dependencies: dependencies,
           children: [],
+          parents: [],
           dependents: [],
         };
       }
