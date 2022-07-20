@@ -13,11 +13,13 @@ import todoTraversal from 'utils/todoTraversal';
 export default function TimelineYear(props) {
   const params = useParams();
   const monthUrlPrefix = params.projectId !== undefined ? `/projects/${params.projectId}/month?month=` : '/timeline/month?month=';
-  const todosInRange = props.todos.filter(todo => (
-    !(moment(todo.endDate).isBefore(props.selectedYear, 'year') || moment(todo.startDate).isAfter(props.selectedYear, 'year'))
-  ));
-  const todosByProject = todoTraversal.groupByProject(todosInRange);
   const [marks] = marksForYear(props.selectedYear);
+  const todosByProject = todoTraversal.groupByProject(props.todos);
+
+  const todosInRange = (todos) => (
+    todos.filter(todo => (
+      !(moment(todo.endDate).isBefore(props.selectedYear, 'year') || moment(todo.startDate).isAfter(props.selectedYear, 'year'))
+    )));
 
   return (
     <>
@@ -66,20 +68,20 @@ export default function TimelineYear(props) {
             {todos.length > 0 &&
               <ProjectYearSlider project={todos[0].project} selectedYear={props.selectedYear} />
             }
-            {todos.map((todo, index) => (
+            {todosInRange(todos).map((todo, index) => (
               <TodoYearSlider key={index} todo={todo} selectedYear={props.selectedYear} handleTodoChange={props.handleTodoChange} handleMonthChange={props.handleMonthChange} />
             ))}
+            {todosInRange(todos).length === 0 &&
+              <Grid item xs={12}>
+                <Stack alignItems="center" justifyContent="center" sx={{ height: 200 }}>
+                  <Typography alignItems="center">
+                    No tasks in selected time range
+                  </Typography>
+                </Stack>
+              </Grid>
+            }
           </Fragment>
         ))}
-        {todosInRange.length === 0 &&
-          <Grid item xs={12}>
-            <Stack alignItems="center" justifyContent="center" sx={{ height: 200 }}>
-              <Typography alignItems="center">
-                No tasks in selected time range
-              </Typography>
-            </Stack>
-          </Grid>
-        }
       </Grid>
     </>
   );
