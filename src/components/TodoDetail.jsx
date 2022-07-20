@@ -26,7 +26,7 @@ export default function TodoDetail(props) {
   const handleDestroy = () => {
     props.handleTodoDestroy(params.todoId, () => {
       setOpen(false);
-      navigate("/todos");
+      navigate(todoListUrl);
     });
   };
 
