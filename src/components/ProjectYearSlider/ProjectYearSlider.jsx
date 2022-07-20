@@ -1,4 +1,4 @@
-import { Grid, Typography } from '@mui/material';
+import { Grid, Slider, Typography } from '@mui/material';
 import moment from 'moment';
 import React from 'react';
 import momentPropTypes from 'react-moment-proptypes';
@@ -6,9 +6,17 @@ import SHARED_PROP_TYPES from 'utils/sharedPropTypes';
 import TimelineSlider from 'components/TimelineSlider/TimelineSlider';
 import { marksForYear } from 'utils/rangeCheck';
 
+function valuetext(value) {
+  return value;
+}
+
 export default function ProjectYearSlider(props) {
   const targetDate = (props.project.targetDate !== null) ? moment(props.project.targetDate) : moment(null);
   const [marks, rangeMin, rangeMax] = marksForYear(props.selectedYear);
+
+  const valueLabelFormat = (value) => {
+    return targetDate.format("MMM DD, YYYY");
+  };
 
   const rangeMark = (date) => {
     if (date.isValid()) {
@@ -39,13 +47,26 @@ export default function ProjectYearSlider(props) {
         </Typography>
       </Grid>
       <Grid item xs={12} md={8} sx={{ px: 3 }}>
-        <TimelineSlider
-          marks={marks}
-          rangeMin={rangeMin}
-          rangeMax={rangeMax}
-          rangeStart={rangeMark(targetDate)}
-          disableRangeStart={true}
-          handleChangeCommited={() => {}}
+        <Slider
+          valueLabelFormat={valueLabelFormat}
+          value={rangeMark(targetDate)}
+          getAriaValueText={valuetext}
+          valueLabelDisplay="auto"
+          step={1}
+          marks
+          min={rangeMin}
+          max={rangeMax}
+          sx={{
+            '& .MuiSlider-track': {
+              display: 'none',
+            },
+            '& .MuiSlider-thumb': {
+              color: 'error.main',
+            },
+            '& .MuiSlider-rail': {
+              color: '#bdbdbd',
+            }
+          }}
         />
       </Grid>
     </>
