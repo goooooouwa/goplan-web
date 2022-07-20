@@ -19,8 +19,10 @@ export default function TimelineSlider(props) {
   };
 
   const handleChangeCommitted = (event, newValue) => {
-    const filterRangeStart = filteredRangeValue(newValue);
-    props.handleChangeCommited([filterRangeStart, filterRangeStart]);
+    if (typeof props.handleChangeCommited === 'function') {
+      const filterRangeStart = filteredRangeValue(newValue);
+      props.handleChangeCommited([filterRangeStart, filterRangeStart]);
+    }
   };
 
   const filteredRangeValue = (newValue) => {
@@ -69,5 +71,5 @@ TimelineSlider.propTypes = {
   rangeStart: PropTypes.number.isRequired,
   disableRangeStart: PropTypes.bool,
   marks: SHARED_PROP_TYPES.marks,
-  handleChangeCommited: PropTypes.func.isRequired
+  handleChangeCommited: PropTypes.func
 };

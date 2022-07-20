@@ -4,7 +4,7 @@ import React from 'react';
 import momentPropTypes from 'react-moment-proptypes';
 import SHARED_PROP_TYPES from 'utils/sharedPropTypes';
 import TimelineSlider from 'components/TimelineSlider/TimelineSlider';
-import { marksForYear } from 'utils/rangeCheck';
+import isInYearRange, { marksForYear } from 'utils/rangeCheck';
 
 function valuetext(value) {
   return value;
@@ -50,10 +50,10 @@ export default function ProjectYearSlider(props) {
         <Slider
           valueLabelFormat={valueLabelFormat}
           value={rangeMark(targetDate)}
+          disabled={!isInYearRange(targetDate, props.selectedYear)}
           getAriaValueText={valuetext}
           valueLabelDisplay="auto"
           step={1}
-          marks
           min={rangeMin}
           max={rangeMax}
           sx={{
@@ -61,11 +61,11 @@ export default function ProjectYearSlider(props) {
               display: 'none',
             },
             '& .MuiSlider-thumb': {
-              color: 'error.main',
+              color: isInYearRange(targetDate, props.selectedYear) ? 'error.main' : 'primary',
             },
             '& .MuiSlider-rail': {
               color: '#bdbdbd',
-            }
+            },
           }}
         />
       </Grid>
