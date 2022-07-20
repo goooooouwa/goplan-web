@@ -14,6 +14,17 @@ export default function ProjectDetailContainer() {
   });
   const { addError } = useAPIError();
 
+  const handleProjectDestroy = (projectId, callback) => {
+    httpService.delete(`/projects/${projectId}.json`)
+      .then((response) => {
+        callback();
+      })
+      .catch(function (error) {
+        addError(error.response.data, error.response.status);
+        console.log(error);
+      });
+  };
+
   useEffect(() => {
     httpService.get(`/projects/${params.projectId}.json`)
       .then((response) => {
@@ -32,7 +43,7 @@ export default function ProjectDetailContainer() {
   return (
     <>
       <Box sx={{ mt: 2 }} >
-        <ProjectDetail project={project} />
+        <ProjectDetail project={project} handleProjectDestroy={handleProjectDestroy} />
       </Box>
       <Outlet />
     </>
