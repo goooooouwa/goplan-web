@@ -2,16 +2,14 @@ import TodoDetail from "components/TodoDetail";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import httpService from "services/httpService";
-import { Button, Checkbox, Container, Grid, Stack, Typography, IconButton } from "@mui/material";
-import { Link as RouterLink } from "react-router-dom";
-import EditIcon from '@mui/icons-material/Edit';
+import { Container } from "@mui/material";
 import { useAPIError } from "hooks/useAPIError";
 
 export default function TodoDetailContainer() {
   const params = useParams();
   const [todo, setTodo] = useState({
-    id: "",
-    projectId: "",
+    id: 0,
+    projectId: 0,
     name: "",
     description: "",
     startDate: "",
@@ -19,14 +17,12 @@ export default function TodoDetailContainer() {
     repeat: false,
     repeatPeriod: "",
     repeatTimes: 0,
-    instanceTimeSpan: "",
+    instanceTimeSpan: 1,
     status: false,
     dependencies: [],
     dependents: [],
     children: []
   });
-  const todoListUrl = params.projectId !== undefined ? `/projects/${params.projectId}/todos` : '/todos';
-  const todoEditUrl = params.projectId !== undefined ? `/projects/${params.projectId}/todos/${todo.id}/edit` : `/todos/${todo.id}/edit`;
   const { addError } = useAPIError();
 
   useEffect(() => {
@@ -43,6 +39,17 @@ export default function TodoDetailContainer() {
         // always executed
       });
   }, [params.todoId, addError]);
+
+  const handleTodoDestroy = (todoId, callback) => {
+    httpService.delete(`/todos/${todoId}.json`)
+      .then((response) => {
+        callback();
+      })
+      .catch(function (error) {
+        addError(error.response.data, error.response.status);
+        console.log(error);
+      });
+  };
 
   const handleTodoChange = (event, targetTodo) => {
     const todoData = {
@@ -82,39 +89,7 @@ export default function TodoDetailContainer() {
   return (
     <>
       <Container sx={{ mt: 2 }}>
-        <Grid container spacing={2}>
-          <Grid item xs={12}>
-            <Stack
-              direction="row"
-              justifyContent="space-between"
-              alignItems="center"
-            >
-              <Stack
-                direction="row"
-                justifyContent="space-between"
-                alignItems="center"
-              >
-                <Checkbox
-                  checked={todo.status}
-                  onChange={(event) => { handleTodoChange(event, todo) }}
-                  inputProps={{ 'aria-label': 'controlled' }}
-                />
-                <Typography variant="h4" component="div">
-                  {todo.name}
-                </Typography>
-                <IconButton component={RouterLink} to={todoEditUrl} sx={{ maxWidth: 160 }}>
-                  <EditIcon />
-                </IconButton>
-              </Stack>
-              <Button variant="contained" component={RouterLink} to={todoListUrl} sx={{ maxWidth: 160 }}>
-                Tasks
-              </Button>
-            </Stack>
-          </Grid>
-          <Grid item xs={12}>
-            <TodoDetail todo={todo} handleTodoChange={handleTodoChange} handleSubtaskChange={handleSubtaskChange} />
-          </Grid>
-        </Grid>
+        <TodoDetail todo={todo} handleTodoChange={handleTodoChange} handleSubtaskChange={handleSubtaskChange} handleTodoDestroy={handleTodoDestroy} />
       </Container>
     </>
   );
