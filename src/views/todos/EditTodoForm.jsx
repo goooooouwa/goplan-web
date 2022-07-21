@@ -6,8 +6,10 @@ import moment from "moment";
 import React, { useCallback, useEffect, useState } from "react";
 import { Navigate, useParams } from "react-router-dom";
 import { reduce } from "lodash";
+import { useTranslation } from 'react-i18next';
 
 export default function EditTodoForm() {
+  const { t, i18n } = useTranslation();
   const params = useParams();
   const [todo, setTodo] = useState({
     id: null,
@@ -194,13 +196,13 @@ export default function EditTodoForm() {
             {(params.projectId === undefined) && (
               <Grid item>
                 <FormControl fullWidth margin="normal">
-                  <ProjectAutoComplete value={todo.project} label="Project" onChange={handleProjectChange} onSearch={projectSearch} />
+                  <ProjectAutoComplete value={todo.project} label={t("Project")} onChange={handleProjectChange} onSearch={projectSearch} />
                 </FormControl>
               </Grid>
             )}
             <Grid item>
               <TextField
-                label="Task"
+                label={t("Task")}
                 name="name"
                 margin="normal"
                 fullWidth
@@ -211,7 +213,7 @@ export default function EditTodoForm() {
             </Grid>
             <Grid item>
               <TextField
-                label="Description"
+                label={t("Description")}
                 name="description"
                 margin="normal"
                 fullWidth
@@ -223,7 +225,7 @@ export default function EditTodoForm() {
             </Grid>
             <Grid item>
               <Typography variant="body1" gutterBottom textAlign="left">
-                How long would it take each time?
+                {t('How long would it take each time?')}
               </Typography>
             </Grid>
             <Grid item container xs={12} spacing={2}>
@@ -235,13 +237,13 @@ export default function EditTodoForm() {
                   value={todo.instanceTimeSpan}
                   onChange={handleChange}
                   InputProps={{
-                    endAdornment: <InputAdornment position="start">hours</InputAdornment>,
+                    endAdornment: <InputAdornment position="start">{t('hours')}</InputAdornment>,
                   }}
                 />
               </Grid>
             </Grid>
             <Grid item>
-              <label>Start Date
+              <label>{t('Start Date')}
                 <input
                   type="date"
                   name="startDate"
@@ -253,7 +255,7 @@ export default function EditTodoForm() {
             </Grid>
             <Grid item>
               <FormControl margin="normal" fullWidth>
-                <FormControlLabel control={<Switch name="repeat" onChange={handleCheck} checked={todo.repeat} />} label="Take more than 1 day?" />
+                <FormControlLabel control={<Switch name="repeat" onChange={handleCheck} checked={todo.repeat} />} label={t("Take more than 1 day?")} />
               </FormControl>
             </Grid>
             {todo.repeat && (
@@ -261,7 +263,7 @@ export default function EditTodoForm() {
                 <Grid item container xs={12} spacing={2}>
                   <Grid item xs={6}>
                     <TextField
-                      label="Times"
+                      label={t('Times')}
                       name="repeatTimes"
                       margin="normal"
                       fullWidth
@@ -271,10 +273,10 @@ export default function EditTodoForm() {
                   </Grid>
                   <Grid item xs={6}>
                     <FormControl margin="normal" fullWidth>
-                      <InputLabel>Per</InputLabel>
+                      <InputLabel>{t('Per')}</InputLabel>
                       <Select
                         name="repeatPeriod"
-                        label="Per"
+                        label={t('Per')}
                         value={todo.repeatPeriod}
                         onChange={handleChange}
                       >
@@ -288,7 +290,7 @@ export default function EditTodoForm() {
                   </Grid>
                 </Grid>
                 <Grid item>
-                  <label>End Date
+                  <label>{t('End Date')}
                     <input
                       type="date"
                       name="endDate"
@@ -302,13 +304,13 @@ export default function EditTodoForm() {
             )}
             <Grid item>
               <Typography variant="h5" gutterBottom textAlign="left">
-                Subtasks
+                {t('Subtasks')}
               </Typography>
             </Grid>
             <Grid container alignItems="center" justifyContent="flex-start" direction="row" columnSpacing={1}>
               <Grid item>
                 <TextField
-                  label="Subtask"
+                  label={t('Subtask')}
                   name="newSubtask"
                   margin="normal"
                   value={todo.newSubtask}
@@ -317,7 +319,7 @@ export default function EditTodoForm() {
               </Grid>
               <Grid item>
                 <FormControl margin="normal">
-                  <Button variant="outlined" onClick={handleAddSubtask}>Add</Button>
+                  <Button variant="outlined" onClick={handleAddSubtask}>{t('Add')}</Button>
                 </FormControl>
               </Grid>
             </Grid>
@@ -337,12 +339,12 @@ export default function EditTodoForm() {
             </Grid>
             <Grid item>
               <Typography variant="h5" gutterBottom textAlign="left">
-                Dependencies
+                {t('Dependencies')}
               </Typography>
             </Grid>
             <Grid item>
               <FormControl fullWidth margin="normal">
-                <TodosAutoComplete value={todo.dependencies} label="Depended tasks" onChange={handleDependencyChange} onSearch={todoSearch} />
+                <TodosAutoComplete value={todo.dependencies} label={t("Depended tasks")} onChange={handleDependencyChange} onSearch={todoSearch} />
               </FormControl>
             </Grid>
             <Grid item>

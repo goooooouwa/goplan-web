@@ -116,7 +116,7 @@ export default function TodoDetail(props) {
                         {t('Repeating interval')}
                       </Typography>
                       <Typography variant="body1" gutterBottom>
-                        {t('Interval: ')}{props.todo.repeatTimes}{t(' times per ')}{props.todo.repeatPeriod}
+                        {t('Interval: ')}{props.todo.repeatTimes}{t(' times per ')}{t(props.todo.repeatPeriod)}
                       </Typography>
                     </>
                   )}
@@ -124,7 +124,7 @@ export default function TodoDetail(props) {
                     {t('Each time: ')}{moment.duration(props.todo.instanceTimeSpan * 3600000).humanize()}
                   </Typography>
                   <Typography variant="h5" gutterBottom>
-                    {t('Subtasks:')}
+                    {t('Subtasks_')}
                   </Typography>
                   <Grid container spacing={2}>
                     {props.todo.children
@@ -133,7 +133,7 @@ export default function TodoDetail(props) {
                       ))}
                   </Grid>
                   <Typography variant="h5" gutterBottom>
-                    {t('Dependencies:')}
+                    {t('Dependencies_')}
                   </Typography>
                   <Stack justifyContent="center" spacing={1}>
                     {props.todo.dependencies.map((dependency, index) => (
@@ -141,7 +141,7 @@ export default function TodoDetail(props) {
                     ))}
                   </Stack>
                   <Typography variant="h5" gutterBottom>
-                    {t('Dependents:')}
+                    {t('Dependents_')}
                   </Typography>
                   <Stack justifyContent="center" spacing={1}>
                     {props.todo.dependents.map((dependent, index) => (
