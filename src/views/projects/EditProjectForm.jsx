@@ -73,7 +73,7 @@ export default function EditProjectForm() {
         }}
       >
         <Typography variant="h3" component="div" gutterBottom>
-          Edit Goal
+          {t('Edit Goal')}
         </Typography>
         <form onSubmit={handleSubmit}>
           <Grid container alignItems="stretch" justifyContent="center" direction="column">

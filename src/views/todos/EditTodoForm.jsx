@@ -178,7 +178,7 @@ export default function EditTodoForm() {
         }}
       >
         <Typography variant="h3" component="div" gutterBottom>
-          Edit Task
+          {t('Edit Task')}
         </Typography>
         <form onSubmit={handleSubmit}>
           <Grid container alignItems="stretch" justifyContent="center" direction="column">

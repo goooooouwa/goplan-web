@@ -77,7 +77,7 @@ export default function EditAccountForm() {
         }}
       >
         <Typography variant="h3" component="div" gutterBottom>
-          Edit Account
+          {t('Edit Account')}
         </Typography>
         <form onSubmit={handleSubmit}>
           <Grid container alignItems="stretch" justifyContent="center" direction="column">

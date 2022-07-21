@@ -46,7 +46,7 @@ export default function AccountDetailContainer(props) {
                 </Typography>
               </Stack>
               <Button variant="contained" component={RouterLink} to='/account/edit' sx={{ maxWidth: 160 }}>
-                Edit Account
+                {t('Edit Account')}
               </Button>
             </Stack>
           </Grid>
