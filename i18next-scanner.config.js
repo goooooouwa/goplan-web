@@ -21,7 +21,7 @@ module.exports = {
             i18nKey: 'i18nKey',
             defaultsKey: 'defaults',
             extensions: ['.js', '.jsx'],
-            fallbackKey: function(ns, value) {
+            fallbackKey: function (ns, value) {
                 return value;
             },
 
@@ -35,14 +35,14 @@ module.exports = {
                 sourceType: 'module', // defaults to 'module'
             }
         },
-        lngs: ['en','cn'],
+        lngs: ['en-US', 'zh-CN'],
         ns: [
             'translation',
         ],
-        defaultLng: 'en',
+        defaultLng: 'en-US',
         defaultNs: 'translation',
         defaultValue: (lng, ns, key) => {
-            if (lng === 'en') {
+            if (lng === 'en-US') {
                 return key; // Use key as value for base language
             }
             return '__STRING_NOT_TRANSLATED__'; // Return empty string for other languages

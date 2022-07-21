@@ -54,6 +54,6 @@
   "Dependencies": "Dependencies",
   "Depended tasks": "Depended tasks",
   "List": "List",
-  "cn": "Chinese",
-  "en": "English"
+  "zh-CN": "Chinese",
+  "en-US": "English"
 }

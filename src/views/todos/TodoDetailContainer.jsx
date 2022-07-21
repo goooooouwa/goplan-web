@@ -21,7 +21,8 @@ export default function TodoDetailContainer() {
     status: false,
     dependencies: [],
     dependents: [],
-    children: []
+    children: [],
+    parents: []
   });
   const { addError } = useAPIError();
 

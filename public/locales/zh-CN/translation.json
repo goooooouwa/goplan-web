@@ -54,6 +54,6 @@
   "Dependencies": "前置任务",
   "Depended tasks": "后置任务",
   "List": "列表",
-  "cn": "中文",
-  "en": "英语"
+  "zh-CN": "中文",
+  "en-US": "英语"
 }
