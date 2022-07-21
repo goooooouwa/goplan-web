@@ -1,7 +1,7 @@
 {
     "Goals": "目标",
     "Account": "账号",
-    "Logout": "登出",
+    "Logout": "退出",
     "Tasks": "任务",
     "Year": "年",
     "Quarter": "季度",
@@ -15,6 +15,7 @@
     "Time schedule": "时间安排",
     "Start date: ": "开始日期：",
     "End date: ": "结束日期：",
+    "Email": "邮箱",
     "Repeating interval": "重复",
     "Indefinitely": "无期限"
 }

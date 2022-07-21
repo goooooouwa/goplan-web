@@ -1,10 +1,12 @@
-import { Button, Container, FormControl, Grid, TextField, Typography } from "@mui/material";
+import { Button, Container, FormControl, Grid, Select, MenuItem, InputLabel, TextField, Typography } from "@mui/material";
 import httpService from "services/httpService";
 import React, { useEffect, useState } from "react";
 import { Navigate } from "react-router-dom";
 import { useAPIError } from "hooks/useAPIError";
+import { useTranslation } from 'react-i18next';
 
 export default function EditAccountForm() {
+  const { t, i18n } = useTranslation();
   const [user, setUser] = useState({
     id: null,
     name: "",
@@ -14,6 +16,7 @@ export default function EditAccountForm() {
   const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState(null);
   const { addError } = useAPIError();
+  const [preferedlanguage, setPreferedlanguage] = useState(i18n.language);
 
   useEffect(() => {
     httpService.get('/me.json')
@@ -31,6 +34,13 @@ export default function EditAccountForm() {
       ...user,
       [event.target.name]: event.target.value
     }));
+  }
+
+  function handleLanguageChange(event) {
+    i18n.changeLanguage(event.target.value)
+      .then((t) => {
+        setPreferedlanguage(event.target.value)
+      });
   }
 
   function handleSubmit(event) {
@@ -91,6 +101,20 @@ export default function EditAccountForm() {
                 value={user.imageUrl || ''}
                 onChange={handleChange}
               />
+            </Grid>
+            <Grid item>
+              <FormControl margin="normal" fullWidth>
+                <InputLabel>{t('Prefered language')}</InputLabel>
+                <Select
+                  name="preferedlanguage"
+                  label="Prefered language"
+                  value={preferedlanguage}
+                  onChange={handleLanguageChange}
+                >
+                  <MenuItem value="en">English</MenuItem>
+                  <MenuItem value="cn">中文</MenuItem>
+                </Select>
+              </FormControl>
             </Grid>
             <Grid item>
               <FormControl margin="normal">

@@ -3,8 +3,10 @@ import React, { useEffect, useState } from "react";
 import { Button, Container, Grid, Stack, Typography, Box, Paper } from "@mui/material";
 import { Link as RouterLink } from "react-router-dom";
 import { useAPIError } from "hooks/useAPIError";
+import { useTranslation } from 'react-i18next';
 
 export default function AccountDetailContainer(props) {
+  const { t, i18n } = useTranslation();
   const [user, setUser] = useState({
     id: null,
     name: "",
@@ -54,15 +56,21 @@ export default function AccountDetailContainer(props) {
                 <Container maxWidth="sm">
                   <Stack spacing={2} alignItems="flex-start" sx={{ m: 2 }}>
                     <Typography variant="h5" gutterBottom>
-                      Email
+                      {t('Email')}
                     </Typography>
                     <Typography variant="body1" gutterBottom textAlign="left" >
                       {user.email}
                     </Typography>
                     <Typography variant="h5" gutterBottom>
-                      Profile Image
+                      {t('Profile Image')}
                     </Typography>
                     <img alt={`${user.name}`} src={user.imageUrl} />
+                    <Typography variant="h5" gutterBottom>
+                      {t('Prefered Language')}
+                    </Typography>
+                    <Typography variant="body1" gutterBottom textAlign="left" >
+                      {t(i18n.language)}
+                    </Typography>
                   </Stack>
                 </Container>
               </Paper>
