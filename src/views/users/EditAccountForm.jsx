@@ -104,10 +104,10 @@ export default function EditAccountForm() {
             </Grid>
             <Grid item>
               <FormControl margin="normal" fullWidth>
-                <InputLabel>{t('Prefered language')}</InputLabel>
+                <InputLabel>{t('Prefered Language')}</InputLabel>
                 <Select
                   name="preferedlanguage"
-                  label="Prefered language"
+                  label="Prefered Language"
                   value={preferedlanguage}
                   onChange={handleLanguageChange}
                 >
