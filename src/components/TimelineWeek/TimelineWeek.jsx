@@ -6,6 +6,7 @@ import PropTypes from 'prop-types';
 import momentPropTypes from 'react-moment-proptypes';
 import TodoWeekSlider from '../TodoWeekSlider/TodoWeekSlider';
 import SHARED_PROP_TYPES from 'utils/sharedPropTypes';
+import { useTranslation } from 'react-i18next';
 
 const marks = [
   {
@@ -39,6 +40,7 @@ const marks = [
 ];
 
 export default function TimelineWeek(props) {
+  const { t, i18n } = useTranslation();
 
   const todosInRange = props.todos.filter(todo => (
     !(moment(todo.endDate).isBefore(props.selectedWeek, 'week') || moment(todo.startDate).isAfter(props.selectedWeek, 'week'))
@@ -58,7 +60,7 @@ export default function TimelineWeek(props) {
               ml: 2
             }}
           >
-            Tasks
+            {t('Tasks')}
           </Typography>
         </Grid>
         <Grid item xs={12} md={8}>
@@ -100,7 +102,7 @@ export default function TimelineWeek(props) {
           <Grid item xs={12}>
             <Stack alignItems="center" justifyContent="center" sx={{ height: 200 }}>
               <Typography alignItems="center">
-                No tasks in selected time range
+                {t('No tasks in selected time range')}
               </Typography>
             </Stack>
           </Grid>

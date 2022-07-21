@@ -7,6 +7,7 @@ import PropTypes from 'prop-types';
 import momentPropTypes from 'react-moment-proptypes';
 import SHARED_PROP_TYPES from 'utils/sharedPropTypes';
 import TodoQuarterSlider from '../TodoQuarterSlider/TodoQuarterSlider';
+import { useTranslation } from 'react-i18next';
 
 const marks = [
   {
@@ -21,6 +22,7 @@ const marks = [
 ];
 
 export default function TimelineQuarter(props) {
+  const { t, i18n } = useTranslation();
   const params = useParams();
   const monthUrlPrefix = params.projectId !== undefined ? `/projects/${params.projectId}/month?month=` : '/timeline/month?month=';
   const todosInRange = props.todos.filter(todo => (
@@ -41,7 +43,7 @@ export default function TimelineQuarter(props) {
               ml: 2
             }}
           >
-            Tasks
+            {t('Tasks')}
           </Typography>
         </Grid>
         <Grid item xs={12} md={8}>
@@ -78,7 +80,7 @@ export default function TimelineQuarter(props) {
           <Grid item xs={12}>
             <Stack alignItems="center" justifyContent="center" sx={{ height: 200 }}>
               <Typography alignItems="center">
-                No tasks in selected time range
+                {t('No tasks in selected time range')}
               </Typography>
             </Stack>
           </Grid>

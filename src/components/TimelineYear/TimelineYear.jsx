@@ -9,8 +9,10 @@ import SHARED_PROP_TYPES from 'utils/sharedPropTypes';
 import TodoYearSlider from '../TodoYearSlider/TodoYearSlider';
 import ProjectYearSlider from 'components/ProjectYearSlider/ProjectYearSlider';
 import todoTraversal from 'utils/todoTraversal';
+import { useTranslation } from 'react-i18next';
 
 export default function TimelineYear(props) {
+  const { t, i18n } = useTranslation();
   const params = useParams();
   const monthUrlPrefix = params.projectId !== undefined ? `/projects/${params.projectId}/month?month=` : '/timeline/month?month=';
   const [marks] = marksForYear(props.selectedYear);
@@ -35,7 +37,7 @@ export default function TimelineYear(props) {
               ml: 2
             }}
           >
-            Tasks
+            {t('Tasks')}
           </Typography>
         </Grid>
         <Grid item xs={12} md={8}>
@@ -75,7 +77,7 @@ export default function TimelineYear(props) {
               <Grid item xs={12}>
                 <Stack alignItems="center" justifyContent="center" sx={{ height: 200 }}>
                   <Typography alignItems="center">
-                    No tasks in selected time range
+                    {t('No tasks in selected time range')}
                   </Typography>
                 </Stack>
               </Grid>
