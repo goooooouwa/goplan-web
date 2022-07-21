@@ -3,14 +3,15 @@ import moment from 'moment';
 import React from 'react';
 import momentPropTypes from 'react-moment-proptypes';
 import SHARED_PROP_TYPES from 'utils/sharedPropTypes';
-import TimelineSlider from 'components/TimelineSlider/TimelineSlider';
 import isInYearRange, { marksForYear } from 'utils/rangeCheck';
+import { useTranslation } from 'react-i18next';
 
 function valuetext(value) {
   return value;
 }
 
 export default function ProjectYearSlider(props) {
+  const { t, i18n } = useTranslation();
   const targetDate = (props.project.targetDate !== null) ? moment(props.project.targetDate) : moment(null);
   const [marks, rangeMin, rangeMax] = marksForYear(props.selectedYear);
 
@@ -43,7 +44,7 @@ export default function ProjectYearSlider(props) {
             color: 'text.secondary'
           }}
         >
-          Goal: {props.project.name}
+          {t('Goal: ')}{props.project.name}
         </Typography>
       </Grid>
       <Grid item xs={12} md={8} sx={{ px: 3 }}>

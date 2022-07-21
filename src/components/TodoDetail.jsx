@@ -7,8 +7,10 @@ import SHARED_PROP_TYPES from "utils/sharedPropTypes";
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import TodoListItem from "./TodoListItem";
+import { useTranslation } from 'react-i18next';
 
 export default function TodoDetail(props) {
+  const { t, i18n } = useTranslation();
   const params = useParams();
   const navigate = useNavigate();
   const [open, setOpen] = React.useState(false);
@@ -73,15 +75,15 @@ export default function TodoDetail(props) {
                   </DialogContentText>
                 </DialogContent>
                 <DialogActions>
-                  <Button onClick={handleClose}>Cancel</Button>
+                  <Button onClick={handleClose}>{t('Cancel')}</Button>
                   <Button onClick={handleDestroy} color={'error'} autoFocus>
-                    Confirm
+                    {t('Confirm')}
                   </Button>
                 </DialogActions>
               </Dialog>
             </Stack>
             <Button variant="contained" component={RouterLink} to={todoListUrl} sx={{ maxWidth: 160 }}>
-              Tasks
+              {t('Tasks')}
             </Button>
           </Stack>
         </Grid>
@@ -91,38 +93,38 @@ export default function TodoDetail(props) {
               <Container maxWidth="sm">
                 <Stack spacing={2} alignItems="flex-start" sx={{ m: 2 }}>
                   <Typography variant="h5" gutterBottom>
-                    Description
+                    {t('Description')}
                   </Typography>
                   <Typography variant="body1" gutterBottom textAlign="left" >
                     {props.todo.description}
                   </Typography>
                   <Typography variant="h5" gutterBottom>
-                    Time schedule
+                    {t('Time schedule')}
                   </Typography>
                   <Typography variant="body1" gutterBottom>
-                    Start date: {(props.todo.startDate !== null) ? moment(props.todo.startDate).format("YYYY-MM-DD") : ""}
+                    {t('Start date: ')}{(props.todo.startDate !== null) ? moment(props.todo.startDate).format("YYYY-MM-DD") : ""}
                   </Typography>
                   <Typography variant="body1" gutterBottom>
-                    End date: {(props.todo.startDate !== null) ? moment(props.todo.endDate).format("YYYY-MM-DD") : ""}
+                    {t('End date: ')}{(props.todo.startDate !== null) ? moment(props.todo.endDate).format("YYYY-MM-DD") : ""}
                   </Typography>
                   {props.todo.repeat && (
                     <>
                       <Typography variant="body1" gutterBottom>
-                        Time span: {moment(props.todo.startDate).isValid() && moment(props.todo.endDate).isValid() ? moment.duration(moment(props.todo.startDate).diff(moment(props.todo.endDate))).humanize() : 0}
+                        {t('Time span: ')}{moment(props.todo.startDate).isValid() && moment(props.todo.endDate).isValid() ? moment.duration(moment(props.todo.startDate).diff(moment(props.todo.endDate))).humanize() : 0}
                       </Typography>
                       <Typography variant="h5" gutterBottom>
-                        Repeating interval
+                        {t('Repeating interval')}
                       </Typography>
                       <Typography variant="body1" gutterBottom>
-                        Interval: {props.todo.repeatTimes} times per {props.todo.repeatPeriod}
+                        {t('Interval: ')}{props.todo.repeatTimes}{t(' times per ')}{props.todo.repeatPeriod}
                       </Typography>
                     </>
                   )}
                   <Typography variant="body1" gutterBottom>
-                    Each time: {moment.duration(props.todo.instanceTimeSpan * 3600000).humanize()}
+                    {t('Each time: ')}{moment.duration(props.todo.instanceTimeSpan * 3600000).humanize()}
                   </Typography>
                   <Typography variant="h5" gutterBottom>
-                    Subtasks:
+                    {t('Subtasks:')}
                   </Typography>
                   <Grid container spacing={2}>
                     {props.todo.children
@@ -131,7 +133,7 @@ export default function TodoDetail(props) {
                       ))}
                   </Grid>
                   <Typography variant="h5" gutterBottom>
-                    Dependencies:
+                    {t('Dependencies:')}
                   </Typography>
                   <Stack justifyContent="center" spacing={1}>
                     {props.todo.dependencies.map((dependency, index) => (
@@ -139,7 +141,7 @@ export default function TodoDetail(props) {
                     ))}
                   </Stack>
                   <Typography variant="h5" gutterBottom>
-                    Dependents:
+                    {t('Dependents:')}
                   </Typography>
                   <Stack justifyContent="center" spacing={1}>
                     {props.todo.dependents.map((dependent, index) => (

@@ -6,8 +6,10 @@ import { useParams } from "react-router-dom";
 import TodoActionGroup from "components/TodoActionGroup";
 import { useAPIError } from "hooks/useAPIError";
 import todoTraversal from "utils/todoTraversal";
+import { useTranslation } from 'react-i18next';
 
 export default function TodoListContainer() {
+  const { t, i18n } = useTranslation();
   const params = useParams();
   const [todos, setTodos] = useState([]);
   const todosInJSON = JSON.stringify(todos);
@@ -58,7 +60,7 @@ export default function TodoListContainer() {
               alignItems="center"
             >
               <Typography variant="h4" component="div">
-                Tasks
+                {t('Tasks')}
               </Typography>
               <TodoActionGroup activeViewTitle="Tasks" />
             </Stack>

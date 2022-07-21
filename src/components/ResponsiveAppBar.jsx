@@ -16,25 +16,26 @@ import { useEffect, useState } from 'react';
 import httpService from 'services/httpService';
 import { Avatar } from '@mui/material';
 import { useAPIError } from 'hooks/useAPIError';
-
-const pages = [
-  {
-    title: 'Goals',
-    url: '/projects'
-  },
-  {
-    title: 'Tasks',
-    url: '/todos'
-  },
-  {
-    title: 'Timeline',
-    url: '/timeline'
-  },
-];
+import { useTranslation } from 'react-i18next';
 
 const ResponsiveAppBar = () => {
+  const { t, i18n } = useTranslation();
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
+  const pages = [
+    {
+      title: t('Goals'),
+      url: '/projects'
+    },
+    {
+      title: t('Tasks'),
+      url: '/todos'
+    },
+    {
+      title: t('Timeline'),
+      url: '/timeline'
+    },
+  ];
   const [user, setUser] = useState({
     id: null,
     name: "",
@@ -195,12 +196,12 @@ const ResponsiveAppBar = () => {
             >
               {localStorage.getItem("access_token") !== null &&
                 <MenuItem component={RouterLink} to='/account' onClick={handleCloseUserMenu}>
-                  <Typography textAlign="center">Account</Typography>
+                  <Typography textAlign="center">{t('Account')}</Typography>
                 </MenuItem>
               }
               {localStorage.getItem("access_token") !== null &&
                 <MenuItem onClick={handleLogout}>
-                  <Typography textAlign="center">Logout</Typography>
+                  <Typography textAlign="center">{t('Logout')}</Typography>
                 </MenuItem>
               }
             </Menu>

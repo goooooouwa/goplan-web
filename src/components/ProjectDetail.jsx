@@ -6,8 +6,10 @@ import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import moment from "moment";
 import SHARED_PROP_TYPES from "utils/sharedPropTypes";
+import { useTranslation } from 'react-i18next';
 
 export default function ProjectDetail(props) {
+  const { t, i18n } = useTranslation();
   const params = useParams();
   const navigate = useNavigate();
   const [open, setOpen] = React.useState(false);
@@ -61,16 +63,16 @@ export default function ProjectDetail(props) {
               </DialogContentText>
             </DialogContent>
             <DialogActions>
-              <Button onClick={handleClose}>Cancel</Button>
+              <Button onClick={handleClose}>{t('Cancel')}</Button>
               <Button onClick={handleDestroy} color={'error'} autoFocus>
-                Confirm
+                {t('Confirm')}
               </Button>
             </DialogActions>
           </Dialog>
         </Stack>
         <Stack alignItems="center">
           <Typography variant="body1" gutterBottom>
-            {(props.project.targetDate !== null) ? moment(props.project.targetDate).fromNow() : "Indefinitely"}
+            {(props.project.targetDate !== null) ? moment(props.project.targetDate).fromNow() : t('Indefinitely')}
           </Typography>
         </Stack>
       </Stack>

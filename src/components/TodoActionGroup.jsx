@@ -3,8 +3,10 @@ import React from "react";
 import { useParams } from "react-router-dom";
 import { Link as RouterLink } from "react-router-dom";
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
+import { useTranslation } from 'react-i18next';
 
 export default function TodoActionGroup(props) {
+  const { t, i18n } = useTranslation();
   const params = useParams();
   const timelineYearUrl = params.projectId !== undefined ? `/projects/${params.projectId}/year` : '/timeline';
   const timelineQuarterUrl = params.projectId !== undefined ? `/projects/${params.projectId}/quarter` : '/timeline/quarter';
@@ -30,7 +32,7 @@ export default function TodoActionGroup(props) {
       spacing={2}
     >
       <Button variant="contained" component={RouterLink} to={newTodoUrl} sx={{ maxWidth: 160 }}>
-        New Task
+        {t('New Task')}
       </Button>
       <Button
         variant="outlined"
@@ -53,11 +55,11 @@ export default function TodoActionGroup(props) {
           'aria-labelledby': 'basic-button',
         }}
       >
-        <MenuItem component={RouterLink} to={todoListUrl}>Tasks</MenuItem>
-        <MenuItem component={RouterLink} to={timelineYearUrl} sx={{ minWidth: 110 }}>Year</MenuItem>
-        <MenuItem component={RouterLink} to={timelineQuarterUrl}>Quarter</MenuItem>
-        <MenuItem component={RouterLink} to={timelineMonthUrl}>Month</MenuItem>
-        <MenuItem component={RouterLink} to={timelineWeekUrl}>Week</MenuItem>
+        <MenuItem component={RouterLink} to={todoListUrl}>{t('Tasks')}</MenuItem>
+        <MenuItem component={RouterLink} to={timelineYearUrl} sx={{ minWidth: 110 }}>{t('Year')}</MenuItem>
+        <MenuItem component={RouterLink} to={timelineQuarterUrl}>{t('Quarter')}</MenuItem>
+        <MenuItem component={RouterLink} to={timelineMonthUrl}>{t('Month')}</MenuItem>
+        <MenuItem component={RouterLink} to={timelineWeekUrl}>{t('Week')}</MenuItem>
       </Menu>
     </Stack>
   );

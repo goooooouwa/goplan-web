@@ -3,9 +3,11 @@ import { Link as RouterLink } from "react-router-dom";
 import ProjectList from "components/ProjectList";
 import httpService from "services/httpService";
 import React, { useEffect, useState } from "react";
+import { useTranslation } from 'react-i18next';
 import { useAPIError } from "hooks/useAPIError";
 
 export default function ProjectListContainer() {
+  const { t, i18n } = useTranslation();
   const [projects, setProjects] = useState([]);
   const { addError } = useAPIError();
 
@@ -36,10 +38,10 @@ export default function ProjectListContainer() {
               spacing={2}
             >
               <Typography variant="h3" component="div">
-                Goals
+                {t('Goals')}
               </Typography>
               <Button variant="contained" component={RouterLink} to={'/projects/new'} sx={{ maxWidth: 160 }}>
-                New Goal
+                {t('New Goal')}
               </Button>
             </Stack>
           </Grid>
