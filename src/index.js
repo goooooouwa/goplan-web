@@ -9,7 +9,7 @@ import './i18n';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <BrowserRouter>
-    <Suspense fallback="loading">
+    <Suspense fallback="">
       <App />
     </Suspense>
   </BrowserRouter>

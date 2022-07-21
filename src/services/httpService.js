@@ -78,7 +78,7 @@ const handleOAuthCallback = (authorizationCode, callback) => {
 
 const handleOfflineMode = () => {
   localStorage.setItem("offlineMode", "true");
-  window.location.reload();
+  window.location.replace("/");
 };
 
 const requestAccessTokenWithAuthorizationCode = (authorizationCode) => {

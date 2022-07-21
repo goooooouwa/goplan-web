@@ -3,8 +3,10 @@ import React from "react";
 import { Navigate } from "react-router-dom";
 import { useAuth } from "hooks/useAuth";
 import TaskAlt from "@mui/icons-material/TaskAlt";
+import { useTranslation } from 'react-i18next';
 
 export default function LandingPage() {
+  const { t, i18n } = useTranslation();
   const { getAccessToken, signInPage, handleOfflineMode } = useAuth();
 
   return (
@@ -18,20 +20,20 @@ export default function LandingPage() {
             <Stack direction="row" alignItems="center">
               <TaskAlt fontSize="large" sx={{mr: 0 }} color="success" />
               <Typography variant="h3" color="text.primary" >
-                GoPlan
+                {t('GoPlan')}
               </Typography>
             </Stack>
-            <h2>Where plans meet their timeline.</h2>
-            <p>GoPlan is an app to help you achieve your goals, by turning your plan into actionable tasks that can be easily managed over time with a timeline overview.</p>
+            <h2>{t('Where plans meet their timeline.')}</h2>
+            <p>{t('GoPlan is an app to help you achieve your goals, by turning your plan into actionable tasks that can be easily managed over time with a timeline overview.')}</p>
           </Grid>
           <Grid item xs={12}>
             <Button variant="contained" component={Link} href={signInPage}>
-              Start using GoPlan
+              {t('Start using GoPlan')}
             </Button>
           </Grid>
           <Grid item xs={12}>
             <Button variant="outlined" onClick={handleOfflineMode}>
-              Try it first
+              {t('Try it first')}
             </Button>
           </Grid>
         </Grid>
