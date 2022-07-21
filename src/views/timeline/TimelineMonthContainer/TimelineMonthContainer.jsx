@@ -11,8 +11,10 @@ import { isInMonthRange } from "utils/rangeCheck";
 import todoTraversal from "utils/todoTraversal";
 import { useAPIError } from "hooks/useAPIError";
 import { cloneDeep } from "lodash";
+import { useTranslation } from 'react-i18next';
 
 export default function TimelineMonthContainer() {
+  const { t, i18n } = useTranslation();
   const params = useParams();
   const todosUrl = params.projectId !== undefined ? `/todos/children.json?project_id=${params.projectId}` : '/todos/children.json';
   const [searchParams, setSearchParams] = useSearchParams();
@@ -117,7 +119,7 @@ export default function TimelineMonthContainer() {
                 spacing={2}
               >
                 <Button variant="outlined" onClick={handleTodayClick} sx={{ maxWidth: 160 }}>
-                  Today
+                  {t("Today")}
                 </Button>
                 <Stack
                   direction="row"
@@ -131,7 +133,7 @@ export default function TimelineMonthContainer() {
                     <KeyboardArrowRightIcon />
                   </IconButton>
                 </Stack>
-                <TodoActionGroup activeViewTitle="Month" />
+                <TodoActionGroup activeViewTitle={t("Month")} />
               </Stack>
             </Stack>
           </Grid>

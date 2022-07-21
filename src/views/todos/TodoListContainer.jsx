@@ -62,7 +62,7 @@ export default function TodoListContainer() {
               <Typography variant="h4" component="div">
                 {t('Tasks')}
               </Typography>
-              <TodoActionGroup activeViewTitle="Tasks" />
+              <TodoActionGroup activeViewTitle={t("Tasks")} />
             </Stack>
           </Grid>
           {todos
