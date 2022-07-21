@@ -12,6 +12,11 @@ const user = {
 const todo1 = {
   id: 1,
   projectId: 1,
+  project: {
+    id: 1,
+    name: "Become a doctor (example)",
+    targetDate: moment().add(1, 'years').format("YYYY-MM-DD"),
+  },
   name: "Study to get a medical degree",
   description: "",
   startDate: moment().subtract(5, 'years').format("YYYY-MM-DD"),
@@ -30,6 +35,11 @@ const todo1 = {
 const todo2 = {
   id: 2,
   projectId: 1,
+  project: {
+    id: 1,
+    name: "Become a doctor (example)",
+    targetDate: moment().add(1, 'years').format("YYYY-MM-DD"),
+  },
   name: "Apply for internship",
   description: "",
   startDate: moment().format("YYYY-MM-DD"),
@@ -48,6 +58,11 @@ const todo2 = {
 const todo3 = {
   id: 3,
   projectId: 1,
+  project: {
+    id: 1,
+    name: "Become a doctor (example)",
+    targetDate: moment().add(1, 'years').format("YYYY-MM-DD"),
+  },
   name: "Find a job",
   description: "",
   startDate: moment().add(3, 'months').format("YYYY-MM-DD"),
