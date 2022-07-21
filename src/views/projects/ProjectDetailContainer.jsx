@@ -8,6 +8,7 @@ import { useAPIError } from "hooks/useAPIError";
 export default function ProjectDetailContainer() {
   const params = useParams();
   const [project, setProject] = useState({
+    id: 0,
     name: "",
     targetDate: "",
     todos: []

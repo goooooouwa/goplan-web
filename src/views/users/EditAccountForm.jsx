@@ -111,8 +111,8 @@ export default function EditAccountForm() {
                   value={preferedlanguage}
                   onChange={handleLanguageChange}
                 >
-                  <MenuItem value="en">English</MenuItem>
-                  <MenuItem value="cn">中文</MenuItem>
+                  <MenuItem value="en">{t('en')}</MenuItem>
+                  <MenuItem value="cn">{t('cn')}</MenuItem>
                 </Select>
               </FormControl>
             </Grid>
