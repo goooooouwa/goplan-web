@@ -11,5 +11,10 @@
     "New Goal": "新建目标",
     "New Task": "新建任务",
     "Timeline": "时间线",
+    "Description": "描述",
+    "Time schedule": "时间安排",
+    "Start date: ": "开始日期：",
+    "End date: ": "结束日期：",
+    "Repeating interval": "重复",
     "Indefinitely": "无期限"
 }
