@@ -9,7 +9,7 @@ module.exports = {
         '!src/i18n/**',
         '!**/node_modules/**',
     ],
-    output: './public/',
+    output: './',
     options: {
         debug: true,
         func: {
@@ -41,9 +41,15 @@ module.exports = {
         ],
         defaultLng: 'en',
         defaultNs: 'translation',
+        defaultValue: (lng, ns, key) => {
+            if (lng === 'en') {
+                return key; // Use key as value for base language
+            }
+            return '__STRING_NOT_TRANSLATED__'; // Return empty string for other languages
+        },
         resource: {
-            loadPath: 'locales/{{lng}}/{{ns}}.json',
-            savePath: 'locales/{{lng}}/{{ns}}.json',
+            loadPath: 'public/locales/{{lng}}/{{ns}}.json',
+            savePath: 'public/locales/{{lng}}/{{ns}}.json',
             jsonIndent: 2,
             lineEnding: '\n'
         },
@@ -62,7 +68,7 @@ module.exports = {
         const content = fs.readFileSync(file.path, enc);
         let count = 0;
 
-        parser.parseFuncFromString(content, { list: ['t', 'i18next._', 'i18next.__'] }, (key, options) => {
+        parser.parseFuncFromString(content, { list: ['i18next._', 'i18next.__'] }, (key, options) => {
             parser.set(key, Object.assign({}, options, {
                 nsSeparator: false,
                 defaultValue: key,
