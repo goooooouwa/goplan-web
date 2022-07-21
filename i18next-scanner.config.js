@@ -3,17 +3,17 @@ const chalk = require('chalk');
 
 module.exports = {
     input: [
-        'app/**/*.{js,jsx}',
+        'src/**/*.{js,jsx}',
         // Use ! to filter out files or directories
-        '!app/**/*.spec.{js,jsx}',
-        '!app/i18n/**',
+        '!src/**/*.test.{js,jsx}',
+        '!src/i18n/**',
         '!**/node_modules/**',
     ],
-    output: './',
+    output: './public/',
     options: {
         debug: true,
         func: {
-            list: ['i18next.t', 'i18n.t'],
+            list: ['i18next.t', 'i18n.t', 't'],
             extensions: ['.js', '.jsx']
         },
         trans: {
@@ -35,17 +35,15 @@ module.exports = {
                 sourceType: 'module', // defaults to 'module'
             }
         },
-        lngs: ['en','de'],
+        lngs: ['en','cn'],
         ns: [
-            'locale',
-            'resource'
+            'translation',
         ],
         defaultLng: 'en',
-        defaultNs: 'resource',
-        defaultValue: '__STRING_NOT_TRANSLATED__',
+        defaultNs: 'translation',
         resource: {
-            loadPath: 'i18n/{{lng}}/{{ns}}.json',
-            savePath: 'i18n/{{lng}}/{{ns}}.json',
+            loadPath: 'locales/{{lng}}/{{ns}}.json',
+            savePath: 'locales/{{lng}}/{{ns}}.json',
             jsonIndent: 2,
             lineEnding: '\n'
         },
@@ -64,9 +62,10 @@ module.exports = {
         const content = fs.readFileSync(file.path, enc);
         let count = 0;
 
-        parser.parseFuncFromString(content, { list: ['i18next._', 'i18next.__'] }, (key, options) => {
+        parser.parseFuncFromString(content, { list: ['t', 'i18next._', 'i18next.__'] }, (key, options) => {
             parser.set(key, Object.assign({}, options, {
                 nsSeparator: false,
+                defaultValue: key,
                 keySeparator: false
             }));
             ++count;
