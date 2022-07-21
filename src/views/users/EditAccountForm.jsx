@@ -84,7 +84,7 @@ export default function EditAccountForm() {
             <Grid item>
               <TextField
                 required
-                label="Username"
+                label={t('Username')}
                 name="name"
                 margin="normal"
                 fullWidth
@@ -94,7 +94,7 @@ export default function EditAccountForm() {
             </Grid>
             <Grid item>
               <TextField
-                label="Image URL"
+                label={t("Image URL")}
                 name="imageUrl"
                 margin="normal"
                 fullWidth
@@ -118,7 +118,7 @@ export default function EditAccountForm() {
             </Grid>
             <Grid item>
               <FormControl margin="normal">
-                <Button variant="contained" type="submit">Submit</Button>
+                <Button variant="contained" type="submit">{t('Submit')}</Button>
               </FormControl>
             </Grid>
           </Grid>

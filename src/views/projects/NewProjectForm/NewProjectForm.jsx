@@ -4,8 +4,10 @@ import React, { useState } from "react";
 import { Navigate } from "react-router-dom";
 import { useAuth } from "hooks/useAuth";
 import { reduce } from "lodash";
+import { useTranslation } from 'react-i18next';
 
 export default function NewProjectForm() {
+  const { t, i18n } = useTranslation();
   const { getCurrentUserId } = useAuth();
   const [project, setProject] = useState({
     id: null,
@@ -58,7 +60,7 @@ export default function NewProjectForm() {
         }}
       >
         <Typography variant="h3" component="div" gutterBottom>
-          New Goal
+          {t('New Goal')}
         </Typography>
         <form onSubmit={handleSubmit}>
           <Grid container alignItems="stretch" justifyContent="center" direction="column">
@@ -74,7 +76,7 @@ export default function NewProjectForm() {
             <Grid item>
               <TextField
                 required
-                label="What's your goal?"
+                label={t("What's your goal?")}
                 name="name"
                 margin="normal"
                 fullWidth
@@ -83,7 +85,7 @@ export default function NewProjectForm() {
               />
             </Grid>
             <Grid item>
-              <label>Target Date:
+              <label>{t('Target Date:')}
                 <input
                   type="date"
                   name="targetDate"
@@ -94,7 +96,7 @@ export default function NewProjectForm() {
             </Grid>
             <Grid item>
               <FormControl margin="normal">
-                <Button variant="contained" type="submit">Submit</Button>
+                <Button variant="contained" type="submit">{t('Submit')}</Button>
               </FormControl>
             </Grid>
           </Grid>

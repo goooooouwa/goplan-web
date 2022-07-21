@@ -4,8 +4,10 @@ import React, { useEffect, useState } from "react";
 import { Navigate, useParams } from "react-router-dom";
 import moment from "moment";
 import { reduce } from "lodash";
+import { useTranslation } from 'react-i18next';
 
 export default function EditProjectForm() {
+  const { t, i18n } = useTranslation();
   const params = useParams();
   const [project, setProject] = useState({
     id: null,
@@ -89,7 +91,7 @@ export default function EditProjectForm() {
             <Grid item>
               <TextField
                 required
-                label="What's your goal?"
+                label={t("What's your goal?")}
                 name="name"
                 margin="normal"
                 fullWidth
@@ -98,7 +100,7 @@ export default function EditProjectForm() {
               />
             </Grid>
             <Grid item>
-              <label>Target Date:
+              <label>{t('Target Date:')}
                 <input
                   type="date"
                   name="targetDate"
@@ -109,7 +111,7 @@ export default function EditProjectForm() {
             </Grid>
             <Grid item>
               <FormControl margin="normal">
-                <Button variant="contained" type="submit">Submit</Button>
+                <Button variant="contained" type="submit">{t('Submit')}</Button>
               </FormControl>
             </Grid>
           </Grid>

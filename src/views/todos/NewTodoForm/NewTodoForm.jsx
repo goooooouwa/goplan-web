@@ -6,8 +6,10 @@ import moment from "moment";
 import React, { useCallback, useEffect, useState } from "react";
 import { Navigate, useParams } from "react-router-dom";
 import { reduce } from "lodash";
+import { useTranslation } from 'react-i18next';
 
 export default function NewTodoForm() {
+  const { t, i18n } = useTranslation();
   const params = useParams();
   const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState(null);
@@ -163,7 +165,7 @@ export default function NewTodoForm() {
         }}
       >
         <Typography variant="h3" component="div" gutterBottom>
-          New Task
+          {t('New Task')}
         </Typography>
         <form onSubmit={handleSubmit}>
           <Grid container alignItems="stretch" justifyContent="center" direction="column">
@@ -179,13 +181,13 @@ export default function NewTodoForm() {
             {(params.projectId === undefined) && (
               <Grid item>
                 <FormControl fullWidth margin="normal">
-                  <ProjectAutoComplete value={todo.project} label="Project" onChange={handleProjectChange} onSearch={projectSearch} />
+                  <ProjectAutoComplete value={todo.project} label={t("Project")} onChange={handleProjectChange} onSearch={projectSearch} />
                 </FormControl>
               </Grid>
             )}
             <Grid item>
               <TextField
-                label="Task"
+                label={t("Task")}
                 name="name"
                 margin="normal"
                 fullWidth
@@ -196,7 +198,7 @@ export default function NewTodoForm() {
             </Grid>
             <Grid item>
               <TextField
-                label="Description"
+                label={t("Description")}
                 name="description"
                 margin="normal"
                 fullWidth
@@ -208,7 +210,7 @@ export default function NewTodoForm() {
             </Grid>
             <Grid item>
               <Typography variant="body1" gutterBottom textAlign="left">
-                How long would it take each time?
+                {t('How long would it take each time?')}
               </Typography>
             </Grid>
             <Grid item container xs={12} spacing={2}>
@@ -221,13 +223,13 @@ export default function NewTodoForm() {
                   onChange={handleChange}
                   inputProps={{ inputMode: 'numeric', pattern: '[0-9]*' }}
                   InputProps={{
-                    endAdornment: <InputAdornment position="start">hours</InputAdornment>,
+                    endAdornment: <InputAdornment position="start">{t('hours')}</InputAdornment>,
                   }}
                 />
               </Grid>
             </Grid>
             <Grid item>
-              <label>Start Date
+              <label>{t('Start Date')}
                 <input
                   type="date"
                   name="startDate"
@@ -239,7 +241,7 @@ export default function NewTodoForm() {
             </Grid>
             <Grid item>
               <FormControl margin="normal" fullWidth>
-                <FormControlLabel control={<Switch name="repeat" onChange={handleCheck} checked={todo.repeat} />} label="Take more than 1 day?" />
+                <FormControlLabel control={<Switch name="repeat" onChange={handleCheck} checked={todo.repeat} />} label={t("Take more than 1 day?")} />
               </FormControl>
             </Grid>
             {todo.repeat && (
@@ -247,7 +249,7 @@ export default function NewTodoForm() {
                 <Grid item container xs={12} spacing={2}>
                   <Grid item xs={6}>
                     <TextField
-                      label="Times"
+                      label={t("Times")}
                       name="repeatTimes"
                       margin="normal"
                       fullWidth
@@ -258,24 +260,24 @@ export default function NewTodoForm() {
                   </Grid>
                   <Grid item xs={6}>
                     <FormControl margin="normal" fullWidth>
-                      <InputLabel>Per</InputLabel>
+                      <InputLabel>{t('Per')}</InputLabel>
                       <Select
                         name="repeatPeriod"
                         label="Per"
                         value={todo.repeatPeriod}
                         onChange={handleChange}
                       >
-                        <MenuItem value="day">Day</MenuItem>
-                        <MenuItem value="week">Week</MenuItem>
-                        <MenuItem value="month">Month</MenuItem>
-                        <MenuItem value="quarter">Quarter</MenuItem>
-                        <MenuItem value="year">Year</MenuItem>
+                        <MenuItem value="day">{t('Day')}</MenuItem>
+                        <MenuItem value="week">{t('Week')}</MenuItem>
+                        <MenuItem value="month">{t('Month')}</MenuItem>
+                        <MenuItem value="quarter">{t('Quarter')}</MenuItem>
+                        <MenuItem value="year">{t('Year')}</MenuItem>
                       </Select>
                     </FormControl>
                   </Grid>
                 </Grid>
                 <Grid item>
-                  <label>End Date
+                  <label>{t('End Date')}
                     <input
                       type="date"
                       name="endDate"
@@ -289,13 +291,13 @@ export default function NewTodoForm() {
             )}
             <Grid item>
               <Typography variant="h5" gutterBottom textAlign="left">
-                Subtasks
+                {t('Subtasks')}
               </Typography>
             </Grid>
             <Grid container alignItems="center" justifyContent="flex-start" direction="row" columnSpacing={1}>
               <Grid item>
                 <TextField
-                  label="Subtask"
+                  label={t("Subtask")}
                   name="newSubtask"
                   margin="normal"
                   value={todo.newSubtask}
@@ -304,7 +306,7 @@ export default function NewTodoForm() {
               </Grid>
               <Grid item>
                 <FormControl margin="normal">
-                  <Button variant="outlined" onClick={handleAddSubtask}>Add</Button>
+                  <Button variant="outlined" onClick={handleAddSubtask}>{t('Add')}</Button>
                 </FormControl>
               </Grid>
             </Grid>
@@ -324,17 +326,17 @@ export default function NewTodoForm() {
             </Grid>
             <Grid item>
               <Typography variant="h5" gutterBottom textAlign="left">
-                Dependencies
+                {t('Dependencies')}
               </Typography>
             </Grid>
             <Grid item>
               <FormControl fullWidth margin="normal">
-                <TodosAutoComplete value={todo.dependencies} label="Depended tasks" onChange={handleDependencyChange} onSearch={todoSearch} />
+                <TodosAutoComplete value={todo.dependencies} label={t("Depended tasks")} onChange={handleDependencyChange} onSearch={todoSearch} />
               </FormControl>
             </Grid>
             <Grid item>
               <FormControl margin="normal">
-                <Button variant="contained" type="submit">Submit</Button>
+                <Button variant="contained" type="submit">{t('Submit')}</Button>
               </FormControl>
             </Grid>
           </Grid>

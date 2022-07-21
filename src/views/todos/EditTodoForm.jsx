@@ -347,7 +347,7 @@ export default function EditTodoForm() {
             </Grid>
             <Grid item>
               <FormControl margin="normal">
-                <Button variant="contained" type="submit">Submit</Button>
+                <Button variant="contained" type="submit">{t('Submit')}</Button>
               </FormControl>
             </Grid>
           </Grid>
