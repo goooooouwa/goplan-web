@@ -42,10 +42,7 @@ module.exports = {
         defaultLng: 'en-US',
         defaultNs: 'translation',
         defaultValue: (lng, ns, key) => {
-            if (lng === 'en-US') {
-                return key; // Use key as value for base language
-            }
-            return '__STRING_NOT_TRANSLATED__'; // Return empty string for other languages
+            return key; // Use key as value for base language
         },
         resource: {
             loadPath: 'public/locales/{{lng}}/{{ns}}.json',
