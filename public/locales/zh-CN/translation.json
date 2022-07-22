@@ -56,7 +56,7 @@
   "Subtask": "子任务",
   "Add": "添加",
   "Dependencies": "前置任务",
-  "Depended tasks": "后置任务",
+  "Depended tasks": "所依赖的任务",
   "List": "列表",
   "zh-CN": "中文",
   "en-US": "英语",
