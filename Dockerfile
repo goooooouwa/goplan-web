@@ -20,7 +20,7 @@ WORKDIR /app
 COPY --from=builder /app/build .
 
 # Copy Nginx config template
-COPY nginx.conf /tmp/docker.nginx
+COPY nginx.conf /etc/nginx/conf.d/default.conf
 
 EXPOSE 80
 
