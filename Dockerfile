@@ -24,7 +24,7 @@ RUN rm -rf ./*
 COPY --from=builder /app/build .
 
 # Copy Nginx config template
-COPY docker/nginx.conf /tmp/docker.nginx
+COPY nginx.conf /tmp/docker.nginx
 
 # substitute variable references in the Nginx config template for real values from the environment
 # put the final config in its place

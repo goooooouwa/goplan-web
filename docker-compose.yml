@@ -3,7 +3,7 @@ services:
   app:
     build:
       context: .
-      dockerfile: ./docker/Dockerfile
+      dockerfile: ./Dockerfile
     volumes:
       - ~/.acme.sh/goooooouwa.tk/:/etc/letsencrypt/
     ports:
