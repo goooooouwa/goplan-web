@@ -8,7 +8,7 @@ WORKDIR /app
 
 COPY . .
 
-RUN npm install && npm run build
+RUN npm install --omit=dev && npm run build
 
 # nginx stage for serving content
 
