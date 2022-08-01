@@ -22,7 +22,7 @@ export default function NewTodoForm() {
     startDate: moment().format("YYYY-MM-DD"),
     endDate: moment().format("YYYY-MM-DD"),
     repeat: false,
-    repeatPeriod: "week",
+    repeatPeriod: "day",
     repeatTimes: 1,
     instanceTimeSpan: 1,
     dependencies: [],
