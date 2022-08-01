@@ -246,6 +246,22 @@ export default function NewTodoForm() {
             </Grid>
             {todo.repeat && (
               <>
+                <Grid item>
+                  <label>{t('End Date')}
+                    <input
+                      type="date"
+                      name="endDate"
+                      value={todo.endDate}
+                      onChange={handleChange}
+                      required
+                    />
+                  </label>
+                </Grid>
+                <Grid item spacing={2} sx={{mt: 2}}>
+                  <Typography variant="body1" gutterBottom textAlign="left">
+                    {t('How frequent would each time occur?')}
+                  </Typography>
+                </Grid>
                 <Grid item container xs={12} spacing={2}>
                   <Grid item xs={6}>
                     <TextField
@@ -275,17 +291,6 @@ export default function NewTodoForm() {
                       </Select>
                     </FormControl>
                   </Grid>
-                </Grid>
-                <Grid item>
-                  <label>{t('End Date')}
-                    <input
-                      type="date"
-                      name="endDate"
-                      value={todo.endDate}
-                      onChange={handleChange}
-                      required
-                    />
-                  </label>
                 </Grid>
               </>
             )}

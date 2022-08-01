@@ -47,7 +47,7 @@
   "How long would it take each time?": "How long would it take each time?",
   "hours": "hours",
   "Start Date": "Start Date",
-  "Take more than 1 day?": "Repeat?",
+  "Take more than 1 day?": "Take more than 1 day?",
   "Times": "Times",
   "Per": "Per",
   "Day": "Day",
@@ -67,5 +67,6 @@
   "GoPlan is an app to help you achieve your goals, by turning your plan into actionable tasks that can be easily managed over time with a timeline overview.": "GoPlan is an app to help you achieve your goals, by turning your plan into actionable tasks that can be easily managed over time with a timeline overview.",
   "Start using GoPlan": "Start using GoPlan",
   "Try it first": "Try it first",
-  "No tasks in selected time range": "No tasks in selected time range"
+  "No tasks in selected time range": "No tasks in selected time range",
+  "How frequent would each time occur?": "How frequent would each time occur?"
 }

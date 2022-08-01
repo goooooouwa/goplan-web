@@ -47,7 +47,7 @@
   "How long would it take each time?": "任务单次所需时间？",
   "hours": "小时",
   "Start Date": "开始日期",
-  "Take more than 1 day?": "是否重复？",
+  "Take more than 1 day?": "任务是否跨天？",
   "Times": "次数",
   "Per": "每",
   "Day": "天",
@@ -67,5 +67,6 @@
   "GoPlan is an app to help you achieve your goals, by turning your plan into actionable tasks that can be easily managed over time with a timeline overview.": "GoPlan是一款旨在助您达成目标的应用。有了它，您可以轻松地将你的目标拆分成一系列可执行的任务，并且随时利用多种直观的时间线轻松管理任务计划。立即使用GoPlan，告别永远处理不完的待办事项，让一起尽在计划之中。",
   "Start using GoPlan": "开始使用GoPlan",
   "Try it first": "免费体验",
-  "No tasks in selected time range": "当前时间段内没有任务"
+  "No tasks in selected time range": "当前时间段内没有任务",
+  "How frequent would each time occur?": "任务单次发生频率"
 }
