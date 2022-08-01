@@ -12,6 +12,7 @@ import todoTraversal from "utils/todoTraversal";
 import { useAPIError } from "hooks/useAPIError";
 import { cloneDeep } from "lodash";
 import { useTranslation } from 'react-i18next';
+import { useLoading } from "hooks/useLoading";
 
 export default function TimelineMonthContainer() {
   const { t, i18n } = useTranslation();
@@ -22,6 +23,7 @@ export default function TimelineMonthContainer() {
   const [todos, setTodos] = useState([]);
   const todosInJSON = JSON.stringify(todos);
   const { addError } = useAPIError();
+  const { startLoading, finishLoading } = useLoading();
 
   const handleTodayClick = (event) => {
     setSearchParams({ month: moment().format("YYYYMM") });
@@ -49,6 +51,7 @@ export default function TimelineMonthContainer() {
       todoData.end_date = endDate.week(endDate.date(1).week() + weeks[1] - 1).toISOString();
     }
 
+    startLoading();
     httpService.put(`/todos/${todo.id}.json`, todoData)
       .then((response) => {
         setTodos((todos) => {
@@ -64,6 +67,9 @@ export default function TimelineMonthContainer() {
         });
         addError(error.response.data, error.response.status);
         console.log(error);
+      })
+      .then(() => {
+        finishLoading();
       });
   }
 
@@ -85,6 +91,7 @@ export default function TimelineMonthContainer() {
   };
 
   useEffect(() => {
+    startLoading();
     httpService.get(todosUrl)
       .then((response) => {
         setTodos(response.data);
@@ -95,7 +102,7 @@ export default function TimelineMonthContainer() {
         console.log(error);
       })
       .then(function () {
-        // always executed
+        finishLoading();
       });
   }, [todosUrl, todosInJSON, addError]);
 

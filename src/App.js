@@ -29,6 +29,7 @@ import APIErrorNotification from "components/APIErrorNotification";
 import { APIErrorProvider } from "hooks/useAPIError";
 import PublicLayout from "views/app/PublicLayout";
 import TimelineQuarterContainer from "views/timeline/TimelineQuarterContainer/TimelineQuarterContainer";
+import { LoadingProvider } from "hooks/useLoading";
 
 moment.locale('en');
 
@@ -37,56 +38,58 @@ function App() {
     <AuthProvider>
       <APIErrorProvider>
         <APIErrorNotification />
-        <Routes>
-          <Route path="/" element={
-            <PublicLayout />
-          }>
-            <Route path="callback" element={<OAuthCallbackContainer />} />
-            <Route path="welcome" element={<LandingPage />} />
-            <Route path="goodbye" element={<GoodByePage />} />
-          </Route>
-          <Route path="/" element={
-            <ProtectedRoute>
-              <AppLayout />
-            </ProtectedRoute>
-          }>
-            <Route index element={<ProjectListContainer />} />
-            <Route path="account" element={<AccountLayout />} >
-              <Route index element={<AccountDetailContainer />} />
-              <Route path="edit" element={<EditAccountForm />} />
+        <LoadingProvider>
+          <Routes>
+            <Route path="/" element={
+              <PublicLayout />
+            }>
+              <Route path="callback" element={<OAuthCallbackContainer />} />
+              <Route path="welcome" element={<LandingPage />} />
+              <Route path="goodbye" element={<GoodByePage />} />
             </Route>
-            <Route path="projects" element={<ProjectLayout />} >
+            <Route path="/" element={
+              <ProtectedRoute>
+                <AppLayout />
+              </ProtectedRoute>
+            }>
               <Route index element={<ProjectListContainer />} />
-              <Route path=":projectId/edit" element={<EditProjectForm />} />
-              <Route path=":projectId" element={<ProjectDetailContainer />} >
-                <Route path="year" element={<TimelineYearContainer />} />
+              <Route path="account" element={<AccountLayout />} >
+                <Route index element={<AccountDetailContainer />} />
+                <Route path="edit" element={<EditAccountForm />} />
+              </Route>
+              <Route path="projects" element={<ProjectLayout />} >
+                <Route index element={<ProjectListContainer />} />
+                <Route path=":projectId/edit" element={<EditProjectForm />} />
+                <Route path=":projectId" element={<ProjectDetailContainer />} >
+                  <Route path="year" element={<TimelineYearContainer />} />
+                  <Route path="quarter" element={<TimelineQuarterContainer />} />
+                  <Route path="month" element={<TimelineMonthContainer />} />
+                  <Route path="week" element={<TimelineWeekContainer />} />
+                  <Route path="todos" element={<TodoLayout />} >
+                    <Route index element={<TodoListContainer />} />
+                    <Route path=":todoId" element={<TodoDetailContainer />} />
+                    <Route path="new" element={<NewTodoForm />} />
+                    <Route path=":todoId/edit" element={<EditTodoForm />} />
+                  </Route>
+                </Route>
+                <Route path="new" element={<NewProjectForm />} />
+              </Route>
+              <Route path="todos" element={<TodoLayout />} >
+                <Route index element={<TodoListContainer />} />
+                <Route path=":todoId" element={<TodoDetailContainer />} />
+                <Route path="new" element={<NewTodoForm />} />
+                <Route path=":todoId/edit" element={<EditTodoForm />} />
+              </Route>
+              <Route path="timeline" element={<TimelineLayout />} >
+                <Route index element={<TimelineYearContainer />} />
                 <Route path="quarter" element={<TimelineQuarterContainer />} />
                 <Route path="month" element={<TimelineMonthContainer />} />
                 <Route path="week" element={<TimelineWeekContainer />} />
-                <Route path="todos" element={<TodoLayout />} >
-                  <Route index element={<TodoListContainer />} />
-                  <Route path=":todoId" element={<TodoDetailContainer />} />
-                  <Route path="new" element={<NewTodoForm />} />
-                  <Route path=":todoId/edit" element={<EditTodoForm />} />
-                </Route>
+                <Route path="day" element={<TimelineDayView />} />
               </Route>
-              <Route path="new" element={<NewProjectForm />} />
             </Route>
-            <Route path="todos" element={<TodoLayout />} >
-              <Route index element={<TodoListContainer />} />
-              <Route path=":todoId" element={<TodoDetailContainer />} />
-              <Route path="new" element={<NewTodoForm />} />
-              <Route path=":todoId/edit" element={<EditTodoForm />} />
-            </Route>
-            <Route path="timeline" element={<TimelineLayout />} >
-              <Route index element={<TimelineYearContainer />} />
-              <Route path="quarter" element={<TimelineQuarterContainer />} />
-              <Route path="month" element={<TimelineMonthContainer />} />
-              <Route path="week" element={<TimelineWeekContainer />} />
-              <Route path="day" element={<TimelineDayView />} />
-            </Route>
-          </Route>
-        </Routes>
+          </Routes>
+        </LoadingProvider>
       </APIErrorProvider>
     </AuthProvider>
   );

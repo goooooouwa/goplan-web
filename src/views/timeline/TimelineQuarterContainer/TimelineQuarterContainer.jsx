@@ -12,6 +12,7 @@ import todoTraversal from "utils/todoTraversal";
 import { useAPIError } from "hooks/useAPIError";
 import { cloneDeep } from "lodash";
 import { useTranslation } from 'react-i18next';
+import { useLoading } from "hooks/useLoading";
 
 export default function TimelineQuarterContainer() {
   const { t, i18n } = useTranslation();
@@ -22,6 +23,7 @@ export default function TimelineQuarterContainer() {
   const [todos, setTodos] = useState([]);
   const todosInJSON = JSON.stringify(todos);
   const { addError } = useAPIError();
+  const { startLoading, finishLoading } = useLoading();
 
   const handleTodayClick = (event) => {
     setSearchParams({ quarter: moment().format("YYYY[Q]Q") });
@@ -49,6 +51,7 @@ export default function TimelineQuarterContainer() {
       todoData.end_date = endDate.month((selectedQuarter.quarter() - 1) * 3 + months[1]).toISOString();
     }
 
+    startLoading();
     httpService.put(`/todos/${todo.id}.json`, todoData)
       .then((response) => {
         setTodos((todos) => {
@@ -64,6 +67,9 @@ export default function TimelineQuarterContainer() {
         });
         addError(error.response.data, error.response.status);
         console.log(error);
+      })
+      .then(() => {
+        finishLoading();
       });
   }
 
@@ -85,6 +91,7 @@ export default function TimelineQuarterContainer() {
   };
 
   useEffect(() => {
+    startLoading();
     httpService.get(todosUrl)
       .then((response) => {
         setTodos(response.data);
@@ -95,7 +102,7 @@ export default function TimelineQuarterContainer() {
         console.log(error);
       })
       .then(function () {
-        // always executed
+        finishLoading();
       });
   }, [todosUrl, todosInJSON, addError]);
 

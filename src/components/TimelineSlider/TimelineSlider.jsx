@@ -2,6 +2,7 @@ import { Slider } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import SHARED_PROP_TYPES from 'utils/sharedPropTypes';
+import { useLoading } from 'hooks/useLoading';
 
 function valuetext(value) {
   return value;
@@ -9,6 +10,7 @@ function valuetext(value) {
 
 export default function TimelineSlider(props) {
   const [value, setValue] = useState(props.rangeStart);
+  const { loading } = useLoading();
 
   const valueLabelFormat = (value) => {
     const index = props.marks.findIndex((mark) => mark.value === value);
@@ -47,8 +49,8 @@ export default function TimelineSlider(props) {
         valueLabelFormat={valueLabelFormat}
         value={value}
         disabled={props.disableRangeStart}
-        onChange={handleChange}
-        onChangeCommitted={handleChangeCommitted}
+        onChange={loading ? ()=>{} : handleChange}
+        onChangeCommitted={loading ? ()=>{} : handleChangeCommitted}
         getAriaValueText={valuetext}
         valueLabelDisplay="auto"
         step={1}
