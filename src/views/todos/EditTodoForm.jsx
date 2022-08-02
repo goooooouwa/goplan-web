@@ -17,6 +17,7 @@ export default function EditTodoForm() {
     projectId: (params.projectId !== undefined) ? params.projectId : "",
     name: "",
     description: "",
+    color: "",
     startDate: moment().format("YYYY-MM-DD"),
     endDate: moment().format("YYYY-MM-DD"),
     repeat: false,
@@ -132,6 +133,7 @@ export default function EditTodoForm() {
       project_id: todo.projectId,
       name: todo.name,
       description: todo.description,
+      color: todo.color,
       start_date: todo.startDate,
       end_date: todo.endDate,
       repeat: todo.repeat,
@@ -142,6 +144,7 @@ export default function EditTodoForm() {
       children_attributes: todo.children.map((child) => ({
         id: child.id,
         project_id: child.projectId,
+        color: todo.color,
         name: child.name,
         start_date: child.startDate,
         end_date: child.endDate,
@@ -222,6 +225,24 @@ export default function EditTodoForm() {
                 value={todo.description}
                 onChange={handleChange}
               />
+            </Grid>
+            <Grid item>
+              <FormControl margin="normal" fullWidth>
+                <InputLabel>{t('Color')}</InputLabel>
+                <Select
+                  name="color"
+                  label={t('Color')}
+                  value={todo.color}
+                  sx={{ color: todo.color }}
+                  onChange={handleChange}
+                >
+                  <MenuItem value="primary.main" sx={{ color: "primary.main" }}>{t('Blue')}</MenuItem>
+                  <MenuItem value="secondary.main" sx={{ color: "secondary.main" }}>{t('Purple')}</MenuItem>
+                  <MenuItem value="warning.main" sx={{ color: "warning.main" }}>{t('Orange')}</MenuItem>
+                  <MenuItem value="info.main" sx={{ color: "info.main" }}>{t('Light Blue')}</MenuItem>
+                  <MenuItem value="success.main" sx={{ color: "success.main" }}>{t('Green')}</MenuItem>
+                </Select>
+              </FormControl>
             </Grid>
             <Grid item>
               <Typography variant="body1" gutterBottom textAlign="left">

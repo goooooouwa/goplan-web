@@ -19,6 +19,7 @@ export default function NewTodoForm() {
     projectId: (params.projectId !== undefined) ? params.projectId : "",
     name: "",
     description: "",
+    color: "primary.main",
     startDate: moment().format("YYYY-MM-DD"),
     endDate: moment().format("YYYY-MM-DD"),
     repeat: false,
@@ -118,6 +119,7 @@ export default function NewTodoForm() {
       project_id: todo.projectId,
       name: todo.name,
       description: todo.description,
+      color: todo.color,
       start_date: todo.startDate,
       end_date: todo.endDate,
       repeat: todo.repeat,
@@ -127,6 +129,7 @@ export default function NewTodoForm() {
       todo_dependencies_attributes: todo.dependencies.map((todo) => ({ todo_id: todo.id })),
       children_attributes: todo.children.map((child) => ({
         project_id: child.projectId,
+        color: todo.color,
         name: child.name,
         start_date: child.startDate,
         end_date: child.endDate,
@@ -209,6 +212,24 @@ export default function NewTodoForm() {
               />
             </Grid>
             <Grid item>
+              <FormControl margin="normal" fullWidth>
+                <InputLabel>{t('Color')}</InputLabel>
+                <Select
+                  name="color"
+                  label={t('Color')}
+                  value={todo.color}
+                  sx={{ color: todo.color }}
+                  onChange={handleChange}
+                >
+                  <MenuItem value="primary.main" sx={{ color: "primary.main" }}>{t('Blue')}</MenuItem>
+                  <MenuItem value="secondary.main" sx={{ color: "secondary.main" }}>{t('Purple')}</MenuItem>
+                  <MenuItem value="warning.main" sx={{ color: "warning.main" }}>{t('Orange')}</MenuItem>
+                  <MenuItem value="info.main" sx={{ color: "info.main" }}>{t('Light Blue')}</MenuItem>
+                  <MenuItem value="success.main" sx={{ color: "success.main" }}>{t('Green')}</MenuItem>
+                </Select>
+              </FormControl>
+            </Grid>
+            <Grid item>
               <Typography variant="body1" gutterBottom textAlign="left">
                 {t('How long would it take each time?')}
               </Typography>
@@ -279,7 +300,7 @@ export default function NewTodoForm() {
                       <InputLabel>{t('Per')}</InputLabel>
                       <Select
                         name="repeatPeriod"
-                        label="Per"
+                        label={t('Per')}
                         value={todo.repeatPeriod}
                         onChange={handleChange}
                       >

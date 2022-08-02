@@ -70,6 +70,7 @@ export default function TodoMonthSlider(props) {
             marks={marks}
             rangeMin={rangeMin}
             rangeMax={rangeMax}
+            color={props.todo.color}
             rangeStart={rangeMark(startDate)}
             rangeEnd={rangeMark(endDate)}
             disableRangeStart={props.todo.status || !isInMonthRange(startDate, props.selectedMonth)}
@@ -82,6 +83,7 @@ export default function TodoMonthSlider(props) {
             marks={marks}
             rangeMin={rangeMin}
             rangeMax={rangeMax}
+            color={props.todo.color}
             rangeStart={rangeMark(startDate)}
             disableRangeStart={props.todo.status || !isInMonthRange(startDate, props.selectedMonth)}
             handleChangeCommited={(newValue) => { props.handleWeekChange(props.todo, newValue) }}

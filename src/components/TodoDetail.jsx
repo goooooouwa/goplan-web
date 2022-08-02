@@ -6,6 +6,7 @@ import { Link as RouterLink, useNavigate, useParams } from "react-router-dom";
 import SHARED_PROP_TYPES from "utils/sharedPropTypes";
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
+import CircleIcon from '@mui/icons-material/Circle';
 import TodoListItem from "./TodoListItem";
 import { useTranslation } from 'react-i18next';
 
@@ -98,6 +99,10 @@ export default function TodoDetail(props) {
                   <Typography variant="body1" gutterBottom textAlign="left" >
                     {props.todo.description}
                   </Typography>
+                  <Typography variant="h5" gutterBottom>
+                    {t('Color')}
+                  </Typography>
+                  <CircleIcon sx={{ color: props.todo.color }}/>
                   <Typography variant="h5" gutterBottom>
                     {t('Time schedule')}
                   </Typography>

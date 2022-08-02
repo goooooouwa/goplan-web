@@ -60,6 +60,7 @@ export default function TimelineRangeSlider(props) {
         marks
         min={props.rangeMin}
         max={props.rangeMax}
+        sx={{ color: props.color }}
       />
     </>
   );
@@ -70,6 +71,7 @@ TimelineRangeSlider.propTypes = {
   rangeMax: PropTypes.number.isRequired,
   rangeStart: PropTypes.number.isRequired,
   rangeEnd: PropTypes.number.isRequired,
+  color: PropTypes.string,
   disableRangeStart: PropTypes.bool,
   disableRangeEnd: PropTypes.bool,
   marks: SHARED_PROP_TYPES.marks,

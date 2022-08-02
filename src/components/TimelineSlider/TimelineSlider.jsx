@@ -60,6 +60,7 @@ export default function TimelineSlider(props) {
           '& .MuiSlider-track': {
             display: 'none',
           },
+          color: props.color
         }}
       />
     </>
@@ -70,6 +71,7 @@ TimelineSlider.propTypes = {
   rangeMin: PropTypes.number.isRequired,
   rangeMax: PropTypes.number.isRequired,
   rangeStart: PropTypes.number.isRequired,
+  color: PropTypes.string,
   disableRangeStart: PropTypes.bool,
   marks: SHARED_PROP_TYPES.marks,
   handleChangeCommited: PropTypes.func

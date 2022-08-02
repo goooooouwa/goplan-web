@@ -79,6 +79,7 @@ export default function TodoWeekSlider(props) {
             marks={marks}
             rangeMin={rangeMin}
             rangeMax={rangeMax}
+            color={props.todo.color}
             rangeStart={rangeMark(startDate)}
             rangeEnd={rangeMark(endDate)}
             disableRangeStart={props.todo.status || !isInWeekRange(startDate, props.selectedWeek)}
@@ -91,6 +92,7 @@ export default function TodoWeekSlider(props) {
             marks={marks}
             rangeMin={rangeMin}
             rangeMax={rangeMax}
+            color={props.todo.color}
             rangeStart={rangeMark(startDate)}
             disableRangeStart={props.todo.status || !isInWeekRange(startDate, props.selectedWeek)}
             handleChangeCommited={(newValue) => { props.handleDayChange(props.todo, newValue) }}

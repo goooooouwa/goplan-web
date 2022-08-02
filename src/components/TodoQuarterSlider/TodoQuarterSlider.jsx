@@ -61,6 +61,7 @@ export default function TodoQuarterSlider(props) {
             marks={marks}
             rangeMin={rangeMin}
             rangeMax={rangeMax}
+            color={props.todo.color}
             rangeStart={rangeMark(startDate)}
             rangeEnd={rangeMark(endDate)}
             disableRangeStart={props.todo.status || !isInQuarterRange(startDate, props.selectedQuarter)}
@@ -73,6 +74,7 @@ export default function TodoQuarterSlider(props) {
             marks={marks}
             rangeMin={rangeMin}
             rangeMax={rangeMax}
+            color={props.todo.color}
             rangeStart={rangeMark(startDate)}
             disableRangeStart={props.todo.status || !isInQuarterRange(startDate, props.selectedQuarter)}
             handleChangeCommited={(newValue) => { props.handleMonthChange(props.todo, newValue) }}
