@@ -41,6 +41,10 @@ export default function TimelineQuarterContainer() {
     const startDate = (todo.startDate !== null) ? moment(todo.startDate) : moment();
     const endDate = (todo.endDate !== null) ? moment(todo.endDate) : moment();
 
+    if (!isInQuarterRange(startDate, selectedQuarter) && !isInQuarterRange(endDate, selectedQuarter)) {
+      return;
+    }
+
     let todoData = {};
 
     if (isInQuarterRange(startDate, selectedQuarter)) {

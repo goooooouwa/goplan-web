@@ -41,6 +41,10 @@ export default function TimelineMonthContainer() {
     const startDate = (todo.startDate !== null) ? moment(todo.startDate) : moment();
     const endDate = (todo.endDate !== null) ? moment(todo.endDate) : moment();
 
+    if (!isInMonthRange(startDate, selectedMonth) && !isInMonthRange(endDate, selectedMonth)) {
+      return;
+    }
+
     let todoData = {};
 
     if (isInMonthRange(startDate, selectedMonth)) {

@@ -41,6 +41,10 @@ export default function TimelineWeekContainer() {
     const startDate = (todo.startDate !== null) ? moment(todo.startDate) : moment();
     const endDate = (todo.endDate !== null) ? moment(todo.endDate) : moment();
 
+    if (!isInWeekRange(startDate, selectedWeek) && !isInWeekRange(endDate, selectedWeek)) {
+      return;
+    }
+
     const todoData = {};
 
     if (isInWeekRange(startDate, selectedWeek)) {

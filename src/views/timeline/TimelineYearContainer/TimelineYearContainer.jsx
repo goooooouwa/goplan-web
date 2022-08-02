@@ -41,6 +41,10 @@ export default function TimelineYearContainer() {
     const startDate = (todo.startDate !== null) ? moment(todo.startDate) : moment();
     const endDate = (todo.endDate !== null) ? moment(todo.endDate) : moment();
 
+    if (!isInYearRange(startDate, selectedYear) && !isInYearRange(endDate, selectedYear)) {
+      return;
+    }
+
     const todoData = {};
 
     if (isInYearRange(startDate, selectedYear)) {
