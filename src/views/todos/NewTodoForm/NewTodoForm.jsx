@@ -19,7 +19,7 @@ export default function NewTodoForm() {
     projectId: (params.projectId !== undefined) ? params.projectId : "",
     name: "",
     description: "",
-    color: "primary.main",
+    color: "primary.light",
     startDate: moment().format("YYYY-MM-DD"),
     endDate: moment().format("YYYY-MM-DD"),
     repeat: false,
@@ -221,11 +221,11 @@ export default function NewTodoForm() {
                   sx={{ color: todo.color }}
                   onChange={handleChange}
                 >
-                  <MenuItem value="primary.main" sx={{ color: "primary.main" }}>{t('Blue')}</MenuItem>
-                  <MenuItem value="secondary.main" sx={{ color: "secondary.main" }}>{t('Purple')}</MenuItem>
-                  <MenuItem value="warning.main" sx={{ color: "warning.main" }}>{t('Orange')}</MenuItem>
-                  <MenuItem value="info.main" sx={{ color: "info.main" }}>{t('Light Blue')}</MenuItem>
-                  <MenuItem value="success.main" sx={{ color: "success.main" }}>{t('Green')}</MenuItem>
+                  <MenuItem value="primary.light" sx={{ color: "primary.light" }}>{t('Blue')}</MenuItem>
+                  <MenuItem value="secondary.light" sx={{ color: "secondary.light" }}>{t('Purple')}</MenuItem>
+                  <MenuItem value="warning.light" sx={{ color: "warning.light" }}>{t('Orange')}</MenuItem>
+                  <MenuItem value="info.light" sx={{ color: "info.light" }}>{t('Light Blue')}</MenuItem>
+                  <MenuItem value="success.light" sx={{ color: "success.light" }}>{t('Green')}</MenuItem>
                 </Select>
               </FormControl>
             </Grid>
