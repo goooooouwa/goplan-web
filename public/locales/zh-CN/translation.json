@@ -68,5 +68,11 @@
   "Start using GoPlan": "开始使用GoPlan",
   "Try it first": "免费体验",
   "No tasks in selected time range": "当前时间段内没有任务",
-  "How frequent would each time occur?": "任务单次发生频率"
+  "How frequent would each time occur?": "任务单次发生频率",
+  "Color": "颜色",
+  "Blue": "蓝色",
+  "Purple": "紫色",
+  "Orange": "橙色",
+  "Light Blue": "浅蓝色",
+  "Green": "绿色"
 }
