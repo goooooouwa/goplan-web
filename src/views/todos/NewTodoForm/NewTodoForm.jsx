@@ -19,7 +19,7 @@ export default function NewTodoForm() {
     projectId: (params.projectId !== undefined) ? params.projectId : "",
     name: "",
     description: "",
-    color: "primary.light",
+    color: "primary.main",
     startDate: moment().format("YYYY-MM-DD"),
     endDate: moment().format("YYYY-MM-DD"),
     repeat: false,
@@ -221,7 +221,7 @@ export default function NewTodoForm() {
                   sx={{ color: todo.color }}
                   onChange={handleChange}
                 >
-                  <MenuItem value="primary.light" sx={{ color: "primary.light" }}>{t('Blue')}</MenuItem>
+                  <MenuItem value="primary.main" sx={{ color: "primary.main" }}>{t('Blue')}</MenuItem>
                   <MenuItem value="secondary.light" sx={{ color: "secondary.light" }}>{t('Purple')}</MenuItem>
                   <MenuItem value="warning.light" sx={{ color: "warning.light" }}>{t('Orange')}</MenuItem>
                   <MenuItem value="info.light" sx={{ color: "info.light" }}>{t('Light Blue')}</MenuItem>

@@ -236,7 +236,7 @@ export default function EditTodoForm() {
                   sx={{ color: todo.color }}
                   onChange={handleChange}
                 >
-                  <MenuItem value="primary.light" sx={{ color: "primary.light" }}>{t('Blue')}</MenuItem>
+                  <MenuItem value="primary.main" sx={{ color: "primary.main" }}>{t('Blue')}</MenuItem>
                   <MenuItem value="secondary.light" sx={{ color: "secondary.light" }}>{t('Purple')}</MenuItem>
                   <MenuItem value="warning.light" sx={{ color: "warning.light" }}>{t('Orange')}</MenuItem>
                   <MenuItem value="info.light" sx={{ color: "info.light" }}>{t('Light Blue')}</MenuItem>
