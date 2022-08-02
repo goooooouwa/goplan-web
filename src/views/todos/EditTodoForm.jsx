@@ -114,7 +114,6 @@ export default function EditTodoForm() {
           name: todo.newSubtask,
           startDate: todo.startDate,
           endDate: todo.startDate,
-          instanceTimeSpan: 1,
         }],
       newSubtask: ''
     }));
@@ -149,7 +148,6 @@ export default function EditTodoForm() {
         name: child.name,
         start_date: child.startDate,
         end_date: child.endDate,
-        instance_time_span: Number(child.instanceTimeSpan),
       })),
     };
 
