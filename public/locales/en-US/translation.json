@@ -69,10 +69,5 @@
   "Try it first": "Try it first",
   "No tasks in selected time range": "No tasks in selected time range",
   "How frequent would each time occur?": "How frequent would each time occur?",
-  "Color": "Color",
-  "Blue": "Blue",
-  "Purple": "Purple",
-  "Orange": "Orange",
-  "Light Blue": "Light Blue",
-  "Green": "Green"
+  "Color": "Label Color"
 }

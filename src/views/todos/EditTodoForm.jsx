@@ -7,6 +7,7 @@ import React, { useCallback, useEffect, useState } from "react";
 import { Navigate, useParams } from "react-router-dom";
 import { reduce } from "lodash";
 import { useTranslation } from 'react-i18next';
+import CircleIcon from '@mui/icons-material/Circle';
 
 export default function EditTodoForm() {
   const { t, i18n } = useTranslation();
@@ -236,11 +237,21 @@ export default function EditTodoForm() {
                   sx={{ color: todo.color }}
                   onChange={handleChange}
                 >
-                  <MenuItem value="primary.main" sx={{ color: "primary.main" }}>{t('Blue')}</MenuItem>
-                  <MenuItem value="secondary.light" sx={{ color: "secondary.light" }}>{t('Purple')}</MenuItem>
-                  <MenuItem value="warning.light" sx={{ color: "warning.light" }}>{t('Orange')}</MenuItem>
-                  <MenuItem value="info.light" sx={{ color: "info.light" }}>{t('Light Blue')}</MenuItem>
-                  <MenuItem value="success.light" sx={{ color: "success.light" }}>{t('Green')}</MenuItem>
+                  <MenuItem value="primary.main">
+                    <CircleIcon sx={{ color: "primary.main" }} />
+                  </MenuItem>
+                  <MenuItem value="secondary.light">
+                    <CircleIcon sx={{ color: "secondary.light" }} />
+                  </MenuItem>
+                  <MenuItem value="warning.light">
+                    <CircleIcon sx={{ color: "warning.light" }} />
+                  </MenuItem>
+                  <MenuItem value="info.light">
+                    <CircleIcon sx={{ color: "info.light" }} />
+                  </MenuItem>
+                  <MenuItem value="success.light">
+                    <CircleIcon sx={{ color: "success.light" }} />
+                  </MenuItem>
                 </Select>
               </FormControl>
             </Grid>
