@@ -238,7 +238,7 @@ export default function NewTodoForm() {
                 </Select>
               </FormControl>
             </Grid>
-            <Grid item>
+            {/* <Grid item>
               <Typography variant="body1" gutterBottom textAlign="left">
                 {t('How long would it take each time?')}
               </Typography>
@@ -257,8 +257,8 @@ export default function NewTodoForm() {
                   }}
                 />
               </Grid>
-            </Grid>
-            <Grid item>
+            </Grid> */}
+            <Grid item mt={2}>
               <label>{t('Start Date')}
                 <input
                   type="date"
@@ -276,7 +276,7 @@ export default function NewTodoForm() {
             </Grid>
             {todo.repeat && (
               <>
-                <Grid item>
+                <Grid item mt={1} mb={2}>
                   <label>{t('End Date')}
                     <input
                       type="date"
@@ -287,7 +287,7 @@ export default function NewTodoForm() {
                     />
                   </label>
                 </Grid>
-                <Grid item spacing={2} sx={{mt: 2}}>
+                {/* <Grid item spacing={2} sx={{mt: 2}}>
                   <Typography variant="body1" gutterBottom textAlign="left">
                     {t('How frequent would each time occur?')}
                   </Typography>
@@ -321,7 +321,7 @@ export default function NewTodoForm() {
                       </Select>
                     </FormControl>
                   </Grid>
-                </Grid>
+                </Grid> */}
               </>
             )}
             <Grid item>
