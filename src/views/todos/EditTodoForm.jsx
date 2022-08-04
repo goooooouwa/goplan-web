@@ -112,8 +112,6 @@ export default function EditTodoForm() {
         {
           projectId: todo.projectId,
           name: todo.newSubtask,
-          startDate: todo.startDate,
-          endDate: todo.startDate,
         }],
       newSubtask: ''
     }));
@@ -146,8 +144,6 @@ export default function EditTodoForm() {
         project_id: child.projectId,
         color: todo.color,
         name: child.name,
-        start_date: child.startDate,
-        end_date: child.endDate,
       })),
     };
 
