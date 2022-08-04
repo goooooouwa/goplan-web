@@ -28,7 +28,6 @@ export default function LandingPage() {
             </Stack>
             <h2>{t('Where plans meet their timeline.')}</h2>
             <p>{t('GoPlan is an app to help you achieve your goals, by turning your plan into actionable tasks that can be easily managed over time with a timeline overview.')}</p>
-            <ReactPlayer url={`${StorageServiceBaseURL}/intro.mp4`} controls={true} />
           </Grid>
           <Grid item xs={12}>
             <Button variant="contained" component={Link} href={signInPage}>
@@ -39,6 +38,9 @@ export default function LandingPage() {
             <Button variant="outlined" onClick={handleOfflineMode}>
               {t('Try it first')}
             </Button>
+          </Grid>
+          <Grid item xs={12}>
+            <ReactPlayer url={`${StorageServiceBaseURL}/intro.mp4`} controls={true} />
           </Grid>
         </Grid>
       </Container>
