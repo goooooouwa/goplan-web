@@ -342,7 +342,7 @@ function setupPutRequests(mock) {
 
         const projects = JSON.parse(localStorage.getItem("/projects.json"));
         const project = projects.find((item) => {
-          return item.id === parseInt(updatedTodo.project_id);
+          return item.id === parseInt(updatedTodo.projectId);
         });
 
         const todos = JSON.parse(localStorage.getItem("/todos.json"));
