@@ -1,9 +1,12 @@
 import { Button, Container, Grid, Link, Stack, Typography } from "@mui/material";
 import React from "react";
+import ReactPlayer from 'react-player/file'
 import { Navigate } from "react-router-dom";
 import { useAuth } from "hooks/useAuth";
 import TaskAlt from "@mui/icons-material/TaskAlt";
 import { useTranslation } from 'react-i18next';
+
+const StorageServiceBaseURL = process.env.REACT_APP_STORAGE_SERVICE_BASE_URL;
 
 export default function LandingPage() {
   const { t, i18n } = useTranslation();
@@ -25,6 +28,7 @@ export default function LandingPage() {
             </Stack>
             <h2>{t('Where plans meet their timeline.')}</h2>
             <p>{t('GoPlan is an app to help you achieve your goals, by turning your plan into actionable tasks that can be easily managed over time with a timeline overview.')}</p>
+            <ReactPlayer url={`${StorageServiceBaseURL}/intro.mp4`} controls={true} />
           </Grid>
           <Grid item xs={12}>
             <Button variant="contained" component={Link} href={signInPage}>
