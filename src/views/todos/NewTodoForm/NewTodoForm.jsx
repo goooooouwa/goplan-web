@@ -283,9 +283,9 @@ export default function NewTodoForm() {
                     />
                   </label>
                 </Grid>
-                {/* <Grid item spacing={2} sx={{mt: 2}}>
+                <Grid item spacing={2} sx={{ mt: 2 }}>
                   <Typography variant="body1" gutterBottom textAlign="left">
-                    {t('How frequent would each time occur?')}
+                    {t('打卡频率: ')}
                   </Typography>
                 </Grid>
                 <Grid item container xs={12} spacing={2}>
@@ -317,7 +317,7 @@ export default function NewTodoForm() {
                       </Select>
                     </FormControl>
                   </Grid>
-                </Grid> */}
+                </Grid>
               </>
             )}
             <Grid item>
