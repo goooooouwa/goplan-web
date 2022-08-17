@@ -96,10 +96,8 @@ export default function TodoDetail(props) {
                   <Typography variant="h5" gutterBottom>
                     {t('Description')}
                   </Typography>
-                  <Typography variant="body1" gutterBottom textAlign="left" >
-                    <pre>
-                      {props.todo.description}
-                    </pre>
+                  <Typography variant="body1" component="pre" gutterBottom textAlign="left" >
+                    {props.todo.description}
                   </Typography>
                   <Typography variant="h5" gutterBottom>
                     {t('Color')}

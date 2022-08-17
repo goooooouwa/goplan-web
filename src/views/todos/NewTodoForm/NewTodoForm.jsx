@@ -312,7 +312,6 @@ export default function NewTodoForm() {
                         <MenuItem value="day">{t('Day')}</MenuItem>
                         <MenuItem value="week">{t('Week')}</MenuItem>
                         <MenuItem value="month">{t('Month')}</MenuItem>
-                        <MenuItem value="quarter">{t('Quarter')}</MenuItem>
                         <MenuItem value="year">{t('Year')}</MenuItem>
                       </Select>
                     </FormControl>
