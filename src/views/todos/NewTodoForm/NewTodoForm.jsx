@@ -126,9 +126,11 @@ export default function NewTodoForm() {
       instance_time_span: Number(todo.instanceTimeSpan),
       todo_dependencies_attributes: todo.dependencies.map((todo) => ({ todo_id: todo.id })),
       children_attributes: todo.children.map((child) => ({
+        name: child.name,
         project_id: child.projectId,
         color: todo.color,
-        name: child.name,
+        start_date: todo.startDate,
+        end_date: todo.startDate,
       })),
     };
 
@@ -283,7 +285,7 @@ export default function NewTodoForm() {
                     />
                   </label>
                 </Grid>
-                <Grid item spacing={2} sx={{ mt: 2 }}>
+                <Grid item sx={{ mt: 2 }}>
                   <Typography variant="body1" gutterBottom textAlign="left">
                     {t('打卡频率: ')}
                   </Typography>

@@ -29,6 +29,7 @@ export default function EditTodoForm() {
     newSubtask: "",
     children: [],
   });
+  const [originalStartDate, setOriginalStartDate] = useState(null);
   const queryByProjectId = params.projectId !== undefined ? `project_id=${params.projectId}&` : '';
   const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState(null);
@@ -43,6 +44,7 @@ export default function EditTodoForm() {
           startDate: moment(response.data.startDate).format("YYYY-MM-DD"),
           endDate: moment(response.data.endDate).format("YYYY-MM-DD"),
         }));
+        setOriginalStartDate(moment(response.data.startDate).format("YYYY-MM-DD"));
       })
       .catch(function (error) {
         setError(error.response.data);
@@ -139,11 +141,12 @@ export default function EditTodoForm() {
       repeat_times: Math.round(Number(todo.repeatTimes)),
       instance_time_span: Number(todo.instanceTimeSpan),
       dependencies_attributes: todo.dependencies.map((todo) => (todo.id)),
-      children_attributes: todo.children.map((child) => ({
-        id: child.id,
+      children_attributes: todo.children.filter((child) => (child.id === undefined)).map((child) => ({
+        name: child.name,
         project_id: child.projectId,
         color: todo.color,
-        name: child.name,
+        start_date: originalStartDate,
+        end_date: originalStartDate,
       })),
     };
 
