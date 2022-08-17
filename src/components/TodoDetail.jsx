@@ -129,6 +129,14 @@ export default function TodoDetail(props) {
                     {t('Each time: ')}{moment.duration(props.todo.instanceTimeSpan * 3600000).humanize()}
                   </Typography> */}
                   <Typography variant="h5" gutterBottom>
+                    {t('Parent task_')}
+                  </Typography>
+                  <Stack justifyContent="center" spacing={1}>
+                    {props.todo.parents.map((parent, index) => (
+                      <Chip key={index} label={parent.name} component={RouterLink} to={`/projects/${props.todo.projectId}/todos/${parent.id}`} clickable />
+                    ))}
+                  </Stack>
+                  <Typography variant="h5" gutterBottom>
                     {t('Subtasks_')}
                   </Typography>
                   <Grid container spacing={2}>

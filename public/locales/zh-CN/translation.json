@@ -69,5 +69,6 @@
   "Try it first": "立即体验",
   "No tasks in selected time range": "当前时间段内没有任务",
   "How frequent would each time occur?": "任务单次发生频率",
-  "Color": "标签颜色"
+  "Color": "标签颜色",
+  "Parent task_": "母任务："
 }

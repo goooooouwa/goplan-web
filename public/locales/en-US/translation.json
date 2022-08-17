@@ -69,5 +69,6 @@
   "Try it first": "Try it first",
   "No tasks in selected time range": "No tasks in selected time range",
   "How frequent would each time occur?": "How frequent would each time occur?",
-  "Color": "Label Color"
+  "Color": "Label Color",
+  "Parent task_": "Parent task:"
 }
