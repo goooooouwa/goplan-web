@@ -287,7 +287,7 @@ export default function NewTodoForm() {
                 </Grid>
                 <Grid item sx={{ mt: 2 }}>
                   <Typography variant="body1" gutterBottom textAlign="left">
-                    {t('打卡频率: ')}
+                    {t('Frequency of Punching: ')}
                   </Typography>
                 </Grid>
                 <Grid item container xs={12} spacing={2}>

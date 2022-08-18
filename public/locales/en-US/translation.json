@@ -70,5 +70,6 @@
   "No tasks in selected time range": "No tasks in selected time range",
   "How frequent would each time occur?": "How frequent would each time occur?",
   "Color": "Label Color",
-  "Parent task_": "Parent task:"
+  "Parent task_": "Parent task:",
+  "Frequency of Punching: ": "Frequency of Punching: "
 }

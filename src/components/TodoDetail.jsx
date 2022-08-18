@@ -117,12 +117,9 @@ export default function TodoDetail(props) {
                       <Typography variant="body1" gutterBottom>
                         {t('Time span: ')}{moment(props.todo.startDate).isValid() && moment(props.todo.endDate).isValid() ? moment.duration(moment(props.todo.startDate).diff(moment(props.todo.endDate))).humanize() : 0}
                       </Typography>
-                      {/* <Typography variant="h5" gutterBottom>
-                        {t('Repeating interval')}
-                      </Typography>
                       <Typography variant="body1" gutterBottom>
-                        {t('Interval: ')}{props.todo.repeatTimes}{t(' times per ')}{t(props.todo.repeatPeriod)}
-                      </Typography> */}
+                        {t('Frequency of Punching: ')}{props.todo.repeatTimes}{t(' times per ')}{t(props.todo.repeatPeriod)}
+                      </Typography>
                     </>
                   )}
                   {/* <Typography variant="body1" gutterBottom>
