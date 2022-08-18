@@ -65,10 +65,10 @@ export default function TimelineYear(props) {
             {todos.length > 0 &&
               <ProjectYearSlider project={todos[0].project} selectedYear={props.selectedYear} />
             }
-            {todosInYearRange(todos, props.selectedYear).map((todo, index) => (
+            {todos.map((todo, index) => (
               <TodoYearSlider key={index} todo={todo} selectedYear={props.selectedYear} handleTodoChange={props.handleTodoChange} handleMonthChange={props.handleMonthChange} />
             ))}
-            {todosInYearRange(todos, props.selectedYear).length === 0 &&
+            {todos.length === 0 &&
               <Grid item xs={12}>
                 <Stack alignItems="center" justifyContent="center" sx={{ height: 200 }}>
                   <Typography alignItems="center">

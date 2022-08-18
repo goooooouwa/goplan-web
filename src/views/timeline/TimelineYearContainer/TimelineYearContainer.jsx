@@ -17,24 +17,24 @@ import { useLoading } from "hooks/useLoading";
 export default function TimelineYearContainer() {
   const { t, i18n } = useTranslation();
   const params = useParams();
-  const todosUrl = params.projectId !== undefined ? `/todos/children.json?project_id=${params.projectId}` : '/todos/children.json';
   const [searchParams, setSearchParams] = useSearchParams();
   const selectedYear = searchParams.get("year") !== null ? moment(searchParams.get("year")) : moment().startOf("year");
+  const todosUrl = params.projectId !== undefined ? `/todos/children.json?project_id=${params.projectId}&year=${selectedYear.format("YYYY-MM-DD")}` : `/todos/children.json?year=${selectedYear.format("YYYY-MM-DD")}`;
   const [todos, setTodos] = useState([]);
   const todosInJSON = JSON.stringify(todos);
   const { addError } = useAPIError();
   const { startLoading, finishLoading } = useLoading();
 
   const handleTodayClick = (event) => {
-    setSearchParams({ year: moment().format("YYYY") });
+    setSearchParams({ year: moment().format("YYYY-MM-DD") });
   }
 
   const handlePreviousYearClick = (event) => {
-    setSearchParams({ year: selectedYear.clone().subtract(1, "years").format("YYYY") });
+    setSearchParams({ year: selectedYear.clone().subtract(1, "years").format("YYYY-MM-DD") });
   }
 
   const handleNextYearClick = (event) => {
-    setSearchParams({ year: selectedYear.clone().add(1, "years").format("YYYY") });
+    setSearchParams({ year: selectedYear.clone().add(1, "years").format("YYYY-MM-DD") });
   }
 
   const handleMonthChange = (todo, months) => {
@@ -121,7 +121,7 @@ export default function TimelineYearContainer() {
               alignItems="center"
             >
               <Typography variant="h4" component="div">
-                {selectedYear.format("YYYY")}
+                {selectedYear.format("YYYY-MM-DD")}
               </Typography>
               <Stack
                 direction={{ xs: 'column', sm: 'row' }}
