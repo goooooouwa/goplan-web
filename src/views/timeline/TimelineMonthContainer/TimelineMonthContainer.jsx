@@ -17,24 +17,24 @@ import { useLoading } from "hooks/useLoading";
 export default function TimelineMonthContainer() {
   const { t, i18n } = useTranslation();
   const params = useParams();
-  const todosUrl = params.projectId !== undefined ? `/todos/children.json?project_id=${params.projectId}` : '/todos/children.json';
   const [searchParams, setSearchParams] = useSearchParams();
   const selectedMonth = searchParams.get("month") !== null ? moment(searchParams.get("month")) : moment().startOf("month");
+  const todosUrl = params.projectId !== undefined ? `/todos/children.json?project_id=${params.projectId}&month=${selectedMonth.format("YYYY-MM-DD")}` : `/todos/children.json?month=${selectedMonth.format("YYYY-MM-DD")}`;
   const [todos, setTodos] = useState([]);
   const todosInJSON = JSON.stringify(todos);
   const { addError } = useAPIError();
   const { startLoading, finishLoading } = useLoading();
 
   const handleTodayClick = (event) => {
-    setSearchParams({ month: moment().format("YYYYMM") });
+    setSearchParams({ month: moment().format("YYYY-MM-DD") });
   }
 
   const handlePreviousMonthClick = (event) => {
-    setSearchParams({ month: selectedMonth.clone().subtract(1, "months").format("YYYYMM") });
+    setSearchParams({ month: selectedMonth.clone().subtract(1, "months").format("YYYY-MM-DD") });
   }
 
   const handleNextMonthClick = (event) => {
-    setSearchParams({ month: selectedMonth.clone().add(1, "months").format("YYYYMM") });
+    setSearchParams({ month: selectedMonth.clone().add(1, "months").format("YYYY-MM-DD") });
   }
 
   const handleWeekChange = (todo, weeks) => {

@@ -89,10 +89,10 @@ export default function TimelineMonth(props) {
             </Stack>
           </Box>
         </Grid>
-        {todosInMonthRange(props.todos, props.selectedMonth).map((todo, index) => (
+        {props.todos.map((todo, index) => (
           <TodoMonthSlider key={index} todo={todo} selectedMonth={props.selectedMonth} handleTodoChange={props.handleTodoChange} handleWeekChange={props.handleWeekChange} />
         ))}
-        {todosInMonthRange(props.todos, props.selectedMonth).length === 0 &&
+        {props.todos.length === 0 &&
           <Grid item xs={12}>
             <Stack alignItems="center" justifyContent="center" sx={{ height: 200 }}>
               <Typography alignItems="center">

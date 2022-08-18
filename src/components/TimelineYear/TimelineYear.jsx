@@ -47,7 +47,7 @@ export default function TimelineYear(props) {
                   key={index}
                   component={RouterLink}
                   size="small"
-                  to={`${monthUrlPrefix}${props.selectedYear.clone().add(mark.value, "months").format("YYYYMM")}`}
+                  to={`${monthUrlPrefix}${props.selectedYear.clone().add(mark.value, "months").format("YYYY-MM-DD")}`}
                   sx={{
                     fontWeight: 'bold',
                     fontSize: { xs: 10, sm: 16 },

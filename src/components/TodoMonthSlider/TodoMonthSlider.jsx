@@ -90,10 +90,10 @@ export default function TodoMonthSlider(props) {
           />
         }
       </Grid>
-      {todosInMonthRange(props.todo.children, props.selectedMonth).length > 0 &&
+      {props.todo.children.length > 0 &&
         <Grid item xs={12} md={12}>
           <Collapse in={open} timeout="auto" unmountOnExit>
-            {todosInMonthRange(props.todo.children, props.selectedMonth).map((child, index) => (
+            {props.todo.children.map((child, index) => (
               <Grid key={index} container item xs={12} md={12}>
                 <TodoMonthSlider key={index} todo={child} selectedMonth={props.selectedMonth} handleTodoChange={props.handleTodoChange} handleWeekChange={props.handleWeekChange} />
               </Grid>

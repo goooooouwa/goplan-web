@@ -56,7 +56,7 @@ export default function TimelineQuarter(props) {
                     key={index}
                     component={RouterLink}
                     size="small"
-                    to={`${monthUrlPrefix}${props.selectedQuarter.clone().add(mark.value, "months").format("YYYYMM")}`}
+                    to={`${monthUrlPrefix}${props.selectedQuarter.clone().add(mark.value, "months").format("YYYY-MM-DD")}`}
                     sx={{
                       fontWeight: 'bold',
                       fontSize: 16,
