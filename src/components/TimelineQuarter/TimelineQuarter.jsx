@@ -70,10 +70,10 @@ export default function TimelineQuarter(props) {
             </Stack>
           </Box>
         </Grid>
-        {todosInQuarterRange(props.todos, props.selectedQuarter).map((todo, index) => (
+        {props.todos.map((todo, index) => (
           <TodoQuarterSlider key={index} todo={todo} selectedQuarter={props.selectedQuarter} handleTodoChange={props.handleTodoChange} handleMonthChange={props.handleMonthChange} />
         ))}
-        {todosInQuarterRange(props.todos, props.selectedQuarter).length === 0 &&
+        {props.todos.length === 0 &&
           <Grid item xs={12}>
             <Stack alignItems="center" justifyContent="center" sx={{ height: 200 }}>
               <Typography alignItems="center">

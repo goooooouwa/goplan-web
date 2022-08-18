@@ -17,24 +17,24 @@ import { useLoading } from "hooks/useLoading";
 export default function TimelineQuarterContainer() {
   const { t, i18n } = useTranslation();
   const params = useParams();
-  const todosUrl = params.projectId !== undefined ? `/todos/children.json?project_id=${params.projectId}` : '/todos/children.json';
   const [searchParams, setSearchParams] = useSearchParams();
-  const selectedQuarter = searchParams.get("quarter") !== null ? moment(searchParams.get("quarter"), "YYYY[Q]Q") : moment().startOf("quarter");
+  const selectedQuarter = searchParams.get("quarter") !== null ? moment(searchParams.get("quarter"), "YYYY-MM-DD") : moment().startOf("quarter");
+  const todosUrl = params.projectId !== undefined ? `/todos/children.json?project_id=${params.projectId}&quarter=${selectedQuarter.format("YYYY-MM-DD")}` : `/todos/children.json?quarter=${selectedQuarter.format("YYYY-MM-DD")}`;
   const [todos, setTodos] = useState([]);
   const todosInJSON = JSON.stringify(todos);
   const { addError } = useAPIError();
   const { startLoading, finishLoading } = useLoading();
 
   const handleTodayClick = (event) => {
-    setSearchParams({ quarter: moment().format("YYYY[Q]Q") });
+    setSearchParams({ quarter: moment().format("YYYY-MM-DD") });
   }
 
   const handlePreviousQuarterClick = (event) => {
-    setSearchParams({ quarter: selectedQuarter.clone().subtract(1, "quarters").format("YYYY[Q]Q") });
+    setSearchParams({ quarter: selectedQuarter.clone().subtract(1, "quarters").format("YYYY-MM-DD") });
   }
 
   const handleNextQuarterClick = (event) => {
-    setSearchParams({ quarter: selectedQuarter.clone().add(1, "quarters").format("YYYY[Q]Q") });
+    setSearchParams({ quarter: selectedQuarter.clone().add(1, "quarters").format("YYYY-MM-DD") });
   }
 
   const handleMonthChange = (todo, months) => {
