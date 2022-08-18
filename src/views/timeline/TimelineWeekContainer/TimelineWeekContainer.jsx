@@ -17,24 +17,24 @@ import { useLoading } from "hooks/useLoading";
 export default function TimelineWeekContainer() {
   const { t, i18n } = useTranslation();
   const params = useParams();
-  const todosUrl = params.projectId !== undefined ? `/todos/children.json?project_id=${params.projectId}` : '/todos/children.json';
   const [searchParams, setSearchParams] = useSearchParams();
   const selectedWeek = searchParams.get("week") !== null ? moment(searchParams.get("week")) : moment().startOf("week");
+  const todosUrl = params.projectId !== undefined ? `/todos/children.json?project_id=${params.projectId}&week=${selectedWeek.format("YYYY-MM-DD")}` : `/todos/children.json?week=${selectedWeek.format("YYYY-MM-DD")}`;
   const [todos, setTodos] = useState([]);
   const todosInJSON = JSON.stringify(todos);
   const { addError } = useAPIError();
   const { startLoading, finishLoading } = useLoading();
 
   const handleTodayClick = (event) => {
-    setSearchParams({ week: moment().format("YYYY[W]WW") });
+    setSearchParams({ week: moment().format("YYYY-MM-DD") });
   }
 
   const handlePreviousWeekClick = (event) => {
-    setSearchParams({ week: selectedWeek.clone().subtract(1, "weeks").format("YYYY[W]WW") });
+    setSearchParams({ week: selectedWeek.clone().subtract(1, "weeks").format("YYYY-MM-DD") });
   }
 
   const handleNextWeekClick = (event) => {
-    setSearchParams({ week: selectedWeek.clone().add(1, "weeks").format("YYYY[W]WW") });
+    setSearchParams({ week: selectedWeek.clone().add(1, "weeks").format("YYYY-MM-DD") });
   }
 
   const handleDayChange = (todo, days) => {

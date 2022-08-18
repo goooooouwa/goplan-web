@@ -75,7 +75,7 @@ export default function TimelineMonth(props) {
                     key={index}
                     component={RouterLink}
                     size="small"
-                    to={`${weekUrlPrefix}${props.selectedMonth.clone().add(mark.value - 1, "weeks").add(1, "days").format("YYYY[W]WW")}`}
+                    to={`${weekUrlPrefix}${props.selectedMonth.clone().add(mark.value - 1, "weeks").format("YYYY-MM-DD")}`}
                     sx={{
                       fontWeight: 'bold',
                       fontSize: 16,

@@ -91,10 +91,10 @@ export default function TimelineWeek(props) {
             </Stack>
           </Box>
         </Grid>
-        {todosInWeekRange(props.todos, props.selectedWeek).map((todo, index) => (
+        {props.todos.map((todo, index) => (
           <TodoWeekSlider key={index} todo={todo} selectedWeek={props.selectedWeek} handleTodoChange={props.handleTodoChange} handleDayChange={props.handleDayChange} />
         ))}
-        {todosInWeekRange(props.todos, props.selectedWeek).length === 0 &&
+        {props.todos.length === 0 &&
           <Grid item xs={12}>
             <Stack alignItems="center" justifyContent="center" sx={{ height: 200 }}>
               <Typography alignItems="center">
