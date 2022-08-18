@@ -1,6 +1,28 @@
+import moment from "moment";
+
 export default function isInYearRange(date, selectedYear) {
   return date.isValid() && date.isSame(selectedYear, 'year');
 }
+
+export const todosInYearRange = (todos, selectedYear) => (
+  todos.filter(todo => (
+    !(moment(todo.endDate).isBefore(selectedYear, 'year') || moment(todo.startDate).isAfter(selectedYear, 'year'))
+  )));
+
+export const todosInQuarterRange = (todos, selectedQuarter) => (
+  todos.filter(todo => (
+    !(moment(todo.endDate).isBefore(selectedQuarter, 'quarter') || moment(todo.startDate).isAfter(selectedQuarter, 'quarter'))
+  )));
+
+export const todosInMonthRange = (todos, selectedMonth) => (
+  todos.filter(todo => (
+    !(moment(todo.endDate).isBefore(selectedMonth, 'month') || moment(todo.startDate).isAfter(selectedMonth, 'month'))
+  )));
+
+export const todosInWeekRange = (todos, selectedWeek) => (
+  todos.filter(todo => (
+    !(moment(todo.endDate).isBefore(selectedWeek, 'week') || moment(todo.startDate).isAfter(selectedWeek, 'week'))
+  )));
 
 export function isInQuarterRange(date, selectedQuarter) {
   return date.isValid() && date.isSame(selectedQuarter, 'quarter');

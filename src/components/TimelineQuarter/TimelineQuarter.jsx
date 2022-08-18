@@ -1,5 +1,5 @@
 import { Box, Grid, IconButton, Stack, Typography } from '@mui/material';
-import { isInQuarterRange } from 'utils/rangeCheck';
+import { isInQuarterRange, todosInQuarterRange } from 'utils/rangeCheck';
 import moment from 'moment';
 import React from 'react';
 import { Link as RouterLink, useParams } from 'react-router-dom';
@@ -25,9 +25,6 @@ export default function TimelineQuarter(props) {
   const { t, i18n } = useTranslation();
   const params = useParams();
   const monthUrlPrefix = params.projectId !== undefined ? `/projects/${params.projectId}/month?month=` : '/timeline/month?month=';
-  const todosInRange = props.todos.filter(todo => (
-    !(moment(todo.endDate).isBefore(props.selectedQuarter, 'quarter') || moment(todo.startDate).isAfter(props.selectedQuarter, 'quarter'))
-  ));
 
   return (
     <>
@@ -73,10 +70,10 @@ export default function TimelineQuarter(props) {
             </Stack>
           </Box>
         </Grid>
-        {todosInRange.map((todo, index) => (
+        {todosInQuarterRange(props.todos, props.selectedQuarter).map((todo, index) => (
           <TodoQuarterSlider key={index} todo={todo} selectedQuarter={props.selectedQuarter} handleTodoChange={props.handleTodoChange} handleMonthChange={props.handleMonthChange} />
         ))}
-        {todosInRange.length === 0 &&
+        {todosInQuarterRange(props.todos, props.selectedQuarter).length === 0 &&
           <Grid item xs={12}>
             <Stack alignItems="center" justifyContent="center" sx={{ height: 200 }}>
               <Typography alignItems="center">

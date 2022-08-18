@@ -1,5 +1,5 @@
 import { Box, Grid, IconButton, Stack, Typography } from '@mui/material';
-import isInYearRange, { marksForYear } from 'utils/rangeCheck';
+import isInYearRange, { marksForYear, todosInYearRange } from 'utils/rangeCheck';
 import moment from 'moment';
 import React, { Fragment } from 'react';
 import { Link as RouterLink, useParams } from 'react-router-dom';
@@ -17,11 +17,6 @@ export default function TimelineYear(props) {
   const monthUrlPrefix = params.projectId !== undefined ? `/projects/${params.projectId}/month?month=` : '/timeline/month?month=';
   const [marks] = marksForYear(props.selectedYear);
   const todosByProject = todoTraversal.groupByProject(props.todos);
-
-  const todosInRange = (todos) => (
-    todos.filter(todo => (
-      !(moment(todo.endDate).isBefore(props.selectedYear, 'year') || moment(todo.startDate).isAfter(props.selectedYear, 'year'))
-    )));
 
   return (
     <>
@@ -70,10 +65,10 @@ export default function TimelineYear(props) {
             {todos.length > 0 &&
               <ProjectYearSlider project={todos[0].project} selectedYear={props.selectedYear} />
             }
-            {todosInRange(todos).map((todo, index) => (
+            {todosInYearRange(todos, props.selectedYear).map((todo, index) => (
               <TodoYearSlider key={index} todo={todo} selectedYear={props.selectedYear} handleTodoChange={props.handleTodoChange} handleMonthChange={props.handleMonthChange} />
             ))}
-            {todosInRange(todos).length === 0 &&
+            {todosInYearRange(todos, props.selectedYear).length === 0 &&
               <Grid item xs={12}>
                 <Stack alignItems="center" justifyContent="center" sx={{ height: 200 }}>
                   <Typography alignItems="center">

@@ -1,5 +1,5 @@
 import { Collapse, Grid } from '@mui/material';
-import { isInQuarterRange } from 'utils/rangeCheck';
+import { isInQuarterRange, todosInQuarterRange } from 'utils/rangeCheck';
 import moment from 'moment';
 import React from 'react';
 import TimelineRangeSlider from '../TimelineRangeSlider/TimelineRangeSlider';
@@ -81,10 +81,10 @@ export default function TodoQuarterSlider(props) {
           />
         }
       </Grid>
-      {props.todo.children.length > 0 &&
+      {todosInQuarterRange(props.todo.children, props.selectedQuarter).length > 0 &&
         <Grid item xs={12} md={12}>
           <Collapse in={open} timeout="auto" unmountOnExit>
-            {props.todo.children.map((child, index) => (
+            {todosInQuarterRange(props.todo.children, props.selectedQuarter).map((child, index) => (
               <Grid key={index} container item xs={12} md={12}>
                 <TodoQuarterSlider key={index} todo={child} selectedQuarter={props.selectedQuarter} handleTodoChange={props.handleTodoChange} handleMonthChange={props.handleMonthChange} />
               </Grid>

@@ -1,5 +1,5 @@
 import { Collapse, Grid } from '@mui/material';
-import { isInWeekRange } from 'utils/rangeCheck';
+import { isInWeekRange, todosInWeekRange } from 'utils/rangeCheck';
 import moment from 'moment';
 import React from 'react';
 import PropTypes from 'prop-types';
@@ -99,10 +99,10 @@ export default function TodoWeekSlider(props) {
           />
         }
       </Grid>
-      {props.todo.children.length > 0 &&
+      {todosInWeekRange(props.todo.children, props.selectedWeek).length > 0 &&
         <Grid item xs={12} md={12}>
           <Collapse in={open} timeout="auto" unmountOnExit>
-            {props.todo.children.map((child, index) => (
+            {todosInWeekRange(props.todo.children, props.selectedWeek).map((child, index) => (
               <Grid key={index} container item xs={12} md={12}>
                 <TodoWeekSlider key={index} todo={child} selectedWeek={props.selectedWeek} handleTodoChange={props.handleTodoChange} handleDayChange={props.handleDayChange} />
               </Grid>

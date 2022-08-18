@@ -1,5 +1,5 @@
 import { Box, Grid, IconButton, Stack, Typography } from '@mui/material';
-import { isInMonthRange, nthWeekOfMonth } from 'utils/rangeCheck';
+import { isInMonthRange, nthWeekOfMonth, todosInMonthRange } from 'utils/rangeCheck';
 import moment from 'moment';
 import React from 'react';
 import { Link as RouterLink, useParams } from 'react-router-dom';
@@ -36,9 +36,6 @@ export default function TimelineMonth(props) {
   const { t, i18n } = useTranslation();
   const params = useParams();
   const weekUrlPrefix = params.projectId !== undefined ? `/projects/${params.projectId}/week?week=` : '/timeline/week?week=';
-  const todosInRange = props.todos.filter(todo => (
-    !(moment(todo.endDate).isBefore(props.selectedMonth, 'month') || moment(todo.startDate).isAfter(props.selectedMonth, 'month'))
-  ));
 
   return (
     <>
@@ -92,10 +89,10 @@ export default function TimelineMonth(props) {
             </Stack>
           </Box>
         </Grid>
-        {todosInRange.map((todo, index) => (
+        {todosInMonthRange(props.todos, props.selectedMonth).map((todo, index) => (
           <TodoMonthSlider key={index} todo={todo} selectedMonth={props.selectedMonth} handleTodoChange={props.handleTodoChange} handleWeekChange={props.handleWeekChange} />
         ))}
-        {todosInRange.length === 0 &&
+        {todosInMonthRange(props.todos, props.selectedMonth).length === 0 &&
           <Grid item xs={12}>
             <Stack alignItems="center" justifyContent="center" sx={{ height: 200 }}>
               <Typography alignItems="center">

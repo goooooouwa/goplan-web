@@ -1,5 +1,5 @@
 import { Box, Grid, Stack, Typography } from '@mui/material';
-import { isInWeekRange } from 'utils/rangeCheck';
+import { isInWeekRange, todosInWeekRange } from 'utils/rangeCheck';
 import moment from 'moment';
 import React from 'react';
 import PropTypes from 'prop-types';
@@ -41,10 +41,6 @@ const marks = [
 
 export default function TimelineWeek(props) {
   const { t, i18n } = useTranslation();
-
-  const todosInRange = props.todos.filter(todo => (
-    !(moment(todo.endDate).isBefore(props.selectedWeek, 'week') || moment(todo.startDate).isAfter(props.selectedWeek, 'week'))
-  ));
 
   return (
     <>
@@ -95,10 +91,10 @@ export default function TimelineWeek(props) {
             </Stack>
           </Box>
         </Grid>
-        {todosInRange.map((todo, index) => (
+        {todosInWeekRange(props.todos, props.selectedWeek).map((todo, index) => (
           <TodoWeekSlider key={index} todo={todo} selectedWeek={props.selectedWeek} handleTodoChange={props.handleTodoChange} handleDayChange={props.handleDayChange} />
         ))}
-        {todosInRange.length === 0 &&
+        {todosInWeekRange(props.todos, props.selectedWeek).length === 0 &&
           <Grid item xs={12}>
             <Stack alignItems="center" justifyContent="center" sx={{ height: 200 }}>
               <Typography alignItems="center">
