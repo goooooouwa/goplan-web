@@ -91,6 +91,9 @@ export default function TimelineWeekContainer() {
       .catch(function (error) {
         addError(error.response.data, error.response.status);
         console.log(error);
+      })
+      .then(() => {
+        reloadTodos();
       });
   };
 
