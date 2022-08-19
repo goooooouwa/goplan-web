@@ -32,6 +32,7 @@ export default function TodoQuarterSlider(props) {
 
   const handleTodoExpand = () => {
     setOpen(!open);
+    props.loadChildren(props.todo);
   };
 
   const rangeMark = (date) => {
@@ -86,7 +87,7 @@ export default function TodoQuarterSlider(props) {
           <Collapse in={open} timeout="auto" unmountOnExit>
             {props.todo.children.map((child, index) => (
               <Grid key={index} container item xs={12} md={12}>
-                <TodoQuarterSlider key={index} todo={child} selectedQuarter={props.selectedQuarter} handleTodoChange={props.handleTodoChange} handleMonthChange={props.handleMonthChange} />
+                <TodoQuarterSlider key={index} todo={child} selectedQuarter={props.selectedQuarter} handleTodoChange={props.handleTodoChange} handleMonthChange={props.handleMonthChange} loadChildren={props.loadChildren} />
               </Grid>
             ))}
           </Collapse>
@@ -100,5 +101,6 @@ TodoQuarterSlider.propTypes = {
   selectedQuarter: momentPropTypes.momentObj.isRequired,
   todo: SHARED_PROP_TYPES.todo,
   handleTodoChange: PropTypes.func.isRequired,
+  loadChildren: PropTypes.func.isRequired,
   handleMonthChange: PropTypes.func.isRequired
 };

@@ -19,9 +19,8 @@ export default function TimelineQuarterContainer() {
   const params = useParams();
   const [searchParams, setSearchParams] = useSearchParams();
   const selectedQuarter = searchParams.get("quarter") !== null ? moment(searchParams.get("quarter"), "YYYY-MM-DD") : moment().startOf("quarter");
-  const todosUrl = params.projectId !== undefined ? `/todos/children.json?project_id=${params.projectId}&quarter=${selectedQuarter.format("YYYY-MM-DD")}` : `/todos/children.json?quarter=${selectedQuarter.format("YYYY-MM-DD")}`;
+  const todosUrl = params.projectId !== undefined ? `/todos.json?project_id=${params.projectId}&quarter=${selectedQuarter.format("YYYY-MM-DD")}` : `/todos.json?quarter=${selectedQuarter.format("YYYY-MM-DD")}`;
   const [todos, setTodos] = useState([]);
-  const todosInJSON = JSON.stringify(todos);
   const { addError } = useAPIError();
   const { startLoading, finishLoading } = useLoading();
 
@@ -94,7 +93,32 @@ export default function TimelineQuarterContainer() {
       });
   };
 
+  const loadChildren = (todo) => {
+    if (!(todo.numberOfChildren > 0 && todo.children.length === 0)) {
+      return;
+    }
+
+    httpService.get(`/todos/${todo.id}/children.json`)
+      .then((response) => {
+        const updatedTodo = {
+          ...todo,
+          children: response.data,
+        }
+        setTodos((todos) => {
+          return todoTraversal.updateTodosAndChildren(todos, updatedTodo);
+        });
+      })
+      .catch(function (error) {
+        addError(error.response.data, error.response.status);
+        console.log(error);
+      });
+  };
+
   useEffect(() => {
+    reloadTodos();
+  }, [todosUrl]);
+
+  const reloadTodos = () => {
     startLoading();
     httpService.get(todosUrl)
       .then((response) => {
@@ -108,7 +132,7 @@ export default function TimelineQuarterContainer() {
       .then(function () {
         finishLoading();
       });
-  }, [todosUrl, todosInJSON, addError]);
+  };
 
   return (
     <>
@@ -149,7 +173,7 @@ export default function TimelineQuarterContainer() {
             </Stack>
           </Grid>
           <Grid item xs={12}>
-            <TimelineQuarter todos={todos} selectedQuarter={selectedQuarter} handleTodoChange={handleTodoChange} handleMonthChange={handleMonthChange} />
+            <TimelineQuarter todos={todos} selectedQuarter={selectedQuarter} handleTodoChange={handleTodoChange} handleMonthChange={handleMonthChange} loadChildren={loadChildren} />
           </Grid>
         </Grid>
       </Container>
