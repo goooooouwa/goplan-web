@@ -19,9 +19,8 @@ export default function TimelineWeekContainer() {
   const params = useParams();
   const [searchParams, setSearchParams] = useSearchParams();
   const selectedWeek = searchParams.get("week") !== null ? moment(searchParams.get("week")) : moment().startOf("week");
-  const todosUrl = params.projectId !== undefined ? `/todos/children.json?project_id=${params.projectId}&week=${selectedWeek.format("YYYY-MM-DD")}` : `/todos/children.json?week=${selectedWeek.format("YYYY-MM-DD")}`;
+  const todosUrl = params.projectId !== undefined ? `/todos.json?project_id=${params.projectId}&week=${selectedWeek.format("YYYY-MM-DD")}` : `/todos.json?week=${selectedWeek.format("YYYY-MM-DD")}`;
   const [todos, setTodos] = useState([]);
-  const todosInJSON = JSON.stringify(todos);
   const { addError } = useAPIError();
   const { startLoading, finishLoading } = useLoading();
 
@@ -94,7 +93,32 @@ export default function TimelineWeekContainer() {
       });
   };
 
+  const loadChildren = (todo) => {
+    if (!(todo.numberOfChildren > 0 && todo.children.length === 0)) {
+      return;
+    }
+
+    httpService.get(`/todos/${todo.id}/children.json`)
+      .then((response) => {
+        const updatedTodo = {
+          ...todo,
+          children: response.data,
+        }
+        setTodos((todos) => {
+          return todoTraversal.updateTodosAndChildren(todos, updatedTodo);
+        });
+      })
+      .catch(function (error) {
+        addError(error.response.data, error.response.status);
+        console.log(error);
+      });
+  };
+
   useEffect(() => {
+    reloadTodos();
+  }, [todosUrl]);
+
+  const reloadTodos = () => {
     startLoading();
     httpService.get(todosUrl)
       .then((response) => {
@@ -108,7 +132,7 @@ export default function TimelineWeekContainer() {
       .then(function () {
         finishLoading();
       });
-  }, [todosUrl, todosInJSON, addError]);
+  };
 
   return (
     <>
@@ -149,7 +173,7 @@ export default function TimelineWeekContainer() {
             </Stack>
           </Grid>
           <Grid item xs={12}>
-            <TimelineWeek todos={todos} selectedWeek={selectedWeek} handleTodoChange={handleTodoChange} handleDayChange={handleDayChange} />
+            <TimelineWeek todos={todos} selectedWeek={selectedWeek} handleTodoChange={handleTodoChange} handleDayChange={handleDayChange} loadChildren={loadChildren} />
           </Grid>
         </Grid>
       </Container>

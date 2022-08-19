@@ -92,7 +92,7 @@ export default function TimelineWeek(props) {
           </Box>
         </Grid>
         {props.todos.map((todo, index) => (
-          <TodoWeekSlider key={index} todo={todo} selectedWeek={props.selectedWeek} handleTodoChange={props.handleTodoChange} handleDayChange={props.handleDayChange} />
+          <TodoWeekSlider key={index} todo={todo} selectedWeek={props.selectedWeek} handleTodoChange={props.handleTodoChange} handleDayChange={props.handleDayChange} loadChildren={props.loadChildren} />
         ))}
         {props.todos.length === 0 &&
           <Grid item xs={12}>
@@ -112,5 +112,6 @@ TimelineWeek.propTypes = {
   selectedWeek: momentPropTypes.momentObj.isRequired,
   todos: PropTypes.arrayOf(SHARED_PROP_TYPES.todo).isRequired,
   handleTodoChange: PropTypes.func.isRequired,
+  loadChildren: PropTypes.func.isRequired,
   handleDayChange: PropTypes.func.isRequired
 };
