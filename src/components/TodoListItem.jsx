@@ -1,5 +1,5 @@
 import { Collapse, Grid } from "@mui/material";
-import React from "react";
+import React, { useEffect } from "react";
 import PropTypes from 'prop-types';
 import SHARED_PROP_TYPES from 'utils/sharedPropTypes';
 import TodoItem from "./TodoItem/TodoItem";
@@ -9,8 +9,14 @@ export default function TodoListItem(props) {
 
   const handleTodoExpand = () => {
     setOpen(!open);
-    props.loadChildren(props.todo);
   };
+
+  useEffect(() => {
+    if (open) {
+      props.loadChildren(props.todo);
+    }
+  });
+
   return (
     <>
       <Grid item xs={12}>
@@ -20,7 +26,7 @@ export default function TodoListItem(props) {
             <Collapse in={open} timeout="auto" unmountOnExit>
               {props.todo.children.map((child, index) => (
                 <Grid key={index} container item xs={12} md={12}>
-                  <TodoListItem key={index} todo={child} handleTodoChange={props.handleTodoChange} loadChildren={props.loadChildren} />
+                  <TodoListItem todo={child} handleTodoChange={props.handleTodoChange} loadChildren={props.loadChildren} />
                 </Grid>
               ))}
             </Collapse>

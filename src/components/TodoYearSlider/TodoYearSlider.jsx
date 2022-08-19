@@ -1,7 +1,7 @@
 import { Collapse, Grid } from '@mui/material';
 import isInYearRange, { marksForYear, todosInYearRange } from 'utils/rangeCheck';
 import moment from 'moment';
-import React from 'react';
+import React, { useEffect } from "react";
 import PropTypes from 'prop-types';
 import momentPropTypes from 'react-moment-proptypes';
 import SHARED_PROP_TYPES from 'utils/sharedPropTypes';
@@ -17,8 +17,13 @@ export default function TodoYearSlider(props) {
 
   const handleTodoExpand = () => {
     setOpen(!open);
-    props.loadChildren(props.todo);
   };
+
+  useEffect(() => {
+    if (open) {
+      props.loadChildren(props.todo);
+    }
+  });
 
   const rangeMark = (date) => {
     if (date.isValid()) {

@@ -1,7 +1,7 @@
 import { Collapse, Grid } from '@mui/material';
 import { isInMonthRange, nthWeekOfMonth, todosInMonthRange } from 'utils/rangeCheck';
 import moment from 'moment';
-import React from 'react';
+import React, { useEffect } from "react";
 import TimelineRangeSlider from '../TimelineRangeSlider/TimelineRangeSlider';
 import PropTypes from 'prop-types';
 import momentPropTypes from 'react-moment-proptypes';
@@ -41,8 +41,13 @@ export default function TodoMonthSlider(props) {
 
   const handleTodoExpand = () => {
     setOpen(!open);
-    props.loadChildren(props.todo);
   };
+
+  useEffect(() => {
+    if (open) {
+      props.loadChildren(props.todo);
+    }
+  });
 
   const rangeMark = (date) => {
     if (date.isValid()) {

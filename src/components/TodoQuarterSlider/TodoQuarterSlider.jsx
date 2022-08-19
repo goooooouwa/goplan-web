@@ -1,7 +1,7 @@
 import { Collapse, Grid } from '@mui/material';
 import { isInQuarterRange, todosInQuarterRange } from 'utils/rangeCheck';
 import moment from 'moment';
-import React from 'react';
+import React, { useEffect } from "react";
 import TimelineRangeSlider from '../TimelineRangeSlider/TimelineRangeSlider';
 import PropTypes from 'prop-types';
 import momentPropTypes from 'react-moment-proptypes';
@@ -32,8 +32,13 @@ export default function TodoQuarterSlider(props) {
 
   const handleTodoExpand = () => {
     setOpen(!open);
-    props.loadChildren(props.todo);
   };
+
+  useEffect(() => {
+    if (open) {
+      props.loadChildren(props.todo);
+    }
+  });
 
   const rangeMark = (date) => {
     if (date.isValid()) {

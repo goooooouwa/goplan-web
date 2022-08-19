@@ -71,7 +71,7 @@ export default function TimelineQuarter(props) {
           </Box>
         </Grid>
         {props.todos.map((todo, index) => (
-          <TodoQuarterSlider key={index} todo={todo} selectedQuarter={props.selectedQuarter} handleTodoChange={props.handleTodoChange} handleMonthChange={props.handleMonthChange} loadChildren={props.loadChildren} />
+          <TodoQuarterSlider key={todo.id} todo={todo} selectedQuarter={props.selectedQuarter} handleTodoChange={props.handleTodoChange} handleMonthChange={props.handleMonthChange} loadChildren={props.loadChildren} />
         ))}
         {props.todos.length === 0 &&
           <Grid item xs={12}>
