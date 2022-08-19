@@ -41,6 +41,7 @@ export default function TodoMonthSlider(props) {
 
   const handleTodoExpand = () => {
     setOpen(!open);
+    props.loadChildren(props.todo);
   };
 
   const rangeMark = (date) => {
@@ -95,7 +96,7 @@ export default function TodoMonthSlider(props) {
           <Collapse in={open} timeout="auto" unmountOnExit>
             {props.todo.children.map((child, index) => (
               <Grid key={index} container item xs={12} md={12}>
-                <TodoMonthSlider key={index} todo={child} selectedMonth={props.selectedMonth} handleTodoChange={props.handleTodoChange} handleWeekChange={props.handleWeekChange} />
+                <TodoMonthSlider key={index} todo={child} selectedMonth={props.selectedMonth} handleTodoChange={props.handleTodoChange} handleWeekChange={props.handleWeekChange} loadChildren={props.loadChildren} />
               </Grid>
             ))}
           </Collapse>
@@ -109,5 +110,6 @@ TodoMonthSlider.propTypes = {
   selectedMonth: momentPropTypes.momentObj.isRequired,
   todo: SHARED_PROP_TYPES.todo,
   handleTodoChange: PropTypes.func.isRequired,
+  loadChildren: PropTypes.func.isRequired,
   handleWeekChange: PropTypes.func.isRequired
 };

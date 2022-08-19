@@ -90,7 +90,7 @@ export default function TimelineMonth(props) {
           </Box>
         </Grid>
         {props.todos.map((todo, index) => (
-          <TodoMonthSlider key={index} todo={todo} selectedMonth={props.selectedMonth} handleTodoChange={props.handleTodoChange} handleWeekChange={props.handleWeekChange} />
+          <TodoMonthSlider key={index} todo={todo} selectedMonth={props.selectedMonth} handleTodoChange={props.handleTodoChange} handleWeekChange={props.handleWeekChange} loadChildren={props.loadChildren} />
         ))}
         {props.todos.length === 0 &&
           <Grid item xs={12}>
@@ -110,5 +110,6 @@ TimelineMonth.propTypes = {
   selectedMonth: momentPropTypes.momentObj.isRequired,
   todos: PropTypes.arrayOf(SHARED_PROP_TYPES.todo).isRequired,
   handleTodoChange: PropTypes.func.isRequired,
+  loadChildren: PropTypes.func.isRequired,
   handleWeekChange: PropTypes.func.isRequired
 };
