@@ -1,13 +1,14 @@
 import { Box, Grid, IconButton, Stack, Typography } from '@mui/material';
-import { isInMonthRange, nthWeekOfMonth, todosInMonthRange } from 'utils/rangeCheck';
+import { isInMonthRange, nthWeekOfMonth } from 'utils/rangeCheck';
 import moment from 'moment';
-import React from 'react';
+import React, { Fragment } from 'react';
 import { Link as RouterLink, useParams } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import momentPropTypes from 'react-moment-proptypes';
 import SHARED_PROP_TYPES from 'utils/sharedPropTypes';
 import TodoMonthSlider from '../TodoMonthSlider/TodoMonthSlider';
 import { useTranslation } from 'react-i18next';
+import todoTraversal from 'utils/todoTraversal';
 
 const marks = [
   {
@@ -36,6 +37,7 @@ export default function TimelineMonth(props) {
   const { t, i18n } = useTranslation();
   const params = useParams();
   const weekUrlPrefix = params.projectId !== undefined ? `/projects/${params.projectId}/week?week=` : '/timeline/week?week=';
+  const todosByProject = todoTraversal.groupByProject(props.todos);
 
   return (
     <>
@@ -89,10 +91,26 @@ export default function TimelineMonth(props) {
             </Stack>
           </Box>
         </Grid>
-        {props.todos.map((todo, index) => (
-          <TodoMonthSlider key={todo.id} todo={todo} selectedMonth={props.selectedMonth} handleTodoChange={props.handleTodoChange} handleWeekChange={props.handleWeekChange} loadChildren={props.loadChildren} />
+        {Object.entries(todosByProject).map(([_, todos], index) => (
+          <Fragment key={index}>
+            {todos.length > 0 &&
+              <Grid item xs={12}>
+                <Typography
+                  sx={{
+                    fontWeight: 'bold',
+                    color: 'text.secondary'
+                  }}
+                >
+                  {t('Goal: ')}{todos[0].project.name}
+                </Typography>
+              </Grid>
+            }
+            {todos.map((todo, index) => (
+              <TodoMonthSlider key={todo.id} todo={todo} selectedMonth={props.selectedMonth} handleTodoChange={props.handleTodoChange} handleWeekChange={props.handleWeekChange} loadChildren={props.loadChildren} />
+            ))}
+          </Fragment>
         ))}
-        {props.todos.length === 0 &&
+        {Object.keys(todosByProject).length === 0 &&
           <Grid item xs={12}>
             <Stack alignItems="center" justifyContent="center" sx={{ height: 200 }}>
               <Typography alignItems="center">
