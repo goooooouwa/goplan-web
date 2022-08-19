@@ -146,7 +146,7 @@ export default function TimelineYearContainer() {
               alignItems="center"
             >
               <Typography variant="h4" component="div">
-                {selectedYear.format("YYYY-MM-DD")}
+                {selectedYear.format("YYYY")}
               </Typography>
               <Stack
                 direction={{ xs: 'column', sm: 'row' }}
