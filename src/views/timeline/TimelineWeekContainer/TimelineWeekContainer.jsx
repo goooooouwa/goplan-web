@@ -29,11 +29,11 @@ export default function TimelineWeekContainer() {
   }
 
   const handlePreviousWeekClick = (event) => {
-    setSearchParams({ week: selectedWeek.clone().subtract(1, "weeks").format("YYYY-MM-DD") });
+    setSearchParams({ week: selectedWeek.clone().subtract(1, "weeks").startOf("week").format("YYYY-MM-DD") });
   }
 
   const handleNextWeekClick = (event) => {
-    setSearchParams({ week: selectedWeek.clone().add(1, "weeks").format("YYYY-MM-DD") });
+    setSearchParams({ week: selectedWeek.clone().add(1, "weeks").startOf("week").format("YYYY-MM-DD") });
   }
 
   const handleDayChange = (todo, days) => {
