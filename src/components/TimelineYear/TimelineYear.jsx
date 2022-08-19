@@ -68,17 +68,17 @@ export default function TimelineYear(props) {
             {todos.map((todo, index) => (
               <TodoYearSlider key={todo.id} todo={todo} selectedYear={props.selectedYear} handleTodoChange={props.handleTodoChange} handleMonthChange={props.handleMonthChange} loadChildren={props.loadChildren} />
             ))}
-            {todos.length === 0 &&
-              <Grid item xs={12}>
-                <Stack alignItems="center" justifyContent="center" sx={{ height: 200 }}>
-                  <Typography alignItems="center">
-                    {t('No tasks in selected time range')}
-                  </Typography>
-                </Stack>
-              </Grid>
-            }
           </Fragment>
         ))}
+        {Object.keys(todosByProject).length === 0 &&
+          <Grid item xs={12}>
+            <Stack alignItems="center" justifyContent="center" sx={{ height: 200 }}>
+              <Typography alignItems="center">
+                {t('No tasks in selected time range')}
+              </Typography>
+            </Stack>
+          </Grid>
+        }
       </Grid>
     </>
   );
