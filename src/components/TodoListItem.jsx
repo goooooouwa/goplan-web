@@ -40,5 +40,5 @@ export default function TodoListItem(props) {
 TodoListItem.propTypes = {
   todo: SHARED_PROP_TYPES.todo,
   handleTodoChange: PropTypes.func.isRequired,
-  loadChildren: PropTypes.func.isRequired,
+  loadChildren: PropTypes.func,
 };
