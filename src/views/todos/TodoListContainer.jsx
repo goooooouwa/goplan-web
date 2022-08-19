@@ -16,7 +16,7 @@ export default function TodoListContainer() {
   const { addError } = useAPIError();
 
   useEffect(() => {
-    const url = params.projectId !== undefined ? `/todos/children.json?project_id=${params.projectId}` : '/todos/children.json';
+    const url = params.projectId !== undefined ? `/todos.json?project_id=${params.projectId}` : '/todos.json';
     httpService.get(url)
       .then((response) => {
         setTodos(response.data);
@@ -40,7 +40,7 @@ export default function TodoListContainer() {
       .then((response) => {
         const updatedTodo = response.data;
         setTodos((todos) => {
-          return todoTraversal.updateTodosAndChildren(todos, updatedTodo);
+          return todoTraversal.updateTodos(todos, updatedTodo);
         });
       })
       .catch(function (error) {

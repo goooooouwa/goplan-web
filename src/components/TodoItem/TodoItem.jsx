@@ -20,7 +20,7 @@ export default function TodoItem(props) {
         disablePadding
         secondaryAction={
           <>
-            { !props.todo.status && props.todo.children.length > 0 &&
+            { !props.todo.status && props.todo.numberOfChildren > 0 &&
               <IconButton edge="end" aria-label="expand" onClick={handleClick}>
                 {
                   open ? <ExpandLess /> : <ExpandMore />
@@ -30,7 +30,7 @@ export default function TodoItem(props) {
           </>
         }
         sx={{
-          pl: (props.todo.parents.length > 0) ? 4 : 0
+          pl: (props.todo.numberOfParents > 0) ? 4 : 0
         }}
       >
         <Checkbox

@@ -24,6 +24,15 @@ const updateTodosAndChildren = (todos, updatedTodo) => {
   });
 };
   
+const updateTodos = (todos, updatedTodo) => {
+  return cloneDeep(todos).map((todo) => {
+    if (todo.id === updatedTodo.id) {
+      todo = updatedTodo;
+    }
+    return todo;
+  });
+};
+  
 const groupByProject = (todos) => {
   return todos.reduce((projects, todo) => ({
     ...projects,
@@ -34,6 +43,7 @@ const groupByProject = (todos) => {
 const todoTraversal = {
   updateTodosAndDependencies,
   updateTodosAndChildren,
+  updateTodos,
   groupByProject,
 };
 

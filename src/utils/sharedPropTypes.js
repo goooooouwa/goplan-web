@@ -22,10 +22,10 @@ const SHARED_PROP_TYPES = {
         repeat_period: PropTypes.string,
         repeat_times: PropTypes.number,
         instanceTimeSpan: PropTypes.number.isRequired,
-        parents: PropTypes.array.isRequired,
-        children: PropTypes.array.isRequired,
-        dependencies: PropTypes.array.isRequired,
-        dependents: PropTypes.array.isRequired
+        numberOfDependencies: PropTypes.number.isRequired,
+        numberOfDependents: PropTypes.number.isRequired,
+        numberOfParents: PropTypes.number.isRequired,
+        numberOfChildren: PropTypes.number.isRequired,
     }).isRequired,
 };
 
