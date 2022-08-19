@@ -17,6 +17,7 @@ export default function TodoYearSlider(props) {
 
   const handleTodoExpand = () => {
     setOpen(!open);
+    props.loadChildren(props.todo);
   };
 
   const rangeMark = (date) => {
@@ -71,7 +72,7 @@ export default function TodoYearSlider(props) {
           <Collapse in={open} timeout="auto" unmountOnExit>
             {props.todo.children.map((child, index) => (
               <Grid key={index} container item xs={12} md={12}>
-                <TodoYearSlider key={index} todo={child} selectedYear={props.selectedYear} handleTodoChange={props.handleTodoChange} handleMonthChange={props.handleMonthChange} />
+                <TodoYearSlider key={index} todo={child} selectedYear={props.selectedYear} handleTodoChange={props.handleTodoChange} handleMonthChange={props.handleMonthChange} loadChildren={props.loadChildren} />
               </Grid>
             ))}
           </Collapse>
@@ -85,5 +86,6 @@ TodoYearSlider.propTypes = {
   selectedYear: momentPropTypes.momentObj.isRequired,
   todo: SHARED_PROP_TYPES.todo,
   handleTodoChange: PropTypes.func.isRequired,
+  loadChildren: PropTypes.func.isRequired,
   handleMonthChange: PropTypes.func.isRequired
 };
