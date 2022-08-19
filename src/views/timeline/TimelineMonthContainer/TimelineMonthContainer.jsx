@@ -25,7 +25,7 @@ export default function TimelineMonthContainer() {
   const { startLoading, finishLoading } = useLoading();
 
   const handleTodayClick = (event) => {
-    setSearchParams({ month: moment().format("YYYY-MM-DD") });
+    setSearchParams({ month: moment().startOf("month").format("YYYY-MM-DD") });
   }
 
   const handlePreviousMonthClick = (event) => {

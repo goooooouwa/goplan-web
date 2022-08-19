@@ -25,7 +25,7 @@ export default function TimelineQuarterContainer() {
   const { startLoading, finishLoading } = useLoading();
 
   const handleTodayClick = (event) => {
-    setSearchParams({ quarter: moment().format("YYYY-MM-DD") });
+    setSearchParams({ quarter: moment().startOf("quarter").format("YYYY-MM-DD") });
   }
 
   const handlePreviousQuarterClick = (event) => {

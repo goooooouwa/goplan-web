@@ -25,7 +25,7 @@ export default function TimelineYearContainer() {
   const { startLoading, finishLoading } = useLoading();
 
   const handleTodayClick = (event) => {
-    setSearchParams({ year: moment().format("YYYY-MM-DD") });
+    setSearchParams({ year: moment().startOf("year").format("YYYY-MM-DD") });
   }
 
   const handlePreviousYearClick = (event) => {
