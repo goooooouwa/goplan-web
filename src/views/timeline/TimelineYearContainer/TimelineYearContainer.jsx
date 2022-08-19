@@ -72,6 +72,7 @@ export default function TimelineYearContainer() {
         console.log(error);
       })
       .then(() => {
+        reloadTodos();
         finishLoading();
       });
   }

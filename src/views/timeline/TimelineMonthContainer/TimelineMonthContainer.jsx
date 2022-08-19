@@ -72,6 +72,7 @@ export default function TimelineMonthContainer() {
         console.log(error);
       })
       .then(() => {
+        reloadTodos();
         finishLoading();
       });
   }

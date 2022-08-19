@@ -72,6 +72,7 @@ export default function TimelineQuarterContainer() {
         console.log(error);
       })
       .then(() => {
+        reloadTodos();
         finishLoading();
       });
   }

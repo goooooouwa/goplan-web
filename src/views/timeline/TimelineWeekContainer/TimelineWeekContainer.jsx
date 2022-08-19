@@ -72,6 +72,7 @@ export default function TimelineWeekContainer() {
         console.log(error);
       })
       .then(() => {
+        reloadTodos();
         finishLoading();
       });
   }
