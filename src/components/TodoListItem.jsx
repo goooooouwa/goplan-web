@@ -9,22 +9,23 @@ export default function TodoListItem(props) {
 
   const handleTodoExpand = () => {
     setOpen(!open);
+    props.loadChildren(props.todo);
   };
   return (
     <>
       <Grid item xs={12}>
         <TodoItem todo={props.todo} handleTodoChange={props.handleTodoChange} handleTodoExpand={handleTodoExpand} />
-        {/* <Grid item xs={12}>
-          {props.todo.children.length > 0 &&
+        <Grid item xs={12}>
+          {props.todo.numberOfChildren > 0 &&
             <Collapse in={open} timeout="auto" unmountOnExit>
               {props.todo.children.map((child, index) => (
                 <Grid key={index} container item xs={12} md={12}>
-                  <TodoListItem key={index} todo={child} handleTodoChange={props.handleTodoChange} />
+                  <TodoListItem key={index} todo={child} handleTodoChange={props.handleTodoChange} loadChildren={props.loadChildren} />
                 </Grid>
               ))}
             </Collapse>
           }
-        </Grid> */}
+        </Grid>
       </Grid>
     </>
   );
@@ -33,4 +34,5 @@ export default function TodoListItem(props) {
 TodoListItem.propTypes = {
   todo: SHARED_PROP_TYPES.todo,
   handleTodoChange: PropTypes.func.isRequired,
+  loadChildren: PropTypes.func.isRequired,
 };

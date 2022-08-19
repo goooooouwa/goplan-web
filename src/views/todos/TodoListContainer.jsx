@@ -11,12 +11,15 @@ import { useTranslation } from 'react-i18next';
 export default function TodoListContainer() {
   const { t, i18n } = useTranslation();
   const params = useParams();
+  const url = params.projectId !== undefined ? `/todos.json?project_id=${params.projectId}` : '/todos.json';
   const [todos, setTodos] = useState([]);
-  const todosInJSON = JSON.stringify(todos);
   const { addError } = useAPIError();
 
   useEffect(() => {
-    const url = params.projectId !== undefined ? `/todos.json?project_id=${params.projectId}` : '/todos.json';
+    reloadTodos();
+  }, [params.projectId]);
+
+  const reloadTodos = () => {
     httpService.get(url)
       .then((response) => {
         setTodos(response.data);
@@ -29,7 +32,7 @@ export default function TodoListContainer() {
       .then(function () {
         // always executed
       });
-  }, [params.projectId, todosInJSON, addError]);
+  };
 
   const handleTodoChange = (event, todo) => {
     const todoData = {
@@ -40,7 +43,28 @@ export default function TodoListContainer() {
       .then((response) => {
         const updatedTodo = response.data;
         setTodos((todos) => {
-          return todoTraversal.updateTodos(todos, updatedTodo);
+          return todoTraversal.updateTodosAndChildren(todos, updatedTodo);
+        });
+      })
+      .catch(function (error) {
+        addError(error.response.data, error.response.status);
+        console.log(error);
+      });
+  };
+
+  const loadChildren = (todo) => {
+    if (!(todo.numberOfChildren > 0 && todo.children.length === 0)) {
+      return;
+    }
+
+    httpService.get(`/todos/${todo.id}/children.json`)
+      .then((response) => {
+        const updatedTodo = {
+          ...todo,
+          children: response.data,
+        }
+        setTodos((todos) => {
+          return todoTraversal.updateTodosAndChildren(todos, updatedTodo);
         });
       })
       .catch(function (error) {
@@ -67,7 +91,7 @@ export default function TodoListContainer() {
           </Grid>
           {todos
             .map((todo, index) => (
-              <TodoListItem key={index} todo={todo} handleTodoChange={handleTodoChange} />
+              <TodoListItem key={index} todo={todo} handleTodoChange={handleTodoChange} loadChildren={loadChildren} />
             ))}
         </Grid>
       </Container>
