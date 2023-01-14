@@ -5,7 +5,7 @@ services:
       context: .
       dockerfile: ./Dockerfile
     volumes:
-      - /home/pi/.acme.sh/goooooouwa.tk/:/certs
+      - /home/pi/.acme.sh/goooooouwa.fun/:/certs
     ports:
       - 8095:443
     restart: unless-stopped
