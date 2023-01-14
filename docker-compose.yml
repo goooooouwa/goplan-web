@@ -4,6 +4,8 @@ services:
     build:
       context: .
       dockerfile: ./Dockerfile
+      args:
+        - REACT_APP_CLIENT_ID=${REACT_APP_CLIENT_ID}
     volumes:
       - /home/pi/.acme.sh/goooooouwa.fun/:/certs
     ports:
