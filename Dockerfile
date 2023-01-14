@@ -8,6 +8,13 @@ WORKDIR /app
 
 COPY . .
 
+# Setting up build args
+ARG REACT_APP_API_SERVICE_BASE_URL
+ARG REACT_APP_STORAGE_SERVICE_BASE_URL
+ARG REACT_APP_REDIRECT_URI
+ARG REACT_APP_SCOPE
+ARG REACT_APP_CLIENT_ID
+
 RUN npm install --omit=dev && npm run build
 
 # nginx stage for serving content
