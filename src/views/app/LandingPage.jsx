@@ -40,7 +40,7 @@ export default function LandingPage() {
             </Button>
           </Grid>
           <Grid item xs={12}>
-            <ReactPlayer url={`${StorageServiceBaseURL}/videos/intro.mp4`} controls={true} muted={true} playing={true} loop={true} width='100%' height='auto' />
+            <ReactPlayer url={`${StorageServiceBaseURL}/static/videos/goplan/auto-planning.mp4`} controls={true} muted={true} playing={true} loop={true} width='100%' height='auto' />
           </Grid>
         </Grid>
       </Container>
