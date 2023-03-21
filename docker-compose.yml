@@ -3,7 +3,7 @@ services:
   app:
     build:
       context: .
-      dockerfile: ./Dockerfile
+      dockerfile: ./docker/Dockerfile
       args:
         - REACT_APP_API_SERVICE_BASE_URL=${REACT_APP_API_SERVICE_BASE_URL}
         - REACT_APP_STORAGE_SERVICE_BASE_URL=${REACT_APP_STORAGE_SERVICE_BASE_URL}
