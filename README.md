@@ -5,8 +5,8 @@ GoPlan server: [https://github.com/goooooouwa/goplan-api](https://github.com/goo
 ## How to setup local development environment
 
 1. `npm install`
-2. `cp .env.development .env`
-3. modify `.env` to suit your local development preferences
+2. `cp .env.development .env.development.local`
+3. modify `.env.development.local` to suit your local development preferences
 
 ## How to run
 
