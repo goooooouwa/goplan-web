@@ -2,6 +2,19 @@
 
 GoPlan server: [https://github.com/goooooouwa/goplan-api](https://github.com/goooooouwa/goplan-api)
 
+## How to setup local development environment
+
+1. `npm install`
+2. `cp .env.development .env`
+3. modify `.env` to suit your local development preferences
+
+## How to run
+
+1. `npm start`
+
+The app will be run in the development mode.\
+Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+
 ## Available Scripts
 
 In the project directory, you can run:
