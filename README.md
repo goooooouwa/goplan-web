@@ -12,7 +12,7 @@ GoPlan server: [https://github.com/goooooouwa/goplan-api](https://github.com/goo
 
 1. `npm start`
 
-The app will be run in the development mode.\
+This will run the app in the development mode.\
 Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
 ## Available Scripts
