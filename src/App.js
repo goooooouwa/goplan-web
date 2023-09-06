@@ -11,7 +11,6 @@ import TodoDetailContainer from './views/todos/TodoDetailContainer';
 import NewTodoForm from './views/todos/NewTodoForm/NewTodoForm';
 import TimelineLayout from './views/timeline/TimelineLayout';
 import TimelineYearContainer from './views/timeline/TimelineYearContainer/TimelineYearContainer';
-import TimelineDayView from './views/timeline/TimelineDayView';
 import TimelineWeekContainer from 'views/timeline/TimelineWeekContainer/TimelineWeekContainer';
 import TimelineMonthContainer from 'views/timeline/TimelineMonthContainer/TimelineMonthContainer';
 import EditProjectForm from 'views/projects/EditProjectForm';
@@ -85,7 +84,6 @@ function App() {
                 <Route path="quarter" element={<TimelineQuarterContainer />} />
                 <Route path="month" element={<TimelineMonthContainer />} />
                 <Route path="week" element={<TimelineWeekContainer />} />
-                <Route path="day" element={<TimelineDayView />} />
               </Route>
             </Route>
           </Routes>
