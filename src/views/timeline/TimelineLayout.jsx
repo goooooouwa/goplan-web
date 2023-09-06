@@ -11,7 +11,7 @@ export default function TimelineLayout() {
   const { addError } = useAPIError();
   const { startLoading, finishLoading } = useLoading();
 
-  const updateTodoStartEndDate = (todo, todoData) => {
+  const updateTodoStartEndDate = (todo, todoData, callback) => {
     startLoading();
     httpService.put(`/todos/${todo.id}.json`, todoData)
       .then((response) => {
@@ -30,11 +30,12 @@ export default function TimelineLayout() {
         console.log(error);
       })
       .then(() => {
+        callback();
         finishLoading();
       });
   };
 
-  const updateTodoStatus = (event, todo) => {
+  const updateTodoStatus = (event, todo, callback) => {
     const todoData = {
       status: event.target.checked,
     };
@@ -48,6 +49,9 @@ export default function TimelineLayout() {
       .catch(function (error) {
         addError(error.response.data, error.response.status);
         console.log(error);
+      })
+      .then(() => {
+        callback();
       });
   };
 

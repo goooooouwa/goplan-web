@@ -47,13 +47,11 @@ export default function TimelineWeekContainer() {
       todoData.end_date = endDate.day(days[1]).toISOString();
     }
 
-    updateTodoStartEndDate(todo, todoData);
-    reloadTodos(todosUrl);
+    updateTodoStartEndDate(todo, todoData, () => (reloadTodos(todosUrl)));
   }
 
   const handleTodoChange = (event, todo) => {
-    updateTodoStatus(event, todo)
-    reloadTodos(todosUrl);
+    updateTodoStatus(event, todo, () => (reloadTodos(todosUrl)));
   };
   
   useEffect(() => {
