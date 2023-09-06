@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from "react";
-import httpService from "services/httpService";
-import { useParams, useSearchParams } from "react-router-dom";
+import React, { useEffect } from "react";
+import { useParams, useSearchParams, useOutletContext } from "react-router-dom";
 import { Button, Container, Grid, IconButton, Stack, Typography } from "@mui/material";
 import moment from "moment";
 import TimelineMonth from "components/TimelineMonth/TimelineMonth";
@@ -8,11 +7,7 @@ import TodoActionGroup from "components/TodoActionGroup";
 import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
 import { isInMonthRange } from "utils/rangeCheck";
-import todoTraversal from "utils/todoTraversal";
-import { useAPIError } from "hooks/useAPIError";
-import { cloneDeep } from "lodash";
 import { useTranslation } from 'react-i18next';
-import { useLoading } from "hooks/useLoading";
 
 export default function TimelineMonthContainer() {
   const { t, i18n } = useTranslation();
@@ -20,9 +15,7 @@ export default function TimelineMonthContainer() {
   const [searchParams, setSearchParams] = useSearchParams();
   const selectedMonth = searchParams.get("month") !== null ? moment(searchParams.get("month")) : moment().startOf("month");
   const todosUrl = params.projectId !== undefined ? `/todos.json?project_id=${params.projectId}&month=${selectedMonth.format("YYYY-MM-DD")}` : `/todos.json?month=${selectedMonth.format("YYYY-MM-DD")}`;
-  const [todos, setTodos] = useState([]);
-  const { addError } = useAPIError();
-  const { startLoading, finishLoading } = useLoading();
+  const [todos, updateTodoStartEndDate, updateTodoStatus, loadChildren, reloadTodos] = useOutletContext();
 
   const handleTodayClick = (event) => {
     setSearchParams({ month: moment().startOf("month").format("YYYY-MM-DD") });
@@ -54,89 +47,16 @@ export default function TimelineMonthContainer() {
       todoData.end_date = endDate.week(endDate.date(1).week() + weeks[1] - 1).toISOString();
     }
 
-    startLoading();
-    httpService.put(`/todos/${todo.id}.json`, todoData)
-      .then((response) => {
-        setTodos((todos) => {
-          return todoTraversal.updateTodosAndChildren(todos, response.data);
-        });
-      })
-      .catch(function (error) {
-        let updatedTodo = cloneDeep(todo);
-        updatedTodo.startDate = todoData.start_date || todo.startDate;
-        updatedTodo.endDate = todoData.end_date || todo.endDate;
-        setTodos((todos) => {
-          return todoTraversal.updateTodosAndChildren(todos, updatedTodo);
-        });
-        addError(error.response.data, error.response.status);
-        console.log(error);
-      })
-      .then(() => {
-        reloadTodos();
-        finishLoading();
-      });
+    updateTodoStartEndDate(todo, todoData, () => (reloadTodos(todosUrl)));
   }
 
   const handleTodoChange = (event, todo) => {
-    const todoData = {
-      status: event.target.checked,
-    };
-
-    httpService.put(`/todos/${todo.id}.json`, todoData)
-      .then((response) => {
-        setTodos((todos) => {
-          return todoTraversal.updateTodosAndChildren(todos, response.data);
-        });
-      })
-      .catch(function (error) {
-        addError(error.response.data, error.response.status);
-        console.log(error);
-      })
-      .then(() => {
-        reloadTodos();
-      });
-  };
-
-  const loadChildren = (todo) => {
-    if (!(todo.numberOfChildren > 0 && todo.children.length === 0)) {
-      return;
-    }
-
-    httpService.get(`/todos/${todo.id}/children.json`)
-      .then((response) => {
-        const updatedTodo = {
-          ...todo,
-          children: response.data,
-        }
-        setTodos((todos) => {
-          return todoTraversal.updateTodosAndChildren(todos, updatedTodo);
-        });
-      })
-      .catch(function (error) {
-        addError(error.response.data, error.response.status);
-        console.log(error);
-      });
+    updateTodoStatus(event, todo, () => (reloadTodos(todosUrl)));
   };
 
   useEffect(() => {
-    reloadTodos();
+    reloadTodos(todosUrl);
   }, [todosUrl]);
-
-  const reloadTodos = () => {
-    startLoading();
-    httpService.get(todosUrl)
-      .then((response) => {
-        setTodos(response.data);
-      })
-      .catch(function (error) {
-        // handle error
-        addError(error.response.data, error.response.status);
-        console.log(error);
-      })
-      .then(function () {
-        finishLoading();
-      });
-  };
 
   return (
     <>

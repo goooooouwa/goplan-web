@@ -78,8 +78,6 @@ export default function TimelineLayout() {
 
   const reloadTodos = (todosUrl) => {
     startLoading();
-    console.log("todosUrl:")
-    console.log(todosUrl)
     httpService.get(todosUrl)
       .then((response) => {
         setTodos(response.data);
