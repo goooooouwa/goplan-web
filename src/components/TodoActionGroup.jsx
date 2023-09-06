@@ -8,10 +8,10 @@ import { useTranslation } from 'react-i18next';
 export default function TodoActionGroup(props) {
   const { t, i18n } = useTranslation();
   const params = useParams();
-  const timelineYearUrl = params.projectId !== undefined ? `/projects/${params.projectId}/year` : '/timeline';
-  const timelineQuarterUrl = params.projectId !== undefined ? `/projects/${params.projectId}/quarter` : '/timeline/quarter';
-  const timelineMonthUrl = params.projectId !== undefined ? `/projects/${params.projectId}/month` : '/timeline/month';
-  const timelineWeekUrl = params.projectId !== undefined ? `/projects/${params.projectId}/week` : '/timeline/week';
+  const timelineYearUrl = params.projectId !== undefined ? `/projects/${params.projectId}/timeline` : '/timeline';
+  const timelineQuarterUrl = params.projectId !== undefined ? `/projects/${params.projectId}/timeline/quarter` : '/timeline/quarter';
+  const timelineMonthUrl = params.projectId !== undefined ? `/projects/${params.projectId}/timeline/month` : '/timeline/month';
+  const timelineWeekUrl = params.projectId !== undefined ? `/projects/${params.projectId}/timeline/week` : '/timeline/week';
   const todoListUrl = params.projectId !== undefined ? `/projects/${params.projectId}/todos` : '/todos';
   const newTodoUrl = params.projectId !== undefined ? `/projects/${params.projectId}/todos/new` : '/todos/new';
 

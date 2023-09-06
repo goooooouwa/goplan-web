@@ -59,10 +59,12 @@ function App() {
                 <Route index element={<ProjectListContainer />} />
                 <Route path=":projectId/edit" element={<EditProjectForm />} />
                 <Route path=":projectId" element={<ProjectDetailContainer />} >
-                  <Route path="year" element={<TimelineYearContainer />} />
-                  <Route path="quarter" element={<TimelineQuarterContainer />} />
-                  <Route path="month" element={<TimelineMonthContainer />} />
-                  <Route path="week" element={<TimelineWeekContainer />} />
+                  <Route path="timeline" element={<TodosLayout />} >
+                    <Route index element={<TimelineYearContainer />} />
+                    <Route path="quarter" element={<TimelineQuarterContainer />} />
+                    <Route path="month" element={<TimelineMonthContainer />} />
+                    <Route path="week" element={<TimelineWeekContainer />} />
+                  </Route>
                   <Route path="todos" element={<TodosLayout />} >
                     <Route index element={<TodoListContainer />} />
                     <Route path=":todoId" element={<TodoDetailContainer />} />
