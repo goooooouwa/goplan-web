@@ -72,10 +72,10 @@ export default function TodoYearSlider(props) {
           />
         }
       </Grid>
-      {props.todo.children.length > 0 &&
+      {todosInYearRange(props.todo.children, props.selectedYear).length > 0 &&
         <Grid item xs={12} md={12}>
           <Collapse in={open} timeout="auto" unmountOnExit>
-            {props.todo.children.map((child, index) => (
+            {todosInYearRange(props.todo.children, props.selectedYear).map((child, index) => (
               <Grid key={index} container item xs={12} md={12}>
                 <TodoYearSlider key={index} todo={child} selectedYear={props.selectedYear} handleTodoChange={props.handleTodoChange} handleMonthChange={props.handleMonthChange} loadChildren={props.loadChildren} />
               </Grid>
