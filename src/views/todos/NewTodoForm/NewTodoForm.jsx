@@ -285,7 +285,7 @@ export default function NewTodoForm() {
                     />
                   </label>
                 </Grid>
-                <Grid item sx={{ mt: 2 }}>
+                {/* <Grid item sx={{ mt: 2 }}>
                   <Typography variant="body1" gutterBottom textAlign="left">
                     {t('Frequency of Punching: ')}
                   </Typography>
@@ -318,7 +318,7 @@ export default function NewTodoForm() {
                       </Select>
                     </FormControl>
                   </Grid>
-                </Grid>
+                </Grid> */}
               </>
             )}
             <Grid item>
