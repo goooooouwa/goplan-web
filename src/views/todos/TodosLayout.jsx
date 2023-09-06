@@ -6,7 +6,7 @@ import httpService from "services/httpService";
 import todoTraversal from "utils/todoTraversal";
 import { cloneDeep } from "lodash";
 
-export default function TimelineLayout() {
+export default function TodosLayout() {
   const [todos, setTodos] = useState([]);
   const { addError } = useAPIError();
   const { startLoading, finishLoading } = useLoading();

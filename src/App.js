@@ -5,11 +5,10 @@ import ProjectLayout from './views/projects/ProjectLayout';
 import ProjectListContainer from './views/projects/ProjectListContainer';
 import ProjectDetailContainer from './views/projects/ProjectDetailContainer';
 import NewProjectForm from './views/projects/NewProjectForm/NewProjectForm';
-import TodoLayout from './views/todos/TodoLayout';
+import TodosLayout from './views/todos/TodosLayout';
 import TodoListContainer from './views/todos/TodoListContainer';
 import TodoDetailContainer from './views/todos/TodoDetailContainer';
 import NewTodoForm from './views/todos/NewTodoForm/NewTodoForm';
-import TimelineLayout from './views/timeline/TimelineLayout';
 import TimelineYearContainer from './views/timeline/TimelineYearContainer/TimelineYearContainer';
 import TimelineWeekContainer from 'views/timeline/TimelineWeekContainer/TimelineWeekContainer';
 import TimelineMonthContainer from 'views/timeline/TimelineMonthContainer/TimelineMonthContainer';
@@ -64,7 +63,7 @@ function App() {
                   <Route path="quarter" element={<TimelineQuarterContainer />} />
                   <Route path="month" element={<TimelineMonthContainer />} />
                   <Route path="week" element={<TimelineWeekContainer />} />
-                  <Route path="todos" element={<TodoLayout />} >
+                  <Route path="todos" element={<TodosLayout />} >
                     <Route index element={<TodoListContainer />} />
                     <Route path=":todoId" element={<TodoDetailContainer />} />
                     <Route path="new" element={<NewTodoForm />} />
@@ -73,13 +72,13 @@ function App() {
                 </Route>
                 <Route path="new" element={<NewProjectForm />} />
               </Route>
-              <Route path="todos" element={<TodoLayout />} >
+              <Route path="todos" element={<TodosLayout />} >
                 <Route index element={<TodoListContainer />} />
                 <Route path=":todoId" element={<TodoDetailContainer />} />
                 <Route path="new" element={<NewTodoForm />} />
                 <Route path=":todoId/edit" element={<EditTodoForm />} />
               </Route>
-              <Route path="timeline" element={<TimelineLayout />} >
+              <Route path="timeline" element={<TodosLayout />} >
                 <Route index element={<TimelineYearContainer />} />
                 <Route path="quarter" element={<TimelineQuarterContainer />} />
                 <Route path="month" element={<TimelineMonthContainer />} />
