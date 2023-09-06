@@ -33,7 +33,7 @@ const ResponsiveAppBar = () => {
     },
     {
       title: t('Timeline'),
-      url: '/timeline'
+      url: '/timeline/week'
     },
   ];
   const [user, setUser] = useState({

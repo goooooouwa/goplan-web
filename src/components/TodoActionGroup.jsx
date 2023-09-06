@@ -56,10 +56,10 @@ export default function TodoActionGroup(props) {
         }}
       >
         <MenuItem component={RouterLink} to={todoListUrl}>{t('List')}</MenuItem>
-        <MenuItem component={RouterLink} to={timelineYearUrl} sx={{ minWidth: 110 }}>{t('Year')}</MenuItem>
-        <MenuItem component={RouterLink} to={timelineQuarterUrl}>{t('Quarter')}</MenuItem>
-        <MenuItem component={RouterLink} to={timelineMonthUrl}>{t('Month')}</MenuItem>
         <MenuItem component={RouterLink} to={timelineWeekUrl}>{t('Week')}</MenuItem>
+        <MenuItem component={RouterLink} to={timelineMonthUrl}>{t('Month')}</MenuItem>
+        <MenuItem component={RouterLink} to={timelineQuarterUrl}>{t('Quarter')}</MenuItem>
+        <MenuItem component={RouterLink} to={timelineYearUrl} sx={{ minWidth: 110 }}>{t('Year')}</MenuItem>
       </Menu>
     </Stack>
   );
