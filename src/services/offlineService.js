@@ -200,23 +200,23 @@ function setupIdRequests(mock) {
 function setupQueryRequests(mock) {
   const queryRequests = [
     {
-      urlRegex: /^\/todos\.json\?project_id=\d+$/,
+      urlRegex: /^\/todos\.json\?root=true(&project_id=\d+)?(&(week|month|quarter|year)=.*)?$/,
       key: "/todos.json",
       filter: (todo, config) => {
-        const project_id = config.url.match(/(\d+)/g)[0];
-        return todo.projectId === parseInt(project_id);
+        const project_id_match = config.url.match(/&project_id=(\d+)/);
+        return project_id_match === null ? true : todo.projectId === parseInt(project_id_match[1]);
       }
     },
     {
-      urlRegex: /\/todos\.json\?name=\w+/,
+      urlRegex: /\/todos\.json\?(project_id=\d+&)?name=\w+/,
       key: "/todos.json",
       filter: (todo, config) => {
-        const name = config.url.split("=")[1];
+        const name = config.url.match(/name=(.+)/)[1]
         return todo.name.toLowerCase().includes(name.toLowerCase());
       }
     },
     {
-      urlRegex: /\/todos\.json\?project_id=\d+&name=\w+/,
+      urlRegex: /\/todos\.json\?root=true&project_id=\d+&name=\w+/,
       key: "/todos.json",
       filter: (todo, config) => {
         const params = config.url.split("&");
