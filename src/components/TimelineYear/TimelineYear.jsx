@@ -14,7 +14,7 @@ import { useTranslation } from 'react-i18next';
 export default function TimelineYear(props) {
   const { t, i18n } = useTranslation();
   const params = useParams();
-  const monthUrlPrefix = params.projectId !== undefined ? `/projects/${params.projectId}/month?month=` : '/timeline/month?month=';
+  const monthUrlPrefix = params.projectId !== undefined ? `/projects/${params.projectId}/timeline/month?month=` : '/timeline/month?month=';
   const [marks] = marksForYear(props.selectedYear);
   const todosByProject = todoTraversal.groupByProject(props.todos);
 

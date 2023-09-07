@@ -36,7 +36,7 @@ const marks = [
 export default function TimelineMonth(props) {
   const { t, i18n } = useTranslation();
   const params = useParams();
-  const weekUrlPrefix = params.projectId !== undefined ? `/projects/${params.projectId}/week?week=` : '/timeline/week?week=';
+  const weekUrlPrefix = params.projectId !== undefined ? `/projects/${params.projectId}/timeline/week?week=` : '/timeline/week?week=';
   const todosByProject = todoTraversal.groupByProject(props.todos);
 
   return (

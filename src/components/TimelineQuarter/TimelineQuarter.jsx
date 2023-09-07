@@ -25,7 +25,7 @@ const marks = [
 export default function TimelineQuarter(props) {
   const { t, i18n } = useTranslation();
   const params = useParams();
-  const monthUrlPrefix = params.projectId !== undefined ? `/projects/${params.projectId}/month?month=` : '/timeline/month?month=';
+  const monthUrlPrefix = params.projectId !== undefined ? `/projects/${params.projectId}/timeline/month?month=` : '/timeline/month?month=';
   const todosByProject = todoTraversal.groupByProject(props.todos);
 
   return (
