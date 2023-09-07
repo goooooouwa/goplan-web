@@ -1,7 +1,8 @@
-import { Box, Grid, Stack, Typography } from '@mui/material';
+import { Box, Grid, Link, Stack, Typography } from '@mui/material';
 import { isInWeekRange } from 'utils/rangeCheck';
 import moment from 'moment';
 import React, { Fragment } from 'react';
+import { Link as RouterLink } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import momentPropTypes from 'react-moment-proptypes';
 import TodoWeekSlider from '../TodoWeekSlider/TodoWeekSlider';
@@ -97,14 +98,17 @@ export default function TimelineWeek(props) {
           <Fragment key={index}>
             {todos.length > 0 &&
               <Grid item xs={12}>
-                <Typography
+                <Link
+                  component={RouterLink}
+                  to={`/projects/${todos[0].project.id}/todos`}
+                  underline="hover"
                   sx={{
                     fontWeight: 'bold',
                     color: 'text.secondary'
                   }}
                 >
                   {t('Goal: ')}{todos[0].project.name}
-                </Typography>
+                </Link>
               </Grid>
             }
             {todos.map((todo, index) => (

@@ -1,4 +1,5 @@
-import { Grid, Slider, Typography } from '@mui/material';
+import { Grid, Link, Slider } from '@mui/material';
+import { Link as RouterLink } from 'react-router-dom';
 import moment from 'moment';
 import React from 'react';
 import momentPropTypes from 'react-moment-proptypes';
@@ -38,14 +39,17 @@ export default function ProjectYearSlider(props) {
   return (
     <>
       <Grid item xs={12} md={4}>
-        <Typography
+        <Link
+          component={RouterLink}
+          to={`/projects/${props.project.id}/todos`}
+          underline="hover"
           sx={{
             fontWeight: 'bold',
             color: 'text.secondary'
           }}
         >
           {t('Goal: ')}{props.project.name}
-        </Typography>
+        </Link>
       </Grid>
       <Grid item xs={12} md={8} sx={{ px: 3 }}>
         <Slider

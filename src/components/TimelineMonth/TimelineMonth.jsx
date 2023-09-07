@@ -1,4 +1,4 @@
-import { Box, Grid, IconButton, Stack, Typography } from '@mui/material';
+import { Box, Grid, IconButton, Stack, Typography, Link } from '@mui/material';
 import { isInMonthRange, nthWeekOfMonth } from 'utils/rangeCheck';
 import moment from 'moment';
 import React, { Fragment } from 'react';
@@ -95,14 +95,17 @@ export default function TimelineMonth(props) {
           <Fragment key={index}>
             {todos.length > 0 &&
               <Grid item xs={12}>
-                <Typography
+                <Link
+                  component={RouterLink}
+                  to={`/projects/${todos[0].project.id}/todos`}
+                  underline="hover"
                   sx={{
                     fontWeight: 'bold',
                     color: 'text.secondary'
                   }}
                 >
                   {t('Goal: ')}{todos[0].project.name}
-                </Typography>
+                </Link>
               </Grid>
             }
             {todos.map((todo, index) => (
