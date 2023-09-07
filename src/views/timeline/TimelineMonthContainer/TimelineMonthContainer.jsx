@@ -40,11 +40,11 @@ export default function TimelineMonthContainer() {
     let todoData = {};
 
     if (isInMonthRange(startDate, selectedMonth)) {
-      todoData.start_date = startDate.week(startDate.date(1).week() + weeks[0] - 1).toISOString();
+      todoData.start_date = startDate.week(startDate.clone().date(1).week() + weeks[0] - 1).toISOString();
     }
 
     if (isInMonthRange(endDate, selectedMonth)) {
-      todoData.end_date = endDate.week(endDate.date(1).week() + weeks[1] - 1).toISOString();
+      todoData.end_date = endDate.week(endDate.clone().date(1).week() + weeks[1] - 1).toISOString();
     }
 
     updateTodoStartEndDate(todo, todoData, () => (reloadTodos(todosUrl)));
