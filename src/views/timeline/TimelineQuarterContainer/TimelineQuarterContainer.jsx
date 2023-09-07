@@ -14,7 +14,7 @@ export default function TimelineQuarterContainer() {
   const params = useParams();
   const [searchParams, setSearchParams] = useSearchParams();
   const selectedQuarter = searchParams.get("quarter") !== null ? moment(searchParams.get("quarter"), "YYYY-MM-DD") : moment().startOf("quarter");
-  const todosUrl = params.projectId !== undefined ? `/todos.json?project_id=${params.projectId}&quarter=${selectedQuarter.format("YYYY-MM-DD")}` : `/todos.json?quarter=${selectedQuarter.format("YYYY-MM-DD")}`;
+  const todosUrl = params.projectId !== undefined ? `/todos.json?root=true&project_id=${params.projectId}&quarter=${selectedQuarter.format("YYYY-MM-DD")}` : `/todos.json?root=true&quarter=${selectedQuarter.format("YYYY-MM-DD")}`;
   const [todos, updateTodoStartEndDate, updateTodoStatus, loadChildren, reloadTodos] = useOutletContext();
 
   const handleTodayClick = (event) => {

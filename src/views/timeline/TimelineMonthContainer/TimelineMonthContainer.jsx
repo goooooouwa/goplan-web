@@ -14,7 +14,7 @@ export default function TimelineMonthContainer() {
   const params = useParams();
   const [searchParams, setSearchParams] = useSearchParams();
   const selectedMonth = searchParams.get("month") !== null ? moment(searchParams.get("month")) : moment().startOf("month");
-  const todosUrl = params.projectId !== undefined ? `/todos.json?project_id=${params.projectId}&month=${selectedMonth.format("YYYY-MM-DD")}` : `/todos.json?month=${selectedMonth.format("YYYY-MM-DD")}`;
+  const todosUrl = params.projectId !== undefined ? `/todos.json?root=true&project_id=${params.projectId}&month=${selectedMonth.format("YYYY-MM-DD")}` : `/todos.json?root=true&month=${selectedMonth.format("YYYY-MM-DD")}`;
   const [todos, updateTodoStartEndDate, updateTodoStatus, loadChildren, reloadTodos] = useOutletContext();
 
   const handleTodayClick = (event) => {

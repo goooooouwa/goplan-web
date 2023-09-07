@@ -14,7 +14,7 @@ export default function TimelineYearContainer() {
   const params = useParams();
   const [searchParams, setSearchParams] = useSearchParams();
   const selectedYear = searchParams.get("year") !== null ? moment(searchParams.get("year")) : moment().startOf("year");
-  const todosUrl = params.projectId !== undefined ? `/todos.json?project_id=${params.projectId}&year=${selectedYear.format("YYYY-MM-DD")}` : `/todos.json?year=${selectedYear.format("YYYY-MM-DD")}`;
+  const todosUrl = params.projectId !== undefined ? `/todos.json?root=true&project_id=${params.projectId}&year=${selectedYear.format("YYYY-MM-DD")}` : `/todos.json?root=true&year=${selectedYear.format("YYYY-MM-DD")}`;
   const [todos, updateTodoStartEndDate, updateTodoStatus, loadChildren, reloadTodos] = useOutletContext();
 
   const handleTodayClick = (event) => {

@@ -8,7 +8,7 @@ import { useTranslation } from 'react-i18next';
 export default function TodoListContainer() {
   const { t, i18n } = useTranslation();
   const params = useParams();
-  const todosUrl = params.projectId !== undefined ? `/todos.json?project_id=${params.projectId}` : '/todos.json';
+  const todosUrl = params.projectId !== undefined ? `/todos.json?root=true&project_id=${params.projectId}` : '/todos.json';
   const [todos, _, updateTodoStatus, loadChildren, reloadTodos] = useOutletContext();
 
   useEffect(() => {
@@ -16,7 +16,7 @@ export default function TodoListContainer() {
   }, [todosUrl]);
 
   const handleTodoChange = (event, todo) => {
-    updateTodoStatus(event, todo, () => {});
+    updateTodoStatus(event, todo, () => { });
   };
 
   return (

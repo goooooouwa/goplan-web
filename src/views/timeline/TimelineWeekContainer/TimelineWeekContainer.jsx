@@ -14,7 +14,7 @@ export default function TimelineWeekContainer() {
   const params = useParams();
   const [searchParams, setSearchParams] = useSearchParams();
   const selectedWeek = searchParams.get("week") !== null ? moment(searchParams.get("week")) : moment().startOf("week");
-  const todosUrl = params.projectId !== undefined ? `/todos.json?project_id=${params.projectId}&week=${selectedWeek.format("YYYY-MM-DD")}` : `/todos.json?week=${selectedWeek.format("YYYY-MM-DD")}`;
+  const todosUrl = params.projectId !== undefined ? `/todos.json?root=true&project_id=${params.projectId}&week=${selectedWeek.format("YYYY-MM-DD")}` : `/todos.json?root=true&week=${selectedWeek.format("YYYY-MM-DD")}`;
   const [todos, updateTodoStartEndDate, updateTodoStatus, loadChildren, reloadTodos] = useOutletContext();
 
   const handleTodayClick = (event) => {
@@ -53,7 +53,7 @@ export default function TimelineWeekContainer() {
   const handleTodoChange = (event, todo) => {
     updateTodoStatus(event, todo, () => (reloadTodos(todosUrl)));
   };
-  
+
   useEffect(() => {
     reloadTodos(todosUrl);
   }, [todosUrl]);
