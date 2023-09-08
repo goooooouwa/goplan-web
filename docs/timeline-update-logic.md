@@ -68,3 +68,29 @@ When an API request to update a task's start date or end date is recevied, the f
         setTodos(response.data);
       })
     ```
+
+### Detailed Backend Logic
+
+There're many validations in the `models/todo.rb` (in [GoPlan API](https://github.com/goooooouwa/goplan-api) repo), below is a snapshot:
+
+```ruby
+  validates_length_of :parents, maximum: 1
+  validate :start_date_cannot_earlier_than_dependencies_end_date
+  validate :start_date_cannot_earlier_than_parents_start_date
+  validate :start_date_cannot_later_than_children_start_date, on: :create
+  validate :end_date_cannot_earlier_than_start_date
+  validate :end_date_cannot_later_than_dependents_start_date, on: :create
+  validate :end_date_cannot_later_than_parents_end_date, on: :create
+  validate :end_date_cannot_earlier_than_children_end_date
+  validate :todo_dependencies_cannot_include_self
+  validate :todo_dependencies_cannot_include_dependents
+  validate :todo_dependencies_cannot_include_deps_dependencies
+  validate :todo_dependents_cannot_include_self
+  validate :todo_dependents_cannot_include_dependencies
+  validate :todo_dependents_cannot_include_depts_dependents
+  validate :todo_children_cannot_include_self
+  validate :todo_parents_cannot_include_self
+  validate :cannot_mark_as_done_if_dependencies_not_done, if: -> { will_save_change_to_attribute?(:status, to: true) }
+```
+
+These rules are to avoid infinite loop when updating a todo, e.g. a todo can not be it's own child. There will still be other cases that can cause infinite loop, such as [this one](https://docs.google.com/presentation/d/17pijEV5v6iqGyBk2VPzo3S_6IV10wm8wm_A754qqC6k/edit#slide=id.g2428da49b89_0_8), which should be invalidated if possible.
