@@ -29,6 +29,19 @@ When an API request to update a task's start date or end date is recevied, the f
 
 ### Detailed Frontend Logic
 
+`changeAllOccurrencesOfTodoInTree` logic
+
+1. Find all occurrences of the updatedTodo in the todos tree
+2. Change the updatedTodo
+
+Q: Is it possible for the same todo to appear multiple times in the todo tree?
+
+No, it should not be possible, since the validations of `models/todo.rb` will invalidate such cases. For instance, it's invalid to have todo A as the child of both todo B & C, or as the child of todo A itself.
+
+Q: Do we really need to `changeAllOccurrencesOfTodoInTree` if there will only be one occurrence of each todo in the tree?
+
+Even though it might be impossible for the same todo to appearance in the todos tree twice, as least we still need a `findAndChangeTheTodoInTree` method, which is not much less effort than `changeAllOccurrencesOfTodoInTree`. So the majority of the logic (mainly the tree travelsal part) is still needed regardless.
+
 `updateTodoStartEndDate` logic
 
 1. Send API request to update the todo (and its children & dependents)
