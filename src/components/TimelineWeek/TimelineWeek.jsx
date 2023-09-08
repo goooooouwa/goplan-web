@@ -87,7 +87,7 @@ export default function TimelineWeek(props) {
                       color: (isInWeekRange(moment(), props.selectedWeek) && moment().day() === index) ? 'error.main' : 'text.primary'
                     }}
                   >
-                    {props.selectedWeek.startOf("week").add(mark.value, "days").format("D")}
+                    {props.selectedWeek.clone().startOf("week").add(mark.value, "days").format("D")}
                   </Typography>
                 </Stack>
               ))}
