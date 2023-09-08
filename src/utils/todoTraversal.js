@@ -1,16 +1,16 @@
 import { cloneDeep } from "lodash";
 
-const updateTodosAndDependencies = (todos, updatedTodo) => {
-  return cloneDeep(todos).map((todo) => {
-    if (todo.id === updatedTodo.id) {
-      todo = updatedTodo;
-    }
-    if (todo.dependencies !== undefined && todo.dependencies.length > 0) {
-      todo.dependencies = updateTodosAndDependencies(todo.dependencies, updatedTodo);
-    }
-    return todo;
-  });
-};
+// const updateTodosAndDependencies = (todos, updatedTodo) => {
+//   return cloneDeep(todos).map((todo) => {
+//     if (todo.id === updatedTodo.id) {
+//       todo = updatedTodo;
+//     }
+//     if (todo.dependencies !== undefined && todo.dependencies.length > 0) {
+//       todo.dependencies = updateTodosAndDependencies(todo.dependencies, updatedTodo);
+//     }
+//     return todo;
+//   });
+// };
 
 const updateTodosAndChildren = (todos, updatedTodo) => {
   return cloneDeep(todos).map((todo) => {
@@ -32,7 +32,6 @@ const groupByProject = (todos) => {
 };
 
 const todoTraversal = {
-  updateTodosAndDependencies,
   updateTodosAndChildren,
   groupByProject,
 };
