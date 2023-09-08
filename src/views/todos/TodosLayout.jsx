@@ -16,7 +16,7 @@ export default function TodosLayout() {
     httpService.put(`/todos/${todo.id}.json`, todoData)
       .then((response) => {
         setTodos((todos) => {
-          return todoTraversal.updateTodosAndChildren(todos, response.data);
+          return todoTraversal.changeAllOccurrencesOfTodoInTree(todos, response.data);
         });
       })
       .catch(function (error) {
@@ -24,7 +24,7 @@ export default function TodosLayout() {
         updatedTodo.startDate = todoData.start_date || todo.startDate;
         updatedTodo.endDate = todoData.end_date || todo.endDate;
         setTodos((todos) => {
-          return todoTraversal.updateTodosAndChildren(todos, updatedTodo);
+          return todoTraversal.changeAllOccurrencesOfTodoInTree(todos, updatedTodo);
         });
         addError(error.response.data, error.response.status);
         console.log(error);
@@ -43,7 +43,7 @@ export default function TodosLayout() {
     httpService.put(`/todos/${todo.id}.json`, todoData)
       .then((response) => {
         setTodos((todos) => {
-          return todoTraversal.updateTodosAndChildren(todos, response.data);
+          return todoTraversal.changeAllOccurrencesOfTodoInTree(todos, response.data);
         });
       })
       .catch(function (error) {
@@ -67,7 +67,7 @@ export default function TodosLayout() {
           children: response.data,
         }
         setTodos((todos) => {
-          return todoTraversal.updateTodosAndChildren(todos, updatedTodo);
+          return todoTraversal.changeAllOccurrencesOfTodoInTree(todos, updatedTodo);
         });
       })
       .catch(function (error) {

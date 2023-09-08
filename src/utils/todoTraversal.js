@@ -12,18 +12,18 @@ import { cloneDeep } from "lodash";
 //   });
 // };
 
-const updateTodosAndChildren = (todos, updatedTodo) => {
+const changeAllOccurrencesOfTodoInTree = (todos, updatedTodo) => {
   return cloneDeep(todos).map((todo) => {
     if (todo.id === updatedTodo.id) {
       todo = updatedTodo;
     }
     if (todo.children !== undefined && todo.children.length > 0) {
-      todo.children = updateTodosAndChildren(todo.children, updatedTodo);
+      todo.children = changeAllOccurrencesOfTodoInTree(todo.children, updatedTodo);
     }
     return todo;
   });
 };
-  
+
 const groupByProject = (todos) => {
   return todos.reduce((projects, todo) => ({
     ...projects,
@@ -32,7 +32,7 @@ const groupByProject = (todos) => {
 };
 
 const todoTraversal = {
-  updateTodosAndChildren,
+  changeAllOccurrencesOfTodoInTree,
   groupByProject,
 };
 
