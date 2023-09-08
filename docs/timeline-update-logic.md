@@ -1,6 +1,6 @@
 ## Timeline Update Logic
 
-**Summary**
+## Summary
 
 When user changes a task (in the task edit page, task list or timeline page, etc):
 
@@ -8,7 +8,7 @@ When user changes a task (in the task edit page, task list or timeline page, etc
 - Then in the backend, all the write operations (for the task and its children & dependents) will be done in the same request.
 - The frontend only needs to pull the latest todos to keep the UI up-to-date.
 
-**Frontend Logic**
+### Frontend Logic
 
 When a user moves either the start date or the end date of a task, the following will happen in the frontend:
 
@@ -16,7 +16,7 @@ When a user moves either the start date or the end date of a task, the following
 2. Reload the tasks for the selected date range, e.g. `GET /todos.json?root=true&project_id=3&year=2023-01-01`
 3. Load children of each expanded task, e.g. `GET /todos/28/children.json`
 
-**Backend Logic**
+### Backend Logic
 
 When an API request to update a task's start date or end date is recevied, the following will happen in the backend:
 
@@ -27,22 +27,22 @@ When an API request to update a task's start date or end date is recevied, the f
 2. `after_update :update_children_timeline, if: -> { saved_change_to_start_date? && saved_change_to_end_date? }`
 3. `after_update :update_dependents_timeline, :update_parents_end_date, if: -> { saved_change_to_end_date? }`
 
-### Detailed Frontend Logic
+## Detailed Frontend Logic
 
-`changeAllOccurrencesOfTodoInTree` logic
+### `changeAllOccurrencesOfTodoInTree` method
 
 1. Find all occurrences of the updatedTodo in the todos tree
 2. Change the updatedTodo
 
-Q: Is it possible for the same todo to appear multiple times in the todo tree?
+**Q: Is it possible for the same todo to appear multiple times in the todo tree?**
 
-No, it should not be possible, since the validations of `models/todo.rb` will invalidate such cases. For instance, it's invalid to have todo A as the child of both todo B & C, or as the child of todo A itself.
+A: No, it should not be possible, since the validations of `models/todo.rb` will invalidate such cases. For instance, it's invalid to have todo A as the child of both todo B & C, or as the child of todo A itself.
 
-Q: Do we really need to `changeAllOccurrencesOfTodoInTree` if there will only be one occurrence of each todo in the tree?
+**Q: Do we really need to `changeAllOccurrencesOfTodoInTree` if there will only be one occurrence of each todo in the tree?**
 
-Even though it might be impossible for the same todo to appearance in the todos tree twice, as least we still need a `findAndChangeTheTodoInTree` method, which is not much less effort than `changeAllOccurrencesOfTodoInTree`. So the majority of the logic (mainly the tree travelsal part) is still needed regardless.
+A: Even though it might be impossible for the same todo to appearance in the todos tree twice, as least we still need a `findAndChangeTheTodoInTree` method, which is not much less effort than `changeAllOccurrencesOfTodoInTree`. So the majority of the logic (mainly the tree travelsal part) is still needed regardless.
 
-`updateTodoStartEndDate` logic
+### `updateTodoStartEndDate` method
 
 1. Send API request to update the todo (and its children & dependents)
 1. Apply changes to all occurrences of the updated todo in the todos tree  
@@ -56,7 +56,7 @@ Even though it might be impossible for the same todo to appearance in the todos 
     ```
 1. Reload todos with `reloadTodos(todosUrl)`
 
-`loadChildren` logic
+### `loadChildren` method
 
 1. Get a todo's children  
     ```javascript
@@ -72,7 +72,7 @@ Even though it might be impossible for the same todo to appearance in the todos 
       })
     ```
 
-`reloadTodos` logic
+### `reloadTodos` method
 
 1. Get all todos for the selected date range  
     ```javascript
@@ -82,7 +82,9 @@ Even though it might be impossible for the same todo to appearance in the todos 
       })
     ```
 
-### Detailed Backend Logic
+## Detailed Backend Logic
+
+### `models/todo.rb` model
 
 There're many validations in the `models/todo.rb` (in [GoPlan API](https://github.com/goooooouwa/goplan-api) repo), below is a snapshot:
 
