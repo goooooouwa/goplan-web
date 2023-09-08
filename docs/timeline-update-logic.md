@@ -1,5 +1,13 @@
 ## Timeline Update Logic
 
+**Summary**
+
+When user changes a task (in the task edit page, task list or timeline page, etc):
+
+- The frontend only needs to send 1 normal API request to update the task itself,
+- Then in the backend, all the write operations (for the task and its children & dependents) will be done in the same request.
+- The frontend only needs to pull the latest todos to keep the UI up-to-date.
+
 **Frontend Logic**
 
 When a user moves either the start date or the end date of a task, the following will happen in the frontend:
