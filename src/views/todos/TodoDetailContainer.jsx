@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 import httpService from "services/httpService";
 import { Container } from "@mui/material";
 import { useAPIError } from "hooks/useAPIError";
+import todoTraversal from "utils/todoTraversal";
 
 export default function TodoDetailContainer() {
   const params = useParams();
@@ -91,10 +92,32 @@ export default function TodoDetailContainer() {
       });
   };
 
+  const loadChildren = (todo) => {
+    if (!(todo.numberOfChildren > 0 && todo.children.length === 0)) {
+      return;
+    }
+
+    httpService.get(`/todos/${todo.id}/children.json`)
+      .then((response) => {
+        const updatedTodo = {
+          ...todo,
+          children: response.data,
+        }
+        setTodo((todo) => ({
+          ...todo,
+          children: todoTraversal.changeAllOccurrencesOfTodoInTree(todo.children, updatedTodo)
+        }));
+      })
+      .catch(function (error) {
+        addError(error.response.data, error.response.status);
+        console.log(error);
+      });
+  };
+
   return (
     <>
       <Container sx={{ mt: 2 }}>
-        <TodoDetail todo={todo} handleTodoChange={handleTodoChange} handleSubtaskChange={handleSubtaskChange} handleTodoDestroy={handleTodoDestroy} />
+        <TodoDetail todo={todo} handleTodoChange={handleTodoChange} handleSubtaskChange={handleSubtaskChange} handleTodoDestroy={handleTodoDestroy} loadChildren={loadChildren} />
       </Container>
     </>
   );
