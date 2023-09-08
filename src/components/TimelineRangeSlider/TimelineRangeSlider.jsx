@@ -1,5 +1,6 @@
 import { Slider } from '@mui/material';
 import React, { useEffect, useState } from 'react';
+import useMediaQuery from '@mui/material/useMediaQuery';
 import PropTypes from 'prop-types';
 import SHARED_PROP_TYPES from 'utils/sharedPropTypes';
 import { useLoading } from 'hooks/useLoading';
@@ -11,6 +12,7 @@ function valuetext(value) {
 export default function TimelineRangeSlider(props) {
   const [value, setValue] = useState([props.rangeStart, props.rangeEnd]);
   const { loading } = useLoading();
+  const isSmallScreen = useMediaQuery('(max-width:600px)');
 
   const valueLabelFormat = (value) => {
     const index = props.marks.findIndex((mark) => mark.value === value);
@@ -52,8 +54,8 @@ export default function TimelineRangeSlider(props) {
       <Slider
         valueLabelFormat={valueLabelFormat}
         value={value}
-        onChange={loading ? ()=>{} : handleChange}
-        onChangeCommitted={loading ? ()=>{} : handleChangeCommitted}
+        onChange={(loading || isSmallScreen) ? () => { } : handleChange}
+        onChangeCommitted={(loading || isSmallScreen) ? () => { } : handleChangeCommitted}
         getAriaValueText={valuetext}
         valueLabelDisplay="auto"
         step={1}
