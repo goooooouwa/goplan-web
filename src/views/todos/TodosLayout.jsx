@@ -15,13 +15,15 @@ export default function TodosLayout() {
     startLoading();
     httpService.put(`/todos/${todo.id}.json`, todoData)
       .then((response) => {
+        // This setTodos() can be elimated if reloadTodos() afterwards
         setTodos((todos) => {
           return todoTraversal.changeAllOccurrencesOfTodoInTree(todos, response.data);
         });
       })
       .catch(function (error) {
         let updatedTodo = cloneDeep(todo);
-        updatedTodo.startDate = todoData.start_date || todo.startDate;
+        // This is to mark the todo as dirty, so that later reloadTodos() can trigger a render
+        updatedTodo.startDate = todoData.start_date || todo.startDate;   // set new start date if new date provided, otherwise keep it as previous
         updatedTodo.endDate = todoData.end_date || todo.endDate;
         setTodos((todos) => {
           return todoTraversal.changeAllOccurrencesOfTodoInTree(todos, updatedTodo);
@@ -42,6 +44,7 @@ export default function TodosLayout() {
 
     httpService.put(`/todos/${todo.id}.json`, todoData)
       .then((response) => {
+        // This setTodos() can be elimated if reloadTodos() afterwards
         setTodos((todos) => {
           return todoTraversal.changeAllOccurrencesOfTodoInTree(todos, response.data);
         });
