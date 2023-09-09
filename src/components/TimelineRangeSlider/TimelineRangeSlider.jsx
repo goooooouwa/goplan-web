@@ -54,6 +54,7 @@ export default function TimelineRangeSlider(props) {
       <Slider
         valueLabelFormat={valueLabelFormat}
         value={value}
+        disabled={props.disableRangeStart && props.disableRangeEnd && (value[0] === value[1])}
         onChange={(loading || isSmallScreen) ? () => { } : handleChange}
         onChangeCommitted={(loading || isSmallScreen) ? () => { } : handleChangeCommitted}
         getAriaValueText={valuetext}
