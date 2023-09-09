@@ -96,10 +96,7 @@ export default function TodosLayout() {
   };
 
   const debouncedReloadTodos = useCallback(
-    debounce(reloadTodos, 1000, {
-      'leading': true,
-      'trailing': true
-    }),
+    debounce(reloadTodos, 300),
     []
   );
 
