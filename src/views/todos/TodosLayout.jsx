@@ -4,7 +4,7 @@ import { useLoading } from "hooks/useLoading";
 import { useAPIError } from "hooks/useAPIError";
 import httpService from "services/httpService";
 import todoTraversal from "utils/todoTraversal";
-import { cloneDeep } from "lodash";
+import { cloneDeep, debounce } from "lodash";
 
 export default function TodosLayout() {
   const [todos, setTodos] = useState([]);
@@ -95,7 +95,9 @@ export default function TodosLayout() {
       });
   };
 
+  const debouncedReloadTodos = debounce(reloadTodos, 3000);
+
   return (
-    <Outlet context={[todos, updateTodoStartEndDate, updateTodoStatus, loadChildren, reloadTodos]} />
+    <Outlet context={[todos, updateTodoStartEndDate, updateTodoStatus, loadChildren, debouncedReloadTodos]} />
   );
 }

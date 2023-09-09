@@ -9,10 +9,10 @@ export default function TodoListContainer() {
   const { t, i18n } = useTranslation();
   const params = useParams();
   const todosUrl = params.projectId !== undefined ? `/todos.json?root=true&project_id=${params.projectId}` : '/todos.json?root=true';
-  const [todos, _, updateTodoStatus, loadChildren, reloadTodos] = useOutletContext();
+  const [todos, _, updateTodoStatus, loadChildren, debouncedReloadTodos] = useOutletContext();
 
   useEffect(() => {
-    reloadTodos(todosUrl);
+    debouncedReloadTodos(todosUrl);
   }, [todosUrl]);
 
   const handleTodoChange = (event, todo) => {

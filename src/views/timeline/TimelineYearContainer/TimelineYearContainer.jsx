@@ -15,7 +15,7 @@ export default function TimelineYearContainer() {
   const [searchParams, setSearchParams] = useSearchParams();
   const selectedYear = searchParams.get("year") !== null ? moment(searchParams.get("year")) : moment().startOf("year");
   const todosUrl = params.projectId !== undefined ? `/todos.json?root=true&project_id=${params.projectId}&year=${selectedYear.format("YYYY-MM-DD")}` : `/todos.json?root=true&year=${selectedYear.format("YYYY-MM-DD")}`;
-  const [todos, updateTodoStartEndDate, updateTodoStatus, loadChildren, reloadTodos] = useOutletContext();
+  const [todos, updateTodoStartEndDate, updateTodoStatus, loadChildren, debouncedReloadTodos] = useOutletContext();
 
   const handleTodayClick = (event) => {
     setSearchParams({ year: moment().startOf("year").format("YYYY-MM-DD") });
@@ -47,15 +47,15 @@ export default function TimelineYearContainer() {
       todoData.end_date = endDate.month(months[1]).toISOString();
     }
 
-    updateTodoStartEndDate(todo, todoData, () => (reloadTodos(todosUrl)));
+    updateTodoStartEndDate(todo, todoData, () => (debouncedReloadTodos(todosUrl)));
   }
 
   const handleTodoChange = (event, todo) => {
-    updateTodoStatus(event, todo, () => (reloadTodos(todosUrl)));
+    updateTodoStatus(event, todo, () => (debouncedReloadTodos(todosUrl)));
   };
 
   useEffect(() => {
-    reloadTodos(todosUrl);
+    debouncedReloadTodos(todosUrl);
   }, [todosUrl]);
 
   return (

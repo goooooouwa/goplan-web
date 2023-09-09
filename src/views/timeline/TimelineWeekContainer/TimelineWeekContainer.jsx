@@ -15,7 +15,7 @@ export default function TimelineWeekContainer() {
   const [searchParams, setSearchParams] = useSearchParams();
   const selectedWeek = searchParams.get("week") !== null ? moment(searchParams.get("week")) : moment().startOf("week");
   const todosUrl = params.projectId !== undefined ? `/todos.json?root=true&project_id=${params.projectId}&week=${selectedWeek.format("YYYY-MM-DD")}` : `/todos.json?root=true&week=${selectedWeek.format("YYYY-MM-DD")}`;
-  const [todos, updateTodoStartEndDate, updateTodoStatus, loadChildren, reloadTodos] = useOutletContext();
+  const [todos, updateTodoStartEndDate, updateTodoStatus, loadChildren, debouncedReloadTodos] = useOutletContext();
 
   const handleTodayClick = (event) => {
     setSearchParams({ week: moment().startOf("week").format("YYYY-MM-DD") });
@@ -47,15 +47,15 @@ export default function TimelineWeekContainer() {
       todoData.end_date = endDate.day(days[1]).toISOString();
     }
 
-    updateTodoStartEndDate(todo, todoData, () => (reloadTodos(todosUrl)));
+    updateTodoStartEndDate(todo, todoData, () => (debouncedReloadTodos(todosUrl)));
   }
 
   const handleTodoChange = (event, todo) => {
-    updateTodoStatus(event, todo, () => (reloadTodos(todosUrl)));
+    updateTodoStatus(event, todo, () => (debouncedReloadTodos(todosUrl)));
   };
 
   useEffect(() => {
-    reloadTodos(todosUrl);
+    debouncedReloadTodos(todosUrl);
   }, [todosUrl]);
 
   return (

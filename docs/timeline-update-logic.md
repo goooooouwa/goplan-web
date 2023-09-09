@@ -21,11 +21,11 @@ When a user moves either the start date or the end date of a task, the following
 When an API request to update a task's start date or end date is recevied, the following will happen in the backend:
 
 1. `before_update :shift_end_date, if: lambda {
-                                       will_save_change_to_start_date? && (!will_save_change_to_end_date? || (end_date - end_date_was).abs / 1.days < 1)
-                                     }`
+                                   will_save_change_to_start_date? && (!will_save_change_to_end_date? || (end_date - end_date_was).abs / 1.days < 1)
+                                 }`
 2. Update the task's start end and / or end date
-2. `after_update :update_children_timeline, if: -> { saved_change_to_start_date? && saved_change_to_end_date? }`
-3. `after_update :update_dependents_timeline, :update_parents_end_date, if: -> { saved_change_to_end_date? }`
+3. `after_update :update_children_timeline, if: -> { saved_change_to_start_date? && saved_change_to_end_date? }`
+4. `after_update :update_dependents_timeline, :update_parents_end_date, if: -> { saved_change_to_end_date? }`
 
 ## Detailed Frontend Logic
 
@@ -45,42 +45,45 @@ A: Even though it might be impossible for the same todo to appearance in the tod
 ### `updateTodoStartEndDate` method
 
 1. Send API request to update the todo (and its children & dependents)
-1. Apply changes to all occurrences of the updated todo in the todos tree  
-    ```javascript
-    httpService.put(`/todos/${todo.id}.json`, todoData)
-      .then((response) => {
-        setTodos((todos) => {
-          return todoTraversal.changeAllOccurrencesOfTodoInTree(todos, response.data);
-        });
-      })
-    ```
-1. Reload todos with `reloadTodos(todosUrl)`
+1. Apply changes to all occurrences of the updated todo in the todos tree
+   ```javascript
+   httpService.put(`/todos/${todo.id}.json`, todoData).then((response) => {
+     setTodos((todos) => {
+       return todoTraversal.changeAllOccurrencesOfTodoInTree(
+         todos,
+         response.data
+       );
+     });
+   });
+   ```
+1. Reload todos with `debouncedReloadTodos(todosUrl)`
 
 ### `loadChildren` method
 
-1. Get a todo's children  
-    ```javascript
-    httpService.get(`/todos/${todo.id}/children.json`)
-      .then((response) => {
-        const updatedTodo = {
-          ...todo,
-          children: response.data,
-        }
-        setTodos((todos) => {
-          return todoTraversal.changeAllOccurrencesOfTodoInTree(todos, updatedTodo);
-        });
-      })
-    ```
+1. Get a todo's children
+   ```javascript
+   httpService.get(`/todos/${todo.id}/children.json`).then((response) => {
+     const updatedTodo = {
+       ...todo,
+       children: response.data,
+     };
+     setTodos((todos) => {
+       return todoTraversal.changeAllOccurrencesOfTodoInTree(
+         todos,
+         updatedTodo
+       );
+     });
+   });
+   ```
 
 ### `reloadTodos` method
 
-1. Get all todos for the selected date range  
-    ```javascript
-    httpService.get(todosUrl)
-      .then((response) => {
-        setTodos(response.data);
-      })
-    ```
+1. Get all todos for the selected date range
+   ```javascript
+   httpService.get(todosUrl).then((response) => {
+     setTodos(response.data);
+   });
+   ```
 
 ## Detailed Backend Logic
 

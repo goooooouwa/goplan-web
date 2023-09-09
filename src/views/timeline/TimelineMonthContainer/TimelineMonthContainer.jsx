@@ -15,7 +15,7 @@ export default function TimelineMonthContainer() {
   const [searchParams, setSearchParams] = useSearchParams();
   const selectedMonth = searchParams.get("month") !== null ? moment(searchParams.get("month")) : moment().startOf("month");
   const todosUrl = params.projectId !== undefined ? `/todos.json?root=true&project_id=${params.projectId}&month=${selectedMonth.format("YYYY-MM-DD")}` : `/todos.json?root=true&month=${selectedMonth.format("YYYY-MM-DD")}`;
-  const [todos, updateTodoStartEndDate, updateTodoStatus, loadChildren, reloadTodos] = useOutletContext();
+  const [todos, updateTodoStartEndDate, updateTodoStatus, loadChildren, debouncedReloadTodos] = useOutletContext();
 
   const handleTodayClick = (event) => {
     setSearchParams({ month: moment().startOf("month").format("YYYY-MM-DD") });
@@ -47,15 +47,15 @@ export default function TimelineMonthContainer() {
       todoData.end_date = endDate.week(endDate.clone().date(1).week() + weeks[1] - 1).toISOString();
     }
 
-    updateTodoStartEndDate(todo, todoData, () => (reloadTodos(todosUrl)));
+    updateTodoStartEndDate(todo, todoData, () => (debouncedReloadTodos(todosUrl)));
   }
 
   const handleTodoChange = (event, todo) => {
-    updateTodoStatus(event, todo, () => (reloadTodos(todosUrl)));
+    updateTodoStatus(event, todo, () => (debouncedReloadTodos(todosUrl)));
   };
 
   useEffect(() => {
-    reloadTodos(todosUrl);
+    debouncedReloadTodos(todosUrl);
   }, [todosUrl]);
 
   return (
