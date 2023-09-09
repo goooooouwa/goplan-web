@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useCallback } from "react";
 import { Outlet } from "react-router-dom";
 import { useLoading } from "hooks/useLoading";
 import { useAPIError } from "hooks/useAPIError";
@@ -95,7 +95,13 @@ export default function TodosLayout() {
       });
   };
 
-  const debouncedReloadTodos = debounce(reloadTodos, 3000);
+  const debouncedReloadTodos = useCallback(
+    debounce(reloadTodos, 1000, {
+      'leading': true,
+      'trailing': true
+    }),
+    []
+  );
 
   return (
     <Outlet context={[todos, updateTodoStartEndDate, updateTodoStatus, loadChildren, debouncedReloadTodos]} />
