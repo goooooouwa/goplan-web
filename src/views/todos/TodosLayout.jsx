@@ -17,7 +17,7 @@ export default function TodosLayout() {
       .then((response) => {
         // This setTodos() can be elimated if reloadTodos() afterwards
         setTodos((todos) => {
-          return todoTraversal.changeAllOccurrencesOfTodoInTree(todos, response.data);
+          return todoTraversal.changeAllOccurrencesOfTodoInTree(todos, response.data, true);
         });
       })
       .catch(function (error) {
@@ -26,7 +26,7 @@ export default function TodosLayout() {
         updatedTodo.startDate = todoData.start_date || todo.startDate;   // set new start date if new date provided, otherwise keep it as previous
         updatedTodo.endDate = todoData.end_date || todo.endDate;
         setTodos((todos) => {
-          return todoTraversal.changeAllOccurrencesOfTodoInTree(todos, updatedTodo);
+          return todoTraversal.changeAllOccurrencesOfTodoInTree(todos, updatedTodo, true);
         });
         addError(error.response.data, error.response.status);
         console.log(error);
@@ -46,7 +46,7 @@ export default function TodosLayout() {
       .then((response) => {
         // This setTodos() can be elimated if reloadTodos() afterwards
         setTodos((todos) => {
-          return todoTraversal.changeAllOccurrencesOfTodoInTree(todos, response.data);
+          return todoTraversal.changeAllOccurrencesOfTodoInTree(todos, response.data, true);
         });
       })
       .catch(function (error) {
@@ -70,7 +70,7 @@ export default function TodosLayout() {
           children: response.data,
         }
         setTodos((todos) => {
-          return todoTraversal.changeAllOccurrencesOfTodoInTree(todos, updatedTodo, true);
+          return todoTraversal.changeAllOccurrencesOfTodoInTree(todos, updatedTodo);
         });
       })
       .catch(function (error) {

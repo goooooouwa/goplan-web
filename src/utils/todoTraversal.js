@@ -12,16 +12,16 @@ import { cloneDeep } from "lodash";
 //   });
 // };
 
-const changeAllOccurrencesOfTodoInTree = (todos, updatedTodo, includeChildren) => {
+const changeAllOccurrencesOfTodoInTree = (todos, updatedTodo, excludeChildren) => {
   return cloneDeep(todos).map((todo) => {
     if (todo.id === updatedTodo.id) {
-      if (!includeChildren) {
+      if (excludeChildren) {
         updatedTodo.children = todo.children;
       }
       todo = updatedTodo;
     }
     if (todo.children !== undefined && todo.children.length > 0) {
-      todo.children = changeAllOccurrencesOfTodoInTree(todo.children, updatedTodo, includeChildren);
+      todo.children = changeAllOccurrencesOfTodoInTree(todo.children, updatedTodo, excludeChildren);
     }
     return todo;
   });
