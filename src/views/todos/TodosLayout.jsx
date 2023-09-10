@@ -70,7 +70,7 @@ export default function TodosLayout() {
           children: response.data,
         }
         setTodos((todos) => {
-          return todoTraversal.changeAllOccurrencesOfTodoInTree(todos, updatedTodo);
+          return todoTraversal.changeAllOccurrencesOfTodoInTree(todos, updatedTodo, true);
         });
       })
       .catch(function (error) {
