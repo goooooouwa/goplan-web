@@ -64,7 +64,7 @@ export default function TimelineMonthContainer() {
         <Grid container spacing={2}>
           <Grid item xs={12}>
             <Stack
-              direction="row"
+              direction={{ xs: 'column', sm: 'row' }}
               justifyContent="space-between"
               alignItems="center"
             >
@@ -72,7 +72,7 @@ export default function TimelineMonthContainer() {
                 {selectedMonth.format("MMMM, YYYY")}
               </Typography>
               <Stack
-                direction={{ xs: 'column', sm: 'row' }}
+                direction="row"
                 alignItems={{ xs: 'stretch', sm: 'center' }}
                 justifyContent="space-between"
                 spacing={2}

@@ -26,7 +26,7 @@ export default function TodoActionGroup(props) {
 
   return (
     <Stack
-      direction={{ xs: 'column', sm: 'row' }}
+      direction='row'
       alignItems={{ xs: 'stretch', sm: 'baseline' }}
       justifyContent="space-between"
       spacing={2}
