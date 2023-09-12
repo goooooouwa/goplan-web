@@ -31,7 +31,7 @@ export default function TodoActionGroup(props) {
         direction='row'
         alignItems={{ xs: 'stretch', sm: 'baseline' }}
         justifyContent="space-between"
-        spacing={2}
+        spacing={1}
       >
         <Button variant="contained" component={RouterLink} to={newTodoUrl} sx={{
           maxWidth: 160,

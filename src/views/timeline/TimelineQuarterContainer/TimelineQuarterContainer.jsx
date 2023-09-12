@@ -67,6 +67,7 @@ export default function TimelineQuarterContainer() {
               direction={{ xs: 'column', sm: 'row' }}
               justifyContent="space-between"
               alignItems="center"
+              spacing={1}
             >
               <Typography variant="h4" component="div">
                 {selectedQuarter.format("[Q]Q, YYYY")}
@@ -75,7 +76,7 @@ export default function TimelineQuarterContainer() {
                 direction="row"
                 alignItems={{ xs: 'stretch', sm: 'center' }}
                 justifyContent="space-between"
-                spacing={2}
+                spacing={1}
               >
                 <Button variant="outlined" onClick={handleTodayClick} sx={{ maxWidth: 160 }}>
                   {t("Today")}

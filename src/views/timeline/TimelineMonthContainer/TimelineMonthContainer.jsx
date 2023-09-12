@@ -67,6 +67,7 @@ export default function TimelineMonthContainer() {
               direction={{ xs: 'column', sm: 'row' }}
               justifyContent="space-between"
               alignItems="center"
+              spacing={1}
             >
               <Typography variant="h4" component="div">
                 {selectedMonth.format("MMMM, YYYY")}
@@ -75,7 +76,7 @@ export default function TimelineMonthContainer() {
                 direction="row"
                 alignItems={{ xs: 'stretch', sm: 'center' }}
                 justifyContent="space-between"
-                spacing={2}
+                spacing={1}
               >
                 <Button variant="outlined" onClick={handleTodayClick} sx={{ maxWidth: 160 }}>
                   {t("Today")}
