@@ -39,7 +39,7 @@ export default function ProjectDetail(props) {
           justifyContent="center"
           alignItems="center"
         >
-          <Typography variant="h3" component="div">
+          <Typography variant="h4" component="div">
             {props.project.name}
           </Typography>
           <IconButton component={RouterLink} to={`/projects/${params.projectId}/edit`} sx={{ maxWidth: 160 }}>

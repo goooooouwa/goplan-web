@@ -38,7 +38,7 @@ export default function ProjectListContainer() {
               alignItems="center"
               spacing={2}
             >
-              <Typography variant="h3" component="div">
+              <Typography variant="h4" component="div">
                 {t('Goals')}
               </Typography>
               <Button variant="contained" component={RouterLink} to={'/projects/new'} sx={{
