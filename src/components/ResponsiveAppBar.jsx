@@ -11,10 +11,13 @@ import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import TaskAlt from '@mui/icons-material/TaskAlt';
+import Flag from '@mui/icons-material/Flag';
+import ListAltIcon from '@mui/icons-material/ListAlt';
+import ViewTimelineIcon from '@mui/icons-material/ViewTimeline';
 import { Link as RouterLink, useNavigate } from "react-router-dom";
 import { useEffect, useState } from 'react';
 import httpService from 'services/httpService';
-import { Avatar, Divider, Drawer, List, ListItem, ListItemButton, ListItemText } from '@mui/material';
+import { Avatar, Divider, Drawer, List, ListItem, ListItemButton, ListItemIcon, ListItemText } from '@mui/material';
 import { useAPIError } from 'hooks/useAPIError';
 import { useTranslation } from 'react-i18next';
 
@@ -25,15 +28,18 @@ const ResponsiveAppBar = () => {
   const pages = [
     {
       title: t('Goals'),
-      url: '/projects'
+      url: '/projects',
+      icon: <Flag />
     },
     {
       title: t('Tasks'),
-      url: '/todos'
+      url: '/todos',
+      icon: <ListAltIcon />
     },
     {
       title: t('Timeline'),
-      url: '/timeline/week'
+      url: '/timeline/week',
+      icon: <ViewTimelineIcon />
     },
   ];
   const [user, setUser] = useState({
@@ -209,7 +215,10 @@ const ResponsiveAppBar = () => {
             <List>
               {pages.map((page) => (
                 <ListItem key={page.title} disablePadding>
-                  <ListItemButton component={RouterLink} to={page.url} sx={{ textAlign: 'center' }}>
+                  <ListItemButton component={RouterLink} to={page.url} sx={{ textAlign: 'left' }}>
+                    <ListItemIcon>
+                      {page.icon}
+                    </ListItemIcon>
                     <ListItemText primary={page.title} />
                   </ListItemButton>
                 </ListItem>
