@@ -5,14 +5,17 @@ import httpService from "services/httpService";
 import React, { useEffect, useState } from "react";
 import { useTranslation } from 'react-i18next';
 import { useAPIError } from "hooks/useAPIError";
+import { useLoading } from "hooks/useLoading";
 import { Add } from "@mui/icons-material";
 
 export default function ProjectListContainer() {
   const { t, i18n } = useTranslation();
   const [projects, setProjects] = useState([]);
   const { addError } = useAPIError();
+  const { startLoading, finishLoading } = useLoading();
 
   useEffect(() => {
+    startLoading();
     httpService.get('/projects.json')
       .then((response) => {
         setProjects(response.data);
@@ -23,7 +26,7 @@ export default function ProjectListContainer() {
         console.log(error);
       })
       .then(function () {
-        // always executed
+        finishLoading();
       });
   }, [addError]);
 
