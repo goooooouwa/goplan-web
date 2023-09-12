@@ -40,7 +40,10 @@ export default function ProjectListContainer() {
               <Typography variant="h3" component="div">
                 {t('Goals')}
               </Typography>
-              <Button variant="contained" component={RouterLink} to={'/projects/new'} sx={{ maxWidth: 160 }}>
+              <Button variant="contained" component={RouterLink} to={'/projects/new'} sx={{
+                maxWidth: 160,
+                display: { xs: 'none', md: 'block' },
+              }}>
                 {t('New Goal')}
               </Button>
             </Stack>

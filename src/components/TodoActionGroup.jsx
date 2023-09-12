@@ -31,7 +31,10 @@ export default function TodoActionGroup(props) {
       justifyContent="space-between"
       spacing={2}
     >
-      <Button variant="contained" component={RouterLink} to={newTodoUrl} sx={{ maxWidth: 160 }}>
+      <Button variant="contained" component={RouterLink} to={newTodoUrl} sx={{
+        maxWidth: 160,
+        display: { xs: 'none', md: 'block' },
+      }}>
         {t('New Task')}
       </Button>
       <Button
