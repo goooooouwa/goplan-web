@@ -4,7 +4,7 @@ import { useContext } from 'react';
 const LoadingContext = React.createContext(null);
 
 export function LoadingProvider({ children }) {
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   const finishLoading = () => setLoading(false);
 

@@ -9,6 +9,7 @@ import SHARED_PROP_TYPES from 'utils/sharedPropTypes';
 import TodoQuarterSlider from '../TodoQuarterSlider/TodoQuarterSlider';
 import { useTranslation } from 'react-i18next';
 import todoTraversal from 'utils/todoTraversal';
+import TimelineEmpty from 'components/TimelineEmpty/TimelineEmpty';
 
 const marks = [
   {
@@ -94,15 +95,7 @@ export default function TimelineQuarter(props) {
             ))}
           </Fragment>
         ))}
-        {Object.keys(todosByProject).length === 0 &&
-          <Grid item xs={12}>
-            <Stack alignItems="center" justifyContent="center" sx={{ height: 200 }}>
-              <Typography alignItems="center">
-                {t('No tasks in selected time range')}
-              </Typography>
-            </Stack>
-          </Grid>
-        }
+        <TimelineEmpty isEmpty={Object.keys(todosByProject).length === 0} />
       </Grid>
     </>
   );

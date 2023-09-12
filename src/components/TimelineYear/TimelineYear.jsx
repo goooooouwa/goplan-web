@@ -10,6 +10,7 @@ import TodoYearSlider from '../TodoYearSlider/TodoYearSlider';
 import ProjectYearSlider from 'components/ProjectYearSlider/ProjectYearSlider';
 import todoTraversal from 'utils/todoTraversal';
 import { useTranslation } from 'react-i18next';
+import TimelineEmpty from 'components/TimelineEmpty/TimelineEmpty';
 
 export default function TimelineYear(props) {
   const { t, i18n } = useTranslation();
@@ -70,15 +71,7 @@ export default function TimelineYear(props) {
             ))}
           </Fragment>
         ))}
-        {Object.keys(todosByProject).length === 0 &&
-          <Grid item xs={12}>
-            <Stack alignItems="center" justifyContent="center" sx={{ height: 200 }}>
-              <Typography alignItems="center">
-                {t('No tasks in selected time range')}
-              </Typography>
-            </Stack>
-          </Grid>
-        }
+        <TimelineEmpty isEmpty={Object.keys(todosByProject).length === 0} />
       </Grid>
     </>
   );
