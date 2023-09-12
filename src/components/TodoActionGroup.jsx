@@ -1,9 +1,10 @@
-import { Stack, Button, Menu, MenuItem } from "@mui/material";
+import { Stack, Button, Menu, MenuItem, Fab, Box } from "@mui/material";
 import React from "react";
 import { useParams } from "react-router-dom";
 import { Link as RouterLink } from "react-router-dom";
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import { useTranslation } from 'react-i18next';
+import { Add } from "@mui/icons-material";
 
 export default function TodoActionGroup(props) {
   const { t, i18n } = useTranslation();
@@ -25,44 +26,54 @@ export default function TodoActionGroup(props) {
   };
 
   return (
-    <Stack
-      direction='row'
-      alignItems={{ xs: 'stretch', sm: 'baseline' }}
-      justifyContent="space-between"
-      spacing={2}
-    >
-      <Button variant="contained" component={RouterLink} to={newTodoUrl} sx={{
-        maxWidth: 160,
-        display: { xs: 'none', md: 'block' },
+    <>
+      <Stack
+        direction='row'
+        alignItems={{ xs: 'stretch', sm: 'baseline' }}
+        justifyContent="space-between"
+        spacing={2}
+      >
+        <Button variant="contained" component={RouterLink} to={newTodoUrl} sx={{
+          maxWidth: 160,
+          display: { xs: 'none', sm: 'block' },
+        }}>
+          {t('New Task')}
+        </Button>
+        <Button
+          variant="outlined"
+          id="basic-button"
+          aria-controls={open ? 'basic-menu' : undefined}
+          aria-haspopup="true"
+          aria-expanded={open ? 'true' : undefined}
+          onClick={handleClick}
+          endIcon={<ArrowDropDownIcon />}
+          sx={{ maxWidth: 160 }}
+        >
+          {props.activeViewTitle}
+        </Button>
+        <Menu
+          id="basic-menu"
+          anchorEl={anchorEl}
+          open={open}
+          onClose={handleClose}
+          MenuListProps={{
+            'aria-labelledby': 'basic-button',
+          }}
+        >
+          <MenuItem component={RouterLink} to={todoListUrl}>{t('List')}</MenuItem>
+          <MenuItem component={RouterLink} to={timelineWeekUrl}>{t('Week')}</MenuItem>
+          <MenuItem component={RouterLink} to={timelineMonthUrl}>{t('Month')}</MenuItem>
+          <MenuItem component={RouterLink} to={timelineYearUrl} sx={{ minWidth: 110 }}>{t('Year')}</MenuItem>
+        </Menu>
+      </Stack>
+      <Fab color="primary" aria-label="add" component={RouterLink} to={newTodoUrl} sx={{
+        display: { sm: 'none' },
+        position: 'fixed',
+        bottom: 16,
+        right: 16,
       }}>
-        {t('New Task')}
-      </Button>
-      <Button
-        variant="outlined"
-        id="basic-button"
-        aria-controls={open ? 'basic-menu' : undefined}
-        aria-haspopup="true"
-        aria-expanded={open ? 'true' : undefined}
-        onClick={handleClick}
-        endIcon={<ArrowDropDownIcon />}
-        sx={{ maxWidth: 160 }}
-      >
-        {props.activeViewTitle}
-      </Button>
-      <Menu
-        id="basic-menu"
-        anchorEl={anchorEl}
-        open={open}
-        onClose={handleClose}
-        MenuListProps={{
-          'aria-labelledby': 'basic-button',
-        }}
-      >
-        <MenuItem component={RouterLink} to={todoListUrl}>{t('List')}</MenuItem>
-        <MenuItem component={RouterLink} to={timelineWeekUrl}>{t('Week')}</MenuItem>
-        <MenuItem component={RouterLink} to={timelineMonthUrl}>{t('Month')}</MenuItem>
-        <MenuItem component={RouterLink} to={timelineYearUrl} sx={{ minWidth: 110 }}>{t('Year')}</MenuItem>
-      </Menu>
-    </Stack>
+        <Add />
+      </Fab>
+    </>
   );
 }

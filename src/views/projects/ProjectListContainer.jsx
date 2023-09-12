@@ -1,10 +1,11 @@
-import { Button, Container, Grid, Stack, Typography } from "@mui/material";
+import { Button, Container, Fab, Grid, Stack, Typography } from "@mui/material";
 import { Link as RouterLink } from "react-router-dom";
 import ProjectList from "components/ProjectList";
 import httpService from "services/httpService";
 import React, { useEffect, useState } from "react";
 import { useTranslation } from 'react-i18next';
 import { useAPIError } from "hooks/useAPIError";
+import { Add } from "@mui/icons-material";
 
 export default function ProjectListContainer() {
   const { t, i18n } = useTranslation();
@@ -42,7 +43,7 @@ export default function ProjectListContainer() {
               </Typography>
               <Button variant="contained" component={RouterLink} to={'/projects/new'} sx={{
                 maxWidth: 160,
-                display: { xs: 'none', md: 'block' },
+                display: { xs: 'none', sm: 'block' },
               }}>
                 {t('New Goal')}
               </Button>
@@ -52,6 +53,14 @@ export default function ProjectListContainer() {
             <ProjectList projects={projects} />
           </Grid>
         </Grid>
+        <Fab color="primary" aria-label="add" component={RouterLink} to={'/projects/new'} sx={{
+          display: { sm: 'none' },
+          position: 'fixed',
+          bottom: 16,
+          right: 16,
+        }}>
+          <Add />
+        </Fab>
       </Container>
     </>
   );
