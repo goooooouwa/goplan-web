@@ -35,11 +35,6 @@ export default function LandingPage() {
             </Button>
           </Grid>
           <Grid item xs={12}>
-            <Button variant="outlined" onClick={handleOfflineMode}>
-              {t('Try it first')}
-            </Button>
-          </Grid>
-          <Grid item xs={12}>
             <ReactPlayer url={`${StorageServiceBaseURL}/static/videos/goplan/auto-planning.mp4`} controls={true} muted={true} playing={true} loop={true} width='100%' height='auto' />
           </Grid>
         </Grid>
