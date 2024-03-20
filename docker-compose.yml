@@ -14,5 +14,5 @@ services:
       - ${SSL_CERTIFICATE}:/certs/fullchain.cer
       - ${SSL_CERTIFICATE_KEY}:/certs/private.key
     ports:
-      - 8095:443
+      - ${GOPLAN_WEB_PORT}:443
     restart: unless-stopped
