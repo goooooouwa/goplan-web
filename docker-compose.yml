@@ -11,7 +11,8 @@ services:
         - REACT_APP_SCOPE=${REACT_APP_SCOPE}
         - REACT_APP_CLIENT_ID=${REACT_APP_CLIENT_ID}
     volumes:
-      - /home/admin/.acme.sh/goooooouwa.eu.org/:/certs
+      - ${SSL_CERTIFICATE}:/certs/fullchain.cer
+      - ${SSL_CERTIFICATE_KEY}:/certs/private.key
     ports:
       - 8095:443
     restart: unless-stopped
