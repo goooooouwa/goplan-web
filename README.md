@@ -15,6 +15,13 @@ GoPlan server: [https://github.com/goooooouwa/goplan-api](https://github.com/goo
 This will run the app in the development mode.\
 Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
+## How to deploy to production with Docker
+
+1. `cp .env.production.example .env`
+2. Modify `.env` to suit your docker deployment preferences
+3. `sudo docker compose build`
+4. `sudo docker compose up`
+
 ## Available Scripts
 
 In the project directory, you can run:
