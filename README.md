@@ -1,6 +1,6 @@
 # GoPlan Web client
 
-This repo is the web client of GoPlan, you need to have a GoPlan API server running when using this client. GoPlan API server repo: [https://github.com/goooooouwa/goplan-api](https://github.com/goooooouwa/goplan-api).
+This repo is the web client of GoPlan, you need to have a GoPlan API server running when using this client. You can find the GoPlan API server repo [here](https://github.com/goooooouwa/goplan-api).
 
 ## How to setup local development environment
 
